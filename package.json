@@ -83,7 +83,7 @@
 		"@angular/cli": "^22.0.8",
 		"@angular/compiler-cli": "^22.0.8",
 		"@eslint/js": "^10.0.1",
-		"@types/node": "^22.18.0",
+		"@types/node": "^22.20.2",
 		"@types/sortablejs": "^1.15.9",
 		"@vitest/coverage-v8": "^4.1.10",
 		"angular-eslint": "^22.1.0",
