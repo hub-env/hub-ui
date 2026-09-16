@@ -1,16 +1,15 @@
 # Contributing to Hub UI
 
-Thanks for taking the time to help. A typo fix and a new component example count as much as a bug fix.
+Thanks for taking the time to help. A typo fix or a clear bug report counts as much as a new feature.
 
 ## Where things live
 
-Hub UI is spread across several repositories under [hub-env](https://github.com/hub-env):
-
 | Repository | What it holds |
 | --- | --- |
-| [`hub-ui`](https://github.com/hub-env/hub-ui) | This repository: overview, roadmap, and the issue tracker for the whole project |
-| [`hub-ui-site`](https://github.com/hub-env/hub-ui-site) | The Angular workspace behind [hubui.dev](https://hubui.dev/en/): documentation site, examples, build and test scripts. Each library is mounted in `projects/` as a git submodule |
-| `ng-hub-ui-*` | One repository per npm package, with its source, `CHANGELOG.md` and `BREAKING_CHANGES.md` |
+| [`hub-ui`](https://github.com/hub-env/hub-ui) | This repository: overview, roadmap and the issue tracker for every package. It holds no code |
+| `ng-hub-ui-*` | One repository per npm package, with its source, tests, `CHANGELOG.md` and `BREAKING_CHANGES.md`. The [package list](README.md#packages) links to each one |
+
+The documentation site at [hubui.dev](https://hubui.dev/en/) is built from a private workspace that mounts every package repository. That is where each change is tested against the live examples before it is released.
 
 ## Reporting a bug or asking for a feature
 
@@ -23,49 +22,28 @@ Open an issue in [hub-ui](https://github.com/hub-env/hub-ui/issues/new/choose) a
 
 Security problems go by email, never in a public issue. See [SECURITY.md](.github/SECURITY.md).
 
-## Setting up the workspace
+## Sending a change to a package
 
-The workspace needs Node.js 22 or later.
+1. Open an issue first for anything bigger than a small fix, so the approach is settled before you write it.
+2. Fork the package repository (for example `hub-env/ng-hub-ui-board`) and create a branch.
+3. Make the change, and add or update the `*.spec.ts` file next to the code you touched.
+4. Add an entry to the package's `CHANGELOG.md` under `[Unreleased]`, in English, with the date as `YYYY-MM-DD`.
+5. Update `README.md` and `README.es.md` if the public API changed.
+6. Open the pull request against the package repository, link the issue, and say how you tested the change in an app of yours.
 
-```bash
-git clone --recurse-submodules https://github.com/hub-env/hub-ui-site.git
-cd hub-ui-site
-npm ci
-npm start
-```
-
-`npm start` serves the documentation site with every library built from source, so a change in `projects/<library>/src` shows up in its examples straight away.
-
-## Making a change to a library
-
-Each folder in `projects/` is the package's own repository, so the change and the pull request belong there:
-
-1. Fork the package repository (for example `hub-env/ng-hub-ui-board`) and add your fork as a remote inside `projects/board`.
-2. Create a branch in that folder and make the change.
-3. Add an entry to the package's `CHANGELOG.md` under `[Unreleased]`, in English, with the date as `YYYY-MM-DD`.
-4. Update the package's `README.md` and `README.es.md` if the public API changed.
-5. Run the checks from the workspace root:
-
-   ```bash
-   npm run test:libs
-   npm run format:check
-   ```
-
-6. Push the branch to your fork and open the pull request against the package repository. Link the issue it fixes.
-
-Documentation and example changes go to `hub-ui-site` in the same way, from the workspace root.
+I run the package's test suite and the documentation examples on every pull request before merging, so you don't need the private workspace to contribute.
 
 ## Code guidelines
 
-The libraries follow the current [Angular style guide](https://angular.dev/style-guide). In practice:
+The packages follow the current [Angular style guide](https://angular.dev/style-guide). In practice:
 
 - Standalone components with `ChangeDetectionStrategy.OnPush`, and signals for state.
 - Built-in control flow (`@if`, `@for`, `@switch`) in templates, and no `CommonModule`.
 - Host bindings and listeners in the `host` metadata object, not `@HostBinding` or `@HostListener`.
-- Styles stay encapsulated and are themed through `--hub-*` custom properties. [CODING_RULES.md](https://github.com/hub-env/hub-ui-site/blob/main/CODING_RULES.md) lists the few cases where a component may leave encapsulation.
+- Styles stay encapsulated and are themed through `--hub-*` custom properties.
 - JSDoc in English on public classes and methods, explaining why the code does what it does.
 - Keyboard support and screen-reader behaviour are part of the feature. A change that breaks them is a bug.
-- Formatting comes from the workspace's `.prettierrc`: tabs, single quotes, 128 columns.
+- Formatting: tabs, single quotes, 128 columns, no trailing commas.
 
 ## Commit messages
 
@@ -84,6 +62,10 @@ A package's major version matches the Angular major it supports, so a breaking c
 ## Finding something to work on
 
 Issues labelled [`good first issue`](https://github.com/hub-env/hub-ui/labels/good%20first%20issue) are a reasonable size for a first contribution, and [`help wanted`](https://github.com/hub-env/hub-ui/labels/help%20wanted) marks the ones where outside help would make a difference. If you want to take one, leave a comment so nobody else starts on it at the same time.
+
+## Code of conduct
+
+Everyone taking part follows the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## License
 

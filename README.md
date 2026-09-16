@@ -159,7 +159,20 @@ All packages are published on npm under the `ng-hub-ui-*` prefix. Their major ve
 - **No UI framework underneath.** Drag and drop, overlays and focus management live in `ng-hub-ui-utils`, so you don't need Angular CDK or Bootstrap JS. The only third-party runtime dependencies are SortableJS (in `ng-hub-ui-sortable`) and ts-md5 (in `ng-hub-ui-avatar`).
 - **Theming through CSS variables.** Components read `--hub-*` custom properties with built-in fallbacks. Without `ng-hub-ui-ds` they render with their defaults; add it and they pick up the shared palette, dark mode and the other themes.
 - **Versioning follows Angular.** When Angular 23 ships, the packages move to `23.0.0` together. A breaking change inside a major line is announced in the package's `BREAKING_CHANGES.md`.
-- **Each package has its own repository and changelog.** This repository is the entry point: overview, roadmap and the issue tracker for every package.
+- **Each package has its own repository and changelog.** This repository is the entry point: overview, roadmap and the issue tracker for every package. It holds no code; each package links to its own repository.
+
+## Packages that work better together
+
+Each package works on its own and never requires a sibling. Where two packages can cooperate, the library exposes an injection token and a `provide…()` helper; register a sibling's adapter once and the feature upgrades everywhere, or leave it out and the component falls back to native behaviour.
+
+| Capability | In package | Wire with | Adapter from | Without it |
+| --- | --- | --- | --- | --- |
+| Tooltip on a truncated badge | `ng-hub-ui-badges` | `provideHubBadgeTooltip(hubTooltipAdapter)` | `ng-hub-ui-utils` | native `title` |
+| Tooltip on a truncated breadcrumb | `ng-hub-ui-breadcrumbs` | `provideHubBreadcrumbTooltip(hubTooltipAdapter)` | `ng-hub-ui-utils` | native `title` |
+| Table search and page-size controls | `ng-hub-ui-paginable` | `provideHubPaginableFormControls(hubFormControlAdapter)` | `ng-hub-ui-forms` | native `<input>` and `<select>` |
+| Table row buttons and menus | `ng-hub-ui-paginable` | `provideHubPaginableActions(hubActionsAdapter)` | `ng-hub-ui-buttons` | built-in markup |
+
+Each package's README describes its integration points in detail.
 
 ## Issues and questions
 
@@ -167,7 +180,7 @@ Bugs, questions and ideas for any package go to [this repository's issues](https
 
 ## Contributing
 
-Contributions are welcome, from typo fixes to new examples. [CONTRIBUTING.md](CONTRIBUTING.md) explains how the repositories are organised and how to send a change.
+Contributions are welcome, from typo fixes to new examples. [CONTRIBUTING.md](CONTRIBUTING.md) explains how the repositories are organised and how to send a change, and everyone taking part follows the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Roadmap
 

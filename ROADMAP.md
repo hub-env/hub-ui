@@ -11,16 +11,13 @@ This page lists what already works and what I plan to do next. Items only appear
 - [x] Form fields with automatic validation messages, including datepicker, timepicker and file input.
 - [x] Documentation site with live examples and API tables for every package, in six languages.
 - [x] `ng add ng-hub-ui` installer (pre-release).
-
-## In progress
-
-- [ ] This repository as the single entry point for the project, with one issue tracker for all packages.
+- [x] [`llms.txt`](https://hubui.dev/llms.txt) and [`llms-full.txt`](https://hubui.dev/llms-full.txt) on hubui.dev, so coding assistants can read the documentation.
+- [x] One repository as the entry point for the project, with a single issue tracker for all packages.
 
 ## Planned
 
 - [ ] A complete example app (a project-management dashboard) built only with Hub UI packages.
-- [ ] `llms.txt` and `llms-full.txt` on hubui.dev, so coding assistants can read the documentation.
-- [ ] Migration guides from `angular2-signaturepad` to `ng-hub-ui-signature` and from `ngx-sortablejs` to `ng-hub-ui-sortable`.
+- [ ] The migration guides from `angular2-signaturepad` and `ngx-sortablejs`, which today ship as `MIGRATION.md` inside each package, published as pages on hubui.dev.
 - [ ] A "Built with Hub UI" showcase, open to submissions.
 - [ ] Angular 23 support, released as `23.0.0` across all packages once Angular 23 is out.
 
