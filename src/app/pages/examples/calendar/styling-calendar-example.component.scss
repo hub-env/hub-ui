@@ -1,0 +1,25 @@
+.theme-preview {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.hub-calendar {
+	--hub-calendar-bg: #1f1a17;
+	--hub-calendar-color: #f8efe7;
+	--hub-calendar-border-color: #6e4a32;
+	--hub-calendar-header-bg: #2a211d;
+	--hub-calendar-btn-bg: #3a2c24;
+	--hub-calendar-btn-color: #f8efe7;
+	--hub-calendar-btn-hover-bg: #5c3e2a;
+	--hub-calendar-btn-active-bg: #fabada;
+	--hub-calendar-btn-active-color: #2a1c14;
+	--hub-calendar-day-hover-bg: #352820;
+	--hub-calendar-day-today-bg: #4a2f1f;
+	--hub-calendar-day-selected-bg: #6d4329;
+	--hub-calendar-event-bg: #fabada;
+	--hub-calendar-event-color: #2a1c14;
+	--hub-calendar-day-weekend-bg: #2a201a;
+	--hub-calendar-day-other-month-bg: #201915;
+	--hub-calendar-day-other-month-color: #9e8f85;
+}

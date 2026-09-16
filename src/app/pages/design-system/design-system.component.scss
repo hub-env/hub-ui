@@ -1,0 +1,675 @@
+// This page is a pure CONSUMER of ng-hub-ui-ds. It defines no design-system
+// functionality: the layout mixins, bridges and utility classes live in the ds.
+// The utility sheet used to be loaded here, component-scoped, because the app
+// shipped Bootstrap and the unprefixed class names collided. Bootstrap is gone
+// and the sheet is global, so this page reads the same one as every other.
+// The `.ds-*` rules below are demo presentation only (colours/borders so the
+// boxes are visible) and read ds tokens via var(--hub-*).
+
+:host {
+	display: block;
+}
+
+/* Bordered surface so the text-alignment/truncation demos are visible */
+.ds-textbox {
+	padding: var(--hub-sys-gap-1) var(--hub-sys-gap-2);
+	border: 1px dashed var(--hub-sys-color-primary-border-subtle);
+	border-radius: var(--hub-sys-radius-sm);
+}
+
+/* Surface / helper demo presentation */
+.ds-swatch {
+	width: 3.25rem;
+	height: 2rem;
+	border-radius: var(--hub-sys-radius-sm);
+	border: 1px solid var(--hub-sys-color-border-subtle, var(--hub-sys-border-color-default));
+}
+.ds-box {
+	display: grid;
+	place-items: center;
+	min-width: 4.5rem;
+	min-height: 2.5rem;
+	padding: var(--hub-sys-gap-1) var(--hub-sys-gap-2);
+	font-size: var(--hub-ref-font-size-sm);
+	font-family: var(--hub-ref-font-family-mono);
+
+	&--square {
+		width: 3.5rem;
+		height: 3.5rem;
+		min-width: 0;
+		padding: 0;
+	}
+}
+.ds-posdemo {
+	height: 7rem;
+	max-width: 24rem;
+	border: 1px dashed var(--hub-sys-color-primary-border-subtle);
+	border-radius: var(--hub-sys-radius-md);
+}
+.ds-dot {
+	width: 0.9rem;
+	height: 0.9rem;
+	border-radius: 50%;
+	background: var(--hub-sys-color-primary);
+}
+.ds-ratiobox {
+	width: 9rem;
+}
+.ds-ratiofill {
+	display: grid;
+	place-items: center;
+	background: var(--hub-sys-color-info-subtle);
+	color: var(--hub-sys-color-info-emphasis);
+	border-radius: var(--hub-sys-radius-sm);
+	font-size: var(--hub-ref-font-size-sm);
+	font-family: var(--hub-ref-font-family-mono);
+}
+
+/* ============================================================
+   Structural / mixins / utilities live demos
+   ============================================================ */
+.ds-struct {
+	display: grid;
+	gap: var(--hub-sys-gap-3);
+
+	&__row {
+		display: flex;
+		align-items: center;
+		gap: var(--hub-sys-gap-3);
+		flex-wrap: wrap;
+	}
+	&__label {
+		min-width: 9rem;
+		font-family: var(--hub-ref-font-family-mono);
+		font-size: var(--hub-ref-font-size-sm);
+		color: var(--hub-sys-text-muted);
+	}
+	&__bar {
+		height: 1.25rem;
+		border-radius: var(--hub-sys-radius-sm);
+		background: var(--hub-sys-color-primary);
+	}
+	&__box {
+		display: grid;
+		place-items: center;
+		min-height: 3rem;
+		padding: var(--hub-sys-gap-2);
+		border-radius: var(--hub-sys-radius-md);
+		background: var(--hub-sys-color-primary-subtle);
+		border: 1px solid var(--hub-sys-color-primary-border-subtle);
+		color: var(--hub-sys-color-primary-emphasis);
+		font-size: var(--hub-ref-font-size-sm);
+	}
+}
+
+/* Center demo — presentation only; the layout comes from the .hub-center utility. */
+.ds-center-demo {
+	background: var(--hub-sys-color-primary-subtle);
+	border-radius: var(--hub-sys-radius-md);
+	min-height: 3rem;
+}
+
+/* Flexbox demos — the bordered box makes the flex container's behaviour visible. */
+.ds-flexrow {
+	padding: var(--hub-sys-gap-2);
+	margin-bottom: var(--hub-sys-gap-2);
+	border: 1px dashed var(--hub-sys-color-primary-border-subtle);
+	border-radius: var(--hub-sys-radius-md);
+	background: var(--hub-sys-color-primary-subtle);
+
+	&--tall {
+		min-height: 4.5rem;
+	}
+	.ds-chip--sm {
+		min-height: 1.6rem;
+	}
+	.ds-chip--md {
+		min-height: 2.4rem;
+	}
+	.ds-chip--lg {
+		min-height: 3.2rem;
+	}
+}
+.ds-flexrow__label {
+	display: block;
+	margin-bottom: 0.25rem;
+	font-family: var(--hub-ref-font-family-mono);
+	font-size: var(--hub-ref-font-size-sm);
+	color: var(--hub-sys-text-muted);
+}
+.ds-chip {
+	padding: var(--hub-sys-gap-1) var(--hub-sys-gap-2);
+	border-radius: var(--hub-sys-radius-pill);
+	background: var(--hub-sys-color-primary);
+	color: var(--hub-sys-color-primary-on);
+	font-size: var(--hub-ref-font-size-sm);
+	white-space: nowrap;
+}
+.ds-tile {
+	display: grid;
+	place-items: center;
+	min-height: 2.5rem;
+	border-radius: var(--hub-sys-radius-sm);
+	background: var(--hub-sys-color-info-subtle);
+	color: var(--hub-sys-color-info-emphasis);
+	font-size: var(--hub-ref-font-size-sm);
+}
+/* Columns / width / padding / margin demos.
+   The demo rows carry `.row` + `.col-N` from the ds sheet; the docs app also
+   ships Bootstrap, whose grid matches those names, so the demo pins margin,
+   cell width and cell padding — consumers without Bootstrap need none of this. */
+.ds-cols {
+	display: grid;
+	gap: var(--hub-sys-gap-2);
+	margin: 0 0 var(--hub-sys-gap-3);
+
+	&__cell {
+		width: 100%;
+		padding: 0;
+		display: grid;
+		place-items: center;
+		min-height: 2.5rem;
+		border-radius: var(--hub-sys-radius-sm);
+		background: var(--hub-sys-color-primary-subtle);
+		color: var(--hub-sys-color-primary-emphasis);
+		border: 1px solid var(--hub-sys-color-primary-border-subtle);
+		font-size: var(--hub-ref-font-size-sm);
+		font-family: var(--hub-ref-font-family-mono);
+	}
+}
+.ds-wbar {
+	display: grid;
+	place-items: center;
+	height: 1.6rem;
+	border-radius: var(--hub-sys-radius-sm);
+	background: var(--hub-sys-color-success);
+	color: var(--hub-sys-color-success-on);
+	font-size: var(--hub-ref-font-size-xs);
+	font-family: var(--hub-ref-font-family-mono);
+}
+/* outer reference box — the padding utility offsets the inner block */
+.ds-pbox {
+	border: 1px dashed var(--hub-sys-color-primary-border-subtle);
+	border-radius: var(--hub-sys-radius-md);
+	background: var(--hub-sys-color-primary-subtle);
+
+	&__inner {
+		display: grid;
+		place-items: center;
+		min-height: 1.75rem;
+		border-radius: var(--hub-sys-radius-sm);
+		background: var(--hub-sys-color-primary);
+		color: var(--hub-sys-color-primary-on);
+		font-size: var(--hub-ref-font-size-xs);
+		font-family: var(--hub-ref-font-family-mono);
+	}
+}
+/* reference frame — the margin utility offsets the child inside it */
+.ds-mframe {
+	border: 1px dashed var(--hub-sys-color-info-border-subtle);
+	border-radius: var(--hub-sys-radius-md);
+	background: var(--hub-sys-color-info-subtle);
+
+	&__child {
+		display: grid;
+		place-items: center;
+		min-height: 1.75rem;
+		border-radius: var(--hub-sys-radius-sm);
+		background: var(--hub-sys-color-info);
+		color: var(--hub-sys-color-info-on);
+		font-size: var(--hub-ref-font-size-xs);
+		font-family: var(--hub-ref-font-family-mono);
+	}
+}
+
+/* Utility demo surfaces so the boxes are visible */
+.ds-util-demo {
+	.cluster > span,
+	.grid-auto > span,
+	.stack > span {
+		display: grid;
+		place-items: center;
+		min-height: 2.25rem;
+		padding: var(--hub-sys-gap-1) var(--hub-sys-gap-2);
+		border-radius: var(--hub-sys-radius-sm);
+		background: var(--hub-sys-color-success-subtle);
+		color: var(--hub-sys-color-success-emphasis);
+		font-size: var(--hub-ref-font-size-sm);
+	}
+}
+
+.ds-page {
+	// Inter-section spacing now lives on the global `.library-page__section`
+	// (adjacent-sibling rule), so both guide pages stay consistent.
+
+	p {
+		line-height: 1.65;
+		color: var(--hub-sys-text-primary);
+	}
+
+	code {
+		font-family: var(--hub-ref-font-family-mono);
+		font-size: 0.875em;
+	}
+}
+
+.ds-muted {
+	color: var(--hub-sys-text-muted);
+	font-size: 0.95rem;
+}
+
+.ds-list {
+	line-height: 1.8;
+	padding-left: 1.25rem;
+}
+
+.ds-h3 {
+	margin: 1.75rem 0 0.6rem;
+	font-size: 1.05rem;
+	font-weight: 600;
+}
+
+.ds-inline {
+	display: inline-block;
+	padding: 0.15rem 0.45rem;
+	background: var(--hub-sys-surface-elevated);
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: var(--hub-ref-radius-sm);
+}
+
+// ── Code blocks ──────────────────────────────────────────────────────────
+.ds-code {
+	margin: 0.5rem 0 1rem;
+	padding: 1rem 1.15rem;
+	overflow-x: auto;
+	background: var(--hub-sys-surface-elevated);
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: var(--hub-ref-radius-md);
+
+	code {
+		font-family: var(--hub-ref-font-family-mono);
+		font-size: 0.85rem;
+		line-height: 1.6;
+		color: var(--hub-sys-text-primary);
+		white-space: pre;
+	}
+}
+
+// ── ref → sys layers ─────────────────────────────────────────────────────
+.ds-layers {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: stretch;
+	gap: 1rem;
+	margin: 1rem 0;
+}
+
+.ds-layer {
+	flex: 1 1 16rem;
+	padding: 1.1rem 1.25rem;
+	background: var(--hub-sys-surface-page);
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: var(--hub-ref-radius-md);
+	box-shadow: var(--hub-sys-shadow-sm);
+
+	h4 {
+		margin: 0.5rem 0;
+	}
+
+	p {
+		font-size: 0.92rem;
+		color: var(--hub-sys-text-muted);
+	}
+}
+
+.ds-layer__tag {
+	display: inline-block;
+	padding: 0.1rem 0.5rem;
+	font-size: 0.72rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: #fff;
+	background: var(--hub-sys-color-secondary);
+	border-radius: var(--hub-ref-radius-pill);
+
+	&--sys {
+		background: var(--hub-sys-color-primary);
+	}
+}
+
+.ds-layer__arrow {
+	display: flex;
+	align-items: center;
+	font-size: 1.6rem;
+	color: var(--hub-sys-text-muted);
+}
+
+// ── Theme switcher ───────────────────────────────────────────────────────
+.ds-themes {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin: 1rem 0;
+}
+
+.ds-theme-btn {
+	padding: 0.4rem 0.9rem;
+	font-size: 0.85rem;
+	font-weight: 500;
+	text-transform: capitalize;
+	color: var(--hub-sys-text-primary);
+	background: var(--hub-sys-surface-page);
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: var(--hub-ref-radius-pill);
+	cursor: pointer;
+	transition: var(--hub-sys-transition-fast);
+
+	&:hover {
+		border-color: var(--hub-sys-color-primary);
+	}
+
+	&--active {
+		color: #fff;
+		background: var(--hub-sys-color-primary);
+		border-color: var(--hub-sys-color-primary);
+	}
+}
+
+// ── Live preview area (scoped data-theme) ────────────────────────────────
+.ds-preview {
+	padding: 1.5rem;
+	background: var(--hub-sys-surface-page);
+	color: var(--hub-sys-text-primary);
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: var(--hub-ref-radius-lg);
+	box-shadow: var(--hub-sys-shadow-sm);
+	transition: var(--hub-sys-transition-base);
+}
+
+.ds-family {
+	margin-bottom: 1rem;
+
+	&__name {
+		margin-bottom: 0.4rem;
+		font-weight: 600;
+		text-transform: capitalize;
+	}
+
+	&__roles {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.25rem;
+	}
+}
+
+.ds-swatch {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.3rem;
+
+	&__chip {
+		width: 2.75rem;
+		height: 2.75rem;
+		border-radius: var(--hub-ref-radius-md);
+		border: 1px solid var(--hub-sys-border-color-default);
+		box-shadow: var(--hub-sys-shadow-inset);
+	}
+
+	&__label {
+		font-size: 0.75rem;
+		color: var(--hub-sys-text-muted);
+	}
+}
+
+// ── Sample callouts ──────────────────────────────────────────────────────
+.ds-samples {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+	gap: 0.6rem;
+	margin-top: 1.25rem;
+}
+
+.ds-sample {
+	padding: 0.75rem 1rem;
+	border: 1px solid transparent;
+	border-inline-start-width: 0.25rem;
+	border-radius: var(--hub-ref-radius-md);
+	font-size: 0.9rem;
+	text-transform: capitalize;
+}
+
+.ds-sample--accent {
+	// Mirrors how the panels alert derives its look from a single accent.
+	background: color-mix(in srgb, var(--hub-sys-color-brand) 13%, var(--hub-sys-surface-page, #fff));
+	color: color-mix(in srgb, var(--hub-sys-color-brand) 72%, var(--hub-sys-text-primary, #212529));
+	border-color: color-mix(in srgb, var(--hub-sys-color-brand) 30%, transparent);
+	border-inline-start-color: var(--hub-sys-color-brand);
+	text-transform: none;
+}
+
+// ── Accent playground ────────────────────────────────────────────────────
+.ds-accent-demo {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 1.5rem;
+	margin: 1rem 0;
+	padding: 1.25rem;
+	background: var(--hub-sys-surface-elevated);
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: var(--hub-ref-radius-md);
+
+	&__control {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		font-size: 0.9rem;
+		font-weight: 500;
+
+		input[type='color'] {
+			width: 2.5rem;
+			height: 2.5rem;
+			padding: 0;
+			border: 1px solid var(--hub-sys-border-color-default);
+			border-radius: var(--hub-ref-radius-sm);
+			background: none;
+			cursor: pointer;
+		}
+	}
+
+	&__preview {
+		flex: 1 1 18rem;
+	}
+}
+
+// ── Theme builder ────────────────────────────────────────────────────────
+.ds-builder__controls {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	gap: 1.25rem;
+	margin: 1rem 0 1.25rem;
+	padding: 1rem 1.25rem;
+	background: var(--hub-sys-surface-elevated);
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: var(--hub-ref-radius-md);
+}
+
+.ds-builder__control {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.3rem;
+	font-size: 0.78rem;
+
+	input[type='color'] {
+		width: 3rem;
+		height: 2.5rem;
+		padding: 0;
+		border: 1px solid var(--hub-sys-border-color-default);
+		border-radius: var(--hub-ref-radius-sm);
+		background: none;
+		cursor: pointer;
+	}
+
+	&-name {
+		font-weight: 600;
+		text-transform: capitalize;
+	}
+
+	code {
+		color: var(--hub-sys-text-muted);
+	}
+}
+
+.ds-builder__reset {
+	margin-left: auto;
+	align-self: center;
+	padding: 0.5rem 1rem;
+	font-size: 0.85rem;
+	color: var(--hub-sys-text-primary);
+	background: var(--hub-sys-surface-page);
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: var(--hub-ref-radius-pill);
+	cursor: pointer;
+
+	&:hover {
+		border-color: var(--hub-sys-color-primary);
+	}
+}
+
+// The base colour is set inline per variant; every other role is DERIVED here
+// with color-mix — change a base and the whole family + components update.
+.ds-builder-preview {
+	@each $v in (primary, success, danger, warning, info) {
+		--hub-sys-color-#{$v}-subtle: color-mix(in srgb, var(--hub-sys-color-#{$v}) 14%, #fff);
+		--hub-sys-color-#{$v}-border-subtle: color-mix(in srgb, var(--hub-sys-color-#{$v}) 36%, #fff);
+		--hub-sys-color-#{$v}-emphasis: color-mix(in srgb, var(--hub-sys-color-#{$v}) 70%, #1a1a2e);
+		--hub-sys-color-#{$v}-dark: color-mix(in srgb, var(--hub-sys-color-#{$v}) 82%, #000);
+	}
+}
+
+.ds-family__hint {
+	margin-left: 0.4rem;
+	font-size: 0.72rem;
+	font-weight: 400;
+	color: var(--hub-sys-text-muted);
+}
+
+// ── Live showcase ────────────────────────────────────────────────────────
+.ds-showcase {
+	margin-top: 1.5rem;
+	padding-top: 1.25rem;
+	border-top: 1px dashed var(--hub-sys-border-color-default);
+
+	&__title {
+		margin: 0 0 0.75rem;
+		font-size: 0.95rem;
+		color: var(--hub-sys-text-muted);
+	}
+
+	&__row {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+		gap: 0.6rem;
+		margin-bottom: 0.75rem;
+
+		&--inline {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 0.5rem;
+		}
+	}
+}
+
+.ds-btn {
+	padding: 0.45rem 1rem;
+	font-size: 0.85rem;
+	font-weight: 600;
+	text-transform: capitalize;
+	color: #fff;
+	border: none;
+	border-radius: var(--hub-ref-radius-md);
+	cursor: pointer;
+	transition: var(--hub-sys-transition-fast);
+
+	@each $v in (primary, success, danger, warning, info) {
+		&[data-variant='#{$v}'] {
+			background: var(--hub-sys-color-#{$v});
+
+			&:hover {
+				background: var(--hub-sys-color-#{$v}-dark);
+			}
+		}
+	}
+}
+
+.ds-badge {
+	padding: 0.25rem 0.7rem;
+	font-size: 0.78rem;
+	font-weight: 600;
+	text-transform: capitalize;
+	border-radius: var(--hub-ref-radius-pill);
+	border: 1px solid transparent;
+
+	@each $v in (primary, success, danger, warning, info) {
+		&[data-variant='#{$v}'] {
+			background: var(--hub-sys-color-#{$v}-subtle);
+			color: var(--hub-sys-color-#{$v}-emphasis);
+			border-color: var(--hub-sys-color-#{$v}-border-subtle);
+		}
+	}
+}
+
+// ── Family gallery ───────────────────────────────────────────────────────
+.ds-gallery {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+	gap: 0.75rem;
+	margin-top: 1rem;
+}
+
+.ds-gallery__card {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+	padding: 0.85rem 1rem;
+	text-decoration: none;
+	color: var(--hub-sys-text-primary);
+	background: var(--hub-sys-surface-page);
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: var(--hub-ref-radius-md);
+	transition: var(--hub-sys-transition-fast);
+
+	&:hover {
+		border-color: var(--hub-sys-color-primary);
+		box-shadow: var(--hub-sys-shadow-sm);
+	}
+}
+
+.ds-gallery__name {
+	font-weight: 600;
+	text-transform: capitalize;
+}
+
+.ds-gallery__badge {
+	flex-shrink: 0;
+	padding: 0.15rem 0.55rem;
+	font-size: 0.72rem;
+	font-weight: 600;
+	border-radius: var(--hub-ref-radius-pill);
+
+	&--wired {
+		color: var(--hub-sys-color-success-emphasis);
+		background: var(--hub-sys-color-success-subtle);
+	}
+
+	&--pending {
+		color: var(--hub-sys-color-warning-emphasis);
+		background: var(--hub-sys-color-warning-subtle);
+	}
+}

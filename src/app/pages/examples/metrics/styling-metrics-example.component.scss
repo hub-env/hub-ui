@@ -1,0 +1,27 @@
+// Live demo theme. In an app you would write this with the ergonomic
+// `@include hub.hub-metrics-theme(...)` mixin (shown in the CSS tab); here we set
+// the equivalent `--hub-*` custom properties directly, because the library's SCSS
+// entry is not resolvable from the showcase app until the package is published.
+//
+// The tokens are set ON the metrics elements as descendants of the theme scope —
+// exactly what the mixin emits — because each component declares its own defaults
+// on `:where(.hub-<comp>)`, which would shadow a bare `.metrics-brand-theme { … }`
+// ancestor override.
+.metrics-brand-theme :where(.hub-progress, .hub-meter, .hub-ring) {
+	--hub-progress-accent: var(--hub-sys-color-brand, #6f42c1);
+	--hub-ring-indicator: var(--hub-sys-color-brand, #6f42c1);
+	--hub-progress-track-bg: color-mix(in oklch, var(--hub-sys-color-brand, #6f42c1) 14%, transparent);
+	--hub-meter-track-bg: color-mix(in oklch, var(--hub-sys-color-brand, #6f42c1) 14%, transparent);
+	--hub-ring-track: color-mix(in oklch, var(--hub-sys-color-brand, #6f42c1) 14%, transparent);
+	--hub-meter-low-bg: var(--hub-sys-color-danger, #dc3545);
+	--hub-meter-optimum-bg: var(--hub-sys-color-success, #198754);
+	--hub-meter-high-bg: var(--hub-sys-color-warning, #ffc107);
+	--hub-progress-radius: 0.5rem;
+	--hub-ring-caption-color: var(--hub-sys-color-brand, #6f42c1);
+
+	// Themeable as of 22.3.0: `size` and `thickness` used to write a length inline on
+	// every render, which shadowed these two. The ring below leaves both inputs unset,
+	// so the theme is what decides its geometry.
+	--hub-ring-size: 5.5rem;
+	--hub-ring-thickness: 0.55rem;
+}

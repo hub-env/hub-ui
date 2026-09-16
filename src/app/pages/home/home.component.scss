@@ -1,0 +1,1091 @@
+// ============================================================
+// Home page — Hub UI documentation site
+// "Gradient Playground" direction: every expressive color comes
+// from the theme-aware --hub-sys-gradient-* tokens, so the whole
+// page re-paints itself when the visitor switches theme.
+// ============================================================
+
+// ---- Shared layout helpers ----
+
+// All page sections sit above the fixed <hub-background-fx> canvas
+// (z-index: 0). The hero is transparent so the effect shows through it;
+// every other section keeps its opaque surface and simply covers the canvas.
+.hero,
+.stats,
+.themes-demo,
+.features,
+.code-demo,
+.catalogue,
+.install-guide,
+.final-cta {
+	position: relative;
+	z-index: 1;
+}
+
+.section-inner {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 2rem;
+}
+
+.section-head {
+	margin-bottom: 3rem;
+}
+
+.section-title {
+	font-family: var(--hub-ref-font-family-display);
+	font-size: clamp(1.6rem, 3vw, 2.25rem);
+	font-weight: 700;
+	color: var(--hub-sys-text-primary);
+	text-align: center;
+	margin: 0 0 0.75rem;
+	letter-spacing: -0.02em;
+
+	// Gradient tick under every section title
+	&::after {
+		content: '';
+		display: block;
+		width: 56px;
+		height: 4px;
+		margin: 0.9rem auto 0;
+		border-radius: var(--hub-ref-radius-pill);
+		background: var(--hub-sys-gradient-accent);
+	}
+}
+
+.section-subtitle {
+	font-size: 1.05rem;
+	color: var(--hub-sys-text-muted);
+	text-align: center;
+	max-width: 640px;
+	margin: 0 auto;
+	line-height: 1.7;
+}
+
+// ---- Shared button language ----
+
+.hero__btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	height: 46px;
+	padding: 0 1.5rem;
+	font-size: 0.95rem;
+	font-weight: 600;
+	border-radius: var(--hub-ref-radius-pill);
+	text-decoration: none;
+	transition:
+		transform 0.2s ease,
+		box-shadow 0.2s ease,
+		background-color 0.2s ease,
+		color 0.2s ease;
+	border: 1px solid transparent;
+
+	&--primary {
+		// Two-stop gradient (1→2) keeps white text at AA contrast in every theme
+		background: linear-gradient(135deg, var(--hub-sys-gradient-1), var(--hub-sys-gradient-2));
+		background-size: 150% 150%;
+		background-position: 0% 50%;
+		color: #fff;
+
+		&:hover {
+			background-position: 100% 50%;
+			transform: translateY(-2px);
+			box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--hub-sys-gradient-2) 65%, transparent);
+		}
+	}
+
+	&--secondary {
+		background-color: transparent;
+		color: var(--hub-sys-text-primary);
+		border-color: var(--hub-sys-border-color-default);
+
+		&:hover {
+			border-color: var(--hub-sys-gradient-1);
+			color: var(--hub-sys-gradient-1);
+			background-color: color-mix(in srgb, var(--hub-sys-gradient-1) 8%, transparent);
+		}
+	}
+
+	&--ghost {
+		background-color: transparent;
+		color: var(--hub-sys-text-primary);
+		border-color: var(--hub-sys-border-color-default);
+
+		&:hover {
+			color: var(--hub-sys-gradient-2);
+			border-color: var(--hub-sys-gradient-2);
+		}
+	}
+}
+
+// ============================================================
+// HERO
+// ============================================================
+
+.hero {
+	position: relative;
+	overflow: hidden;
+	padding: 5.5rem 2rem 5rem;
+	// Transparent so the pointer-reactive <hub-background-fx> canvas
+	// (fixed, behind the page) shows through this section.
+	background-color: transparent;
+	border-bottom: 1px solid var(--hub-sys-border-color-default);
+}
+
+@keyframes blob-drift-a {
+	from {
+		transform: translate3d(0, 0, 0) scale(1);
+	}
+	to {
+		transform: translate3d(6vw, 4vh, 0) scale(1.15);
+	}
+}
+
+@keyframes blob-drift-b {
+	from {
+		transform: translate3d(0, 0, 0) scale(1.1);
+	}
+	to {
+		transform: translate3d(-5vw, 6vh, 0) scale(0.95);
+	}
+}
+
+.hero__inner {
+	position: relative;
+	display: grid;
+	grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+	align-items: center;
+	gap: 3.5rem;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.hero__badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.35rem 0.95rem;
+	margin-bottom: 1.75rem;
+	font-size: 0.78rem;
+	font-weight: 600;
+	letter-spacing: 0.03em;
+	color: var(--hub-sys-text-primary);
+	background-color: color-mix(in srgb, var(--hub-sys-gradient-1) 9%, transparent);
+	border: 1px solid color-mix(in srgb, var(--hub-sys-gradient-1) 30%, transparent);
+	border-radius: var(--hub-ref-radius-pill);
+}
+
+.hero__badge-dot {
+	display: inline-block;
+	width: 7px;
+	height: 7px;
+	background: var(--hub-sys-gradient-accent);
+	border-radius: 50%;
+	animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.4;
+	}
+}
+
+.hero__title {
+	font-family: var(--hub-ref-font-family-display);
+	font-size: clamp(2.1rem, 4.5vw, 3.4rem);
+	font-weight: 800;
+	line-height: 1.12;
+	letter-spacing: -0.03em;
+	margin: 0 0 1.25rem;
+
+	// Theme-aware gradient headline
+	background: var(--hub-sys-gradient-accent);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: var(--hub-sys-text-primary); // fallback when clip is unsupported
+}
+
+.hero__subtitle {
+	font-size: 1.08rem;
+	color: var(--hub-sys-text-muted);
+	line-height: 1.7;
+	margin: 0 0 2.25rem;
+	max-width: 560px;
+}
+
+.hero__actions {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+	margin-bottom: 2rem;
+}
+
+.hero__install {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.65rem 1.1rem;
+	background-color: color-mix(in srgb, var(--hub-sys-surface-elevated) 75%, transparent);
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: var(--hub-ref-radius-pill);
+	backdrop-filter: blur(8px);
+}
+
+.hero__install-code {
+	display: inline-flex;
+	align-items: center;
+	font-family: var(--hub-ref-font-family-mono);
+	font-size: 0.875rem;
+	color: var(--hub-sys-text-primary);
+	overflow: hidden;
+}
+
+.hero__install-prefix {
+	flex-shrink: 0;
+}
+
+.hero__install-pkg {
+	display: inline-block;
+	font-weight: 600;
+	color: var(--hub-sys-gradient-2);
+	will-change: transform, opacity;
+}
+
+.hero__install-copy {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	background: transparent;
+	border: none;
+	border-radius: 50%;
+	color: var(--hub-sys-text-muted);
+	cursor: pointer;
+	transition:
+		color 0.15s ease,
+		background-color 0.15s ease;
+
+	&:hover {
+		color: var(--hub-sys-gradient-1);
+		background-color: var(--hub-sys-state-hover-bg);
+	}
+}
+
+// ---- Live component collage ----
+
+.hero__collage {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 1.1rem;
+	padding: 0.5rem 0;
+}
+
+.collage-card {
+	position: relative;
+	padding: 1.1rem 1.2rem;
+	border-radius: 18px;
+	color: var(--hub-sys-text-primary); // keep demo copy readable on dark themes
+	font-size: 0.9rem;
+	background:
+		linear-gradient(var(--hub-sys-surface-page), var(--hub-sys-surface-page)) padding-box,
+		linear-gradient(
+				135deg,
+				color-mix(in srgb, var(--hub-sys-gradient-1) 55%, var(--hub-sys-border-color-default)),
+				color-mix(in srgb, var(--hub-sys-gradient-3) 55%, var(--hub-sys-border-color-default))
+			)
+			border-box;
+	border: 1px solid transparent;
+	box-shadow: 0 18px 44px -22px color-mix(in srgb, var(--hub-sys-gradient-1) 38%, transparent);
+	animation: card-float 7s ease-in-out infinite;
+
+	&--avatars {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		animation-delay: 1.4s;
+		margin-right: 2.5rem;
+	}
+
+	&--panels {
+		margin-left: 1.5rem;
+	}
+
+	&--skeleton {
+		animation-delay: 2.8s;
+		margin-left: 3rem;
+		margin-right: 1rem;
+	}
+}
+
+// Crop the card skeleton preset and fade it out so it reads as a
+// deliberate vignette instead of a tall empty placeholder.
+.collage-card__skeleton-clip {
+	max-height: 110px;
+	overflow: hidden;
+	mask-image: linear-gradient(to bottom, #000 45%, transparent 100%);
+	-webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent 100%);
+}
+
+@keyframes card-float {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-7px);
+	}
+}
+
+.collage-card__avatars {
+	display: flex;
+	align-items: center;
+
+	hub-avatar + hub-avatar {
+		margin-left: -10px;
+	}
+}
+
+.collage-card__tag {
+	font-family: var(--hub-ref-font-family-mono);
+	font-size: 0.78rem;
+	color: var(--hub-sys-text-muted);
+}
+
+// Tag acts as a footer on the stacked cards (panels & skeleton)
+.collage-card--panels .collage-card__tag,
+.collage-card--skeleton .collage-card__tag {
+	display: block;
+	margin-top: 0.7rem;
+	text-align: right;
+}
+
+.collage-chip {
+	position: absolute;
+	padding: 0.35rem 0.8rem;
+	font-family: var(--hub-ref-font-family-mono);
+	font-size: 0.72rem;
+	font-weight: 600;
+	color: #fff;
+	border-radius: var(--hub-ref-radius-pill);
+	box-shadow: 0 10px 24px -10px color-mix(in srgb, var(--hub-sys-gradient-2) 70%, transparent);
+	animation: card-float 6s ease-in-out infinite;
+
+	&--vars {
+		top: -1.1rem;
+		right: 0.25rem;
+		background: linear-gradient(135deg, var(--hub-sys-gradient-1), var(--hub-sys-gradient-2));
+		animation-delay: 0.8s;
+	}
+
+	&--npm {
+		bottom: -0.9rem;
+		left: 0.5rem;
+		background: linear-gradient(135deg, var(--hub-sys-gradient-2), var(--hub-sys-gradient-3));
+		animation-delay: 2s;
+	}
+}
+
+// ============================================================
+// STATS BAR
+// ============================================================
+
+.stats {
+	display: flex;
+	align-items: stretch;
+	justify-content: center;
+	flex-wrap: wrap;
+	border-bottom: 1px solid var(--hub-sys-border-color-default);
+	background-color: var(--hub-sys-surface-page);
+}
+
+.stats__item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.25rem;
+	padding: 1.5rem 3.25rem;
+	border-right: 1px solid var(--hub-sys-border-color-default);
+
+	&:last-child {
+		border-right: none;
+	}
+}
+
+.stats__value {
+	font-family: var(--hub-ref-font-family-display);
+	font-size: 1.9rem;
+	font-weight: 800;
+	line-height: 1;
+	letter-spacing: -0.02em;
+	background: var(--hub-sys-gradient-accent);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: var(--hub-sys-text-primary);
+}
+
+.stats__label {
+	font-size: 0.78rem;
+	font-weight: 500;
+	color: var(--hub-sys-text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+}
+
+// ============================================================
+// LIVE THEME DEMO
+// ============================================================
+
+.themes-demo {
+	padding: 5rem 0;
+	background-color: var(--hub-sys-surface-elevated);
+	border-bottom: 1px solid var(--hub-sys-border-color-default);
+}
+
+.themes-demo__chips {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.75rem;
+}
+
+// Each chip carries its own data-theme attribute, so the token
+// cascade colors every chip with the palette it represents.
+.theme-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.55rem;
+	padding: 0.55rem 1.1rem;
+	font-size: 0.88rem;
+	font-weight: 600;
+	color: var(--hub-sys-text-primary);
+	background-color: var(--hub-sys-surface-page);
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: var(--hub-ref-radius-pill);
+	cursor: pointer;
+	transition:
+		transform 0.2s ease,
+		box-shadow 0.2s ease,
+		border-color 0.2s ease;
+
+	&:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 10px 26px -12px color-mix(in srgb, var(--hub-sys-gradient-2) 60%, transparent);
+	}
+
+	&--active {
+		border-color: var(--hub-sys-gradient-1);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--hub-sys-gradient-1) 25%, transparent);
+	}
+}
+
+.theme-chip__swatch {
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background: var(--hub-sys-gradient-accent);
+	border: 1px solid color-mix(in srgb, var(--hub-sys-text-primary) 15%, transparent);
+}
+
+.themes-demo__hint {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	margin: 1.5rem 0 2.5rem;
+	font-size: 0.9rem;
+	color: var(--hub-sys-text-muted);
+
+	i {
+		color: var(--hub-sys-gradient-2);
+	}
+}
+
+.themes-demo__stage {
+	max-width: 720px;
+	margin: 0 auto;
+	padding: 1.75rem;
+	border-radius: 22px;
+	background:
+		linear-gradient(var(--hub-sys-surface-page), var(--hub-sys-surface-page)) padding-box,
+		var(--hub-sys-gradient-accent) border-box;
+	border: 1px solid transparent;
+	box-shadow: 0 24px 60px -30px color-mix(in srgb, var(--hub-sys-gradient-1) 45%, transparent);
+}
+
+.themes-demo__stage-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: 1.25rem;
+}
+
+.themes-demo__stage-avatars {
+	display: flex;
+	align-items: center;
+
+	hub-avatar + hub-avatar {
+		margin-left: -8px;
+	}
+}
+
+.themes-demo__stage-badge {
+	padding: 0.3rem 0.85rem;
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: #fff;
+	background: linear-gradient(135deg, var(--hub-sys-gradient-1), var(--hub-sys-gradient-2));
+	border-radius: var(--hub-ref-radius-pill);
+}
+
+.themes-demo__stage-buttons {
+	display: flex;
+	gap: 0.75rem;
+	padding: 0.5rem 0;
+}
+
+// ============================================================
+// USE CASES / FEATURES
+// ============================================================
+
+.features {
+	padding: 5rem 0;
+	background-color: var(--hub-sys-surface-page);
+	border-bottom: 1px solid var(--hub-sys-border-color-default);
+
+	&--alt {
+		background-color: var(--hub-sys-surface-elevated);
+	}
+}
+
+.features__grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 1.5rem;
+}
+
+.feature-card {
+	position: relative;
+	padding: 1.75rem;
+	background-color: var(--hub-sys-surface-page);
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: 18px;
+	text-decoration: none;
+	transition:
+		transform 0.25s ease,
+		border-color 0.25s ease,
+		box-shadow 0.25s ease;
+
+	&:hover {
+		transform: translateY(-4px);
+		border-color: color-mix(in srgb, var(--hub-sys-gradient-1) 55%, var(--hub-sys-border-color-default));
+		box-shadow: 0 22px 48px -24px color-mix(in srgb, var(--hub-sys-gradient-1) 50%, transparent);
+	}
+}
+
+.feature-card__icon-wrap {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 46px;
+	height: 46px;
+	border-radius: 14px;
+	background: linear-gradient(
+		135deg,
+		color-mix(in srgb, var(--hub-sys-gradient-1) 16%, transparent),
+		color-mix(in srgb, var(--hub-sys-gradient-2) 16%, transparent)
+	);
+	margin-bottom: 1rem;
+}
+
+.feature-card__icon {
+	font-size: 1.15rem;
+	background: var(--hub-sys-gradient-accent);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: var(--hub-sys-gradient-1);
+}
+
+.feature-card__title {
+	font-size: 1rem;
+	font-weight: 700;
+	color: var(--hub-sys-text-primary);
+	margin: 0 0 0.5rem;
+}
+
+.feature-card__desc {
+	font-size: 0.9rem;
+	color: var(--hub-sys-text-muted);
+	line-height: 1.65;
+	margin: 0;
+}
+
+// ============================================================
+// CODE → RESULT
+// ============================================================
+
+.code-demo {
+	padding: 5rem 0;
+	background-color: var(--hub-sys-surface-page);
+	border-bottom: 1px solid var(--hub-sys-border-color-default);
+}
+
+.code-demo__split {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1.5rem;
+	align-items: stretch;
+}
+
+.code-demo__pane {
+	display: flex;
+	flex-direction: column;
+	border-radius: 18px;
+	border: 1px solid var(--hub-sys-border-color-default);
+	background-color: var(--hub-sys-surface-elevated);
+	overflow: hidden;
+
+	&--result {
+		background:
+			linear-gradient(var(--hub-sys-surface-page), var(--hub-sys-surface-page)) padding-box,
+			var(--hub-sys-gradient-accent) border-box;
+		border-color: transparent;
+		box-shadow: 0 24px 56px -32px color-mix(in srgb, var(--hub-sys-gradient-2) 55%, transparent);
+	}
+}
+
+.code-demo__pane-label {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.8rem 1.25rem;
+	font-size: 0.78rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--hub-sys-text-muted);
+	border-bottom: 1px solid var(--hub-sys-border-color-default);
+
+	i {
+		color: var(--hub-sys-gradient-1);
+	}
+}
+
+.code-demo__live-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--hub-sys-gradient-accent);
+	animation: pulse 2s infinite;
+}
+
+.code-demo__pre {
+	margin: 0;
+	flex: 1;
+
+	code {
+		display: block;
+		padding: 1.25rem;
+		font-family: var(--hub-ref-font-family-mono);
+		font-size: 0.85rem;
+		line-height: 1.7;
+		background: transparent;
+	}
+}
+
+.code-demo__result {
+	flex: 1;
+	padding: 1.5rem;
+}
+
+// ============================================================
+// COMPONENTS CATALOGUE
+// ============================================================
+
+.catalogue {
+	padding: 5rem 0;
+	background-color: var(--hub-sys-surface-elevated);
+	border-bottom: 1px solid var(--hub-sys-border-color-default);
+}
+
+.catalogue__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 1rem;
+}
+
+.catalogue-card {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	min-width: 0; // keeps nowrap descriptions from inflating the grid track
+	padding: 1.25rem 1rem 1.25rem 1.25rem;
+	background-color: var(--hub-sys-surface-page);
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: 16px;
+	text-decoration: none;
+	transition:
+		transform 0.2s ease,
+		border-color 0.2s ease,
+		box-shadow 0.2s ease;
+
+	&:hover {
+		border-color: color-mix(in srgb, var(--hub-sys-gradient-2) 55%, var(--hub-sys-border-color-default));
+		box-shadow: 0 18px 40px -22px color-mix(in srgb, var(--hub-sys-gradient-2) 55%, transparent);
+		transform: translateY(-3px);
+
+		.catalogue-card__arrow {
+			transform: translateX(3px);
+			color: var(--hub-sys-gradient-2);
+		}
+
+		.catalogue-card__icon-wrap {
+			background: linear-gradient(
+				135deg,
+				color-mix(in srgb, var(--hub-sys-gradient-1) 22%, transparent),
+				color-mix(in srgb, var(--hub-sys-gradient-3) 22%, transparent)
+			);
+		}
+	}
+}
+
+.catalogue-card__icon-wrap {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 42px;
+	height: 42px;
+	border-radius: 12px;
+	background: color-mix(in srgb, var(--hub-sys-gradient-1) 11%, transparent);
+	transition: background 0.2s ease;
+}
+
+.catalogue-card__icon {
+	font-size: 1rem;
+	color: var(--hub-sys-gradient-1);
+}
+
+.catalogue-card__content {
+	flex: 1;
+	min-width: 0;
+}
+
+.catalogue-card__name {
+	font-size: 0.95rem;
+	font-weight: 700;
+	color: var(--hub-sys-text-primary);
+	margin: 0 0 0.2rem;
+}
+
+.catalogue-card__desc {
+	font-size: 0.82rem;
+	color: var(--hub-sys-text-muted);
+	margin: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.catalogue-card__arrow {
+	flex-shrink: 0;
+	font-size: 0.75rem;
+	color: var(--hub-sys-text-muted);
+	transition:
+		transform 0.15s ease,
+		color 0.15s ease;
+}
+
+// ============================================================
+// INSTALL GUIDE
+// ============================================================
+
+.install-guide {
+	padding: 5rem 0 6rem;
+	background-color: var(--hub-sys-surface-page);
+}
+
+.install-guide__steps {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	margin: 0 auto 2.5rem;
+	max-width: 680px;
+}
+
+// Scroll-scrubbed progress line connecting the step numbers
+.install-guide__line {
+	position: absolute;
+	top: 10px;
+	bottom: 10px;
+	left: 17px;
+	width: 2px;
+	background-color: var(--hub-sys-border-color-default);
+	border-radius: var(--hub-ref-radius-pill);
+	overflow: hidden;
+}
+
+.install-guide__line-fill {
+	display: block;
+	width: 100%;
+	height: 100%;
+	background: var(--hub-sys-gradient-accent);
+	transform-origin: top;
+}
+
+.install-step {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	gap: 1.1rem;
+}
+
+.install-step__num {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	background: linear-gradient(135deg, var(--hub-sys-gradient-1), var(--hub-sys-gradient-2));
+	color: #fff;
+	font-size: 0.9rem;
+	font-weight: 700;
+	box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--hub-sys-gradient-1) 70%, transparent);
+}
+
+.install-step__body {
+	flex: 1;
+}
+
+.install-step__label {
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: var(--hub-sys-text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	margin: 0.45rem 0 0.6rem;
+}
+
+.code-block {
+	padding: 0.8rem 1.1rem;
+	background-color: var(--hub-sys-surface-elevated);
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: 12px;
+
+	code {
+		font-family: var(--hub-ref-font-family-mono);
+		font-size: 0.875rem;
+		color: var(--hub-sys-text-primary);
+	}
+}
+
+.install-guide__cta {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	max-width: 680px;
+	margin: 0 auto;
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: var(--hub-sys-gradient-1);
+	text-decoration: none;
+	transition:
+		gap 0.2s ease,
+		color 0.2s ease;
+
+	&:hover {
+		gap: 0.8rem;
+		color: var(--hub-sys-gradient-2);
+	}
+}
+
+// ============================================================
+// FINAL CTA
+// ============================================================
+
+.final-cta {
+	padding: 0 0 6rem;
+	background-color: var(--hub-sys-surface-page);
+}
+
+.final-cta__panel {
+	position: relative;
+	overflow: hidden;
+	padding: 4rem 2.5rem;
+	text-align: center;
+	border-radius: 28px;
+	background:
+		linear-gradient(var(--hub-sys-surface-elevated), var(--hub-sys-surface-elevated)) padding-box,
+		var(--hub-sys-gradient-accent) border-box;
+	border: 1px solid transparent;
+	box-shadow: 0 32px 80px -40px color-mix(in srgb, var(--hub-sys-gradient-1) 55%, transparent);
+}
+
+.final-cta__blob {
+	position: absolute;
+	width: 320px;
+	height: 320px;
+	border-radius: 50%;
+	filter: blur(80px);
+	opacity: 0.25;
+	pointer-events: none;
+
+	&--1 {
+		top: -40%;
+		left: -10%;
+		background: radial-gradient(circle, var(--hub-sys-gradient-1), transparent 65%);
+		animation: blob-drift-a 60s ease-in-out infinite alternate;
+	}
+
+	&--2 {
+		bottom: -45%;
+		right: -8%;
+		background: radial-gradient(circle, var(--hub-sys-gradient-3), transparent 65%);
+		animation: blob-drift-b 72s ease-in-out infinite alternate;
+	}
+}
+
+.final-cta__title {
+	position: relative;
+	font-family: var(--hub-ref-font-family-display);
+	font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+	font-weight: 800;
+	letter-spacing: -0.02em;
+	margin: 0 0 0.9rem;
+	background: var(--hub-sys-gradient-accent);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: var(--hub-sys-text-primary);
+}
+
+.final-cta__subtitle {
+	position: relative;
+	font-size: 1.02rem;
+	color: var(--hub-sys-text-muted);
+	margin: 0 0 2rem;
+}
+
+.final-cta__actions {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+}
+
+// ============================================================
+// RESPONSIVE
+// ============================================================
+
+@media (max-width: 1023.98px) {
+	.hero__inner {
+		grid-template-columns: 1fr;
+		gap: 3rem;
+	}
+
+	.hero__collage {
+		max-width: 520px;
+	}
+
+	.features__grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.code-demo__split {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 767.98px) {
+	.hero {
+		padding: 3.5rem 1.5rem 3.5rem;
+	}
+
+	.section-inner {
+		padding: 0 1.25rem;
+	}
+
+	.themes-demo,
+	.features,
+	.code-demo,
+	.catalogue,
+	.install-guide {
+		padding: 3.5rem 0;
+	}
+
+	.features__grid {
+		grid-template-columns: 1fr;
+	}
+
+	.stats__item {
+		flex: 1 1 40%;
+		padding: 1.1rem 1.5rem;
+		border-right: none;
+		border-bottom: 1px solid var(--hub-sys-border-color-default);
+
+		// 2×2 layout: the whole last row drops its bottom border
+		&:nth-last-child(-n + 2) {
+			border-bottom: none;
+		}
+	}
+
+	.collage-card {
+		&--panels,
+		&--skeleton {
+			margin-left: 0;
+		}
+
+		&--avatars,
+		&--skeleton {
+			margin-right: 0;
+		}
+	}
+
+	.catalogue__grid {
+		grid-template-columns: 1fr;
+	}
+
+	.final-cta__panel {
+		padding: 3rem 1.5rem;
+	}
+}
+
+// ============================================================
+// REDUCED MOTION — kill every decorative animation
+// ============================================================
+
+@media (prefers-reduced-motion: reduce) {
+	.hero__blob,
+	.final-cta__blob,
+	.collage-card,
+	.collage-chip,
+	.hero__badge-dot,
+	.code-demo__live-dot {
+		animation: none;
+	}
+
+	.hero__btn,
+	.feature-card,
+	.catalogue-card,
+	.theme-chip {
+		transition: none;
+	}
+}

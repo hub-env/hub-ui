@@ -1,0 +1,346 @@
+{
+	"UI": {
+		"TOKENS": {
+			"TITLE": "Tokens de diseño",
+			"INTRO": "ng-hub-ui se construye sobre un sistema de tokens de tres capas: los tokens de referencia (--hub-ref-*) guardan los valores primitivos, los tokens de sistema (--hub-sys-*) asignan significado semántico y los tokens de componente acotan el estilo de cada componente. Cada token es una variable CSS, así que puedes re-tematizar toda la librería en tiempo de ejecución sobreescribiendo valores en :root o en un contenedor.",
+			"SEARCH_PLACEHOLDER": "Buscar tokens…",
+			"REF_TITLE": "Referencia (--hub-ref-*)",
+			"SYS_TITLE": "Sistema (--hub-sys-*)",
+			"COMPONENT_TITLE": "Tokens de componente",
+			"LIBRARIES_TITLE": "Bibliotecas con tokens",
+			"LIBRARIES_INTRO": "Cada biblioteca declara sus propios tokens de componente (--hub-{prefijo}-*). Abre cualquiera para ver su documentación.",
+			"LIBRARIES_TOKENS": "tokens",
+			"COL_SWATCH": "Color",
+			"COL_TOKEN": "Token",
+			"COL_VALUE": "Valor",
+			"COL_RESOLVED": "Resuelto",
+			"COPY_HINT": "Haz clic para copiar",
+			"NO_RESULTS": "Ningún token coincide con tu búsqueda."
+		},
+		"TOPBAR": {
+			"SEARCH": "Buscar componentes...",
+			"GITHUB": "GitHub",
+			"CONSULTING": "Consultoría",
+			"LANG_LABEL": "ES",
+			"LANGUAGE": "Idioma",
+			"DARK_MODE": "Modo oscuro",
+			"LIGHT_MODE": "Modo claro",
+			"THEME_LABEL": "Tema",
+			"ORIENTATION_VERTICAL": "Diseño vertical",
+			"ORIENTATION_HORIZONTAL": "Diseño horizontal",
+			"PAGE_LOADING": "Cargando la página"
+		},
+		"NAV": {
+			"HOME": "Inicio",
+			"ABOUT": "Sobre el autor",
+			"COMPONENTS": "Componentes"
+		},
+		"CONSENT": {
+			"TITLE": "Cookies de analítica",
+			"BODY": "Usamos Google Analytics para medir visitas y entender qué partes de la documentación funcionan mejor. Solo se activará si aceptas.",
+			"REJECT": "Rechazar",
+			"ACCEPT": "Aceptar",
+			"POLICY_LINK": "Política de cookies"
+		},
+		"HOME": {
+			"HERO": {
+				"BADGE": "Angular 22 · Standalone · Paquetes independientes",
+				"TITLE": "Biblioteca de Componentes Angular para Apps Standalone",
+				"SUBTITLE": "Componentes UI reutilizables para Angular orientados a apps standalone, flujos con Angular Signals, accesibilidad, variables CSS y documentación lista para producción sobre modales, tablas de datos, navegación, calendarios y más.",
+				"CTA_PRIMARY": "Explorar documentación de Modal",
+				"CTA_SECONDARY": "Dale una estrella en GitHub",
+				"INSTALL": "npm install ng-hub-ui-modal",
+				"COPY_INSTALL": "Copiar comando de instalación"
+			},
+			"STATS": {
+				"COMPONENTS": "Componentes",
+				"CSS_VARS": "Variables CSS",
+				"THEMES": "Temas",
+				"ANGULAR_VERSION": "Angular"
+			},
+			"FEATURES": {
+				"SECTION_TITLE": "¿Por qué Hub UI?",
+				"ACCESSIBLE": {
+					"TITLE": "Totalmente Accesible",
+					"DESCRIPTION": "Todos los componentes siguen las pautas WCAG 2.1 con navegación completa por teclado y soporte para lectores de pantalla."
+				},
+				"CUSTOMIZABLE": {
+					"TITLE": "Impulsado por Variables CSS",
+					"DESCRIPTION": "Cada componente expone propiedades CSS personalizadas. Sobrescribe cualquier token para adaptarlo a tu marca — los cambios se propagan al instante."
+				},
+				"TYPESCRIPT": {
+					"TITLE": "TypeScript Primero",
+					"DESCRIPTION": "Tipado estricto en todo el código. Disfruta de autocompletado completo, seguridad en tiempo de compilación y la mejor experiencia de desarrollo."
+				},
+				"STANDALONE": {
+					"TITLE": "Arquitectura Standalone",
+					"DESCRIPTION": "Construido sobre el modelo de componentes standalone moderno de Angular. Importa solo lo que necesitas y mantén tus bundles ligeros."
+				}
+			},
+			"COMPONENTS": {
+				"SECTION_TITLE": "Todos los Componentes",
+				"SECTION_SUBTITLE": "Explora componentes Angular pensados para producto real, design systems reutilizables y aplicaciones standalone mantenibles.",
+				"DESCRIPTIONS": {
+					"AVATAR": "Componente avatar para Angular con iniciales, fallback de imagen e indicadores de estado.",
+					"BOARD": "Componente Kanban para Angular con drag and drop para flujos de trabajo.",
+					"BREADCRUMBS": "Breadcrumbs para Angular con integración con Router y plantillas personalizadas.",
+					"CALENDAR": "Componente calendario para Angular orientado a eventos, scheduling y planificación.",
+					"HISTORY": "Store de undo y redo para Angular pensado para editores, formularios y low-code.",
+					"MODAL": "Componente modal accesible para Angular con apilado, fullscreen y plantillas.",
+					"NAV": "Menús de navegación para Angular con sidebars, dropdowns, paneles drill-down y layouts responsive.",
+					"PAGINABLE": "Tabla de datos y lista paginada para Angular con filtros, ordenación y operaciones server-side.",
+					"PORTAL": "Portal y renderizado overlay para Angular en drawers, paneles flotantes y contenedores dinámicos.",
+					"SKELETON": "Placeholders skeleton para Angular con presets, templates DSL inline y layouts shimmer responsive.",
+					"SORTABLE": "Utilidades sortable para Angular en arrays, FormArray y constructores drag-and-drop.",
+					"STEPPER": "Componente stepper para Angular en formularios wizard, onboarding y flujos multistep.",
+					"UTILS": "Librería de utilidades Angular con overlays, focus management, pipes y helpers de traducción.",
+					"TOAST": "Componente Angular de toasts y notificaciones con posicionamiento, apilado y autocierre.",
+					"BUTTONS": "Botones, FAB, speed dial y directivas de dropdown de Angular para interfaces con muchas acciones.",
+					"BADGES": "Componente Angular de badges para etiquetas, contadores e indicadores de estado, totalmente personalizable.",
+					"PANELS": "Componente Angular de paneles y acordeón con expansión simple o múltiple y theming completo.",
+					"FORMS": "Librería Angular de formularios con inputs avanzados, select, validación y renderizado dinámico.",
+					"MILESTONES": "Componente Angular de línea de tiempo y pasos de progreso con disposición vertical, horizontal y animada.",
+					"ICONS": "Componente Angular de iconos agnóstico del set para Font Awesome, Bootstrap, Material y packs SVG personalizados.",
+					"METRICS": "Componentes Angular de progreso, meter y gauge con semántica ARIA completa y tematización por tokens."
+				}
+			},
+			"INSTALL": {
+				"SECTION_TITLE": "Empieza en Segundos",
+				"STEP1": "Instala un componente",
+				"STEP2": "Impórtalo standalone",
+				"STEP3": "Personaliza con variables CSS",
+				"READ_DOCS": "Leer Documentación"
+			},
+			"THEMES_DEMO": {
+				"SECTION_TITLE": "Una librería, todas las marcas",
+				"SECTION_SUBTITLE": "Cada componente se controla con variables CSS. Elige un tema y observa cómo toda la web se repinta — sin rebuild, sin CSS extra.",
+				"HINT": "Pruébalo — esto cambia el tema real de todo el sitio."
+			},
+			"CODE_DEMO": {
+				"SECTION_TITLE": "Código real, componente real",
+				"SECTION_SUBTITLE": "Con unas pocas líneas de template basta. El snippet de la izquierda renderiza el componente vivo de la derecha.",
+				"CODE_LABEL": "Template",
+				"RESULT_LABEL": "Resultado en vivo"
+			},
+			"FINAL_CTA": {
+				"TITLE": "Construye tu próxima UI Angular con Hub UI",
+				"SUBTITLE": "Open source, modular y listo para producción. Instala tu primer componente hoy.",
+				"GITHUB": "Dale una estrella en GitHub",
+				"START": "Empezar"
+			},
+			"COLLAGE": {
+				"TAB_ONE_HEADING": "Tabs",
+				"TAB_ONE_BODY": "Componentes reales, en vivo.",
+				"TAB_TWO_HEADING": "En vivo",
+				"TAB_TWO_BODY": "Esto no es una captura."
+			},
+			"USE_CASES": {
+				"SECTION_TITLE": "Pensado para Angular en producción",
+				"SECTION_SUBTITLE": "Empieza por la categoría de componentes que más tiempo suele costar resolver bien.",
+				"MODAL": {
+					"TITLE": "Flujos con modal y overlays",
+					"DESCRIPTION": "Diálogos, fullscreen, proyecciones y overlays controlados por servicio para apps Angular que necesitan comportamiento accesible."
+				},
+				"PAGINABLE": {
+					"TITLE": "Tablas y listas de datos",
+					"DESCRIPTION": "Paginación server-side, ordenación, filtros y selección para paneles de administración, back offices y cuadros de gestión."
+				},
+				"SORTABLE": {
+					"TITLE": "Ordenación y drag and drop",
+					"DESCRIPTION": "Reordena arrays, controles FormArray y listas conectadas con utilidades drag-and-drop pensadas para Angular."
+				},
+				"CALENDAR": {
+					"TITLE": "Scheduling y vistas calendario",
+					"DESCRIPTION": "Interfaces de calendario con eventos, plantillas, drag and drop y theming para flujos de planificación."
+				}
+			}
+		},
+		"PRIVACY": {
+			"TITLE": "Política de Privacidad",
+			"UPDATED": "Última actualización: 01/01/2025",
+			"INTRO": "Esta Política de Privacidad explica cómo Carlos Morcillo Fernández (\"nosotros\") recoge, utiliza y protege los datos personales cuando visitas este sitio de documentación.",
+			"S1_HEADING": "1. Responsable del tratamiento",
+			"S1_P1": "Carlos Morcillo Fernández",
+			"S1_P2": "Correo electrónico: carlos.morcillo@me.com",
+			"S1_P3": "Este sitio es un proyecto personal de documentación de código abierto y no está operado por ninguna empresa.",
+			"S2_HEADING": "2. Datos recogidos",
+			"S2_P1": "Recogemos datos de navegación anónimos a través de Google Analytics 4. Esto incluye páginas visitadas, tiempo en página, país de origen, tipo de dispositivo y navegador. Las direcciones IP se anonimizan antes del procesamiento. No recogemos nombres, correos electrónicos ni ningún dato personal directamente identificable.",
+			"S3_HEADING": "3. Finalidad del tratamiento",
+			"S3_P1": "Los datos analíticos se utilizan exclusivamente para entender cómo los visitantes interactúan con la documentación, qué secciones son más útiles y cómo mejorar la calidad general del contenido.",
+			"S4_HEADING": "4. Base jurídica",
+			"S4_P1": "El tratamiento se basa en tu consentimiento libre, específico e informado (RGPD Art. 6.1.a). Puedes retirar el consentimiento en cualquier momento haciendo clic en \"Rechazar\" en el banner de cookies o gestionando las cookies de tu navegador.",
+			"S5_HEADING": "5. Destinatarios y encargados del tratamiento",
+			"S5_P1": "Los datos analíticos anónimos se transmiten a Google LLC, que actúa como encargado del tratamiento en virtud de un Acuerdo de Procesamiento de Datos. Google puede procesar datos en servidores ubicados fuera del Espacio Económico Europeo.",
+			"S6_HEADING": "6. Transferencias internacionales",
+			"S6_P1": "Los datos procesados por Google Analytics pueden transferirse a Estados Unidos. Google LLC participa en el Marco de Privacidad de Datos UE-EE.UU. y se basa en las Cláusulas Contractuales Tipo (CCT) para garantizar un nivel adecuado de protección de los datos personales transferidos fuera del EEE.",
+			"S7_HEADING": "7. Plazo de conservación",
+			"S7_P1": "Los datos analíticos se conservan durante 14 meses, que es la configuración de retención de datos predeterminada de Google Analytics 4. Transcurrido este período, los datos de eventos individuales se eliminan automáticamente.",
+			"S8_HEADING": "8. Tus derechos",
+			"S8_P1": "De acuerdo con el RGPD tienes derecho a: acceder a tus datos personales; rectificar datos inexactos; solicitar su supresión; oponerte al tratamiento; solicitar la limitación del tratamiento; y la portabilidad de los datos.",
+			"S8_P2": "Para ejercer cualquiera de estos derechos, ponte en contacto con nosotros en: carlos.morcillo@me.com. Responderemos en un plazo de 30 días.",
+			"S9_HEADING": "9. Cookies",
+			"S9_P1": "Para información detallada sobre las cookies que utilizamos, consulta nuestra Política de Cookies.",
+			"S10_HEADING": "10. Cambios en esta política",
+			"S10_P1": "Podemos actualizar esta Política de Privacidad de vez en cuando. La fecha en la parte superior de la página siempre reflejará la revisión más reciente. El uso continuado del sitio tras los cambios implica la aceptación de la política actualizada.",
+			"S11_HEADING": "11. Derecho a presentar una reclamación",
+			"S11_P1": "Tienes derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD), con sede en C/ Jorge Juan, 6, 28001 Madrid. Web: aepd.es.",
+			"LINK_COOKIES": "Política de Cookies"
+		},
+		"COOKIES": {
+			"TITLE": "Política de Cookies",
+			"UPDATED": "Última actualización: 01/01/2025",
+			"INTRO": "Esta Política de Cookies explica qué son las cookies, cuáles utiliza este sitio y cómo puedes gestionarlas.",
+			"WHAT_HEADING": "¿Qué son las cookies?",
+			"WHAT_P1": "Las cookies son pequeños archivos de texto que los sitios web colocan en tu dispositivo cuando los visitas. Se utilizan ampliamente para hacer que los sitios web funcionen, o funcionen de forma más eficiente, y para proporcionar información de análisis a los propietarios del sitio.",
+			"WHAT_P2": "Las cookies pueden ser de \"primera parte\" (establecidas por este sitio) o de \"terceros\" (establecidas por un dominio diferente al que estás visitando). También pueden ser de sesión (eliminadas cuando cierras el navegador) o persistentes (almacenadas durante un período determinado).",
+			"USED_HEADING": "Cookies que utilizamos",
+			"USED_INTRO": "Este sitio utiliza únicamente cookies analíticas de Google Analytics 4. No se establecen otras cookies. No se utilizan cookies de marketing, segmentación ni de redes sociales.",
+			"TABLE_COL_NAME": "Nombre",
+			"TABLE_COL_PROVIDER": "Proveedor",
+			"TABLE_COL_PURPOSE": "Finalidad",
+			"TABLE_COL_DURATION": "Duración",
+			"TABLE_COL_TYPE": "Tipo",
+			"ROW_GA_PURPOSE": "Distingue usuarios únicos asignando un número generado aleatoriamente como identificador de cliente.",
+			"ROW_GA_DURATION": "2 años",
+			"ROW_GA_TYPE": "Analítica / Tercero",
+			"ROW_GA_STAR_PURPOSE": "Mantiene el estado de sesión para un ID de medición GA4 específico.",
+			"ROW_GA_STAR_DURATION": "2 años",
+			"ROW_GA_STAR_TYPE": "Analítica / Tercero",
+			"ROW_GID_PURPOSE": "Distingue usuarios. Se utiliza para limitar la tasa de solicitudes.",
+			"ROW_GID_DURATION": "24 horas",
+			"ROW_GID_TYPE": "Analítica / Tercero",
+			"NECESSARY_HEADING": "Cookies estrictamente necesarias",
+			"NECESSARY_P1": "Este sitio no utiliza gestión de sesiones, autenticación ni ningún estado del lado del servidor. Por lo tanto, este dominio no establece cookies estrictamente necesarias. Las cookies analíticas anteriores solo se cargan después de que aceptes explícitamente.",
+			"MANAGE_HEADING": "Cómo gestionar las cookies",
+			"MANAGE_P1": "Puedes controlar las cookies analíticas de las siguientes formas:",
+			"MANAGE_P2": "1. Haz clic en \"Rechazar\" en el banner de consentimiento situado en la parte inferior de la página. Google Analytics no se cargará y no se establecerán cookies.",
+			"MANAGE_P3": "2. Elimina las cookies ya almacenadas en tu navegador. Las instrucciones varían según el navegador: abre la configuración de tu navegador y busca la sección de Privacidad o Cookies.",
+			"MANAGE_P4": "3. Instala el complemento de inhabilitación para navegadores de Google Analytics disponible en https://tools.google.com/dlpage/gaoptout para evitar que Google Analytics recopile datos sobre tus visitas en todos los sitios web.",
+			"MANAGE_P5": "Ten en cuenta que bloquear o eliminar cookies puede afectar a la funcionalidad de otros sitios web que visites.",
+			"CHANGES_HEADING": "Cambios en esta Política de Cookies",
+			"CHANGES_P1": "Podemos actualizar esta Política de Cookies de vez en cuando. La fecha en la parte superior de la página siempre reflejará la revisión más reciente. Te recomendamos revisar esta página periódicamente.",
+			"LINK_PRIVACY": "Política de Privacidad"
+		},
+		"LIBRARY": {
+			"EXAMPLE_VIEWER": {
+				"COPY_SNIPPET": "Copiar snippet",
+				"COPY_SOURCE": "Copiar código fuente del ejemplo",
+				"COPY_TO_CLIPBOARD": "Copiar código fuente al portapapeles",
+				"VIEW_FULL": "Ver ejemplo completo",
+				"COPY_LINK": "Copiar enlace al ejemplo",
+				"VIEW_SNIPPET_ONLY": "Ver solo snippet",
+				"VIEW_LESS": "Ver menos",
+				"VIEW_CODE": "Ver código",
+				"HIDE_CODE": "Ocultar código",
+				"VIEW_SOURCE": "Ver código fuente",
+				"HARNESS_NOTICE": "Este ejemplo contiene tests. Ábrelo en un entorno de desarrollo para ejecutarlos.",
+				"CODE_COPIED": "Código copiado",
+				"COPY_ERROR": "Error al copiar. ¡Inténtalo de nuevo!",
+				"LINK_COPIED": "Enlace copiado",
+				"LINK_COPY_ERROR": "Error al copiar enlace. ¡Inténtalo de nuevo!",
+				"DEMO": "Demo",
+				"CODE": "Código"
+			},
+			"TABS": {
+				"OVERVIEW": "Visión General",
+				"API": "API",
+				"STYLES": "Estilos",
+				"EXAMPLES": "Ejemplos",
+				"PLAYGROUND": "Playground"
+			},
+			"API": {
+				"METHODS_TITLE": "Métodos"
+			},
+			"PAGE": {
+				"WHY_SEARCH": "Por qué los equipos buscan esta librería",
+				"FAQ": "Preguntas frecuentes",
+				"INSTALL": "Instalación",
+				"JUMP_TO": "Ir a",
+				"IDEAL_FOR": "Ideal para",
+				"ABOUT_PREFIX": "Sobre",
+				"KEY_FEATURES": "Características clave",
+				"FEATURE_GUIDES": "Guías de uso",
+				"FEATURE_GUIDES_EMPTY": "Todavía no hay guías de uso documentadas para esta librería.",
+				"RECENT_CHANGES": "Cambios recientes",
+				"RELATED_LIBRARIES": "Librerías relacionadas",
+				"NO_CHANGELOG": "No hay entradas de changelog disponibles.",
+				"API_REFERENCE": "Referencia API",
+				"API_INTRO": "Aquí tienes el contrato completo de {name}: todo lo que puedes enlazar, escuchar, proyectar y personalizar, reunido en un solo sitio. Enlaza lo que necesites y dale el estilo que quieras — es standalone y reactivo con signals.",
+				"API_INPUTS_LEDE": "Ajusta {name} a tu gusto con {count} inputs. Se enlazan como cualquier @Input de Angular.",
+				"API_OUTPUTS_LEDE": "Reacciona a lo que hace {name}: {count} eventos a los que enganchar tu lógica.",
+				"API_METHODS_LEDE": "Controla {name} desde el código — {count} métodos en su superficie programática.",
+				"API_TEMPLATES_LEDE": "Hazlo tuyo — {count} plantillas para proyectar tu propio marcado.",
+				"API_CSS_VARS_LEDE": "Personaliza cada detalle con {count} variables CSS. Sobrescríbelas en :root o acótalas a un contenedor.",
+				"INPUTS": "Inputs",
+				"OUTPUTS": "Outputs",
+				"TEMPLATES": "Templates",
+				"CSS_VARIABLES": "Variables CSS",
+				"NAME": "Nombre",
+				"VARIABLE": "Variable",
+				"DESCRIPTION_COLUMN": "Descripción",
+				"TYPE": "Tipo",
+				"DEFAULT": "Por defecto",
+				"SIGNATURE": "Firma",
+				"RETURNS": "Devuelve",
+				"EXAMPLES": "Ejemplos",
+				"EXAMPLE": "Ejemplo",
+				"REQUIRED": "Obligatorio",
+				"NO_INPUTS": "Todavía no hay inputs documentados.",
+				"NO_OUTPUTS": "Todavía no hay outputs documentados.",
+				"NO_TEMPLATES": "Todavía no hay templates documentados.",
+				"NO_CSS_VARIABLES": "Todavía no hay variables CSS documentadas.",
+				"STYLING_GUIDE": "Estilos y theming",
+				"STYLING_EMPTY": "Todavía no hay ejemplos de estilos documentados. Esta sección incluirá recetas de personalización y ejemplos de theming.",
+				"MIXINS": "Mixins y estilos",
+				"MIXIN": "Mixin",
+				"PARAMETERS": "Parámetros",
+				"INTERACTIVE_EXAMPLES": "Ejemplos interactivos",
+				"INTERACTIVE_EXAMPLES_INTRO": "Explora ejemplos en vivo que muestran cómo se comporta la librería en casos de uso habituales de Angular.",
+				"INTERACTIVE_EXAMPLES_EMPTY": "Todavía no se han registrado ejemplos interactivos. Aparecerán aquí cuando estén disponibles.",
+				"PLAYGROUND_TITLE": "Playground interactivo",
+				"PLAYGROUND_INTRO": "Configura todos los inputs y observa cómo el componente se actualiza en vivo. La plantilla generada se mantiene sincronizada mientras ajustas.",
+				"PLAYGROUND_EMPTY": "Todavía no se ha configurado un playground para esta librería.",
+				"LIVE_PREVIEW_UNAVAILABLE": "La vista previa en vivo todavía no está disponible para este ejemplo.",
+				"CODE": "Código",
+				"IMPORT": "Import",
+				"TEMPLATE": "Template",
+				"COMPONENT": "Component"
+			},
+			"LAST_UPDATED": "Última actualización"
+		},
+		"NOT_FOUND": {
+			"TITLE": "Página no encontrada",
+			"MESSAGE": "La página que buscas no existe o se ha movido.",
+			"CTA": "Volver a la página de inicio"
+		},
+		"THEMES": {
+			"BASE": "Base",
+			"BOOTSTRAP": "Bootstrap",
+			"DARK": "Oscuro",
+			"SUNSET": "Atardecer",
+			"FOREST": "Bosque",
+			"MONO": "Monocromo",
+			"TERMINAL": "Terminal"
+		},
+		"DESIGN_SYSTEM": {
+			"QUE_ES": "¿Qué es?",
+			"INSTALACION": "Primeros pasos",
+			"ARQUITECTURA": "Arquitectura",
+			"COLORES": "Colores y temas",
+			"CREA_TU_TEMA": "Crea tu tema",
+			"FAMILIA": "La familia",
+			"MODIFICAR": "Cómo modificarlo",
+			"FUNCIONES": "Funciones SCSS",
+			"ESTRUCTURA": "Capa estructural",
+			"MIXINS": "Mixins y estilos",
+			"UTILIDADES": "Utilidades",
+			"FLEXBOX": "Flexbox",
+			"COLUMNAS": "Columnas y spacing",
+			"TEXTO": "Texto",
+			"SUPERFICIES": "Superficies",
+			"HELPERS": "Posición y helpers",
+			"PUENTES": "Puentes a otros sistemas",
+			"REFERENCIA": "Referencia"
+		}
+	}
+}

@@ -1,0 +1,346 @@
+{
+	"UI": {
+		"TOKENS": {
+			"TITLE": "Design-Tokens",
+			"INTRO": "ng-hub-ui basiert auf einem dreischichtigen Token-System: Referenz-Tokens (--hub-ref-*) enthalten die rohen Primitive, System-Tokens (--hub-sys-*) weisen ihnen eine semantische Bedeutung zu, und Komponenten-Tokens begrenzen das Styling pro Komponente. Jedes Token ist eine CSS-Variable, sodass du die gesamte Bibliothek zur Laufzeit neu thematisieren kannst, indem du Werte auf :root oder einem Wrapper überschreibst.",
+			"SEARCH_PLACEHOLDER": "Tokens suchen…",
+			"REF_TITLE": "Referenz (--hub-ref-*)",
+			"SYS_TITLE": "System (--hub-sys-*)",
+			"COMPONENT_TITLE": "Komponenten-Tokens",
+			"LIBRARIES_TITLE": "Bibliotheken mit Tokens",
+			"LIBRARIES_INTRO": "Jede Bibliothek deklariert ihre eigenen Komponenten-Tokens (--hub-{präfix}-*). Öffnen Sie eine, um ihre Dokumentation zu sehen.",
+			"LIBRARIES_TOKENS": "Tokens",
+			"COL_SWATCH": "Farbe",
+			"COL_TOKEN": "Token",
+			"COL_VALUE": "Wert",
+			"COL_RESOLVED": "Aufgelöst",
+			"COPY_HINT": "Zum Kopieren klicken",
+			"NO_RESULTS": "Keine Tokens entsprechen deiner Suche."
+		},
+		"TOPBAR": {
+			"SEARCH": "Komponenten suchen...",
+			"GITHUB": "GitHub",
+			"CONSULTING": "Beratung",
+			"LANG_LABEL": "DE",
+			"LANGUAGE": "Sprache",
+			"DARK_MODE": "Dunkler Modus",
+			"LIGHT_MODE": "Heller Modus",
+			"THEME_LABEL": "Design",
+			"ORIENTATION_VERTICAL": "Vertikales Layout",
+			"ORIENTATION_HORIZONTAL": "Horizontales Layout",
+			"PAGE_LOADING": "Seite wird geladen"
+		},
+		"NAV": {
+			"HOME": "Startseite",
+			"ABOUT": "Über",
+			"COMPONENTS": "Komponenten"
+		},
+		"CONSENT": {
+			"TITLE": "Analyse-Cookies",
+			"BODY": "Wir verwenden Google Analytics, um Besuche zu messen und zu verstehen, welche Teile der Dokumentation am besten funktionieren. Es wird nur geladen, wenn du zustimmst.",
+			"REJECT": "Ablehnen",
+			"ACCEPT": "Akzeptieren",
+			"POLICY_LINK": "Cookie-Richtlinie"
+		},
+		"HOME": {
+			"HERO": {
+				"BADGE": "Angular 22 · Standalone · Unabhängige Pakete",
+				"TITLE": "Angular-Komponentenbibliothek für Standalone-Apps",
+				"SUBTITLE": "Wiederverwendbare Angular-UI-Komponenten für Standalone-Apps, Angular Signals-Workflows, Barrierefreiheit, CSS-Variablen und produktionsreife Dokumentation zu Modals, Datentabellen, Navigation, Kalendern und mehr.",
+				"CTA_PRIMARY": "Modal-Doku erkunden",
+				"CTA_SECONDARY": "Auf GitHub mit Stern markieren",
+				"INSTALL": "npm install ng-hub-ui-modal",
+				"COPY_INSTALL": "Installationsbefehl kopieren"
+			},
+			"STATS": {
+				"COMPONENTS": "Komponenten",
+				"CSS_VARS": "CSS-Variablen",
+				"THEMES": "Designs",
+				"ANGULAR_VERSION": "Angular"
+			},
+			"FEATURES": {
+				"SECTION_TITLE": "Warum Hub UI?",
+				"ACCESSIBLE": {
+					"TITLE": "Vollständig barrierefrei",
+					"DESCRIPTION": "Alle Komponenten folgen den WCAG 2.1-Richtlinien mit vollständiger Tastaturnavigation und Unterstützung für Screenreader."
+				},
+				"CUSTOMIZABLE": {
+					"TITLE": "Von CSS-Variablen gesteuert",
+					"DESCRIPTION": "Jede Komponente stellt CSS-Custom-Properties bereit. Überschreibe einen beliebigen Token, um ihn an deine Marke anzupassen — Änderungen wirken sich sofort auf alle Designs aus."
+				},
+				"TYPESCRIPT": {
+					"TITLE": "TypeScript zuerst",
+					"DESCRIPTION": "Durchgängig strenge Typisierung. Profitiere von vollständiger Autovervollständigung, Sicherheit zur Kompilierzeit und einer erstklassigen Entwicklererfahrung."
+				},
+				"STANDALONE": {
+					"TITLE": "Standalone-Architektur",
+					"DESCRIPTION": "Aufgebaut auf Angulars modernem Standalone-Komponentenmodell. Importiere nur, was du brauchst, und halte deine Bundles schlank."
+				}
+			},
+			"COMPONENTS": {
+				"SECTION_TITLE": "Alle Komponenten",
+				"SECTION_SUBTITLE": "Entdecke Angular-Komponenten für echte Produktteams, wiederverwendbare Design-Systeme und wartbare Standalone-Anwendungen.",
+				"DESCRIPTIONS": {
+					"AVATAR": "Angular-Avatar-Komponente mit Initialen, Bild-Fallbacks und Statusanzeigen.",
+					"BOARD": "Angular-Kanban-Board-Komponente mit Drag-and-drop für Workflow-Oberflächen.",
+					"BREADCRUMBS": "Angular-Breadcrumbs mit Router-Integration und benutzerdefinierten Templates.",
+					"CALENDAR": "Angular-Kalender-Komponente für Terminplanung, Ereignisse und Planungsoberflächen.",
+					"HISTORY": "Angular-Undo-und-Redo-Store für Editoren, Formulare und Low-Code-Builder.",
+					"MODAL": "Barrierefreie Angular-Modal-Komponente mit Stapelung, Vollbildmodus und Templates.",
+					"NAV": "Angular-Navigationsmenüs für Seitenleisten, Dropdowns, Drill-down-Panels und responsive Layouts.",
+					"PAGINABLE": "Angular-Datentabelle und paginierte Liste mit Filterung, Sortierung und serverseitigen Operationen.",
+					"PORTAL": "Angular-Portal- und Overlay-Rendering für Drawer, schwebende Panels und dynamische Container.",
+					"SKELETON": "Angular-Skeleton-Platzhalter mit Presets, Inline-DSL-Templates und responsiven Shimmer-Layouts.",
+					"SORTABLE": "Angular-Sortable-Werkzeuge für Arrays, FormArray-Controls und Drag-and-drop-Builder.",
+					"STEPPER": "Angular-Stepper-Komponente für Wizard-Formulare, Onboarding und mehrstufige Validierungsabläufe.",
+					"UTILS": "Angular-Hilfsbibliothek mit Overlays, Fokusverwaltung, Pipes und Übersetzungshelfern.",
+					"TOAST": "Angular-Toast- und Benachrichtigungskomponente mit Positionierung, Stapelung und automatischem Ausblenden.",
+					"BUTTONS": "Angular-Buttons, FAB, Speed Dial und Dropdown-Direktiven für aktionsreiche Oberflächen.",
+					"BADGES": "Angular-Badge-Komponente für Labels, Zähler und Statusanzeigen, vollständig themenfähig.",
+					"PANELS": "Angular-Panels- und Accordion-Komponente mit Einzel- oder Mehrfach-Ausklappen und vollem Theming.",
+					"FORMS": "Angular-Formularbibliothek mit umfangreichen Eingaben, Select, Validierung und dynamischem Rendering.",
+					"MILESTONES": "Angular-Timeline- und Fortschrittsschritt-Komponente in vertikalem, horizontalem und animiertem Layout.",
+					"ICONS": "Set-agnostische Angular-Icon-Komponente für Font Awesome, Bootstrap, Material und eigene SVG-Packs.",
+					"METRICS": "Angular-Progress-, Meter- und Gauge-Komponenten mit vollständiger ARIA-Semantik und Token-Theming."
+				}
+			},
+			"INSTALL": {
+				"SECTION_TITLE": "In Sekunden loslegen",
+				"STEP1": "Eine Komponente installieren",
+				"STEP2": "Standalone importieren",
+				"STEP3": "Mit CSS-Variablen anpassen",
+				"READ_DOCS": "Doku lesen"
+			},
+			"THEMES_DEMO": {
+				"SECTION_TITLE": "Eine Bibliothek, jede Marke",
+				"SECTION_SUBTITLE": "Jede Komponente wird von CSS-Variablen gesteuert. Wähle ein Design und beobachte, wie sich die gesamte Seite neu zeichnet — ohne Rebuild, ohne zusätzliches CSS.",
+				"HINT": "Probier es aus — das wechselt das Live-Design der gesamten Seite."
+			},
+			"CODE_DEMO": {
+				"SECTION_TITLE": "Echter Code, echte Komponente",
+				"SECTION_SUBTITLE": "Ein paar Zeilen Template genügen. Das Snippet links rendert die Live-Komponente rechts.",
+				"CODE_LABEL": "Template",
+				"RESULT_LABEL": "Live-Ergebnis"
+			},
+			"FINAL_CTA": {
+				"TITLE": "Baue deine nächste Angular-UI mit Hub UI",
+				"SUBTITLE": "Open Source, modular und produktionsreif. Installiere noch heute deine erste Komponente.",
+				"GITHUB": "Auf GitHub mit Stern markieren",
+				"START": "Loslegen"
+			},
+			"COLLAGE": {
+				"TAB_ONE_HEADING": "Tabs",
+				"TAB_ONE_BODY": "Echte, lebendige Komponenten.",
+				"TAB_TWO_HEADING": "Live",
+				"TAB_TWO_BODY": "Das ist kein Screenshot."
+			},
+			"USE_CASES": {
+				"SECTION_TITLE": "Gebaut für Angular-Arbeit in Produktion",
+				"SECTION_SUBTITLE": "Beginne mit der Komponentenkategorie, die normalerweise am meisten Zeit kostet, um sie wirklich gut umzusetzen.",
+				"MODAL": {
+					"TITLE": "Modal- und Overlay-Abläufe",
+					"DESCRIPTION": "Dialoge, Vollbildabläufe, Projektionen und service-gesteuerte Overlays für Angular-Apps, die barrierefreies Modal-Verhalten benötigen."
+				},
+				"PAGINABLE": {
+					"TITLE": "Datentabellen und Listen",
+					"DESCRIPTION": "Serverseitige Paginierung, Sortierung, Filterung und Auswahl für Admin-Panels, Back Offices und Management-Dashboards."
+				},
+				"SORTABLE": {
+					"TITLE": "Sortable und Drag-and-drop",
+					"DESCRIPTION": "Ordne Arrays, FormArray-Controls und verbundene Listen mit Angular-freundlichen Drag-and-drop-Werkzeugen neu an."
+				},
+				"CALENDAR": {
+					"TITLE": "Terminplanung und Kalenderansichten",
+					"DESCRIPTION": "Kalenderoberflächen mit Ereignissen, Templates, Drag-and-drop und Theming-Hooks für Planungsabläufe."
+				}
+			}
+		},
+		"PRIVACY": {
+			"TITLE": "Datenschutzerklärung",
+			"UPDATED": "Zuletzt aktualisiert: 01.01.2025",
+			"INTRO": "Diese Datenschutzerklärung erläutert, wie Carlos Morcillo Fernández („wir“) personenbezogene Daten erhebt, verwendet und schützt, wenn Sie diese Dokumentationswebsite besuchen.",
+			"S1_HEADING": "1. Verantwortlicher",
+			"S1_P1": "Carlos Morcillo Fernández",
+			"S1_P2": "E-Mail: carlos.morcillo@me.com",
+			"S1_P3": "Diese Website ist ein persönliches Open-Source-Dokumentationsprojekt und wird nicht von einem Unternehmen betrieben.",
+			"S2_HEADING": "2. Erhobene Daten",
+			"S2_P1": "Wir erheben anonyme Browsing-Daten über Google Analytics 4. Dazu gehören besuchte Seiten, Verweildauer, Herkunftsland, Gerätetyp und Browser. IP-Adressen werden vor der Verarbeitung anonymisiert. Wir erheben keine Namen, E-Mail-Adressen oder direkt identifizierbare personenbezogene Daten.",
+			"S3_HEADING": "3. Zweck der Verarbeitung",
+			"S3_P1": "Analysedaten werden ausschließlich dazu verwendet, zu verstehen, wie Besucher mit der Dokumentation interagieren, welche Abschnitte am nützlichsten sind und wie die Gesamtqualität des Inhalts verbessert werden kann.",
+			"S4_HEADING": "4. Rechtsgrundlage",
+			"S4_P1": "Die Verarbeitung erfolgt auf der Grundlage Ihrer freiwillig, spezifisch und informiert erteilten Einwilligung (DSGVO Art. 6 Abs. 1 lit. a). Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie im Cookie-Banner auf „Ablehnen“ klicken oder Ihre Browser-Cookies verwalten.",
+			"S5_HEADING": "5. Empfänger und Auftragsverarbeiter",
+			"S5_P1": "Anonyme Analysedaten werden an Google LLC übermittelt, das im Rahmen eines Auftragsverarbeitungsvertrags als Auftragsverarbeiter fungiert. Google kann Daten auf Servern außerhalb des Europäischen Wirtschaftsraums verarbeiten.",
+			"S6_HEADING": "6. Internationale Übermittlungen",
+			"S6_P1": "Von Google Analytics verarbeitete Daten können in die USA übermittelt werden. Google LLC nimmt am EU-US-Datenschutzrahmen teil und stützt sich auf Standardvertragsklauseln (SCC), um ein angemessenes Schutzniveau für außerhalb des EWR übermittelte personenbezogene Daten zu gewährleisten.",
+			"S7_HEADING": "7. Speicherdauer",
+			"S7_P1": "Analysedaten werden 14 Monate lang gespeichert, was der standardmäßigen Datenaufbewahrungseinstellung von Google Analytics 4 entspricht. Nach diesem Zeitraum werden individuelle Ereignisdaten automatisch gelöscht.",
+			"S8_HEADING": "8. Ihre Rechte",
+			"S8_P1": "Gemäß DSGVO haben Sie das Recht auf: Auskunft über Ihre personenbezogenen Daten; Berichtigung unrichtiger Daten; Löschung; Widerspruch gegen die Verarbeitung; Einschränkung der Verarbeitung; und Datenübertragbarkeit.",
+			"S8_P2": "Zur Ausübung dieser Rechte wenden Sie sich bitte an: carlos.morcillo@me.com. Wir werden innerhalb von 30 Tagen antworten.",
+			"S9_HEADING": "9. Cookies",
+			"S9_P1": "Detaillierte Informationen zu den von uns verwendeten Cookies finden Sie in unserer Cookie-Richtlinie.",
+			"S10_HEADING": "10. Änderungen dieser Richtlinie",
+			"S10_P1": "Wir können diese Datenschutzerklärung gelegentlich aktualisieren. Das Datum oben auf der Seite gibt stets die jüngste Überarbeitung an. Die fortgesetzte Nutzung der Website nach Änderungen gilt als Zustimmung zur aktualisierten Richtlinie.",
+			"S11_HEADING": "11. Beschwerderecht",
+			"S11_P1": "Sie haben das Recht, eine Beschwerde bei der zuständigen Datenschutzaufsichtsbehörde Ihres Wohnsitz- oder Arbeitslandes einzureichen. In Deutschland: Bundesbeauftragter für den Datenschutz und die Informationsfreiheit (BfDI), www.bfdi.bund.de.",
+			"LINK_COOKIES": "Cookie-Richtlinie"
+		},
+		"COOKIES": {
+			"TITLE": "Cookie-Richtlinie",
+			"UPDATED": "Zuletzt aktualisiert: 01.01.2025",
+			"INTRO": "Diese Cookie-Richtlinie erläutert, was Cookies sind, welche Cookies diese Website verwendet und wie Sie diese verwalten können.",
+			"WHAT_HEADING": "Was sind Cookies?",
+			"WHAT_P1": "Cookies sind kleine Textdateien, die von Websites, die Sie besuchen, auf Ihrem Gerät gespeichert werden. Sie werden häufig eingesetzt, um Websites zum Laufen zu bringen oder effizienter zu machen und um Berichte für Websitebetreiber bereitzustellen.",
+			"WHAT_P2": "Cookies können \"Erstanbieter-Cookies\" (von dieser Website gesetzt) oder \"Drittanbieter-Cookies\" (von einer anderen Domain als der besuchten gesetzt) sein. Sie können außerdem sitzungsbasiert (beim Schließen des Browsers gelöscht) oder dauerhaft (für einen bestimmten Zeitraum gespeichert) sein.",
+			"USED_HEADING": "Von uns verwendete Cookies",
+			"USED_INTRO": "Diese Website verwendet ausschließlich Analyse-Cookies von Google Analytics 4. Es werden keine weiteren Cookies gesetzt. Marketing-, Targeting- oder Social-Media-Cookies werden nicht verwendet.",
+			"TABLE_COL_NAME": "Cookie-Name",
+			"TABLE_COL_PROVIDER": "Anbieter",
+			"TABLE_COL_PURPOSE": "Zweck",
+			"TABLE_COL_DURATION": "Dauer",
+			"TABLE_COL_TYPE": "Typ",
+			"ROW_GA_PURPOSE": "Unterscheidet eindeutige Benutzer durch Zuweisung einer zufällig generierten Nummer als Client-Kennung.",
+			"ROW_GA_DURATION": "2 Jahre",
+			"ROW_GA_TYPE": "Analyse / Drittanbieter",
+			"ROW_GA_STAR_PURPOSE": "Speichert den Sitzungsstatus für eine bestimmte GA4-Mess-ID.",
+			"ROW_GA_STAR_DURATION": "2 Jahre",
+			"ROW_GA_STAR_TYPE": "Analyse / Drittanbieter",
+			"ROW_GID_PURPOSE": "Unterscheidet Benutzer. Wird zur Begrenzung der Anfragerate verwendet.",
+			"ROW_GID_DURATION": "24 Stunden",
+			"ROW_GID_TYPE": "Analyse / Drittanbieter",
+			"NECESSARY_HEADING": "Unbedingt erforderliche Cookies",
+			"NECESSARY_P1": "Diese Website verwendet keine Sitzungsverwaltung, Authentifizierung oder serverseitigen Status. Daher werden von dieser Domain keine unbedingt erforderlichen Cookies gesetzt. Die oben genannten Analyse-Cookies werden nur geladen, nachdem Sie ausdrücklich zugestimmt haben.",
+			"MANAGE_HEADING": "Cookies verwalten",
+			"MANAGE_P1": "Sie können Analyse-Cookies auf folgende Weise steuern:",
+			"MANAGE_P2": "1. Klicken Sie im Einwilligungsbanner am unteren Seitenrand auf „Ablehnen“. Google Analytics wird nicht geladen und es werden keine Cookies gesetzt.",
+			"MANAGE_P3": "2. Löschen Sie bereits in Ihrem Browser gespeicherte Cookies. Die Vorgehensweise variiert je nach Browser: Öffnen Sie die Browsereinstellungen und suchen Sie den Bereich Datenschutz oder Cookies.",
+			"MANAGE_P4": "3. Installieren Sie das Google Analytics Opt-out-Browser-Add-on unter https://tools.google.com/dlpage/gaoptout, um zu verhindern, dass Google Analytics Daten über Ihre Besuche auf allen Websites erfasst.",
+			"MANAGE_P5": "Bitte beachten Sie, dass das Blockieren oder Löschen von Cookies die Funktionalität anderer von Ihnen besuchter Websites beeinträchtigen kann.",
+			"CHANGES_HEADING": "Änderungen dieser Cookie-Richtlinie",
+			"CHANGES_P1": "Wir können diese Cookie-Richtlinie gelegentlich aktualisieren. Das Datum oben auf der Seite gibt stets die jüngste Überarbeitung an. Wir empfehlen, diese Seite regelmäßig zu besuchen.",
+			"LINK_PRIVACY": "Datenschutzerklärung"
+		},
+		"LIBRARY": {
+			"EXAMPLE_VIEWER": {
+				"COPY_SNIPPET": "Snippet kopieren",
+				"COPY_SOURCE": "Beispiel-Quellcode kopieren",
+				"COPY_TO_CLIPBOARD": "Quellcode in die Zwischenablage kopieren",
+				"VIEW_FULL": "Vollständiges Beispiel ansehen",
+				"COPY_LINK": "Link zum Beispiel kopieren",
+				"VIEW_SNIPPET_ONLY": "Nur Snippet anzeigen",
+				"VIEW_LESS": "Weniger anzeigen",
+				"VIEW_CODE": "Code anzeigen",
+				"HIDE_CODE": "Code ausblenden",
+				"VIEW_SOURCE": "Quellcode anzeigen",
+				"HARNESS_NOTICE": "Dieses Beispiel enthält Tests. Öffne es in einer Entwicklungsumgebung, um sie auszuführen.",
+				"CODE_COPIED": "Code kopiert",
+				"COPY_ERROR": "Kopieren fehlgeschlagen. Bitte erneut versuchen!",
+				"LINK_COPIED": "Link kopiert",
+				"LINK_COPY_ERROR": "Link konnte nicht kopiert werden. Bitte erneut versuchen!",
+				"DEMO": "Demo",
+				"CODE": "Code"
+			},
+			"TABS": {
+				"OVERVIEW": "Übersicht",
+				"API": "API",
+				"STYLES": "Stile",
+				"EXAMPLES": "Beispiele",
+				"PLAYGROUND": "Playground"
+			},
+			"API": {
+				"METHODS_TITLE": "Methoden"
+			},
+			"PAGE": {
+				"WHY_SEARCH": "Warum Teams nach dieser Bibliothek suchen",
+				"FAQ": "Häufig gestellte Fragen",
+				"INSTALL": "Installieren",
+				"JUMP_TO": "Springen zu",
+				"IDEAL_FOR": "Ideal für",
+				"ABOUT_PREFIX": "Über",
+				"KEY_FEATURES": "Hauptfunktionen",
+				"FEATURE_GUIDES": "Funktionsleitfäden",
+				"FEATURE_GUIDES_EMPTY": "Für diese Bibliothek wurden noch keine Funktionsleitfäden dokumentiert.",
+				"RECENT_CHANGES": "Letzte Änderungen",
+				"RELATED_LIBRARIES": "Verwandte Bibliotheken",
+				"NO_CHANGELOG": "Keine Changelog-Einträge verfügbar.",
+				"API_REFERENCE": "API-Referenz",
+				"API_INTRO": "Hier ist der vollständige Vertrag für {name}: alles, was du binden, abhören, projizieren und gestalten kannst, an einem Ort gesammelt. Verdrahte, was du brauchst, und gestalte, was du willst — es ist standalone und Signals-freundlich.",
+				"API_INPUTS_LEDE": "Stelle {name} mit {count} Inputs ein. Binde sie wie jeden Angular-@Input.",
+				"API_OUTPUTS_LEDE": "Reagiere darauf, was {name} tut — {count} Events, an die du deine Logik anknüpfen kannst.",
+				"API_METHODS_LEDE": "Steuere {name} aus dem Code heraus — {count} Methoden auf der programmatischen Schnittstelle.",
+				"API_TEMPLATES_LEDE": "Mach es zu deinem — {count} Template-Slots lassen dich eigenes Markup projizieren.",
+				"API_CSS_VARS_LEDE": "Gestalte jedes Pixel mit {count} CSS-Variablen. Überschreibe sie auf :root oder begrenze sie auf einen Wrapper.",
+				"INPUTS": "Inputs",
+				"OUTPUTS": "Outputs",
+				"TEMPLATES": "Templates",
+				"CSS_VARIABLES": "CSS-Variablen",
+				"NAME": "Name",
+				"VARIABLE": "Variable",
+				"DESCRIPTION_COLUMN": "Beschreibung",
+				"TYPE": "Typ",
+				"DEFAULT": "Standard",
+				"SIGNATURE": "Signatur",
+				"RETURNS": "Rückgabe",
+				"EXAMPLES": "Beispiele",
+				"EXAMPLE": "Beispiel",
+				"REQUIRED": "Erforderlich",
+				"NO_INPUTS": "Noch keine Inputs dokumentiert.",
+				"NO_OUTPUTS": "Noch keine Outputs dokumentiert.",
+				"NO_TEMPLATES": "Noch keine Templates dokumentiert.",
+				"NO_CSS_VARIABLES": "Noch keine CSS-Variablen dokumentiert.",
+				"STYLING_GUIDE": "Styling und Theming",
+				"STYLING_EMPTY": "Es sind noch keine Styling-Beispiele dokumentiert. Dieser Abschnitt wird Anpassungsrezepte und Theming-Beispiele enthalten.",
+				"MIXINS": "Mixins und Stile",
+				"MIXIN": "Mixin",
+				"PARAMETERS": "Parameter",
+				"INTERACTIVE_EXAMPLES": "Interaktive Beispiele",
+				"INTERACTIVE_EXAMPLES_INTRO": "Erkunde Live-Beispiele, die zeigen, wie sich die Bibliothek in gängigen Angular-Anwendungsfällen verhält.",
+				"INTERACTIVE_EXAMPLES_EMPTY": "Es wurden noch keine interaktiven Beispiele registriert. Sie erscheinen hier, sobald sie verfügbar sind.",
+				"PLAYGROUND_TITLE": "Interaktiver Playground",
+				"PLAYGROUND_INTRO": "Konfiguriere jeden Input und beobachte, wie die Komponente live aktualisiert wird. Das generierte Template bleibt synchron, während du es anpasst.",
+				"PLAYGROUND_EMPTY": "Für diese Bibliothek wurde noch kein Playground konfiguriert.",
+				"LIVE_PREVIEW_UNAVAILABLE": "Die Live-Vorschau ist für dieses Beispiel noch nicht verfügbar.",
+				"CODE": "Code",
+				"IMPORT": "Import",
+				"TEMPLATE": "Template",
+				"COMPONENT": "Component"
+			},
+			"LAST_UPDATED": "Zuletzt aktualisiert"
+		},
+		"NOT_FOUND": {
+			"TITLE": "Seite nicht gefunden",
+			"MESSAGE": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
+			"CTA": "Zurück zur Startseite"
+		},
+		"THEMES": {
+			"BASE": "Basis",
+			"BOOTSTRAP": "Bootstrap",
+			"DARK": "Dunkel",
+			"SUNSET": "Sonnenuntergang",
+			"FOREST": "Wald",
+			"MONO": "Monochrom",
+			"TERMINAL": "Terminal"
+		},
+		"DESIGN_SYSTEM": {
+			"QUE_ES": "Was ist das?",
+			"INSTALACION": "Erste Schritte",
+			"ARQUITECTURA": "Architektur",
+			"COLORES": "Farben und Themes",
+			"CREA_TU_TEMA": "Eigenes Theme",
+			"FAMILIA": "Die Familie",
+			"MODIFICAR": "Anpassen",
+			"FUNCIONES": "SCSS-Funktionen",
+			"ESTRUCTURA": "Strukturebene",
+			"MIXINS": "Mixins und Styles",
+			"UTILIDADES": "Utilities",
+			"FLEXBOX": "Flexbox",
+			"COLUMNAS": "Spalten und Abstände",
+			"TEXTO": "Text",
+			"SUPERFICIES": "Oberflächen",
+			"HELPERS": "Position und Helfer",
+			"PUENTES": "Brücken zu anderen Systemen",
+			"REFERENCIA": "Referenz"
+		}
+	}
+}

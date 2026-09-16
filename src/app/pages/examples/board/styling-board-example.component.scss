@@ -1,0 +1,48 @@
+// The custom board theme, produced with the `hub-board-theme()` mixin shipped
+// by ng-hub-ui-board — one include instead of hand-writing every
+// `--hub-board-*` override. A few tokens not covered by the mixin are set by
+// hand below.
+@use '../../../../../projects/board/src/lib/styles/mixins/board-theme' as *;
+
+.hub-board.custom-board-theme {
+	height: 500px;
+
+	@include hub-board-theme(
+		$container-bg: #f8fafc,
+		$columns-gap: 1rem,
+		$column-bg: #f1f5f9,
+		$column-border-color: #e2e8f0,
+		$column-border-radius: 12px,
+		$card-bg: #ffffff,
+		$card-border-radius: 8px
+	);
+
+	// Tokens not exposed through the mixin — set them directly:
+	--hub-board-column-cap-bg: #e2e8f0;
+	--hub-board-column-cap-color: #475569;
+	--hub-board-column-border-width: 0;
+	--hub-board-column-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+	--hub-board-column-header-title-color: #222b39;
+	--hub-board-column-header-title-spacer-y: 0;
+	--hub-board-card-border-width: 0;
+	--hub-board-card-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+	--hub-board-card-title-color: #334155;
+	--hub-board-card-subtitle-color: #64748b;
+	--hub-board-card-spacer-y: 1rem;
+	--hub-board-card-spacer-x: 1rem;
+}
+
+.hub-board.custom-board-theme::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+.hub-board.custom-board-theme::-webkit-scrollbar-track {
+	background: transparent;
+}
+.hub-board.custom-board-theme::-webkit-scrollbar-thumb {
+	background: #cbd5e1;
+	border-radius: 4px;
+}
+.hub-board.custom-board-theme::-webkit-scrollbar-thumb:hover {
+	background: #94a3b8;
+}

@@ -1,0 +1,437 @@
+/**
+ * terminal.scss
+ *
+ * Immersive CRT layer for the "terminal" theme.
+ * Activated when [data-theme='terminal'] is set on the <html> element.
+ *
+ * The colour palette and design tokens live in the ng-hub-ui-ds
+ * package (projects/ds/styles/tokens/hub-tokens.scss).
+ * This file adds everything the token system cannot express:
+ *   - monospace typography and phosphor text-glow
+ *   - CRT scanlines, screen vignette and a subtle flicker
+ *   - a blinking command-prompt caret on the hero title
+ *   - dark, green-tinted code highlighting
+ *   - overrides for the hardcoded light colours shipped by the shared
+ *     documentation chrome (library-page.scss / example-container.scss)
+ *
+ * Selectors are prefixed with `html[data-theme='terminal']` on purpose:
+ * the extra `html` element raises specificity just enough to win over both
+ * the global chrome styles and Angular's emulated-encapsulation component
+ * styles, without resorting to `!important` (except for the square-corners
+ * reset, which must beat per-component border-radius rules).
+ */
+
+/* Phosphor glow tints reused across the theme. */
+$term-glow: rgba(74, 240, 122, 0.45);
+$term-glow-soft: rgba(74, 240, 122, 0.28);
+$term-glow-cyan: rgba(86, 225, 230, 0.6);
+
+html[data-theme='terminal'] {
+	// The family, the surface and the ink are NOT set here. The ds declares them as tokens
+	// on [data-theme='terminal'] and its reset applies them to the body, so repeating them
+	// would be a second source of truth for the same three values — and the one that drifts.
+	// What is left in this file is what no token can express: the phosphor glow, the
+	// scanlines, the caret, and the overrides for highlight.js, which is someone else's CSS.
+	scrollbar-color: var(--hub-sys-border-color-default) var(--hub-sys-surface-page); // Firefox
+
+	body {
+		text-shadow: 0 0 2px $term-glow-soft;
+		-webkit-font-smoothing: antialiased;
+	}
+
+	// ---- Text selection ----
+	::selection {
+		background: #4af07a;
+		color: #04140a;
+		text-shadow: none;
+	}
+
+	// ---- Headings: brighter phosphor + glow ----
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: #8dffb0;
+		text-shadow: 0 0 6px $term-glow;
+		letter-spacing: 0.02em;
+	}
+
+	// ---- Links: underlined, glow on hover ----
+	a {
+		text-decoration-thickness: 1px;
+		text-underline-offset: 2px;
+
+		&:hover {
+			text-shadow: 0 0 6px $term-glow-cyan;
+		}
+	}
+
+	// ---- Custom scrollbars (WebKit) ----
+	::-webkit-scrollbar {
+		width: 10px;
+		height: 10px;
+	}
+
+	::-webkit-scrollbar-track {
+		background: var(--hub-sys-surface-page);
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: var(--hub-sys-border-color-default);
+		border: 2px solid var(--hub-sys-surface-page);
+
+		&:hover {
+			background: #2fd862;
+		}
+	}
+
+	// Only the glow. The fill, the ink and the border come from the tokens the ds sets for
+	// this theme, which `_docs-chrome.scss` already reads.
+	.form-control,
+	.form-select {
+		&:focus {
+			border-color: $term-glow;
+			box-shadow: 0 0 0 0.2rem rgba(74, 240, 122, 0.25);
+		}
+	}
+
+	// ============================================================
+	// Hero title — command-prompt look with blinking caret
+	// ============================================================
+	.library-page__title {
+		font-family: 'VT323', 'JetBrains Mono', monospace;
+		color: #8dffb0;
+		text-shadow: 0 0 10px $term-glow;
+		letter-spacing: 0.04em;
+
+		&::before {
+			content: '> ';
+			color: #4af07a;
+		}
+
+		&::after {
+			content: '';
+			display: inline-block;
+			width: 0.5em;
+			height: 1em;
+			margin-left: 0.18em;
+			vertical-align: -0.12em;
+			background: #4af07a;
+			box-shadow: 0 0 8px $term-glow;
+			animation: hub-term-blink 1.05s steps(1) infinite;
+		}
+	}
+
+	.library-page__section-title::before {
+		content: '$ ';
+		color: #4af07a;
+		opacity: 0.85;
+	}
+
+	// ============================================================
+	// Documentation chrome — override hardcoded light colours
+	// (library-page.scss / example-container.scss ship fixed hexes
+	//  that otherwise stay white/grey and break the illusion)
+	// ============================================================
+	.library-page__header {
+		background: var(--hub-sys-surface-elevated);
+		border-bottom-color: var(--hub-sys-border-color-default);
+	}
+
+	.library-page__description,
+	.library-page__text,
+	.library-page__feature-description,
+	.library-page__example-description,
+	.library-page__changelog-change,
+	.library-page__api-item-type,
+	.library-page__api-item-default,
+	.library-page__api-item-description,
+	.library-page__css-variable-group-description {
+		color: var(--hub-sys-text-muted);
+	}
+
+	.library-page__section-title,
+	.library-page__section-subtitle,
+	.library-page__feature-title,
+	.library-page__feature-examples-title,
+	.library-page__example-title,
+	.library-page__changelog-version,
+	.library-page__api-item-name,
+	.library-page__code-title,
+	.library-page__code-subtitle,
+	.library-page__css-variable-group-title {
+		color: var(--hub-sys-text-primary);
+	}
+
+	.library-page__nav {
+		border-top-color: var(--hub-sys-border-color-default);
+	}
+
+	.library-page__nav-button {
+		color: var(--hub-sys-text-muted);
+
+		&:hover {
+			background-color: var(--hub-sys-state-hover-bg);
+			color: var(--hub-sys-text-primary);
+		}
+	}
+
+	.library-page__nav-button--active {
+		border-bottom-color: var(--hub-sys-color-primary);
+		background-color: var(--hub-sys-state-hover-bg);
+		color: var(--hub-sys-text-primary);
+	}
+
+	.library-page__quickstart-card,
+	.library-page__api-item,
+	.library-page__css-variable-group,
+	.library-page__css-variable,
+	.library-page__example-demo,
+	.library-page__example-placeholder {
+		background: var(--hub-sys-surface-elevated);
+		border-color: var(--hub-sys-border-color-default);
+		color: var(--hub-sys-text-primary);
+	}
+
+	.library-page__quick-link,
+	.library-page__related-link {
+		background: var(--hub-sys-surface-page);
+		border-color: var(--hub-sys-border-color-default);
+		color: var(--hub-sys-link-color);
+
+		&:hover {
+			background: var(--hub-sys-state-hover-bg);
+			border-color: var(--hub-sys-color-primary);
+		}
+	}
+
+	.library-page__use-case {
+		background: var(--hub-sys-color-primary-subtle);
+		color: var(--hub-sys-text-primary);
+	}
+
+	.library-page__changelog-entry,
+	.library-page__feature {
+		border-bottom-color: var(--hub-sys-border-color-default);
+	}
+
+	.library-page__api-group-title {
+		color: var(--hub-sys-text-primary);
+		border-bottom-color: var(--hub-sys-color-primary);
+	}
+
+	.library-page__example-demo::before {
+		background: var(--hub-sys-surface-elevated);
+		color: var(--hub-sys-text-muted);
+	}
+
+	.library-page__code {
+		background: #070b07;
+		border-color: var(--hub-sys-border-color-default);
+		color: var(--hub-sys-text-primary);
+	}
+
+	.library-page__css-variable .library-page__api-item-name code,
+	.library-page__css-variable-details code,
+	.library-page__css-variable-example {
+		color: var(--hub-sys-color-primary);
+		background-color: var(--hub-sys-color-primary-subtle);
+		border-color: var(--hub-sys-border-color-default);
+	}
+
+	.library-page__example-placeholder-header {
+		background-color: #14301f;
+	}
+
+	.library-page__example-placeholder-body {
+		background: linear-gradient(90deg, #0a0e0a 0%, #14301f 50%, #0a0e0a 100%);
+		background-size: 200% 100%;
+	}
+
+	// Example container (Angular-encapsulated component styles)
+	.example__title {
+		color: var(--hub-sys-text-primary);
+	}
+
+	.example__description {
+		color: var(--hub-sys-text-muted);
+	}
+
+	.example__demo {
+		background-color: var(--hub-sys-surface-elevated);
+		border-color: var(--hub-sys-border-color-default);
+	}
+
+	.example__code-title {
+		color: var(--hub-sys-text-primary);
+	}
+
+	.example__code-content {
+		background-color: var(--hub-sys-surface-page);
+		border-color: var(--hub-sys-border-color-default);
+
+		pre {
+			background-color: #070b07;
+		}
+	}
+
+	// Analytics consent banner (ships hardcoded light colours)
+	.analytics-consent {
+		background: var(--hub-sys-surface-elevated);
+		border-color: var(--hub-sys-border-color-default);
+		box-shadow: 0 0 1.5rem rgba(74, 240, 122, 0.18);
+		backdrop-filter: none;
+	}
+
+	.analytics-consent__title {
+		color: var(--hub-sys-text-primary);
+	}
+
+	.analytics-consent__text {
+		color: var(--hub-sys-text-muted);
+	}
+
+	.analytics-consent__button--secondary {
+		background: transparent;
+		color: var(--hub-sys-text-primary);
+		border: 1px solid var(--hub-sys-border-color-default);
+	}
+
+	.analytics-consent__button--primary {
+		background: var(--hub-sys-color-primary);
+		color: #04140a;
+	}
+
+	// ============================================================
+	// Code highlighting — override highlight.js GitHub (light) theme
+	// ============================================================
+	// Every code container shares the same near-black screen, so the
+	// padding around the highlighted <code> never shows a light frame.
+	pre,
+	code {
+		background-color: #070b07;
+	}
+
+	.hljs {
+		background: #070b07;
+		color: #66f08f;
+	}
+
+	.hljs-comment,
+	.hljs-quote {
+		color: #3f7d56;
+		font-style: italic;
+	}
+
+	.hljs-keyword,
+	.hljs-selector-tag,
+	.hljs-built_in,
+	.hljs-name,
+	.hljs-tag {
+		color: #56e1e6;
+	}
+
+	.hljs-string,
+	.hljs-attr,
+	.hljs-template-tag,
+	.hljs-addition {
+		color: #b6ff7a;
+	}
+
+	.hljs-number,
+	.hljs-literal,
+	.hljs-variable,
+	.hljs-type,
+	.hljs-params {
+		color: #ffb454;
+	}
+
+	.hljs-title,
+	.hljs-section {
+		color: #8dffb0;
+	}
+
+	.hljs-attribute,
+	.hljs-symbol,
+	.hljs-bullet,
+	.hljs-link,
+	.hljs-deletion {
+		color: #ff6b63;
+	}
+
+	.hljs-meta {
+		color: #3f9e63;
+	}
+
+	// ============================================================
+	// CRT overlay — screen glow / vignette + scanlines + flicker
+	// Fixed, pointer-events:none so interaction passes through.
+	// ============================================================
+	body::before {
+		content: '';
+		position: fixed;
+		inset: 0;
+		pointer-events: none;
+		z-index: 2147483645;
+		background:
+			radial-gradient(120% 120% at 50% 0%, rgba(74, 240, 122, 0.06) 0%, transparent 55%),
+			radial-gradient(140% 140% at 50% 100%, rgba(0, 0, 0, 0.55) 0%, transparent 60%);
+	}
+
+	body::after {
+		content: '';
+		position: fixed;
+		inset: 0;
+		pointer-events: none;
+		z-index: 2147483646;
+		background: repeating-linear-gradient(
+			0deg,
+			rgba(0, 0, 0, 0.22) 0,
+			rgba(0, 0, 0, 0.22) 1px,
+			transparent 1px,
+			transparent 3px
+		);
+		opacity: 0.6;
+		animation: hub-term-flicker 4s steps(60) infinite;
+	}
+}
+
+// ---- Animations ----
+@keyframes hub-term-blink {
+	0%,
+	50% {
+		opacity: 1;
+	}
+	50.01%,
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes hub-term-flicker {
+	0% {
+		opacity: 0.55;
+	}
+	48% {
+		opacity: 0.62;
+	}
+	50% {
+		opacity: 0.48;
+	}
+	52% {
+		opacity: 0.62;
+	}
+	100% {
+		opacity: 0.6;
+	}
+}
+
+// Respect users who prefer reduced motion.
+@media (prefers-reduced-motion: reduce) {
+	html[data-theme='terminal'] body::after,
+	html[data-theme='terminal'] .library-page__title::after {
+		animation: none;
+	}
+}

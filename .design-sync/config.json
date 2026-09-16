@@ -1,0 +1,7 @@
+{
+  "pkg": "ng-hub-ui-ds",
+  "globalName": "HubUI",
+  "shape": "package",
+  "readmeHeader": ".design-sync/conventions.md",
+  "projectId": "3811a9ad-9103-43f9-8d8f-3ac003258dbe"
+}

@@ -1,0 +1,56 @@
+// Example container component styles - BEM methodology
+.example {
+	margin-bottom: 2rem;
+
+	&__header {
+		margin-bottom: 1.5rem;
+	}
+
+	&__title {
+		font-size: 1.5rem;
+		font-weight: 600;
+		color: var(--hub-sys-text-primary);
+		margin-bottom: 0.5rem;
+	}
+
+	&__description {
+		color: var(--hub-sys-text-muted);
+		margin-bottom: 0;
+		line-height: 1.5;
+	}
+
+	&__demo {
+		padding: 1.5rem;
+		background-color: var(--hub-sys-surface-elevated);
+		border: 1px solid var(--hub-sys-border-color-default);
+		border-radius: 12px;
+		margin-bottom: 1.5rem;
+	}
+
+	&__code {
+		&-title {
+			font-size: 1.1rem;
+			font-weight: 600;
+			color: var(--hub-sys-text-primary);
+			margin-bottom: 0.75rem;
+		}
+
+		&-content {
+			background-color: var(--hub-sys-surface-page);
+			border: 1px solid var(--hub-sys-border-color-default);
+			border-radius: 12px;
+
+			// Reset margins for code blocks inside
+			:global(pre) {
+				margin-bottom: 0;
+				border-radius: 12px;
+				background-color: var(--hub-sys-surface-elevated);
+			}
+
+			:global(code) {
+				font-family: var(--hub-ref-font-family-mono);
+				font-size: 0.875rem;
+			}
+		}
+	}
+}

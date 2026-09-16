@@ -1,0 +1,5620 @@
+{
+	"DOCS": {
+		"ACTION_SHEET": {
+			"FEATURE": {
+				"OPENING": {
+					"TITLE": "打开操作面板",
+					"DESCRIPTION": "面板由服务打开并只应答一次，因此关闭时页面上不会留下它的任何内容。",
+					"HIGHLIGHT": "从服务打开；调用以用户的选择结束。"
+				},
+				"ROLES": {
+					"TITLE": "角色与处理函数",
+					"DESCRIPTION": "角色决定每个操作的位置与语气；处理函数决定面板是否可以关闭。",
+					"HIGHLIGHT": "取消单独放置，破坏性操作使用危险色，处理函数可以拒绝关闭。"
+				},
+				"GROUPS": {
+					"TITLE": "分组操作",
+					"DESCRIPTION": "带自有标题的分块，适用于长到平铺列表已难以阅读的面板。",
+					"HIGHLIGHT": "带标题的分块，选中与禁用的操作都保持列表形状。"
+				},
+				"THEMING": {
+					"TITLE": "强调色与令牌",
+					"DESCRIPTION": "整个面板一个语义强调色，其下每个视觉决定各有一个 CSS 变量。",
+					"HIGHLIGHT": "一个强调色槽位，其余交给 --hub-action-sheet-*。"
+				},
+				"ACCESSIBILITY": {
+					"TITLE": "键盘与屏幕阅读器",
+					"DESCRIPTION": "以标题命名的模态对话框：打开时焦点进入，期间被困在内部，关闭后回到触发元素。",
+					"HIGHLIGHT": "模态对话框：焦点进入、留驻并返回。"
+				}
+			},
+			"EXAMPLE": {
+				"BASIC": {
+					"TITLE": "打开操作面板",
+					"DESCRIPTION": "一个标题、三个操作和一个出口；调用以选择结束。"
+				},
+				"ROLES": {
+					"TITLE": "角色与会拒绝的处理函数",
+					"DESCRIPTION": "破坏性操作首次失败，并让面板保持打开。"
+				},
+				"GROUPS": {
+					"TITLE": "分组操作",
+					"DESCRIPTION": "带标题的分块、标记当前格式，以及一个禁用项。"
+				},
+				"THEMING": {
+					"TITLE": "强调色与令牌",
+					"DESCRIPTION": "同一个面板，先用语义强调色，再用品牌令牌。"
+				}
+			},
+			"NAV": {
+				"BASIC": "打开",
+				"ROLES": "角色",
+				"GROUPS": "分组",
+				"THEMING": "主题"
+			},
+			"API": {
+				"OPTION": {
+					"BUTTONS": {
+						"DESCRIPTION": "操作项，平铺或分组带标题。"
+					},
+					"HEADER": {
+						"DESCRIPTION": "面板标题，同时作为无障碍名称。"
+					},
+					"SUB_HEADER": {
+						"DESCRIPTION": "标题下方的次要文字。"
+					},
+					"VARIANT": {
+						"DESCRIPTION": "语义强调色，读作 --hub-sys-color-<variant>。"
+					},
+					"BACKDROP_DISMISS": {
+						"DESCRIPTION": "点击背景关闭面板。"
+					},
+					"KEYBOARD": {
+						"DESCRIPTION": "Escape 关闭面板。"
+					},
+					"SWIPE_TO_CLOSE": {
+						"DESCRIPTION": "向下拖动超过阈值即关闭。"
+					},
+					"ANIMATION": {
+						"DESCRIPTION": "为进入与退出添加动画。在 prefers-reduced-motion 下忽略。"
+					},
+					"PANEL_CLASS": {
+						"DESCRIPTION": "面板元素上的附加类，用于只定制某一个面板。"
+					},
+					"ARIA_LABEL": {
+						"DESCRIPTION": "没有标题时的无障碍名称。"
+					}
+				},
+				"METHOD": {
+					"OPEN": {
+						"DESCRIPTION": "把面板挂载到文档，并返回其结果的句柄。"
+					},
+					"RESULT": {
+						"DESCRIPTION": "只解决一次：所选操作的角色与数据，或面板被关闭的方式。"
+					},
+					"CLOSED": {
+						"DESCRIPTION": "与 result 相同的值，供使用流的调用方。"
+					},
+					"DISMISS": {
+						"DESCRIPTION": "从外部关闭面板，并报告给定角色。"
+					},
+					"SETTLED": {
+						"DESCRIPTION": "面板是否已经给出结果，调用方据此区分打开与已关闭的面板。"
+					},
+					"PROVIDE": {
+						"DESCRIPTION": "设置每个面板出发时的应用级默认值：四个行为开关，外加 variant 和 panelClass。"
+					},
+					"CONFIG_TOKEN": {
+						"DESCRIPTION": "服务读取的令牌。直接提供它可整体替换配置，而不是与其合并。"
+					},
+					"DEFAULTS": {
+						"DESCRIPTION": "无人另行指定时面板的行为：backdropDismiss、keyboard、swipeToClose 和 animation 全为 true。"
+					}
+				}
+			}
+		},
+		"AVATAR": {
+			"FEATURE": {
+				"AVATAR_SOURCES": {
+					"TITLE": "头像来源",
+					"DESCRIPTION": "可从社交资料、自定义图片、名称首字母或自定义值解析头像，并提供自动回退。"
+				},
+				"FALLBACK_SYSTEM": {
+					"TITLE": "回退系统",
+					"DESCRIPTION": "会优雅地逐一降级遍历每个已配置的来源，直到显示出一个有意义的表示。"
+				},
+				"SIZING": {
+					"TITLE": "尺寸",
+					"DESCRIPTION": "可控制头像尺寸、文字与尺寸的比例以及渲染多少个首字母。"
+				},
+				"STYLING": {
+					"TITLE": "样式",
+					"DESCRIPTION": "形状、圆角半径、颜色、边框和任意内联样式——全部由输入和 CSS 变量驱动。"
+				},
+				"INTERACTIVITY": {
+					"TITLE": "交互性",
+					"DESCRIPTION": "通过头像点击事件对用户交互做出响应。"
+				},
+				"GROUPS_STATUS": {
+					"TITLE": "分组与徽标",
+					"DESCRIPTION": "将头像堆叠为分组，并在角落叠加徽标——状态圆点或计数——使用语义色板着色。"
+				},
+				"CUSTOM_CONTENT": {
+					"TITLE": "自定义内容",
+					"DESCRIPTION": "可将任意图标、内联 SVG、图片或表情符号投影到头像内。它会居中、留白并按头像形状裁剪，以不依赖类型的方式调整大小（字体图标缩放，SVG/图片填充），并通过常规的 bgColor / fgColor 输入进行主题化。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"SIZE": {
+						"DESCRIPTION": "头像尺寸（像素）"
+					},
+					"NAME": {
+						"DESCRIPTION": "当图片来源失败时用于生成首字母缩写的用户名"
+					},
+					"SRC": {
+						"DESCRIPTION": "头像的主要自定义图片来源 URL"
+					},
+					"ALT": {
+						"DESCRIPTION": "头像图片的替代文本，用于无障碍访问"
+					},
+					"ROUND": {
+						"DESCRIPTION": "头像是否为圆形（true），或遵循 cornerRadius"
+					},
+					"INTERACTIVE": {
+						"DESCRIPTION": "将头像标记为可交互控件：暴露 role=“button”，使其可聚焦，并可通过 Enter/Space 触发 clickOnAvatar。绑定 (clickOnAvatar) 时应始终启用。"
+					},
+					"AUTO_COLOR": {
+						"DESCRIPTION": "为 `true`（默认）时，首字母头像的背景由名称的哈希值生成。设为 `false` 可改为通过 `--hub-avatar-bg-color` 变量进行主题化；显式的 `bgColor` 始终优先。"
+					},
+					"BG_COLOR": {
+						"DESCRIPTION": "文字头像的背景颜色。若未提供则自动生成"
+					},
+					"FG_COLOR": {
+						"DESCRIPTION": "文本 avatar 中首字母的文本颜色"
+					},
+					"BORDER_COLOR": {
+						"DESCRIPTION": "头像周围的边框颜色"
+					},
+					"CORNER_RADIUS": {
+						"DESCRIPTION": "当 round 为 false 时的圆角半径"
+					},
+					"TEXT_SIZE_RATIO": {
+						"DESCRIPTION": "根据头像尺寸计算文字大小的比例（size / textSizeRatio）"
+					},
+					"INITIALS_SIZE": {
+						"DESCRIPTION": "限制显示的首字母数量（0 = 不限制）"
+					},
+					"FACEBOOK_ID": {
+						"DESCRIPTION": "用于获取头像的 Facebook 用户 ID（尽力而为，可能受 API 限制）"
+					},
+					"GITHUB_ID": {
+						"DESCRIPTION": "用于获取头像的 GitHub 用户名"
+					},
+					"GRAVATAR_ID": {
+						"DESCRIPTION": "用于获取头像的 Gravatar 邮箱或 MD5 哈希值"
+					},
+					"VALUE": {
+						"DESCRIPTION": "将自定义值显示为头像（例如 \"75%\"、\"+5\"）"
+					},
+					"STYLE": {
+						"DESCRIPTION": "合并到渲染内容（图片、姓名首字母或投影内容槽）的内联样式。接受样式对象或 CSS 字符串；不会作用于宿主元素"
+					},
+					"REFERRERPOLICY": {
+						"DESCRIPTION": "头像图片的 referrer 策略（例如 \"no-referrer\"）"
+					},
+					"PLACEHOLDER": {
+						"DESCRIPTION": "最后兜底的图片：仅在没有其他内容可画时显示——没有解析出来源、没有声明来源，或某个来源仍在加载——并且也没有姓名首字母。它永远不会进入回退链，因此不会像 `src` 那样越过首字母。"
+					},
+					"BADGE": {
+						"DESCRIPTION": "角标叠加：`badge` / `[badge]=\"true\"` → 圆点；`badge=\"4k\"` → 文字徽标；null / 缺省 → 无。"
+					},
+					"BADGE_COLOR": {
+						"DESCRIPTION": "徽标的语义颜色（primary · secondary · success · danger · warning · info · light · dark）→ `--hub-sys-color-*`。"
+					}
+				},
+				"OUTPUT": {
+					"CLICK_ON_AVATAR": {
+						"DESCRIPTION": "点击时触发，设置 `interactive` 后按 Enter/空格也会触发；返回正在绘制头像的来源（带有 `sourceType`、`sourceId` 与 `getAvatar(size)`），若没有来源解析成功则为 null。`Source` 由该包导出，因此处理函数可以写出类型，而不必退回 any"
+					}
+				},
+				"CSS_VAR": {
+					"AVATAR_BORDER_RADIUS": {
+						"DESCRIPTION": "avatar 容器的边框半径"
+					},
+					"AVATAR_BG_COLOR": {
+						"DESCRIPTION": "文本 avatar 的背景颜色"
+					},
+					"AVATAR_TEXT_COLOR": {
+						"DESCRIPTION": "文本 avatar 中首字母的文本颜色"
+					},
+					"AVATAR_BORDER_COLOR": {
+						"DESCRIPTION": "avatar 周围的边框颜色"
+					},
+					"AVATAR_BORDER_WIDTH": {
+						"DESCRIPTION": "avatar 周围的边框宽度"
+					},
+					"AVATAR_FONT_FAMILY": {
+						"DESCRIPTION": "avatar 首字母的字体族"
+					},
+					"AVATAR_FONT_WEIGHT": {
+						"DESCRIPTION": "avatar 首字母的字重"
+					},
+					"AVATAR_TEXT_TRANSFORM": {
+						"DESCRIPTION": "首字母的文本转换"
+					},
+					"AVATAR_CONTENT_PADDING": {
+						"DESCRIPTION": "投影内容与头像边缘之间的内边距。"
+					},
+					"AVATAR_CONTENT_ICON_SIZE": {
+						"DESCRIPTION": "投影的字体图标 / 表情符号的字号（由字形继承）。"
+					}
+				},
+				"METHOD": {
+					"SOURCE_GET_AVATAR": {
+						"DESCRIPTION": "解析该来源在指定尺寸下所绘制的内容：远程来源给出图片 URL，本地来源给出首字母或纯文本。`Source` 是 `clickOnAvatar` 的载荷，并由该包导出。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"FACEBOOK": {
+					"TITLE": "Facebook 资料"
+				},
+				"GRAVATAR": {
+					"TITLE": "Gravatar"
+				},
+				"GITHUB": {
+					"TITLE": "GitHub 资料"
+				},
+				"CUSTOM_IMAGE": {
+					"TITLE": "自定义图片来源"
+				},
+				"INITIALS": {
+					"TITLE": "姓名首字母"
+				},
+				"VALUE": {
+					"TITLE": "值显示"
+				},
+				"FALLBACK": {
+					"TITLE": "回退系统"
+				},
+				"SIZE": {
+					"TITLE": "自定义尺寸"
+				},
+				"TEXT_RATIO": {
+					"TITLE": "文字大小比例"
+				},
+				"INITIALS_SIZE": {
+					"TITLE": "首字母数量限制"
+				},
+				"ROUND": {
+					"TITLE": "圆形头像"
+				},
+				"CORNER_RADIUS": {
+					"TITLE": "圆角半径"
+				},
+				"COLORS": {
+					"TITLE": "背景色和前景色"
+				},
+				"BORDER": {
+					"TITLE": "边框颜色"
+				},
+				"CUSTOM_STYLE": {
+					"TITLE": "自定义样式"
+				},
+				"CLICK": {
+					"TITLE": "点击事件处理器"
+				},
+				"GROUP": {
+					"TITLE": "头像组显示"
+				},
+				"STATUS": {
+					"TITLE": "徽标（圆点与计数）"
+				},
+				"CUSTOM_CONTENT": {
+					"TITLE": "自定义内容（图标、SVG）"
+				}
+			},
+			"NAV": {
+				"FACEBOOK": "Facebook 资料",
+				"GRAVATAR": "Gravatar",
+				"GITHUB": "GitHub 资料",
+				"CUSTOM_IMAGE": "自定义图片",
+				"INITIALS": "姓名首字母",
+				"VALUE": "值显示",
+				"FALLBACK": "回退系统",
+				"SIZE": "自定义尺寸",
+				"TEXT_RATIO": "文字比例",
+				"INITIALS_SIZE": "首字母大小",
+				"ROUND": "圆形头像",
+				"CORNER_RADIUS": "圆角半径",
+				"COLORS": "颜色",
+				"BORDER": "边框",
+				"CUSTOM_STYLE": "自定义样式",
+				"CLICK": "点击事件",
+				"GROUP": "头像组",
+				"STATUS": "徽标",
+				"CUSTOM_CONTENT": "自定义内容"
+			}
+		},
+		"BOARD": {
+			"FEATURE": {
+				"BASIC_USAGE": {
+					"TITLE": "基本用法",
+					"DESCRIPTION": "board 的基础功能"
+				},
+				"INTERACTIONS": {
+					"TITLE": "交互",
+					"DESCRIPTION": "用户交互能力"
+				},
+				"ADVANCED_FEATURES": {
+					"TITLE": "高级功能",
+					"DESCRIPTION": "滚动和高级行为"
+				},
+				"TEMPLATES": {
+					"TITLE": "模板",
+					"DESCRIPTION": "自定义外观"
+				},
+				"CONFIGURATION": {
+					"TITLE": "配置",
+					"DESCRIPTION": "board 配置选项"
+				},
+				"STYLING": {
+					"TITLE": "样式",
+					"DESCRIPTION": "通过 CSS 变量自定义外观"
+				}
+			},
+			"EXAMPLE": {
+				"BASIC": {
+					"TITLE": "看板基础示例"
+				},
+				"CARD_DRAG_DROP": {
+					"TITLE": "卡片拖放"
+				},
+				"COLUMN_REORDERING": {
+					"TITLE": "列重新排序"
+				},
+				"CARD_CLICK": {
+					"TITLE": "卡片点击事件"
+				},
+				"INFINITE_SCROLL": {
+					"TITLE": "无限滚动"
+				},
+				"CUSTOM_CARD_TEMPLATE": {
+					"TITLE": "自定义卡片模板"
+				},
+				"CUSTOM_HEADER_TEMPLATE": {
+					"TITLE": "自定义头部模板"
+				},
+				"CUSTOM_FOOTER_TEMPLATE": {
+					"TITLE": "自定义底部模板"
+				},
+				"DISABLE_SORTING": {
+					"TITLE": "禁用排序"
+				},
+				"DRAG_BEHAVIOR": {
+					"TITLE": "拖拽行为模式"
+				},
+				"STYLING_CUSTOMIZATION": {
+					"TITLE": "CSS 自定义"
+				},
+				"CARD_PLACEHOLDER": {
+					"TITLE": "自定义卡片占位符"
+				},
+				"COLUMN_PLACEHOLDER": {
+					"TITLE": "自定义列占位符"
+				},
+				"DRAG_PREVIEW": {
+					"TITLE": "自定义拖拽预览"
+				},
+				"EVENTS": {
+					"TITLE": "看板事件"
+				},
+				"KEYBOARD_ACCESSIBILITY": {
+					"TITLE": "键盘与屏幕阅读器"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"BOARD_LABEL": {
+						"DESCRIPTION": "看板列表容器的无障碍名称。"
+					},
+					"BOARD": {
+						"DESCRIPTION": "要渲染的完整看板定义：一个对象，其 columns 数组承载组件所显示的列与卡片数据。"
+					},
+					"VARIANT": {
+						"DESCRIPTION": "拖放占位符的语义强调色。接受设计系统内置的强调色、任何已注册的自定义强调色名称，或字面颜色值（#hex、rgb()、oklch()、CSS 命名颜色）；未设置时默认为 primary 强调色。"
+					},
+					"COLUMN_SORTING_DISABLED": {
+						"DESCRIPTION": "为 true 时，整个看板都将禁止通过拖放对列重新排序。"
+					},
+					"DRAG_BEHAVIOR": {
+						"DESCRIPTION": "控制拖动期间被拖动元素的外观：'ghost' 使其以半透明保持可见，'hide' 使其不可见但保留其占位空间，'collapse' 则将元素及其空间完全移除。"
+					}
+				},
+				"CSS_VAR": {
+					"COLUMN_BG": {
+						"DESCRIPTION": "board 列的背景颜色"
+					},
+					"COLUMN_COLOR": {
+						"DESCRIPTION": "board 列内的文本颜色"
+					},
+					"COLUMN_BORDER_COLOR": {
+						"DESCRIPTION": "board 列周围的边框颜色"
+					},
+					"COLUMN_BORDER_WIDTH": {
+						"DESCRIPTION": "列边框的宽度"
+					},
+					"COLUMN_BORDER_RADIUS": {
+						"DESCRIPTION": "列圆角的边框半径"
+					},
+					"COLUMN_GAP": {
+						"DESCRIPTION": "列之间的间距"
+					},
+					"COLUMN_BODY_PADDING_X": {
+						"DESCRIPTION": "列主体（容纳卡片的区域）的水平内边距"
+					},
+					"COLUMN_BODY_PADDING_Y": {
+						"DESCRIPTION": "列主体（容纳卡片的区域）的垂直内边距"
+					},
+					"COLUMN_CAP_BG": {
+						"DESCRIPTION": "列头的背景颜色"
+					},
+					"COLUMN_CAP_COLOR": {
+						"DESCRIPTION": "列头的文本颜色"
+					},
+					"COLUMN_CAP_PADDING_X": {
+						"DESCRIPTION": "列头部和底部内的水平内边距"
+					},
+					"COLUMN_CAP_PADDING_Y": {
+						"DESCRIPTION": "列头部和底部内的垂直内边距"
+					},
+					"CARD_BG": {
+						"DESCRIPTION": "卡片的背景颜色"
+					},
+					"CARD_COLOR": {
+						"DESCRIPTION": "卡片的文本颜色"
+					},
+					"CARD_BORDER": {
+						"DESCRIPTION": "卡片边框的颜色"
+					},
+					"CARD_BORDER_WIDTH": {
+						"DESCRIPTION": "卡片边框的宽度"
+					},
+					"CARD_BORDER_RADIUS": {
+						"DESCRIPTION": "卡片圆角的边框半径"
+					},
+					"CARD_PADDING_X": {
+						"DESCRIPTION": "卡片内部的水平内边距"
+					},
+					"CARD_PADDING_Y": {
+						"DESCRIPTION": "卡片内部的垂直内边距"
+					},
+					"CARD_SHADOW": {
+						"DESCRIPTION": "卡片的阴影"
+					},
+					"DROP_ZONE_BG": {
+						"DESCRIPTION": "活动放置区域的背景颜色"
+					},
+					"DROP_ZONE_BORDER": {
+						"DESCRIPTION": "拖放占位符的边框颜色"
+					},
+					"PLACEHOLDER_BORDER_WIDTH": {
+						"DESCRIPTION": "拖放占位符的边框宽度"
+					},
+					"DRAG_TRANSITION": {
+						"DESCRIPTION": "拖放期间应用于卡片的 CSS 过渡（属性、时长和缓动合为一个值）"
+					}
+				},
+				"OUTPUT": {
+					"ON_CARD_CLICK": {
+						"DESCRIPTION": "每当看板内的某张卡片被点击时，发出被点击的卡片。"
+					},
+					"ON_CARD_MOVED": {
+						"DESCRIPTION": "当卡片通过指针拖动或键盘移动被重新定位（在其所在列内或移入另一列）时发出，附带之前/当前索引以及源/目标列。"
+					},
+					"ON_COLUMN_MOVED": {
+						"DESCRIPTION": "当通过拖放对列重新排序时发出，附带之前和当前的列索引。"
+					},
+					"REACHED_END": {
+						"DESCRIPTION": "当某列主体滚动到底部时发出，附带该列的索引与数据——可用于实现无限滚动加载。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "cardTpt",
+						"DESCRIPTION": "替换卡片的默认内容。模板上下文提供 item（卡片）与 column（所属列），因此应绑定 let-card=\"item\"。"
+					},
+					"1": {
+						"NAME": "columnHeaderTpt",
+						"DESCRIPTION": "替换列的默认表头。模板上下文提供 column。"
+					},
+					"2": {
+						"NAME": "columnFooterTpt",
+						"DESCRIPTION": "在列内容下方添加页脚。模板上下文提供 column；未提供模板时不渲染页脚。"
+					},
+					"3": {
+						"NAME": "cardPlaceholder",
+						"DESCRIPTION": "拖拽卡片时显示的自定义放置区域。上下文提供 card（被拖拽的卡片）与 column（目标列）。"
+					},
+					"4": {
+						"NAME": "columnPlaceholder",
+						"DESCRIPTION": "拖拽列时显示的自定义放置区域。上下文提供 column（被拖拽的列）。"
+					},
+					"5": {
+						"NAME": "cardDragPreview",
+						"DESCRIPTION": "拖拽卡片时跟随光标的自定义元素。上下文提供 card 与 column（来源列）。"
+					},
+					"6": {
+						"NAME": "columnDragPreview",
+						"DESCRIPTION": "拖拽列时跟随光标的自定义元素。上下文提供 column。"
+					}
+				}
+			},
+			"NAV": {
+				"BASIC": "基础看板",
+				"CARD_DRAG_DROP": "卡片拖放",
+				"KEYBOARD_ACCESSIBILITY": "键盘与屏幕阅读器",
+				"COLUMN_REORDERING": "列重新排序",
+				"CARD_CLICK": "卡片点击事件",
+				"INFINITE_SCROLL": "无限滚动",
+				"CUSTOM_CARD_TEMPLATE": "自定义卡片模板",
+				"CUSTOM_HEADER_TEMPLATE": "自定义头部",
+				"CUSTOM_FOOTER_TEMPLATE": "自定义底部",
+				"DISABLE_SORTING": "禁用排序",
+				"DRAG_BEHAVIOR": "拖拽行为",
+				"STYLING_CUSTOMIZATION": "CSS 自定义",
+				"CARD_PLACEHOLDER": "卡片占位符",
+				"COLUMN_PLACEHOLDER": "列占位符",
+				"DRAG_PREVIEW": "拖拽预览",
+				"EVENTS": "事件"
+			},
+			"GROUP": {
+				"BASICS": {
+					"TITLE": "基础与交互"
+				},
+				"DRAG_AND_DROP": {
+					"TITLE": "拖放"
+				},
+				"TEMPLATES": {
+					"TITLE": "模板"
+				},
+				"PLACEHOLDERS_STYLING": {
+					"TITLE": "占位符与样式"
+				}
+			}
+		},
+		"BREADCRUMBS": {
+			"FEATURE": {
+				"CORE_FEATURES": {
+					"TITLE": "核心功能",
+					"DESCRIPTION": "基础的 breadcrumbs 功能，支持自动路由检测和导航路径显示。"
+				},
+				"DYNAMIC_CONTENT": {
+					"TITLE": "动态内容",
+					"DESCRIPTION": "从路由数据和解析器动态解析 breadcrumbs 内容，并支持占位符。"
+				},
+				"TEMPLATES_CUSTOMIZATION": {
+					"TITLE": "模板与自定义",
+					"DESCRIPTION": "丰富的自定义选项，可为 breadcrumbs 项使用自定义模板并增强样式。"
+				},
+				"ADVANCED_FEATURES": {
+					"TITLE": "高级功能",
+					"DESCRIPTION": "增强功能，包括图标支持、面向国际化应用的 RTL 布局兼容性、长路径折叠以及基于令牌的键盘焦点环。"
+				}
+			},
+			"EXAMPLE": {
+				"BASIC": {
+					"TITLE": "基础面包屑",
+					"DESCRIPTION": "直接从路由配置读取的路径，无需额外接线。"
+				},
+				"DYNAMIC": {
+					"TITLE": "动态面包屑",
+					"DESCRIPTION": "标签由路由中的占位符与其 resolver 返回的数据组合而成。"
+				},
+				"CUSTOM_TEMPLATES": {
+					"TITLE": "自定义模板",
+					"DESCRIPTION": "用 hubBreadcrumbItem 模板接管每一项的标记。"
+				},
+				"ICONS": {
+					"TITLE": "路径中的图标",
+					"DESCRIPTION": "在路由数据中声明的图标，通过自定义项模板渲染。"
+				},
+				"RTL": {
+					"TITLE": "RTL 布局",
+					"DESCRIPTION": "从右到左的支持，分隔符位于路径来向的一侧。"
+				},
+				"TRUNCATION": {
+					"TITLE": "截断与工具提示",
+					"DESCRIPTION": "用省略号截断过长的标签，悬停时显示完整文本。"
+				},
+				"STYLING": {
+					"TITLE": "CSS 变量自定义",
+					"DESCRIPTION": "分隔符、颜色、间距与圆角，全部通过 CSS 自定义属性调整。"
+				},
+				"COLLAPSE": {
+					"TITLE": "折叠较长的路径",
+					"DESCRIPTION": "将较深路径的中间部分折叠到指示按钮之后，点击即可就地展开。"
+				},
+				"EXTERNAL_LINKS": {
+					"TITLE": "路由之外的目标",
+					"DESCRIPTION": "指向 Angular 应用之外或指向下载文件的条目，渲染为普通链接。"
+				},
+				"FOCUS_RING": {
+					"TITLE": "键盘焦点环",
+					"DESCRIPTION": "链接和折叠指示器上的设计系统焦点环，可通过 CSS 变量重新着色。"
+				},
+				"SIGNAL": {
+					"TITLE": "作为信号的路径",
+					"DESCRIPTION": "页头的标题直接取自最后一段路径。`HubBreadcrumbsService.breadcrumbs` 是一个信号，组件之外的任何东西都能从它派生，无需订阅，也没有需要清理的东西。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"ITEMS": {
+						"DESCRIPTION": "由使用方提供的路径，替代从路由推导出的路径。保持为 null 时，组件继续读取 HubBreadcrumbsService。"
+					},
+					"VARIANT": {
+						"DESCRIPTION": "面包屑链接的语义强调色（如 primary、success）或任意自定义 token 名称。"
+					},
+					"TRUNCATE_ITEMS": {
+						"DESCRIPTION": "为 true 时，将每个标签截断到 --hub-breadcrumb-max-item-width 并加省略号，溢出时显示工具提示。hubBreadcrumbItem 模板同样适用：组件会把投影内容包进自己的 span.hub-breadcrumb__custom 并截断这个盒子，因为封装样式无法触及消费方组件所拥有的元素。"
+					},
+					"MAX_ITEMS": {
+						"DESCRIPTION": "超过该长度后路径将折叠到指示器之后。undefined 表示无论多长都不折叠。"
+					},
+					"ITEMS_BEFORE_COLLAPSE": {
+						"DESCRIPTION": "折叠路径开头保留的条目数。"
+					},
+					"ITEMS_AFTER_COLLAPSE": {
+						"DESCRIPTION": "折叠路径末尾保留的条目数，包含当前页面。"
+					},
+					"COLLAPSED_ARIA_LABEL": {
+						"DESCRIPTION": "折叠指示器的无障碍名称，使该组件唯一朗读的字符串可由宿主应用翻译。"
+					}
+				},
+				"OUTPUT": {
+					"COLLAPSED_CLICK": {
+						"DESCRIPTION": "折叠指示器被激活时触发。路径会自行展开；该事件供还需要额外响应的使用方使用。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "hubBreadcrumbItem",
+						"DESCRIPTION": "用于渲染单个面包屑项的自定义模板"
+					},
+					"1": {
+						"NAME": "hubBreadcrumbLabel",
+						"DESCRIPTION": "把被截断标签的完整文本显示为工具提示的指令。组件会把它加在自己渲染的标签上，以及包裹 hubBreadcrumbItem 模板的那个盒子上，所以手动使用只是为了改写提示文本。"
+					}
+				},
+				"CSS_VAR": {
+					"BREADCRUMB_DIVIDER": {
+						"DESCRIPTION": "用作 breadcrumbs 项之间分隔符的字符或符号"
+					},
+					"BREADCRUMB_DIVIDER_COLOR": {
+						"DESCRIPTION": "分隔符的颜色"
+					},
+					"BREADCRUMB_PADDING_X": {
+						"DESCRIPTION": "整个 breadcrumbs 组件周围的水平内边距"
+					},
+					"BREADCRUMB_PADDING_Y": {
+						"DESCRIPTION": "整个 breadcrumbs 组件周围的垂直内边距"
+					},
+					"BREADCRUMB_BG": {
+						"DESCRIPTION": "breadcrumbs 容器的背景颜色"
+					},
+					"BREADCRUMB_ITEM_COLOR": {
+						"DESCRIPTION": "非激活 breadcrumbs 项（链接）的文本颜色"
+					},
+					"BREADCRUMB_ITEM_ACTIVE_COLOR": {
+						"DESCRIPTION": "激活（当前）breadcrumbs 项的文本颜色"
+					},
+					"BREADCRUMB_ITEM_HOVER_COLOR": {
+						"DESCRIPTION": "悬停在 breadcrumbs 链接上时的文本颜色"
+					},
+					"BREADCRUMB_ITEM_PADDING_X": {
+						"DESCRIPTION": "单个 breadcrumbs 项周围的水平内边距"
+					},
+					"BREADCRUMB_FONT_SIZE": {
+						"DESCRIPTION": "breadcrumbs 文本的字号"
+					},
+					"BREADCRUMB_BORDER_RADIUS": {
+						"DESCRIPTION": "breadcrumbs 容器的边框半径"
+					},
+					"BREADCRUMB_MARGIN_BOTTOM": {
+						"DESCRIPTION": "breadcrumbs 组件的底部外边距"
+					},
+					"BREADCRUMB_RTL_DIVIDER": {
+						"DESCRIPTION": "RTL 布局中使用的分隔符字符（方向反转）"
+					},
+					"BREADCRUMB_MAX_ITEM_WIDTH": {
+						"DESCRIPTION": "启用截断时单个标签的最大宽度。"
+					}
+				},
+				"METHOD": {
+					"PROVIDE_TOOLTIP": {
+						"DESCRIPTION": "为整个应用一次性注册工具提示适配器，使被截断的标签显示更丰富的 hub-ui 工具提示，而不是原生 title 属性。移除该 provider 后，标签会退回到 title。"
+					},
+					"BREADCRUMBS": {
+						"DESCRIPTION": "作为信号的路径，也是组件自身读取的那个面。它在服务内部只包装一次、为整个应用只订阅一次，因此页头、文档标题或任何其他读取方都能从它派生，无需 async 管道。"
+					},
+					"BREADCRUMBS_STREAM": {
+						"DESCRIPTION": "同一条路径的 Observable 形式，保留给已经在用 rxjs 组合的代码。两者报告的是同一次导航，取调用方本来就在说的那一种即可。"
+					}
+				}
+			},
+			"STYLING": {
+				"CSS_VARIABLES_THEMING": {
+					"TITLE": "CSS 变量与主题化",
+					"DESCRIPTION": "使用 CSS 自定义属性对分隔符、颜色、间距和视觉外观进行完整的主题化控制。"
+				}
+			},
+			"NAV": {
+				"BASIC": "基础",
+				"DYNAMIC": "动态内容",
+				"CUSTOM": "自定义模板",
+				"ICONS": "图标",
+				"STYLING": "样式",
+				"RTL": "RTL",
+				"TRUNCATION": "截断与工具提示",
+				"COLLAPSE": "折叠",
+				"EXTERNAL_LINKS": "外部链接",
+				"FOCUS_RING": "焦点环",
+				"SIGNAL": "作为信号的路径"
+			}
+		},
+		"CALENDAR": {
+			"FEATURE": {
+				"VIEWS_NAVIGATION": {
+					"TITLE": "视图与导航",
+					"DESCRIPTION": "在月、周、日和年视图之间切换，并在不同时间段间移动"
+				},
+				"EVENTS": {
+					"TITLE": "事件",
+					"DESCRIPTION": "显示事件并处理事件与日期的交互"
+				},
+				"TEMPLATES": {
+					"TITLE": "模板",
+					"DESCRIPTION": "使用模板自定义事件和日期单元格的渲染"
+				},
+				"CONFIGURATION": {
+					"TITLE": "配置",
+					"DESCRIPTION": "通过配置选项调整日历行为"
+				},
+				"STYLING_I18N": {
+					"TITLE": "样式与 i18n",
+					"DESCRIPTION": "通过 CSS 变量设置主题并本地化日历"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"VARIANT": {
+						"DESCRIPTION": "语义强调色，作用于今天与选中日期、当前视图按钮和事件标签：primary、secondary、success、danger、warning、info、neutral、light、dark，或任意自定义名称（读取 --hub-sys-color-<variant>）。"
+					},
+					"EVENTS": {
+						"DESCRIPTION": "要在日历上显示的事件数组"
+					},
+					"VIEW": {
+						"DESCRIPTION": "当前视图类型（与 viewChange 双向绑定）"
+					},
+					"SELECTED_DATE": {
+						"DESCRIPTION": "当前聚焦的日期（与 selectedDateChange 双向绑定）"
+					},
+					"CONFIG": {
+						"DESCRIPTION": "日历的配置选项"
+					},
+					"EVENT_CLASS": {
+						"DESCRIPTION": "应用于事件的 CSS 类，可以是静态或动态的"
+					},
+					"WEEK_STARTS_ON": {
+						"DESCRIPTION": "一周的起始日（0 = 周日，1 = 周一，依此类推）。设置后优先于 config.weekStartsOn；未设置时由配置决定，其默认值为 0。"
+					},
+					"LOCALE": {
+						"DESCRIPTION": "内置词典的语言代码。库自带英语和西班牙语；其他代码回退到英语。"
+					},
+					"HEIGHT": {
+						"DESCRIPTION": "日历的高度，也决定它是滚动还是自然增高。数字按像素读取，可用任意 CSS 长度，`auto` 则随内容增高而不滚动。不设置时日历填满其容器。比写样式规则更可靠：带作用域的 `hub-calendar { … }` 选择器会压过组件自身的布局并可能破坏它。"
+					},
+					"DISPLAY_FORMAT": {
+						"DESCRIPTION": "页眉标题如何书写月份与年份。可传 Intl 选项、`MMMM yyyy` 这样的 Angular 日期模式，或一个函数。不设置时使用内置组合；年视图的标题指的是年份，因此不受影响。"
+					},
+					"TIME_DISPLAY_FORMAT": {
+						"DESCRIPTION": "事件条与当日提示中时间的 Intl 选项，会与 `hourFormat` 合成。默认是小时与分钟。"
+					},
+					"EVENT_TIME_FORMAT": {
+						"DESCRIPTION": "月视图事件条在定时事件前打印的时间。不设置时保留为窄单元格准备的缩写：分钟为零时省略。"
+					},
+					"SLOT_LABEL_FORMAT": {
+						"DESCRIPTION": "周视图与日视图小时标尺上的标签。不设置时仍是一直以来的 `9:00`；只要设置 `hourFormat` 就会变成真正的时钟。"
+					},
+					"HOUR_FORMAT": {
+						"DESCRIPTION": "在日历书写时间的所有位置强制 12 小时制或 24 小时制。不设置时由语言决定——与 `hub-datepicker` 中的含义相同。"
+					},
+					"WEEKDAY_FORMAT": {
+						"DESCRIPTION": "星期列表头的宽度。`short` 与 `long` 读取日历自身的词典，因此应用词典能够生效；`narrow` 在词典中没有条目，改由区域设置推导。"
+					},
+					"MONTH_FORMAT": {
+						"DESCRIPTION": "月份在页眉标题与年视图卡片上的写法。默认为 `long`，也就是日历一直以来打印的形式。"
+					}
+				},
+				"OUTPUT": {
+					"EVENT_CLICK": {
+						"DESCRIPTION": "当事件被点击时触发"
+					},
+					"DAY_CLICK": {
+						"DESCRIPTION": "当日期单元格被点击时触发"
+					},
+					"EVENT_DROP": {
+						"DESCRIPTION": "当事件被拖放到不同日期时触发"
+					},
+					"VIEW_CHANGE": {
+						"DESCRIPTION": "当视图类型变化时触发"
+					},
+					"DATE_CHANGE": {
+						"DESCRIPTION": "当导航改变所显示的日期时触发"
+					},
+					"SELECTED_DATE_CHANGE": {
+						"DESCRIPTION": "所选日期变化时发出；支持通过 [(selectedDate)] 进行双向绑定"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"DESCRIPTION": "用于渲染单个事件的模板。上下文：{ event: CalendarEvent }"
+					},
+					"1": {
+						"DESCRIPTION": "用于自定义日期单元格渲染的模板。上下文：{ day: CalendarDay }"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"BASIC": {
+					"TITLE": "日历视图"
+				},
+				"NAVIGATION": {
+					"TITLE": "导航"
+				},
+				"EVENTS": {
+					"TITLE": "事件处理"
+				},
+				"EVENT_OVERFLOW": {
+					"TITLE": "事件内容溢出"
+				},
+				"DRAG_DROP": {
+					"TITLE": "Drag & drop 事件"
+				},
+				"TEMPLATES": {
+					"TITLE": "自定义模板"
+				},
+				"CONFIGURATION": {
+					"TITLE": "日历配置"
+				},
+				"STYLING": {
+					"TITLE": "CSS 变量主题"
+				},
+				"VARIANT": {
+					"TITLE": "语义强调色（variant）"
+				},
+				"I18N": {
+					"TITLE": "国际化（i18n）"
+				},
+				"FORMATS": {
+					"TITLE": "日期与时间格式"
+				}
+			},
+			"NAV": {
+				"BASIC": "日历视图",
+				"NAVIGATION": "导航",
+				"EVENTS": "事件处理",
+				"EVENT_OVERFLOW": "事件溢出",
+				"DRAG_DROP": "Drag & drop",
+				"TEMPLATES": "自定义模板",
+				"CONFIGURATION": "配置",
+				"STYLING": "CSS 主题",
+				"VARIANT": "语义强调色",
+				"I18N": "国际化"
+			}
+		},
+		"DESIGN_SYSTEM": {
+			"LEAD": "ng-hub-ui 家族共享的<strong>设计令牌</strong>基础：CSS 变量 <code>--hub-ref-*</code>（原始值）与 <code>--hub-sys-*</code>（语义值），带明暗两套和 8 个主题。引入一次，整个家族就读同一份调色板。",
+			"WHAT": {
+				"TITLE": "它是什么，用来做什么",
+				"BODY": "它的职责是把样式变量在家族<strong>所有库</strong>之间<strong>统一</strong>并<strong>接通</strong>。每个库都用 <code>--hub-*</code> 变量做主题，但<strong>并不定义它们</strong>：只是<em>消费</em>。这个包就是把它们连起来的<strong>唯一事实来源</strong>，于是：",
+				"LIST_1": "<strong>一份调色板</strong>同时供给 panels、forms、calendar、board……",
+				"LIST_2": "<strong>改一次主题</strong>（一个令牌），改动就到达整个家族。",
+				"LIST_3": "<strong>深色模式和 8 个主题</strong>已就绪，一个属性即可切换。",
+				"LIST_4": "你也能在<strong>自己的 CSS</strong> 里用它，这样你的界面和组件是一致的。",
+				"NOTE": "接通工作正按库逐个推进：下方的<a href=\"#familia\">家族</a>一节列出了每个库的集成状态。想找完整的令牌目录？在<a href=\"{{tokens}}\">令牌参考</a>里。"
+			},
+			"START": {
+				"TITLE": "开始使用",
+				"BODY": "完整路线：装什么、在哪里引入什么，以及每种修改该用哪套机制。<code>ds</code> 没有依赖（纯 CSS/SCSS），而且<strong>不引入就不会输出任何东西</strong>。",
+				"STEP1_TITLE": "1 · 安装",
+				"STEP1_NOTE": "<code>ds</code> 是基础；再加上你要用的家族库。它们都不定义调色板——全都<em>消费</em> <code>ds</code> 的令牌。",
+				"STEP2_TITLE": "2 · 引入——在根部一次，且按这个顺序",
+				"STEP2_NOTE": "不用 Sass 也可以：每份样式都有编译好的 <code>.css</code> 孪生文件——<code>{{css}}</code>——或者通过 <code>angular.json</code>：",
+				"STEP3_TITLE": "3 · 修改——按改动内容选机制",
+				"TABLE_WANT": "我想……",
+				"TABLE_MECHANISM": "机制",
+				"TABLE_WHERE": "在哪里说明",
+				"ROW1_WANT": "改一个全局颜色（比如 primary）",
+				"ROW1_HOW": "<code>:root { --hub-sys-color-primary: … }</code>——重设<strong>整个家族</strong>的主题",
+				"ROW2_WANT": "新增一个强调色（brand、tertiary……）",
+				"ROW2_HOW": "CSS：<code>--hub-sys-color-brand</code> · Sass：<code>$hub-accents-extra</code>",
+				"ROW3_WANT": "去掉我用不到的变体",
+				"ROW3_HOW": "Sass：替换这个 map——<code>with ($hub-accents: (primary: …, danger: …))</code>——只会输出这些族",
+				"ROW4_WANT": "调整间距 / 圆角 / 栅格",
+				"ROW4_HOW": "覆盖结构令牌 <code>--hub-ref-space-*</code> / <code>--hub-sys-radius-*</code> / <code>--hub-sys-grid-*</code>",
+				"ROW5_WANT": "一整套主题（dark、corporate……）",
+				"ROW5_HOW": "<code>[data-theme='…'] { 有差异的令牌 }</code>，再给 <code>&lt;html&gt;</code> 加上属性",
+				"ROW6_WANT": "用同一套系统构建我自己的组件",
+				"ROW6_HOW": "<strong>混入</strong>：<code>@include hub.stack()</code> · <code>hub.text-bg(brand)</code> · <code>hub.radius(lg)</code>……——或者用工具类",
+				"ROW7_WANT": "与 Bootstrap / Material / Tailwind 共存",
+				"ROW7_HOW": "<strong>桥接混入</strong>：<code>@include hub.bridge-bootstrap($mode: adopt | project)</code>",
+				"ROW8_WANT": "只微调某个库的某个组件",
+				"ROW8_HOW": "它自己的 <code>--hub-&lt;组件&gt;-*</code> 钩子（局部或全局）",
+				"LINK_MODIFY": "<a href=\"#modificar\">如何修改</a>",
+				"LINK_FUNCTIONS": "<a href=\"#funciones\">SCSS 函数</a>",
+				"LINK_STRUCTURE": "<a href=\"#estructura\">结构层</a>",
+				"LINK_THEME": "<a href=\"#crea-tu-tema\">创建你的主题</a>",
+				"LINK_MIXINS": "<a href=\"#mixins\">混入与样式</a>",
+				"LINK_BRIDGES": "<a href=\"#puentes\">桥接</a>",
+				"LINK_TOKENS": "<a href=\"{{tokens}}\">令牌参考</a>以及各个库自己的页面",
+				"STEP4_TITLE": "4 · 其余的库",
+				"STEP4_BODY": "令牌加载之后，<strong>没有别的要配置了</strong>：每个 <code>ng-hub-ui-*</code> 都读 <code>--hub-sys-*</code>，并跟着你的覆盖自行重设主题。此外，每个组件还提供 <code>--hub-&lt;组件&gt;-*</code> 钩子用于精细调整，有些库还带<strong>自己的样式表，与令牌一起引入一次</strong>——确切路径由各自的 README 说明（例如 <code>forms</code> 的公共外壳，或 <code>utils</code> 的 tooltip/overlay，就像第 2 步的代码块那样）。每个库的集成状态见<a href=\"#familia\">家族</a>。"
+			},
+			"ARCH": {
+				"TITLE": "架构：两层",
+				"REF": "没有语境的原始值：色阶、间距、圆角、排版。",
+				"SYS": "带含义的映射，组件消费的正是这一层。",
+				"RULE": "黄金法则：组件只引用 <code>sys</code> 令牌；<code>sys</code> 指向 <code>ref</code>。改 <code>sys</code> 是换主题，改 <code>ref</code> 是调整基础调色板。"
+			},
+			"COLORS": {
+				"TITLE": "语义颜色 · 主题实时预览",
+				"BODY": "这套集合是<strong>开放</strong>的：默认 9 个变体（5 个彩色 + 4 个中性），加上你自己添加的。每个强调色都暴露一组统一的角色——<code>subtle</code>、<code>border-subtle</code>、<code>emphasis</code>，以及对比色 <code>on</code>。切换主题，看整份调色板重新上色。",
+				"ALERT": "提示"
+			},
+			"BUILDER": {
+				"TITLE": "创建你的主题 · 只改基础色",
+				"BODY": "只定义每个语义族的<strong>基础色</strong>。其余的（<code>subtle</code>、<code>border-subtle</code>、<code>emphasis</code>、<code>on</code>）会用 <code>color-mix</code> / <em>relative color</em> <strong>自动推导</strong>——下面的组件会实时换色，这正是共享接线在起作用。",
+				"RESET": "重置",
+				"HINT": "基础色 → 推导值",
+				"SHOWCASE": "组件实时预览"
+			},
+			"FAMILY": {
+				"TITLE": "家族 · 集成状态",
+				"BODY": "整个家族都读这些令牌。徽章表示这个库是否已<strong>接通</strong> <code>--hub-sys-*</code>（会跟着设计系统换主题），还是仍<strong>待接通</strong>（之后再处理）。点任意一个即可查看它的示例。",
+				"WIRED": "✓ 已集成",
+				"PENDING": "⏳ 待接通"
+			},
+			"MODIFY": {
+				"TITLE": "如何修改",
+				"OVERRIDE_TITLE": "1. 覆盖一个令牌（CSS）——主路径",
+				"OVERRIDE_BODY": "每个值都是 CSS 变量，所以换主题只需一行，并层叠到整个家族：",
+				"ACCENT_TITLE": "2. 添加你自己的强调色",
+				"ACCENT_BODY": "定义一个 <code>--hub-sys-color-&lt;名称&gt;</code> 族，接受语义变体的组件无需改动就会用上它。就在这里试试：",
+				"ACCENT_LABEL": "强调色",
+				"ACCENT_SAMPLE": "<strong>brand</strong> 提示——背景、文字和边框都由强调色经 <code>color-mix</code> 推导而来。",
+				"ACCENT_NOTE": "只写 <code>--hub-sys-color-brand</code> 就已经可用（其余由组件用 <code>color-mix</code> 推导）。需要精确色调时再定义完整的族。",
+				"OPEN_MAP_TITLE": "……或者在开放 map 里预先定义（Sass）",
+				"OPEN_MAP_BODY": "若使用 Sass，请在引入这个包之前用 <code>$hub-accents-extra</code> 扩展<strong>开放的强调色 map</strong>。只有 <code>ds</code> 会重新编译——<strong>各个库都不会</strong>——而且每个新变体都会自动得到完整的族（<code>subtle · border-subtle · emphasis · on</code>）：",
+				"THEME_TITLE": "3. 创建你自己的主题",
+				"THEME_MIXIN_TITLE": "4. ……或者用 <code>hub.theme()</code> 一次搞定（Sass）",
+				"THEME_MIXIN_BODY": "一个用于<strong>局部主题化</strong>的混入：只把改动以 map 传进去，它就按规范名称输出变量。挂在每个令牌下的一切——<code>sys</code> 别名、角色族、工具类、组件——都会沿着 <code>var()</code> 链自行重新推导："
+			},
+			"FUNCTIONS": {
+				"TITLE": "SCSS 函数：内部是怎么生成的",
+				"BODY": "语义颜色族不是手写的：强调色集合是一个带 <code>!default</code> 的<strong>开放 map</strong>，整个族由对 <code>map.keys($hub-accents)</code> 的 <code>@each</code> 推导而来。所以加一个颜色（或者九个）是统一的，也没有<em>样板代码</em>：map 里的每个键都会自动获得自己的族。",
+				"NOTE": "大多数情况下<strong>你不需要动 SCSS</strong>：覆盖 CSS 变量就能完成换主题和新增强调色。map 加混入是内部机制，向这个包贡献代码时才有用。"
+			},
+			"STRUCTURE": {
+				"TITLE": "结构层 · 令牌实时预览",
+				"BODY": "除了颜色，<code>ds</code> 还定义了一层<strong>规范的结构</strong>：间距刻度（<code>--hub-ref-space-*</code>）、尺寸与分数（<code>--hub-sys-size-*</code>）、栅格（<code>--hub-sys-grid-columns</code>、槽宽）以及语义化的 <code>gap</code> 刻度（<code>--hub-sys-gap-*</code>）。下面的一切都由这些变量绘制。",
+				"SPACING_TITLE": "间距刻度 · <code>--hub-ref-space-0…7</code>",
+				"GAP_TITLE": "gap 刻度 · <code>--hub-sys-gap-0…5</code>",
+				"FRACTIONS_TITLE": "宽度分数 · <code>--hub-sys-size-*</code>",
+				"GRID_TITLE": "auto-fit 栅格 + 容器宽度"
+			},
+			"MIXINS": {
+				"TITLE": "混入与样式",
+				"BODY": "<code>ds</code> 的 Sass API：消费规范令牌的辅助工具——不写死间距，也不写死颜色。用命名空间引入：<code>@use 'ng-hub-ui-ds' as hub</code>。工具类样式表就是用这些混入构建的，所以<strong>修改或扩展</strong>某种行为，就是用混入铸造你自己的类。下面每个演示都<strong>基于真实的混入</strong>构建；完整目录在最后。",
+				"NOTE": "每个混入都有等价的工具类；下面的演示使用 <code>ds</code> 的真实类（<code>.cluster</code>、<code>.stack</code>……）——本页没有重新套用任何混入。",
+				"CLUSTER_TITLE": "<code>hub.cluster()</code> · <code>.cluster</code>——会换行的一行",
+				"STACK_TITLE": "<code>hub.stack()</code> · <code>.stack</code>——一列",
+				"GRID_TITLE": "<code>hub.grid()</code> · <code>.grid-auto</code>——auto-fit 栅格",
+				"CENTER_TITLE": "<code>hub.center()</code> · <code>.center</code>——居中容器",
+				"CENTER_DEMO": "居中的内容（max-width xl）",
+				"CHIP_1": "首页",
+				"CHIP_2": "产品",
+				"CHIP_3": "价格",
+				"CHIP_4": "联系",
+				"CHIP_5": "更多",
+				"BLOCK": "区块",
+				"CATALOG_TITLE": "完整目录",
+				"TABLE_MIXIN": "混入",
+				"TABLE_PARAMS": "参数",
+				"TABLE_DESC": "说明"
+			},
+			"UTILITIES": {
+				"TITLE": "工具类",
+				"BODY": "按需引入的类，包裹同一层，名称<strong>与 Bootstrap 完全一致</strong>——可直接替换，但不要在同一个文档里同时加载这些样式表和全局的 Bootstrap。共三份：<code>layout</code>（display/flex、grid、间距、尺寸、定位、helpers——就是这些小节）、<code>text</code>（「文本」一节）和 <code>surfaces</code>（「表面」一节）。演示用的是真实类：",
+				"SIZING_TITLE": "尺寸 · <code>.w-50 · .w-25 · .w-auto</code>",
+				"ONE": "一",
+				"TWO": "二",
+				"THREE": "三",
+				"FOUR": "四"
+			},
+			"FLEX": {
+				"TITLE": "Flexbox",
+				"BODY": "一整套 <strong>display 与 flexbox</strong> 工具类，命名与 Bootstrap 完全一致。演示使用 <code>ds</code> 的真实类。",
+				"JUSTIFY_TITLE": "<code>justify-content</code> · <code>.justify-content-*</code>——主轴",
+				"ALIGN_TITLE": "<code>align-items</code> · <code>.align-items-*</code>——交叉轴",
+				"DIRECTION_TITLE": "<code>flex-direction</code> · <code>.flex-column</code>",
+				"GROW_TITLE": "<code>flex-fill</code> / <code>flex-grow-0</code>——伸展与固定",
+				"GROW_LABEL": ".flex-fill（会伸展）",
+				"RESPONSIVE_TITLE": "响应式 · <code>.flex-md-row · .align-items-md-center</code>",
+				"RESPONSIVE_NOTE": "整个 flex 家族都有按断点的变体。移动端是一列，从 <code>md</code> 起是居中的一行——调整窗口宽度看看：",
+				"DIVIDER_TITLE": "竖向分隔 · <code>.vr</code>",
+				"ROW": "行",
+				"LEFT": "左",
+				"RIGHT": "右"
+			},
+			"COLS": {
+				"TITLE": "列、宽度与间距",
+				"BODY": "<strong>12 列</strong>栅格（<code>.row</code> + <code>.col-1…12</code> + <code>.offset-1…11</code>，由 <code>--hub-sys-grid-columns</code> 驱动）、宽度，以及<strong>带方向的 padding/margin</strong>。每个演示都用真实的工具类。",
+				"COLUMNS_TITLE": "列 · <code>.row</code> + <code>.col-N</code>",
+				"OFFSETS_TITLE": "偏移 · <code>.offset-N</code>",
+				"OFFSETS_NOTE": "单元格从同一栅格的第 <code>n + 1</code> 条轨道开始（<code>grid-column-start</code>）；带断点时写 <code>.offset-md-8</code>，而 <code>.offset-md-0</code> 会恢复自动排布。",
+				"WIDTHS_TITLE": "宽度 · <code>.w-25 / 50 / 75 / 100 / auto</code>",
+				"PADDING_TITLE": "Padding · <code>.p-1…5</code>（四边）",
+				"PADDING_AXIS_TITLE": "按轴的 padding · <code>.px-* / .py-*</code>",
+				"MARGIN_TITLE": "Margin · <code>.m-1…5</code>（放在参照框里看）",
+				"MARGIN_AXIS_TITLE": "按轴的 margin · <code>.mx-* / .my-*</code>",
+				"RESPONSIVE_TITLE": "响应式 · <code>.col-md-6 · .d-lg-none · .p-sm-3</code>",
+				"RESPONSIVE_NOTE": "移动优先的变体（sm 576 · md 768 · lg 992 · xl 1200 · xxl 1400）覆盖 display、列与偏移、间距、gap 以及整个 flex 家族（<code>.flex-md-row</code>、<code>.justify-content-md-center</code>、<code>.align-items-md-start</code>、<code>.order-lg-*</code>……）。调整窗口宽度——这些单元格是 <code>.col-12 .col-md-6 .col-xl-3</code>："
+			},
+			"TEXT": {
+				"TITLE": "文本",
+				"BODY": "<strong>排版与文本</strong>工具类，命名与 Bootstrap 完全一致，构建在排版混入之上（<code>hub.font-size()</code>、<code>hub.font-weight()</code>、<code>hub.text-color()</code>……）：每个取值都解析为令牌，所以覆盖令牌就会重设工具类的主题——用混入还能铸造你自己的变体。",
+				"SIZE_TITLE": "字号 · <code>.fs-1…6</code> · 标题 · <code>.h1…6</code>",
+				"SAMPLE_HEADING": "示例标题",
+				"SIZE_NOTE": "<code>.fs-*</code> 只改字号；<code>.h1…6</code> 会套用标题的整套排版（字号 + 加粗 + 紧凑行高 + 外边距）但不带语义——<code>&lt;div class=\"h5\"&gt;</code> 读起来就像 <code>&lt;h5&gt;</code>：",
+				"WEIGHT_TITLE": "字重 · <code>.fw-*</code> · 字形 · <code>.fst-italic</code>",
+				"WEIGHT_SAMPLE": "字重来自令牌——{{weight}}",
+				"ITALIC": "斜体",
+				"ALIGN_TITLE": "对齐 · <code>.text-start / .text-center / .text-end</code>",
+				"TRANSFORM_TITLE": "Transform · 装饰 · 字体族",
+				"TABULAR_TITLE": "等宽数字 · <code>.font-tabular-nums</code>",
+				"TABULAR_BODY": "比例数字让每个数位有各自的宽度，所以 1 比 0 窄，两个金额的个位会落在不同位置。金额列是自上而下比较着读的：看看两边的小数点各自落在哪里。",
+				"TABULAR_DEFAULT": "默认",
+				"TABULAR_NUMS": ".font-tabular-nums",
+				"TRUNCATE_TITLE": "截断 · <code>.text-truncate</code>",
+				"TRUNCATE_SAMPLE": "一段足够长的文字，长到放不进十六 rem，会以省略号截断。",
+				"LH_TITLE": "行高 · <code>.lh-1 / .lh-sm / .lh-base / .lh-lg</code>",
+				"LH_SAMPLE": "两行文字，足以看清刻度上每一档所给的行高。",
+				"COLORS_TITLE": "颜色 · <code>.text-primary … .text-muted</code>",
+				"OPACITY_TITLE": "文字不透明度 · <code>.text-opacity-*</code> · 链接 · <code>.link-*</code>"
+			},
+			"SURFACES": {
+				"TITLE": "表面",
+				"BODY": "背景、边框、圆角、阴影与不透明度，命名与 Bootstrap 完全一致，构建在表面混入之上（<code>hub.bg()</code>、<code>hub.text-bg()</code>、<code>hub.radius()</code>、<code>hub.shadow()</code>……）以及 <code>--hub-sys-color-*</code> / <code>--hub-sys-radius-*</code> / <code>--hub-sys-shadow-*</code> 这些令牌。",
+				"BACKGROUNDS_TITLE": "背景 · <code>.bg-*</code> 与 <code>.bg-*-subtle</code>",
+				"TEXT_BG_TITLE": "背景 + 保证对比度 · <code>.text-bg-*</code>",
+				"BORDERS_TITLE": "边框 · <code>.border · .border-&#123;variant&#125; · .border-1…5</code>",
+				"BORDERS_NONE": "去掉上下边",
+				"RADIUS_TITLE": "圆角 · <code>.rounded-0…3 · .rounded-pill · .rounded-circle</code>",
+				"SHADOWS_TITLE": "阴影 · <code>.shadow-sm / .shadow / .shadow-lg</code>",
+				"OPACITY_TITLE": "不透明度 · <code>.opacity-*</code>（整个元素）· <code>.bg-opacity-*</code>（仅背景）"
+			},
+			"HELPERS": {
+				"TITLE": "定位与辅助类",
+				"BODY": "position/inset、overflow、order、float、可见性、z-index、object-fit 和交互——外加行为辅助类（<code>.visually-hidden</code>、<code>.stretched-link</code>、<code>.ratio-*</code>、<code>.clearfix</code>）。全部使用 Bootstrap 的确切命名。",
+				"POSITION_TITLE": "定位 · <code>.position-* + .top/.start/.translate-middle</code>",
+				"RATIO_TITLE": "比例 · <code>.ratio .ratio-16x9</code>",
+				"OVERFLOW_TITLE": "Overflow · 交互 · 横向间距",
+				"OVERFLOW_SAMPLE": "一个装了超出容量内容的区块：overflow-auto 会加上内部滚动，而不是撑破页面布局。",
+				"FOCUS_TITLE": "焦点环 · <code>.focus-ring</code>",
+				"FOCUS_NOTE": "由 <code>--hub-sys-focus-ring-*</code> 令牌驱动的焦点环——点击或按 Tab：",
+				"FOCUS_BUTTON": "试试我",
+				"A11Y_TITLE": "无障碍 · <code>.visually-hidden</code>",
+				"A11Y_NOTE": "这一段里有一句在视觉上隐藏、但会被屏幕阅读器读出的文字：<span class=\"visually-hidden\">仅供辅助技术使用</span>（查看 DOM 就能看到）。"
+			},
+			"BRIDGES": {
+				"TITLE": "通往其他系统的桥",
+				"BODY": "把 hub 与现场框架连起来的<strong>按需</strong>混入。不调用就零成本。通过 <code>$mode</code> 有两个方向：<strong>adopt</strong>（hub 采用宿主的主题）与 <strong>project</strong>（hub 把自己的主题投射到宿主上）。",
+				"TABLE_MIXIN": "混入",
+				"TABLE_SYSTEM": "系统",
+				"BOOTSTRAP_ADOPT": "读取 <code>--bs-*</code>",
+				"BOOTSTRAP_PROJECT": "着色 <code>--bs-*</code> 以及槽宽/圆角",
+				"MATERIAL_ADOPT": "读取 <code>--mat-sys-*</code>",
+				"MATERIAL_PROJECT": "着色 <code>--mat-sys-*</code>（color/on 成对）",
+				"TAILWIND_ADOPT": "读取 <code>--color-*</code>",
+				"TAILWIND_PROJECT": "为 <code>@theme</code> 输出 <code>--color-*</code>",
+				"OPEN_PROPS_ADOPT": "色阶别名"
+			},
+			"QUICKREF": {
+				"TITLE": "速查表",
+				"TABLE_WANT": "我想……",
+				"TABLE_HOW": "怎么做",
+				"WANT_1": "使用调色板",
+				"WANT_2": "改一个全局颜色",
+				"WANT_3": "添加自己的变体",
+				"WANT_4": "有对比度的文字",
+				"WANT_5": "布局（混入 / 工具类）",
+				"WANT_6": "文本（混入 / 工具类）",
+				"WANT_7": "表面（混入 / 工具类）",
+				"WANT_8": "定位 / 辅助类",
+				"WANT_9": "响应式",
+				"WANT_10": "桥接 Bootstrap/Material",
+				"WANT_11": "创建主题",
+				"WANT_12": "局部主题化（Sass）"
+			},
+			"CATALOG": {
+				"GROUP_THEME": "主题",
+				"GROUP_BREAKPOINTS": "断点",
+				"GROUP_LAYOUT": "布局",
+				"GROUP_TYPOGRAPHY": "排版",
+				"GROUP_SURFACES": "表面",
+				"GROUP_HELPERS": "辅助类",
+				"GROUP_BRIDGES": "桥接",
+				"THEME": "一次调用完成局部主题化：只把改动以 map 传进去，它输出规范变量；由此派生的部分会自行重新推导。",
+				"MEDIA_UP": "从该断点起的移动优先媒体查询（sm 576 · md 768 · lg 992 · xl 1200 · xxl 1400）。",
+				"MEDIA_DOWN": "低于该断点的媒体查询。",
+				"STACK": "带令牌 gap 的 flex 列。",
+				"CLUSTER": "会换行的 flex 行。",
+				"GRID": "指定单元格最小宽度的 auto-fit 栅格。",
+				"GRID_FIXED": "N 个固定列的栅格。",
+				"ROW": "12 条轨道的行（--hub-sys-grid-columns）。",
+				"COL": "跨越 row() 中 $span 条轨道的单元格。",
+				"OFFSET": "让 col() 从第 $n + 1 条轨道开始（即 Bootstrap 的 offset）；0 表示重置。",
+				"CENTER": "按容器 max-width 居中的包装器。",
+				"FONT_FAMILY": "base | display | mono。",
+				"FONT_SIZE": "1–6（标题刻度）或 xs | sm | base | lg。",
+				"FONT_WEIGHT": "light | base | medium | semibold | bold。",
+				"LINE_HEIGHT": "1 | sm | base | lg。",
+				"TEXT_COLOR": "开放 map 中的强调色、body 或 muted；可用 --hub-text-opacity 调淡。",
+				"LINK_COLOR": "强调色链接，悬停用 -emphasis，下划线带不透明度（--hub-link-underline-opacity）。",
+				"TEXT_TRUNCATE": "单行截断并加省略号。",
+				"TEXT_BREAK": "折断过长的词和 URL，避免溢出。",
+				"BG": "强调色背景（或其 subtle 色调）、body 或 transparent；可用 --hub-bg-opacity 调淡。",
+				"TEXT_BG": "强调色背景 + 保证对比度的 -on 前景色。",
+				"BORDER": "使用默认边框令牌的实线边框。",
+				"BORDER_COLOR": "取自开放 map 中某个强调色的边框颜色。",
+				"RADIUS": "none | sm | md | lg | xl | xxl | pill | circle。",
+				"SHADOW": "none | sm | md | lg | inset。",
+				"FOCUS_RING": "使用 --hub-sys-focus-ring-* 令牌的焦点环。",
+				"VISUALLY_HIDDEN": "在视觉上隐藏，同时对屏幕阅读器保持可读。",
+				"STRETCHED_LINK": "把链接的可点击区域扩展到它已定位的祖先元素。",
+				"RATIO": "用原生 aspect-ratio 实现固定比例。",
+				"CLEARFIX": "清除浮动（::after）。",
+				"BRIDGE_BOOTSTRAP": "采用 --bs-* 的主题，或把主题投射到它上面。",
+				"BRIDGE_MATERIAL": "对 --mat-sys-* 同理（Angular Material 3）。",
+				"BRIDGE_TAILWIND": "对 --color-* 同理（Tailwind v4 @theme）。",
+				"BRIDGE_OPEN_PROPS": "Open Props 色阶的别名。"
+			}
+		},
+		"COMMON": {
+			"NAV": {
+				"TOKENS": "令牌",
+				"THEMING": "主题定制",
+				"DESIGN_SYSTEM": "设计系统"
+			},
+			"LIBRARY": {
+				"AVATAR": "头像",
+				"BOARD": "看板",
+				"BADGES": "徽章",
+				"BREADCRUMBS": "面包屑",
+				"CALENDAR": "日历",
+				"FORMS": "表单",
+				"HISTORY": "历史记录",
+				"MILESTONES": "里程碑",
+				"MODAL": "模态框",
+				"NAV": "导航",
+				"PAGINABLE": "可分页",
+				"PANELS": "面板",
+				"PORTAL": "传送门",
+				"SKELETON": "骨架屏",
+				"SORTABLE": "可排序",
+				"STEPPER": "步进器",
+				"UTILS": "工具集",
+				"TOAST": "轻提示",
+				"BUTTONS": "按钮",
+				"ICONS": "图标",
+				"METRICS": "Metrics",
+				"SIGNATURE": "签名",
+				"LOADING": "加载",
+				"ACTION_SHEET": "操作面板",
+				"INSTALLER": "安装器"
+			}
+		},
+		"FORMS": {
+			"FEATURE": {
+				"TEXT_FIELDS": {
+					"TITLE": "文本字段",
+					"DESCRIPTION": "`hub-input` 字段支持响应式表单绑定和自动、零接线的错误显示。涵盖文本、邮箱、密码、数字和计数器，外加浮动标签和输入组附加元素。"
+				},
+				"MULTILINE_RANGE": {
+					"TITLE": "多行与范围",
+					"DESCRIPTION": "带字符计数器的自动增高文本域，以及单滑块 / 双滑块范围滑条。"
+				},
+				"SELECTION": {
+					"TITLE": "选择",
+					"DESCRIPTION": "经过 hub 令牌主题化的分叉版 ng-select 引擎，外加按钮、单选和复选格式，它们针对同一个值渲染各自的 UI。"
+				},
+				"DATE_PICKING": {
+					"TITLE": "日期选择",
+					"DESCRIPTION": "基于原生 Date 和 CDK Overlay 从零构建的日期 / 范围选择器，支持边界限制、键盘导航和完整 i18n。"
+				},
+				"CONTAINERS_VALIDATION": {
+					"TITLE": "容器与校验",
+					"DESCRIPTION": "`form[hubForm]`、`fieldset[hubFieldset]` / `hub-fieldset` 和 `hub-legend` 会自动呈现组级和表单级（跨字段）错误——其方式与字段呈现控件错误的方式相同。"
+				},
+				"FILE_UPLOAD": {
+					"TITLE": "文件上传",
+					"DESCRIPTION": "支持拖放、剪贴板粘贴、类型与大小限制、预览，以及可选的单文件上传进度的文件字段。"
+				},
+				"RTL": {
+					"TITLE": "从右到左",
+					"DESCRIPTION": "在 `dir=\"rtl\"` 下每个字段都会镜像。大部分是免费的——基础组件都用逻辑 CSS 属性编写——但滑块、开关和分段控件需要单独处理，因为它们的几何只有一半来自 CSS。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"FORM_CONTROL_NAME": {
+						"DESCRIPTION": "将任意字段绑定到响应式控件。当控件被触碰且无效时自动显示错误。"
+					},
+					"LABEL": {
+						"DESCRIPTION": "字段标签文本。"
+					},
+					"LABEL_TYPE": {
+						"DESCRIPTION": "标签位置。`floating` 会把标签置于控件内部，在字段获得焦点或持有值之前，由它代替占位符。"
+					},
+					"PLACEHOLDER": {
+						"DESCRIPTION": "占位符文本。"
+					},
+					"FORM_TEXT": {
+						"DESCRIPTION": "显示在控件下方的辅助文本。"
+					},
+					"TYPE": {
+						"DESCRIPTION": "hub-input 的格式。"
+					},
+					"PASSWORD_REVEALED": {
+						"DESCRIPTION": "密码字段可见状态的双向绑定。点击眼睛按钮会更新它；设置该值可显示或隐藏密码。"
+					},
+					"PASSWORD_TOGGLE": {
+						"DESCRIPTION": "是否在密码字段上渲染内置的显示/隐藏切换按钮。"
+					},
+					"HIDE_ON_BLUR": {
+						"DESCRIPTION": "字段失去焦点时，已显示的密码是否自动重新隐藏。"
+					},
+					"CAPS_LOCK_WARNING": {
+						"DESCRIPTION": "Caps Lock 激活时，是否在字段下方显示提示。"
+					},
+					"PASSWORD_STRENGTH": {
+						"DESCRIPTION": "在字段下方渲染可选的 4 段强度指示器。评分逻辑可通过 provideHubForms 覆盖。"
+					},
+					"AUTOCOMPLETE": {
+						"DESCRIPTION": "原生 autocomplete 属性，例如为密码管理器指定 current-password 或 new-password。"
+					},
+					"PREPEND_APPEND": {
+						"DESCRIPTION": "任何以方框形式呈现的字段上的静态组附加内容：字符串为一个附加项，数组为一串附加项，空条目会被丢弃而不会绘制成空框。附加项与字段共用边框且不可获得焦点——若需要贴在边缘的可交互控件，请改用 [hubPrepend] / [hubAppend] 模板。两者可以同时存在，投影内容始终是其所在一侧最外层的元素。"
+					},
+					"MASK": {
+						"DESCRIPTION": "文本格式的模式掩码。标记：0 = 数字，A = 字母，* = 字母或数字；其他字符为字面分隔符。例如 \"0000 0000 0000 0000\"。"
+					},
+					"UNMASK_VALUE": {
+						"DESCRIPTION": "设置掩码后，在表单中存储原始输入的字符（无分隔符），而非格式化后的文本。"
+					},
+					"RANGE": {
+						"DESCRIPTION": "双滑块范围选择器；值变为 [lower, upper] 元组。"
+					},
+					"FORMAT": {
+						"DESCRIPTION": "select 渲染相同值的方式。"
+					},
+					"ITEMS": {
+						"DESCRIPTION": "选项、对象项的 label/value 属性名，以及多选设置。"
+					},
+					"ADD_TAG": {
+						"DESCRIPTION": "根据搜索词创建条目（dropdown 格式）：true 按原样添加该词；函数则将该词映射为新条目，可同步或返回 Promise。"
+					},
+					"ADD_TAG_TEXT": {
+						"DESCRIPTION": "启用 addTag 时，输入过程中显示的“添加条目”行的文案。"
+					},
+					"MIN_TERM_LENGTH": {
+						"DESCRIPTION": "触发筛选（或 typeahead Subject）之前搜索词的最小长度。"
+					},
+					"TYPEAHEAD": {
+						"DESCRIPTION": "接收搜索词变化的 Subject，用于异步/服务端加载；一旦提供，客户端筛选即被关闭——请通过 items 回传结果。"
+					},
+					"COMPARE_WITH": {
+						"DESCRIPTION": "条目与所绑定值之间的自定义相等判断（例如按 id 比较对象）；省略时采用供应商内置的比较逻辑。"
+					},
+					"MODE": {
+						"DESCRIPTION": "单个日期、自由日期范围，或某一天内的开始与结束时间。"
+					},
+					"MIN_MAX": {
+						"DESCRIPTION": "可选范围与按日期禁用的谓词。范围会考虑时间而不仅是日期：只有当某一天没有任何时刻被允许时，该天才会被禁用，因此 min = 2026-09-01T14:00 仍让 9 月 1 日可点击，而由时间控件拒绝更早的时刻。接受 ISO 字符串、Date 或纪元毫秒。"
+					},
+					"CLEARABLE": {
+						"DESCRIPTION": "为 true 时，字段有值后显示内置的 ✕ 按钮；点击可清空控件并发出空的搜索词。"
+					},
+					"INDETERMINATE": {
+						"DESCRIPTION": "为 true 时，复选框显示混合状态——这是对部分选中列表的“全选”最诚实的回答。双向绑定：点击即可解决。switch 格式会忽略它。"
+					},
+					"DEBOUNCE_TIME": {
+						"DESCRIPTION": "触发 search 事件前的防抖毫秒数（0 表示每次按键）。"
+					},
+					"OPTIONS": {
+						"DESCRIPTION": "hub-segmented 中可选中的选项，按渲染顺序排列——每一项为 { value, label, disabled? }。"
+					},
+					"SIZE": {
+						"DESCRIPTION": "分段控件的视觉密度：'sm'、'md'（默认）或 'lg'。"
+					},
+					"DISABLED": {
+						"DESCRIPTION": "禁用该字段。所有字段都从共享基类继承它，并且是双向的——通过响应式控件被禁用的字段会把这一变化回报出来。在 `hub-segmented` 上，各个选项还可以通过 `option.disabled` 单独退出。"
+					},
+					"SEGMENTED_MULTIPLE": {
+						"DESCRIPTION": "允许选择多个选项；值变为数组，选项以 aria-pressed 切换。"
+					},
+					"SEGMENTED_VERTICAL": {
+						"DESCRIPTION": "将分段垂直堆叠，而非水平排列。"
+					},
+					"SEGMENTED_COLOR": {
+						"DESCRIPTION": "所选分段的语义强调色（primary、success 等）或任意颜色；单选模式下滑动。"
+					},
+					"FILE_MULTIPLE": {
+						"DESCRIPTION": "是否可以持有多个文件。会将控件值从 File 切换为 File[]。"
+					},
+					"FILE_ACCEPT": {
+						"DESCRIPTION": "接受的文件类型，例如 image/*,.pdf。拖放和粘贴时同样生效，而不仅限于系统对话框。"
+					},
+					"FILE_SIZES": {
+						"DESCRIPTION": "单个文件的最大与最小大小，以及合计最大大小（字节）。"
+					},
+					"FILE_MAX_FILES": {
+						"DESCRIPTION": "文件数量上限。仅在配合 multiple 时有意义。"
+					},
+					"FILE_DRAG_DROP": {
+						"DESCRIPTION": "是否可以将文件拖放到字段上，以及是否可以粘贴进来。"
+					},
+					"FILE_PREVIEW": {
+						"DESCRIPTION": "文件的显示方式：不显示、列表、拖放区下方的卡片（grid），或字段内部的卡片（inline）。单个 inline 卡片占满整个字段；使用 multiple 时，卡片组成网格，最后一张用于添加文件。"
+					},
+					"FILE_ALLOW_DUPLICATES": {
+						"DESCRIPTION": "是否允许两次选择同一个文件（以名称、大小和最后修改时间为键）。"
+					},
+					"FILE_CAPTURE": {
+						"DESCRIPTION": "在支持的平台上打开设备摄像头，而非文件浏览器。"
+					},
+					"FILE_AUTO_UPLOAD": {
+						"DESCRIPTION": "新接受的文件是否立即开始上传。未注册上传器时会被忽略。"
+					},
+					"FILE_BUTTON_LABEL": {
+						"DESCRIPTION": "覆盖浏览按钮文本以及自动生成的限制提示。"
+					},
+					"FILE_DROP_TEXT": {
+						"DESCRIPTION": "按实例覆盖拖放区的两行提示文本。两者均回退到全局标签。"
+					},
+					"GROUP_BY": {
+						"DESCRIPTION": "用于将下拉选项归入选项组标题之下的属性名（点路径）。"
+					},
+					"SEARCHABLE_CLEARABLE": {
+						"DESCRIPTION": "选项是否可通过键入进行筛选（searchable），以及是否可用内置的清除按钮清空所选值（clearable）。两者默认均为 true。"
+					},
+					"CLOSE_ON_SELECT": {
+						"DESCRIPTION": "选中条目后下拉框是否关闭。设为 false 可在 multiple 模式下挑选多个值时保持其打开。"
+					},
+					"FIXED_PLACEHOLDER": {
+						"DESCRIPTION": "即使已选中值也保持占位符可见。默认为 false（选中后占位符隐藏），反转了 ng-select v23 不合常规的默认行为。"
+					},
+					"LOADING_NOT_FOUND": {
+						"DESCRIPTION": "loading 在异步获取条目期间渲染下拉框的加载状态；notFoundText 则是没有条目匹配搜索词时显示的消息。"
+					},
+					"SELECT_READONLY": {
+						"DESCRIPTION": "为 true 时，字段显示其值但拒绝任何交互，既不带 disabled 样式，也不改变表单状态。"
+					},
+					"APPEND_TO": {
+						"DESCRIPTION": "下拉面板所附加到的元素的 CSS 选择器。默认为 'body'，使面板得以逃离带有 overflow/transform 的祖先元素（卡片、滚动容器、模态框）；传入 undefined 可将其内联渲染。"
+					},
+					"SEGMENTED_VALUE": {
+						"DESCRIPTION": "可双向绑定的选中值（model()）：单选模式下为所选选项的值，多选模式下为所选值的数组。会发出 valueChange；通常改由 formControlName 驱动。"
+					},
+					"DATEPICKER_LOCALE": {
+						"DESCRIPTION": "日历国际化：locale 是用于显示值及月份/星期名称的 BCP-47 标签（默认为应用的 LOCALE_ID，再回退到 en-US）；firstDayOfWeek 设置每周的第一天（0 = 周日，1 = 周一……）；weekdayFormat 决定星期表头的宽度。后两者会回退到全局的 provideHubForms 配置。"
+					},
+					"DATEPICKER_FORMAT": {
+						"DESCRIPTION": "显示格式：displayFormat 渲染所选值，接受 Intl.DateTimeFormatOptions、形如 'dd/MM/yyyy HH:mm' 的 Angular 日期模式，或一个函数；一旦粒度携带时间，timeDisplayFormat 会叠加其上，因此日期部分仍保持 displayFormat 所指定的样子；rangeSeparator 是范围两个日期之间的文本；labels 按实例覆盖界面标签（合并于全局配置之上）。"
+					},
+					"DATEPICKER_BEHAVIOR": {
+						"DESCRIPTION": "行为开关：clearable 显示清除快捷按钮，showToday 显示“今天”快捷按钮，closeOnSelect 在选定日期后关闭日历（仅单选模式）。默认值：true / true / true。"
+					},
+					"DATEPICKER_GRANULARITY": {
+						"DESCRIPTION": "每个选定时间点所携带的精度，以及用于选取它的面板：year 和 month 渲染 12 格网格，day 渲染日历，hour、minute 和 second 则在日历下方增加时间栏。它与 mode 正交：mode 决定选取几个点，granularity 决定每个点的精度。默认值为 day，输出与以往完全相同的 YYYY-MM-DD 字符串；从 hour 起，值变为完整的 ISO 8601 时间戳，携带读者的本地时间以及该日期的时区偏移。"
+					},
+					"DATEPICKER_VALUE_FORMAT": {
+						"DESCRIPTION": "值的两个轴。valueFormat 决定绑定控件所持有的内容：'iso'（默认）、'date' 为原生 Date、'timestamp' 为纪元毫秒，或传入函数以应对其他情况。parse 决定传入值的读取方式，覆盖对任意宽度 ISO 字符串、Date 实例和纪元毫秒的内置识别——它同样作用于 min 与 max。"
+					},
+					"DATEPICKER_TIME": {
+						"DESCRIPTION": "时间相关设置：minuteStep 与 secondStep 是微调按钮的步进值，hourFormat 强制使用 12 小时制或 24 小时制——未设置时由区域设置推导，并且同时作用于输入框显示与面板，因此两者绝不会相互矛盾。三者均回退到 provideHubForms 的全局配置。"
+					},
+					"CLASSLIST": {
+						"DESCRIPTION": "应用于宿主元素的额外 CSS 类。"
+					},
+					"FORM_TEXT_TYPE": {
+						"DESCRIPTION": "帮助文本显示在哪里：`bottom`（默认）画在控件下方，`tooltip` 则收进标签行末尾的问号里。这条规则是：一句话放下面，多于一句放进提示——每个字段下面都挂一段话，表单就成了文档。触发器是标签旁边的按钮，绝不放在标签里面，这样打开它不会同时聚焦控件，而它的可访问名称就是帮助文本本身。"
+					},
+					"ROWS": {
+						"DESCRIPTION": "可见的文本行数。"
+					},
+					"COLS": {
+						"DESCRIPTION": "可见的列数。设置后文本域不再拉伸至整宽。"
+					},
+					"MAXLENGTH": {
+						"DESCRIPTION": "最大字符数。同时决定原生限制与计数器。"
+					},
+					"COUNTER": {
+						"DESCRIPTION": "是否在控件下方显示字符计数器。"
+					},
+					"AUTORESIZE": {
+						"DESCRIPTION": "文本域是否随内容自动增高。"
+					},
+					"LENGTH": {
+						"DESCRIPTION": "验证码的单元格（字符）数量。"
+					},
+					"SECRET": {
+						"DESCRIPTION": "像密码一样遮蔽字符。"
+					},
+					"SEPARATOR": {
+						"DESCRIPTION": "组与组之间显示的分隔符。"
+					},
+					"SEPARATOR_EVERY": {
+						"DESCRIPTION": "每 N 个单元格插入一个视觉分隔符（0 表示不插入）。"
+					},
+					"SHOW_VALUE": {
+						"DESCRIPTION": "是否在滑块上方显示数值气泡。"
+					},
+					"STEP": {
+						"DESCRIPTION": "步进值（数字或计数器输入）。"
+					},
+					"LEGEND": {
+						"DESCRIPTION": "图例文字。投影 `hubLegend` 模板时会被忽略。"
+					},
+					"REQUIRED_LEGEND": {
+						"DESCRIPTION": "是否渲染必填指示符。"
+					},
+					"INVALID_LEGEND": {
+						"DESCRIPTION": "是否渲染无效状态样式。"
+					},
+					"LABEL_TYPE_STACKED_ONLY": {
+						"DESCRIPTION": "标签位置。这些字段没有 `floating` 变体：传入 `floating` 时，它们会渲染为堆叠式标签。"
+					},
+					"SELECT_VERTICAL": {
+						"DESCRIPTION": "已弃用，且与同样已弃用的非 dropdown 格式绑定：将 buttons/checkbox/radio 选项垂直排列。请改用 `<hub-segmented [vertical]=\"true\">`。"
+					},
+					"SEARCH_FN": {
+						"DESCRIPTION": "替换 `searchable` 所使用的内置匹配逻辑。它接收键入的搜索词和一个条目，并返回该条目是否匹配——因此搜索得以查看标签并未显示的字段。"
+					},
+					"SHOW_VALID": {
+						"DESCRIPTION": "有效的字段是否显示其有效状态。默认关闭，因为把每个尚未触碰的字段都涂成绿色的表单等于什么都没说；而无效状态始终会显示。"
+					},
+					"VALID_FEEDBACK": {
+						"DESCRIPTION": "开启 `showValid` 时，字段变为有效后在其下方渲染的消息。"
+					},
+					"INVALID_FEEDBACK_TEMPLATE_FN": {
+						"DESCRIPTION": "仅在此字段上覆盖指定错误键对应的消息。它接收错误键及其值并返回文本——应用级的默认实现位于 `provideHubForms`。"
+					},
+					"INPUT_MIN_MAX": {
+						"DESCRIPTION": "number 与 counter 格式的数值上下限。双向绑定，因此自行钳制取值的计数器会把该边界回报出来。"
+					},
+					"OTP_MODE": {
+						"DESCRIPTION": "每个输入框接受哪些字符，以及手机会弹出哪种键盘：仅数字，或字母与数字。"
+					},
+					"TIMEPICKER_MIN_MAX": {
+						"DESCRIPTION": "字段所接受的最早与最晚时间，格式为 `HH:MM`。留空表示不设限制。"
+					},
+					"TIMEPICKER_STEP": {
+						"DESCRIPTION": "原生步进器的粒度，以秒为单位。`0` 表示保留浏览器默认的一分钟。"
+					},
+					"GROUP": {
+						"DESCRIPTION": "容器所呈现错误的目标分组。可以直接给 `group` 传入一个 `AbstractControl`，或者给 `groupName` 传入外层表单中某个子控件的名称——当容器本身已经包裹了它所报告的分组时，两者都不需要。"
+					},
+					"ERROR_TRIGGER": {
+						"DESCRIPTION": "分组级错误何时变为可见：分组被触碰之后、仅在尝试提交之后，或立即显示。"
+					},
+					"REQUIRED_ALL": {
+						"DESCRIPTION": "该字段是否为必填。在响应式绑定下，它由控件自身的校验器推导得出，因此直接内联设置只对模板驱动的字段生效；它决定必填星号与 `required` 属性。"
+					},
+					"DATEPICKER_MONTH_FORMAT": {
+						"DESCRIPTION": "面板标题如何书写月份。默认使用缩写：面板宽度恰好等于日期网格，标题只能用导航按钮剩下的空间——102px，而完整的「septiembre de 2026」需要 152px，会被截断。在你通过 `--hub-daterangepicker-cell-size` 或 `--hub-datepicker-grid-gap` 加宽面板之后，再要求 `long`。 加宽是全局的：日历渲染在挂到 `document.body` 的浮层里，因此设在字段上的自定义属性永远到不了它——请在 `:root` 声明这些令牌。"
+					},
+					"PLAINTEXT": {
+						"DESCRIPTION": "没有字段外框的值。`readonly` 是仍在被填写的字段的一种状态，主题通过 `--hub-input-readonly-bg` / `-border-color` 给它加外框；`plaintext` 面向只是被展示的值，没有外框正是它本身，而不是它碰巧穿上的颜色。在出厂默认值下 `readonly` 同样不画外框，因此未经调整时二者的差别在于水平内边距、左右边框宽度、光标与可操作提示。它蕴含 `readonly`，两种呈现互斥。控件仍是真正的 input。"
+					},
+					"SLIDER_MIN_MAX": {
+						"DESCRIPTION": "滑块可移动范围的上下界。步长由 step 决定；双滑块时两个滑块共用同一范围。"
+					},
+					"INPUT_FILE_DEPRECATED": {
+						"DESCRIPTION": "hub-input 已弃用的 file 格式留下的输入。它们仍是公开的且仍然生效，但文件选择现在属于 hub-file-input：它在拖放和粘贴时同样应用 accept，而不仅限于系统对话框。将在下一个大版本中移除。"
+					},
+					"HUB_AUTORESIZE": {
+						"DESCRIPTION": "用于普通 textarea 的独立指令：让元素随内容增高。hub-textarea 通过自己的 autoresize 输入自行应用它；对于不属于本库的 textarea，则直接使用该指令。"
+					},
+					"FILE_CURRENT_FILE": {
+						"DESCRIPTION": "记录已有的文件，由 preview=\"inline\" 显示：一个 URL、一个 HubCurrentFile { url, name?, type? }，或在 multiple 下它们的列表。仅用于显示，从不进入表单值。"
+					},
+					"FILE_IMAGE_PREVIEW": {
+						"DESCRIPTION": "是否把图片显示为图片。关闭后，每个文件都显示为其类别图标，也不会为缩略图创建 object URL。"
+					},
+					"FILE_READONLY": {
+						"DESCRIPTION": "文件仍然可见并可打开，但不能选择、拖放、粘贴、替换或移除。与 disabled 不同，字段保留焦点并会被提交。"
+					},
+					"FILE_CLEARABLE": {
+						"DESCRIPTION": "用户是否可以移除字段中的内容（已选择或已保存）。同样作用于 list 和 grid 的移除按钮和“Remove all”。"
+					},
+					"COLOR_SWATCHES": {
+						"DESCRIPTION": "type=\"color\" 以色块网格提供的颜色：CSS 颜色字符串或 { value, label }。null 使用 provideHubForms({ color }) 中的调色板，没有时显示经典的十六进制字段；[] 强制使用经典字段。HUB_COLOR_PALETTES 提供五个现成列表。"
+					},
+					"COLOR_ALLOW_CUSTOM": {
+						"DESCRIPTION": "网格末尾是否有一个单元格，用于打开原生取色器选择列表之外的颜色。封闭调色板请关闭。"
+					},
+					"COLOR_CUSTOM_LABEL": {
+						"DESCRIPTION": "自定义颜色单元格的无障碍名称。为空时使用全局配置中的 color.customColorLabel。"
+					}
+				},
+				"OUTPUT": {
+					"VALUE_CHANGE": {
+						"DESCRIPTION": "每当字段值变化时触发。"
+					},
+					"SUBMIT": {
+						"DESCRIPTION": "并非自定义输出：`hubForm` 监听表单自身的 `submit` 事件，阻止默认的导航行为，将整棵控件树标记为已触碰，并翻转 submitted 状态。若需要自己的处理器，请在表单上绑定 `(submit)`。"
+					},
+					"OPENED": {
+						"DESCRIPTION": "日历生命周期和导航事件。"
+					},
+					"ON_OPEN": {
+						"DESCRIPTION": "下拉框生命周期以及标签/自动补全事件。"
+					},
+					"SEARCH": {
+						"DESCRIPTION": "用户输入时发出的防抖输入提示词（文本类输入）。"
+					},
+					"REJECTED": {
+						"DESCRIPTION": "被声明的限制所拒绝的文件，每个都附带拒绝原因。"
+					},
+					"FILE_REMOVED": {
+						"DESCRIPTION": "离开选择的已选文件：被移除，或通过其卡片被替换。"
+					},
+					"UPLOAD_STATE_CHANGE": {
+						"DESCRIPTION": "每当上传状态或进度变化时的完整条目列表。"
+					},
+					"ON_FOCUS_BLUR": {
+						"DESCRIPTION": "当下拉控件获得或失去焦点时发出（dropdown 格式），转发供应商的 focus/blur 事件。"
+					},
+					"SCROLL": {
+						"DESCRIPTION": "scroll 在下拉列表滚动时发出可见的 { start, end } 窗口；scrollToEnd 在列表到达末尾时发出——这是配合 typeahead 实现无限/分页加载的挂钩。"
+					},
+					"ENTER": {
+						"DESCRIPTION": "按下 Enter 时发出当前值。"
+					},
+					"COMPLETED": {
+						"DESCRIPTION": "所有单元格填满后发出完整验证码。"
+					},
+					"MODEL_CHANGE": {
+						"DESCRIPTION": "每个双向的 `model()` 输入都会发布一个与之对应的 `Change` 输出，`[(disabled)]` 之类的写法才得以工作。之所以在此列出，是因为「香蕉盒」双向绑定语法把它们隐藏了起来。"
+					},
+					"CURRENT_FILE_REMOVED": {
+						"DESCRIPTION": "离开字段的已保存文件（currentFile）：被移除，或被新选择的文件替换。表单值从未包含它，因此这是在服务器上删除它的信号。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "hubFormText",
+						"DESCRIPTION": "投影丰富的辅助文本内容。"
+					},
+					"1": {
+						"NAME": "hubValidationError",
+						"DESCRIPTION": "覆盖指定错误键的提示消息。"
+					},
+					"2": {
+						"NAME": "hub-legend",
+						"DESCRIPTION": "fieldset 的 legend，以元素方式投影——必填标记与无效状态都由它承载。"
+					},
+					"3": {
+						"NAME": "hubSelectOption (hub-select)",
+						"DESCRIPTION": "自定义下拉选项渲染。它是 hubSelect* 插槽之一；hubSelectLabel、hubSelectHeader、hubSelectFooter、hubSelectNotFound 等负责面板的其余部分。"
+					},
+					"4": {
+						"NAME": "hubFileIcon (hub-file-input)",
+						"DESCRIPTION": "无缩略图文件的单文件图标；以隐式上下文接收该条目。"
+					},
+					"5": {
+						"NAME": "hubFilePreview (hub-file-input)",
+						"DESCRIPTION": "完全替换所选文件的渲染，并接收该条目以及移除、重试和取消操作。"
+					},
+					"6": {
+						"NAME": "hubFileDropzoneNotice (hub-file-input)",
+						"DESCRIPTION": "在拖放区顶部、图标上方投影任意标记 —— 用于提示语和限制说明都无法表达的通知。"
+					},
+					"7": {
+						"NAME": "hubSegmentedOption (hub-segmented)",
+						"DESCRIPTION": "替换每个分段的内容（图标、徽章、富文本标记），组件仍负责选择、键盘导航与 ARIA。上下文：选项（隐式）、selected 与 index。"
+					},
+					"8": {
+						"NAME": "hubSelectSuffix (hub-select，已弃用)",
+						"DESCRIPTION": "自 22.16.0 起弃用——请使用 [hubAppend]，它在所有字段上都能做同样的事。它仍可继续使用；两者同时存在时以 [hubAppend] 为准。在下拉选择器的行末边缘附加一个可交互控件：一个作用于当前选中项的按钮——配置它、查询它、新建一个。它被声明为模板而非投影内容，因为选择器的通用 ng-content 负责把 ng-option 传给底层引擎，会把它一并吞掉；从模板渲染还能让操作在 DOM 中位于控件之后，因此 Tab 会先到达字段、再到作用于它的按钮。控件与操作共用一条边框，读起来是同一个字段。"
+					},
+					"9": {
+						"NAME": "hubPrepend / hubAppend (all box-shaped fields)",
+						"DESCRIPTION": "附加在字段边缘的内容，比 prepend / append 字符串能承载的更丰富：一个图标，或一个作用于该值的按钮。所有渲染为「装着值的框」的字段都支持——hub-input、hub-select、hub-textarea 和 hub-datepicker。它与字符串附加标签组合而非取代：字符串先渲染，因此投影内容始终位于该侧最外层——单位标注字段，操作位于其外。投影内容采用字段的边框、圆角与高度而非自身的，因此按钮不会在控件旁画出第二条更粗的接缝。之所以声明为模板，是因为字段的 ng-content 已另有用途。 插槽也可以放入另一个字段——hub-input、hub-select、hub-textarea 或 hub-datepicker 作为直接子元素——它会与宿主字段严丝合缝地相接，使价格与其计价周期读作它们本来就是的同一句话。"
+					},
+					"10": {
+						"NAME": "hubInputPrefix / hubInputSuffix (hub-input)",
+						"DESCRIPTION": "将内容投影到字段的行首或行尾附加区 — 前导图标、货币符号、内联 SVG。它们是属性指令而非模板：直接写在被投影的元素上。字段会预留内边距，因此文本永远不会压在附加内容下方，并用 --hub-input-icon-* 令牌为投影的 hub-icon 上色。两端都跟随书写方向，因此在 dir=\"rtl\" 下会翻转。需要清除按钮时，请优先使用内置的 clearable 输入。"
+					}
+				},
+				"CSS_VAR": {
+					"LABEL_FONT_WEIGHT": {
+						"DESCRIPTION": "字段标签的字重。"
+					},
+					"INPUT_BG": {
+						"DESCRIPTION": "控件背景。"
+					},
+					"INPUT_BORDER_COLOR": {
+						"DESCRIPTION": "控件边框颜色。"
+					},
+					"INPUT_BORDER_RADIUS": {
+						"DESCRIPTION": "控件边框半径。"
+					},
+					"INPUT_PADDING_Y": {
+						"DESCRIPTION": "控件垂直内边距。"
+					},
+					"INPUT_PADDING_X": {
+						"DESCRIPTION": "控件水平内边距。"
+					},
+					"INPUT_FOCUS_BORDER_COLOR": {
+						"DESCRIPTION": "聚焦时的边框颜色。"
+					},
+					"SELECT_OPTION_SELECTED_BG": {
+						"DESCRIPTION": "选中的下拉选项背景。"
+					},
+					"SELECT_VALUE_BG": {
+						"DESCRIPTION": "多选标签的背景。"
+					},
+					"SLIDER_TRACK_FILL_BG": {
+						"DESCRIPTION": "slider 轨道的已填充部分。"
+					},
+					"SLIDER_THUMB_BG": {
+						"DESCRIPTION": "slider 滑块的颜色。"
+					},
+					"DATERANGEPICKER_ACTIVE_BG": {
+						"DESCRIPTION": "选中的日历日期背景。"
+					},
+					"DATERANGEPICKER_IN_RANGE_BG": {
+						"DESCRIPTION": "范围内日历日期的背景。"
+					},
+					"DATERANGEPICKER_PREVIEW_BG": {
+						"DESCRIPTION": "选择结束日期时预览的临时范围背景。"
+					},
+					"INPUT_ICON_COLOR": {
+						"DESCRIPTION": "字段内图标词缀的颜色。"
+					},
+					"INPUT_ICON_SIZE": {
+						"DESCRIPTION": "字段内图标词缀的大小。"
+					},
+					"INPUT_CLEAR_ICON": {
+						"DESCRIPTION": "✕（清除）按钮字形，作为遮罩图像 —— 替换它即可自定义图标。"
+					},
+					"INPUT_CLEAR_COLOR": {
+						"DESCRIPTION": "清除按钮的颜色。"
+					},
+					"INPUT_CLEAR_HOVER_COLOR": {
+						"DESCRIPTION": "悬停 / 聚焦时清除按钮的颜色。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"INPUT_BASIC": {
+					"TITLE": "文本字段与自动错误提示"
+				},
+				"INPUT_PASSWORD": {
+					"TITLE": "密码字段——显示切换、强度计与自动填充"
+				},
+				"INPUT_FORMATS": {
+					"TITLE": "数字、计数器、颜色、开关、复选框"
+				},
+				"INPUT_COLOR_SWATCHES": {
+					"TITLE": "色板 — 与输入框同高的调色板"
+				},
+				"INPUT_GROUPS": {
+					"TITLE": "输入组、文件与浮动标签"
+				},
+				"INPUT_MASK": {
+					"TITLE": "模式掩码（银行卡、IBAN、电话、日期）"
+				},
+				"INPUT_OTP": {
+					"TITLE": "一次性验证码（OTP）输入"
+				},
+				"TEXTAREA": {
+					"TITLE": "带计数器和自动调整高度的文本域"
+				},
+				"SLIDER": {
+					"TITLE": "Slider 与双滑块范围"
+				},
+				"SELECT": {
+					"TITLE": "单选与多选"
+				},
+				"SELECT_FORMATS": {
+					"TITLE": "按钮、单选与复选框格式"
+				},
+				"DATEPICKER": {
+					"TITLE": "Datepicker 与范围选择"
+				},
+				"DATEPICKER_TIME": {
+					"TITLE": "带时间的日期选择器"
+				},
+				"DATEPICKER_GRANULARITY": {
+					"TITLE": "粒度：从年到秒"
+				},
+				"DATEPICKER_FORMATS": {
+					"TITLE": "输入、值与显示格式"
+				},
+				"DATEPICKER_DAY_TIME_RANGE": {
+					"TITLE": "单日时间范围"
+				},
+				"CONTAINERS": {
+					"TITLE": "容器与跨字段错误"
+				},
+				"SELECT_GROUPED": {
+					"TITLE": "分组选项"
+				},
+				"SELECT_SEARCH": {
+					"TITLE": "输入即搜索"
+				},
+				"SELECT_TYPEAHEAD": {
+					"TITLE": "Select：异步 typeahead"
+				},
+				"SELECT_TEMPLATES": {
+					"TITLE": "自定义选项与标签模板"
+				},
+				"INPUT_SEARCH": {
+					"TITLE": "带图标和输入提示的搜索框"
+				},
+				"SEGMENTED": {
+					"TITLE": "分段控件"
+				},
+				"SEGMENTED_TEMPLATE": {
+					"TITLE": "Segmented：自定义选项模板"
+				},
+				"SLIDER_STYLING": {
+					"TITLE": "滑块样式（渐变与紧凑）"
+				},
+				"SELECT_IN_MODAL": {
+					"TITLE": "模态框内的下拉选择"
+				},
+				"SELECT_ADDONS": {
+					"TITLE": "附加标签与附加操作"
+				},
+				"FIELD_ATTACHED": {
+					"TITLE": "附着于字段的图标、按钮与字段"
+				},
+				"FILE_INPUT_BASIC": {
+					"TITLE": "单个文件与校验"
+				},
+				"FILE_INPUT_DROPZONE": {
+					"TITLE": "拖放、限制与预览"
+				},
+				"FILE_INPUT_UPLOAD": {
+					"TITLE": "上传进度、取消与重试"
+				},
+				"FILE_INPUT_INLINE": {
+					"TITLE": "内联预览：文件显示在字段内"
+				},
+				"TIMEPICKER": {
+					"TITLE": "时间选择器 — 一天中的时刻"
+				},
+				"RTL": {
+					"TITLE": "从右到左 — 所有字段镜像"
+				},
+				"DATEPICKER_IN_MODAL": {
+					"TITLE": "模态框中的日期选择器"
+				},
+				"PLAINTEXT": {
+					"TITLE": "纯文本字段"
+				},
+				"FORM_TEXT_TOOLTIP": {
+					"TITLE": "帮助文本：置于下方或藏在标记后"
+				},
+				"LABEL_VISUALLY_HIDDEN": {
+					"TITLE": "被裁掉的标签：留名不占位"
+				}
+			}
+		},
+		"HISTORY": {
+			"FEATURE": {
+				"MANUAL_COMMITS_AND_TIME_TRAVEL": {
+					"TITLE": "手动提交与时间旅行",
+					"DESCRIPTION": "跟踪状态变化，并在线性历史中向后/向前穿梭。",
+					"HIGHLIGHT": "在需要时提交一次快照，并用 undo() 和 redo() 在线性时间轴上前后移动。"
+				},
+				"NESTED_OBJECTS_AND_ARRAYS": {
+					"TITLE": "嵌套对象与数组",
+					"DESCRIPTION": "对深层对象图和列表变更使用基于补丁的跟踪。",
+					"HIGHLIGHT": "每条记录保存正向与反向补丁，因此深层对象和列表修改只占用少量字节，而非完整副本。"
+				},
+				"AUTOMATIC_FORM_TRACKING": {
+					"TITLE": "自动表单跟踪",
+					"DESCRIPTION": "借助内置的 watch 辅助器自动提交表单值的变化。",
+					"HIGHLIGHT": "watchForm() 会提交 FormGroup 的每一次值变化，并返回停止监听的函数。"
+				},
+				"TRANSACTIONS_AND_RETENTION": {
+					"TITLE": "事务与保留策略",
+					"DESCRIPTION": "可将多个操作合并为一条记录，并按配置的限制裁剪旧记录。",
+					"HIGHLIGHT": "把一批提交合并成一条记录，并按记录数量或近似字节数限制保留量。"
+				}
+			},
+			"API": {
+				"METHOD": {
+					"CREATE_HISTORY_STORE": {
+						"DESCRIPTION": "创建基于 signal 的历史存储的工厂函数，可按 id 跟踪多个对象。接受可选的保留上限（maxEntries，默认 100；maxBytes，默认 512000）、一个 keySelector，以及自定义的 diff/patch 策略。"
+					},
+					"STATES": {
+						"DESCRIPTION": "计算型 signal，以映射形式暴露以对象 id 为键的当前不可变状态快照。"
+					},
+					"REGISTER_OBJECT": {
+						"DESCRIPTION": "以初始状态注册一个被跟踪对象，并为该 id 开启一条全新的空历史时间线。"
+					},
+					"REGISTER_FROM_OBJECT": {
+						"DESCRIPTION": "注册一个被跟踪对象，其 id 由所配置的 keySelector 派生，并返回该 id。未配置 keySelector 时抛出异常。"
+					},
+					"COMMIT": {
+						"DESCRIPTION": "为已注册的 id 提交一个新的状态快照，存储正向与反向补丁，并丢弃指针之后的所有 redo 条目。当新状态未产生任何变化时返回 false。在已开启的事务内，它只更新当前状态而不创建条目。"
+					},
+					"COMMIT_FROM_OBJECT": {
+						"DESCRIPTION": "提交一个新状态，其 id 由所配置的 keySelector 派生。未配置 keySelector 时抛出异常。"
+					},
+					"UNDO": {
+						"DESCRIPTION": "通过应用条目的反向补丁回退一步历史。没有可撤销的内容时返回 false。"
+					},
+					"REDO": {
+						"DESCRIPTION": "通过应用条目的正向补丁重做一步历史。没有可重做的内容时返回 false。"
+					},
+					"CAN_UNDO": {
+						"DESCRIPTION": "返回给定对象 id 当前是否可以执行 undo。"
+					},
+					"CAN_REDO": {
+						"DESCRIPTION": "返回给定对象 id 当前是否可以执行 redo。"
+					},
+					"GET_STATE": {
+						"DESCRIPTION": "返回给定 id 当前状态的深拷贝；当该 id 未注册时返回 undefined。"
+					},
+					"HISTORY": {
+						"DESCRIPTION": "返回该对象历史的只读元数据：指针、条目数量、近似保留字节数，以及每个条目的标签、时间戳和字节数。"
+					},
+					"BEGIN_TRANSACTION": {
+						"DESCRIPTION": "开启一个事务，使后续的 commit 折叠为单个合并的历史条目。当该 id 已有事务处于开启状态时抛出异常。"
+					},
+					"END_TRANSACTION": {
+						"DESCRIPTION": "结束已开启的事务，从事务起始状态到当前状态提交一个合并条目。当没有开启的事务或没有任何更改时返回 false。"
+					},
+					"WATCH_FORM": {
+						"DESCRIPTION": "订阅 FormGroup 的 valueChanges 并自动提交每次发出的值，可选择跳过首次发出。返回一个取消订阅的回调。"
+					},
+					"CLEAR_HISTORY": {
+						"DESCRIPTION": "清除给定 id 的所有历史条目，保留当前状态作为新的基础快照，并丢弃任何已开启的事务。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"BASIC": {
+					"TITLE": "基础历史记录",
+					"DESCRIPTION": "对单个被跟踪对象进行手动提交、撤销与重做。"
+				},
+				"NESTED": {
+					"TITLE": "嵌套对象历史记录",
+					"DESCRIPTION": "以补丁形式记录嵌套属性和列表更新。"
+				},
+				"REACTIVE_FORM": {
+					"TITLE": "响应式表单监听",
+					"DESCRIPTION": "watchForm() 自动提交 FormGroup 的每一次值变化。"
+				},
+				"TRANSACTION_LIMITS": {
+					"TITLE": "事务与限制",
+					"DESCRIPTION": "由事务合并的提交，并受记录数与字节数限制。"
+				}
+			},
+			"NAV": {
+				"BASIC": "基础历史记录",
+				"NESTED": "嵌套对象",
+				"REACTIVE_FORM": "响应式表单",
+				"TRANSACTION_LIMITS": "交易与限制"
+			}
+		},
+		"MILESTONES": {
+			"FEATURE": {
+				"ORIENTATION": {
+					"TITLE": "方向",
+					"DESCRIPTION": "可将时间线垂直布局（默认方式，适合向导和活动流）或水平布局（横跨页面顶部的进度步骤）。节点会按 DOM 顺序自动编号。"
+				},
+				"NODE_STATES": {
+					"TITLE": "节点状态",
+					"DESCRIPTION": "每个 `hub-milestone` 都带有一个 `state`——complete、active、pending 或 error——用于驱动节点和连接线的颜色。`label` 输入会在圆圈内渲染回退文本。"
+				},
+				"CUSTOM_NODES_THEMING": {
+					"TITLE": "自定义节点与主题化",
+					"DESCRIPTION": "可通过 `<ng-template hubMilestoneNode>` 将任意内容投影到圆圈中（数字、图标、emoji、头像），用 `color` 覆盖单个节点，或通过 `--hub-milestone-*` CSS 变量重新为整条时间线设定主题。"
+				},
+				"ANIMATION": {
+					"TITLE": "动画",
+					"DESCRIPTION": "当时间线滚动进入视口时，强调色轨迹会一直填充到活动节点（默认开启，可通过 `provideHubMilestones` 全局配置）。添加 `[pulse]` 可让活动节点发出柔和的波纹。两种动画都遵循 `prefers-reduced-motion`。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"ORIENTATION": {
+						"DESCRIPTION": "时间线的布局方向。"
+					},
+					"STATE": {
+						"DESCRIPTION": "节点的视觉状态；决定节点和连接线的颜色。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "逐节点的颜色覆盖（任意 CSS 颜色）。优先级高于 state 颜色。"
+					},
+					"LABEL": {
+						"DESCRIPTION": "当未提供 `hubMilestoneNode` 模板时，节点内显示的回退文本。"
+					},
+					"PULSE": {
+						"DESCRIPTION": "在 `<hub-milestones>` 上启用后，活动节点会发出柔和扩散的波纹以突出当前步骤。需手动开启；遵循 `prefers-reduced-motion`。"
+					},
+					"REVEAL": {
+						"DESCRIPTION": "当时间线滚动进入视口时，会以动画方式将强调色轨迹填充至活动节点。默认开启 —— 可通过 `provideHubMilestones({ reveal: false })` 全局配置，或用 `[reveal]` 按实例配置。遵循 `prefers-reduced-motion`。"
+					},
+					"STATE_LABEL": {
+						"DESCRIPTION": "朗读该节点时使用的词：从页面中裁掉，但会与步骤一起读出。它优先于 `provideHubMilestones` 的全局 `stateLabels`；`''` 让该节点静默，不设置则继承已配置的措辞（默认英文：Completed、Pending、Error，active 不设，因为 `aria-current=\"step\"` 已经说明）。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "hubMilestoneNode",
+						"DESCRIPTION": "标记一个 `<ng-template>`，其内容渲染在里程碑圆圈内部（数字、图标、emoji、头像）。优先级高于 `label` 和自动编号。"
+					},
+					"1": {
+						"NAME": "hub-milestone body (ng-content)",
+						"DESCRIPTION": "任何直接投影到 `hub-milestone` 中（节点模板之外）的内容都会作为正文渲染在圆圈旁边。"
+					}
+				},
+				"CSS_VAR": {
+					"NODE_SIZE": {
+						"DESCRIPTION": "节点圆形的直径。"
+					},
+					"NODE_FONT_SIZE": {
+						"DESCRIPTION": "节点内容（数字/标签）的字号。"
+					},
+					"NODE_COLOR": {
+						"DESCRIPTION": "完成/激活状态下的节点背景。每个节点的 `color` 会覆盖此值。"
+					},
+					"NODE_TEXT": {
+						"DESCRIPTION": "彩色节点上的节点内容颜色。"
+					},
+					"PENDING_BG": {
+						"DESCRIPTION": "待处理节点的背景。"
+					},
+					"PENDING_COLOR": {
+						"DESCRIPTION": "待处理节点的内容颜色。"
+					},
+					"PENDING_BORDER": {
+						"DESCRIPTION": "待处理节点的边框颜色。"
+					},
+					"ERROR_BG": {
+						"DESCRIPTION": "错误节点的背景。"
+					},
+					"CONNECTOR_THICKNESS": {
+						"DESCRIPTION": "连接导轨的粗细。"
+					},
+					"CONNECTOR_BG": {
+						"DESCRIPTION": "完成/激活节点之间连接线的填充。"
+					},
+					"CONNECTOR_PENDING_BG": {
+						"DESCRIPTION": "通向待处理节点的连接线填充。"
+					},
+					"GAP": {
+						"DESCRIPTION": "节点导轨与正文内容之间的间隙。"
+					},
+					"SPACING": {
+						"DESCRIPTION": "连续步骤之间的间距。"
+					},
+					"BODY_COLOR": {
+						"DESCRIPTION": "正文主要文本颜色。"
+					},
+					"BODY_MUTED": {
+						"DESCRIPTION": "弱化/次要正文文本颜色。"
+					},
+					"PULSE_COLOR": {
+						"DESCRIPTION": "活动节点脉冲波的颜色。默认使用节点强调色，因此会跟随每个节点的 `color` 覆盖。"
+					},
+					"PULSE_DURATION": {
+						"DESCRIPTION": "一个脉冲周期的时长。"
+					},
+					"PULSE_SPREAD": {
+						"DESCRIPTION": "脉冲波从节点向外扩散的距离。"
+					},
+					"REVEAL_DURATION": {
+						"DESCRIPTION": "揭示过程中每个连接线填充的时长。"
+					},
+					"REVEAL_STAGGER": {
+						"DESCRIPTION": "相邻连接线填充之间的延迟，形成级联揭示效果。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"VERTICAL": {
+					"TITLE": "垂直时间线"
+				},
+				"HORIZONTAL": {
+					"TITLE": "水平进度步骤"
+				},
+				"STATES": {
+					"TITLE": "节点状态"
+				},
+				"CUSTOM_NODES": {
+					"TITLE": "自定义节点与单节点颜色"
+				},
+				"CSS_VARIABLES": {
+					"TITLE": "CSS 变量主题"
+				},
+				"HORIZONTAL_PULSE": {
+					"TITLE": "带活动脉冲的横向"
+				}
+			}
+		},
+		"MODAL": {
+			"FEATURE": {
+				"OPENING_MODALS_CONTENT_TYPES": {
+					"TITLE": "打开 modals（内容类型）",
+					"DESCRIPTION": "演示如何使用 TemplateRef、Component 和 String 内容打开 modals。"
+				},
+				"CONFIGURATION_OPTIONS": {
+					"TITLE": "配置与选项",
+					"DESCRIPTION": "自定义 modal 的外观和行为"
+				},
+				"MODAL_REFERENCE_HUBMODALREF": {
+					"TITLE": "Modal 引用（HubModalRef）",
+					"DESCRIPTION": "控制并访问已打开 modals 的状态"
+				},
+				"ACTIVE_MODAL_HUBACTIVEMODAL": {
+					"TITLE": "活动 modal（HubActiveModal）",
+					"DESCRIPTION": "从 modal 的内容内部与其交互"
+				},
+				"STACK_MANAGEMENT": {
+					"TITLE": "堆栈管理",
+					"DESCRIPTION": "管理多个堆叠的 modals"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"ANIMATION": {
+						"DESCRIPTION": "若为 true，模态框的打开和关闭将带有动画。默认值：true"
+					},
+					"BACKDROP": {
+						"DESCRIPTION": "若为 true，将创建背景遮罩元素。或者指定 \"static\" 以创建点击时不关闭模态框的背景遮罩。默认值：true"
+					},
+					"CENTERED": {
+						"DESCRIPTION": "若为 true，模态框将垂直居中。默认值：false"
+					},
+					"PLACEMENT": {
+						"DESCRIPTION": "控制模态框在视口中的放置位置。默认值：HubModalPlacement.Center"
+					},
+					"KEYBOARD": {
+						"DESCRIPTION": "若为 true，按下 Escape 键时模态框将关闭。默认值：true"
+					},
+					"SIZE": {
+						"DESCRIPTION": "模态框窗口的尺寸"
+					},
+					"WINDOWCLASS": {
+						"DESCRIPTION": "附加到模态框窗口的自定义类"
+					},
+					"BACKDROPCLASS": {
+						"DESCRIPTION": "附加到模态框背景遮罩的自定义类"
+					},
+					"DISMISSSELECTOR": {
+						"DESCRIPTION": "可触发模态框窗口关闭（dismiss）的元素的自定义选择器。默认值：\"[data-dismiss=\\\"modal\\\"]\""
+					},
+					"CLOSESELECTOR": {
+						"DESCRIPTION": "可触发模态框窗口关闭（close）的元素的自定义选择器。默认值：\"[data-close=\\\"modal\\\"]\""
+					},
+					"HEADERSELECTOR": {
+						"DESCRIPTION": "模态框窗口头部元素的自定义选择器"
+					},
+					"FOOTERSELECTOR": {
+						"DESCRIPTION": "模态框窗口底部元素的自定义选择器"
+					},
+					"DATA": {
+						"DESCRIPTION": "打开模态框窗口时需要传递的额外数据"
+					},
+					"OFFCANVAS": {
+						"DESCRIPTION": "把对话框作为抽屉打开：紧贴 `placement` 指定的边缘，该侧不做圆角，拉伸到整个高度（从上下打开时则是宽度），并让主体滚动，使页眉和页脚保持不动。宽度取自 `--hub-modal-offcanvas-width` 而非尺寸刻度——`size: 'lg'` 是 800px，在窄窗口下会盖住抽屉本该并排阅读的那份文档。不传 `placement` 时从末端边缘打开。"
+					},
+					"VARIANT": {
+						"DESCRIPTION": "对话框的语义强调色，用在真正有含义的对话框上：破坏性确认、成功提示。它重新指定唯一的 `--hub-modal-accent` 槽位，emphasis / subtle / on / border 这几个角色都在对话框自身上由它派生，所以一个值就能同时改变带色的背景、外框以及页眉页脚的分隔线，还有标题。样式表内置九个：`primary`、`secondary`、`success`、`danger`、`warning`、`info`、`neutral`、`light`、`dark`。其他任意字符串也接受，会给窗口加上 `hub-modal--<名称>`：自定义强调色只需要在全局样式表里写一条规则，无需重新构建。顶部色条也属于这一套，但出厂宽度为零：在对话框上设置 `--hub-modal-accent-bar-width` 即可开启。不指定 variant 时对话框保持中性。"
+					},
+					"ARIALABELLEDBY": {
+						"DESCRIPTION": "为对话框提供标签的元素 ID，作为 `aria-labelledby` 应用在模态窗口上。"
+					},
+					"ARIADESCRIBEDBY": {
+						"DESCRIPTION": "描述对话框的元素 ID，作为 `aria-describedby` 应用在模态窗口上。"
+					},
+					"CLOSEARIALABEL": {
+						"DESCRIPTION": "库在自带表头中绘制的关闭按钮的无障碍名称。该按钮没有文本内容，叉号由 CSS 绘制，因此这个字符串就是屏幕阅读器能读出的全部内容：在这里传入翻译后的文本，或在 `HubModalConfig` 上一次性设置默认值。默认值：\"Close\""
+					},
+					"BEFOREDISMISS": {
+						"DESCRIPTION": "在模态框被关闭前调用的守卫。返回 `false`、解析为 `false` 的 Promise 或被拒绝的 Promise，对话框就会保持打开。"
+					},
+					"CONTAINER": {
+						"DESCRIPTION": "模态窗口挂载到的 CSS 选择器或元素。默认值：`body`"
+					},
+					"FULLSCREEN": {
+						"DESCRIPTION": "`true` 让对话框在任何宽度下都全屏；`\"md\"` 这样的断点名称则只在小于该宽度时全屏。其他字符串会应用 `modal-fullscreen-<值>-down`。默认值：false"
+					},
+					"INJECTOR": {
+						"DESCRIPTION": "用于解析内容组件依赖的 Injector。"
+					},
+					"SCROLLABLE": {
+						"DESCRIPTION": "固定对话框并让其主体滚动，而不是让对话框超出视口。默认值：false"
+					},
+					"MODALDIALOGCLASS": {
+						"DESCRIPTION": "追加到 `hub-modal__dialog` 元素上的自定义类"
+					},
+					"BODYSELECTOR": {
+						"DESCRIPTION": "其子节点构成主体的区块的 CSS 选择器。不指定时，主体是表头和表尾剩下的部分，取决于内容的书写顺序；指定后主体被有意放置，任何插槽都未认领的内容仍会跟在它后面。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "Modal Template",
+						"DESCRIPTION": "可传给模态服务的模板引用。只有在 `open()` 时给出 `headerSelector`、`bodySelector` 和 `footerSelector`，表头、主体和表尾区块才会成为插槽；否则整个模板都会落进主体。"
+					}
+				},
+				"OUTPUT": {
+					"DISMISS": {
+						"DESCRIPTION": "当用户关闭（dismiss）模态框时由模态框窗口发出，例如按下 Escape、点击背景遮罩或激活内置关闭按钮。载荷为 dismiss 原因（ModalDismissReasons.ESC、ModalDismissReasons.BACKDROP_CLICK 或自定义值）。"
+					}
+				},
+				"METHOD": {
+					"OPEN": {
+						"DESCRIPTION": "使用给定内容（组件类型、TemplateRef 或字符串）和选项打开一个新的模态框窗口，并返回用于控制它的 HubModalRef。内容组件可以注入 HubActiveModal 和 HUB_MODAL_DATA 令牌，以便与模态框交互并读取数据载荷。"
+					},
+					"DISMISS_ALL": {
+						"DESCRIPTION": "以所提供的原因关闭（dismiss）当前显示的所有模态框窗口。"
+					},
+					"HAS_OPEN_MODALS": {
+						"DESCRIPTION": "指示应用中当前是否存在任何打开的模态框窗口。"
+					},
+					"ACTIVE_INSTANCES": {
+						"DESCRIPTION": "事件发射器，每当有模态框被打开或移除时，发出当前打开的 HubModalRef 实例列表。"
+					},
+					"REF_CLOSE": {
+						"DESCRIPTION": "以可选的结果值关闭模态框。HubModalRef.result Promise 会以所提供的值 resolve。"
+					},
+					"REF_DISMISS": {
+						"DESCRIPTION": "以可选的原因值关闭（dismiss）模态框。HubModalRef.result Promise 会以所提供的值 reject。若配置了 beforeDismiss 守卫，则会予以遵循。"
+					},
+					"REF_UPDATE": {
+						"DESCRIPTION": "更新已打开模态框的选项（aria 属性、centered、placement、fullscreen、backdropClass、size、variant、windowClass、modalDialogClass）。"
+					},
+					"REF_COMPONENT_INSTANCE": {
+						"DESCRIPTION": "用作模态框内容的组件实例。当内容为 TemplateRef 或模态框已关闭时返回 undefined。"
+					},
+					"REF_RESULT": {
+						"DESCRIPTION": "一个 Promise：模态框关闭时以关闭结果 resolve，被关闭（dismiss）时以 dismiss 原因 reject。"
+					},
+					"REF_CLOSED": {
+						"DESCRIPTION": "Observable，当模态框关闭时发出传给 close() 的结果。"
+					},
+					"REF_DISMISSED": {
+						"DESCRIPTION": "Observable，当模态框被关闭（dismiss）时发出 dismiss 原因——即传给 dismiss() 的值，或诸如点击背景遮罩、按下 Escape 之类的内部原因。"
+					},
+					"REF_SHOWN": {
+						"DESCRIPTION": "Observable，在模态框完全可见且打开动画结束后发出并完成。"
+					},
+					"REF_HIDDEN": {
+						"DESCRIPTION": "Observable，在模态框窗口和背景遮罩均已隐藏、动画结束且其元素已从 DOM 中移除后发出并完成。"
+					},
+					"ACTIVE_CLOSE": {
+						"DESCRIPTION": "关闭承载该内容组件的模态框，并以可选的结果值 resolve HubModalRef.result Promise。"
+					},
+					"ACTIVE_DISMISS": {
+						"DESCRIPTION": "关闭（dismiss）承载该内容组件的模态框，并以可选的原因值 reject HubModalRef.result Promise。"
+					},
+					"ACTIVE_UPDATE": {
+						"DESCRIPTION": "从内容组件内部更新已打开模态框的选项。"
+					},
+					"ACTIVE_DATA": {
+						"DESCRIPTION": "通过 HubModalOptions.data 传入的类型化载荷。等同于注入 HUB_MODAL_DATA 令牌；未提供 data 选项时解析为 null。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"CONTENT": {
+					"TITLE": "Modal 内容类型"
+				},
+				"OPTIONS": {
+					"TITLE": "配置选项"
+				},
+				"PLACEMENT": {
+					"TITLE": "Modal 位置"
+				},
+				"REF": {
+					"TITLE": "通过 modal 引用进行控制"
+				},
+				"ACTIVE": {
+					"TITLE": "活动 modal（自关闭）"
+				},
+				"STACK": {
+					"TITLE": "堆叠的 modals"
+				},
+				"FULLSCREEN": {
+					"TITLE": "全屏 modal"
+				},
+				"PROJECTION": {
+					"TITLE": "内容投影"
+				},
+				"BODY_SELECTOR": {
+					"TITLE": "具名主体插槽"
+				},
+				"STYLING": {
+					"TITLE": "使用 CSS 变量设置样式"
+				},
+				"TYPED_DATA": {
+					"TITLE": "类型化数据载荷"
+				},
+				"OFFCANVAS": {
+					"TITLE": "Offcanvas：紧贴边缘的抽屉"
+				},
+				"VARIANTS": {
+					"TITLE": "语义变体：一个强调色，整个对话框跟着走"
+				}
+			},
+			"NAV": {
+				"CONTENT": "内容类型",
+				"OPTIONS": "选项",
+				"PLACEMENT": "放置位置",
+				"REF": "引用控制",
+				"ACTIVE": "活动模态框",
+				"STACK": "Stack",
+				"FULLSCREEN": "Fullscreen",
+				"PROJECTION": "内容投影",
+				"STYLING": "样式"
+			}
+		},
+		"NAV": {
+			"FEATURE": {
+				"CORE_NAVIGATION": {
+					"TITLE": "核心导航",
+					"DESCRIPTION": "核心的水平与垂直导航，支持数据驱动的项渲染、图标、徽章和禁用状态。"
+				},
+				"DROPDOWN_NESTING": {
+					"TITLE": "下拉嵌套",
+					"DESCRIPTION": "无限层级的多级下拉菜单，支持点击、悬停或组合触发模式。包含分隔符和标题项。"
+				},
+				"STATES": {
+					"TITLE": "状态",
+					"DESCRIPTION": "演示禁用的根项和嵌套项及其交互行为。"
+				},
+				"RESPONSIVE_BEHAVIOR": {
+					"TITLE": "响应式行为",
+					"DESCRIPTION": "响应式折叠、移动端渲染和 RTL 插槽行为。"
+				},
+				"RAIL": {
+					"TITLE": "桌面图标栏",
+					"DESCRIPTION": "将垂直导航折叠为仅图标的侧栏，使每个部分保持一键可达：标签以工具提示显示，分组以浮层飞出菜单打开，切换与持久化由应用通过双向 rail 绑定持有。"
+				},
+				"SLOTS_TEMPLATES": {
+					"TITLE": "插槽与模板",
+					"DESCRIPTION": "起始/结束插槽投影和自定义项模板，可用于构建量身定制的导航界面。"
+				},
+				"ROUTER_INTEGRATION": {
+					"TITLE": "路由集成",
+					"DESCRIPTION": "通过 routerLinkActive 选项实现路由链接、查询参数、片段和激活状态匹配。"
+				},
+				"EVENTS": {
+					"TITLE": "事件",
+					"DESCRIPTION": "可观察链接、下拉菜单、移动端切换和面板导航的交互事件。"
+				},
+				"PANEL_DRILL_DOWN": {
+					"TITLE": "面板下钻",
+					"DESCRIPTION": "堆叠式面板导航，点击下拉菜单会在侧边面板中打开其子项。支持可配置的最大面板数、带返回导航的下钻，以及左/右侧边栏定位。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"ITEMS": {
+						"DESCRIPTION": "要渲染的导航项数组。每一项定义其类型（link、dropdown、header、separator、custom）、label、route、icon、badge、children 等。"
+					},
+					"CONFIG": {
+						"DESCRIPTION": "与全局默认值合并的部分配置覆盖。控制方向、下拉触发方式、折叠模式、断点、位置等。"
+					},
+					"NAV_CLASS": {
+						"DESCRIPTION": "应用于 nav 容器元素的额外 CSS 类。"
+					},
+					"ITEM_TEMPLATE": {
+						"DESCRIPTION": "通过输入绑定渲染导航项的可选自定义模板。hubNavItemTemplate 指令的优先级高于此输入。"
+					},
+					"AUTO_OPEN_FROM_ROUTE": {
+						"DESCRIPTION": "为 true 时，导航会在初始化及每次导航结束后，自动打开与当前激活路由 URL 匹配的下拉菜单和下钻面板。适用于由 URL 驱动展开状态的侧边栏导航。当菜单的各个根项展开方式不同时，只会有一个分区保持展开：进入手风琴根项会关闭你离开的面板根项的面板，反之亦然。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "应用于悬停/激活效果的语义强调色。接受语义名称（primary、success、danger、warning、info）、已注册的强调色名称、CSS 命名颜色，或字面的 #hex / rgb() / oklch() / var()。裸词会解析为 --hub-sys-color-<name> token；省略时默认为 primary。"
+					},
+					"RAIL": {
+						"DESCRIPTION": "仅桌面端的图标栏。为 true 时，垂直导航以栏宽渲染并仅显示图标。低于 collapseBreakpoint 时被忽略，始终由 offcanvas 行为优先。可通过 [(rail)] 双向绑定。"
+					},
+					"CONFIG_ORIENTATION": {
+						"DESCRIPTION": "导航的方向：horizontal 渲染为顶部栏，vertical 渲染为侧边栏。"
+					},
+					"CONFIG_VERTICAL_EXPAND_MODE": {
+						"DESCRIPTION": "垂直方向下子项的展开方式：accordion 内联展开，flyout 打开定位的侧向子菜单，panel 打开堆叠的下钻面板。"
+					},
+					"CONFIG_DROPDOWN_TRIGGER": {
+						"DESCRIPTION": "打开下拉菜单的机制：悬停（hover）、点击（click），或两者兼有。"
+					},
+					"CONFIG_DROPDOWN_RENDER_MODE": {
+						"DESCRIPTION": "下拉菜单与 flyout 菜单的渲染策略：inline 在导航 DOM 内部渲染，overlay 在 body 层级的图层中渲染以避免被裁剪。panel 下钻模式不受影响。"
+					},
+					"CONFIG_POSITION": {
+						"DESCRIPTION": "导航容器的 CSS 定位策略。sticky 定位仅在垂直导航中启用。"
+					},
+					"CONFIG_STICKY_TOP": {
+						"DESCRIPTION": "启用 sticky 定位时使用的顶部偏移量。接受任何有效的 CSS 长度值。"
+					},
+					"CONFIG_COLLAPSE_MODE": {
+						"DESCRIPTION": "小视口下菜单折叠时的显示模式：offcanvas 滑入式抽屉、切换按钮下方的 dropdown，或 fullscreen 全屏遮罩层。"
+					},
+					"CONFIG_COLLAPSE_BREAKPOINT": {
+						"DESCRIPTION": "视口宽度阈值（像素），低于该宽度时菜单折叠。设为 0 可禁用响应式折叠。"
+					},
+					"CONFIG_OFFCANVAS_POSITION": {
+						"DESCRIPTION": "offcanvas 面板滑入的一侧。仅当 collapseMode 为 offcanvas 时生效。"
+					},
+					"CONFIG_ARIA_LABEL": {
+						"DESCRIPTION": "应用到 nav 元素上的无障碍标签。"
+					},
+					"CONFIG_PANEL_MAX_VISIBLE": {
+						"DESCRIPTION": "panel 展开模式下同时可见面板的最大数量。超过后，最后一个面板会原地下钻并提供返回导航。"
+					},
+					"CONFIG_SIDEBAR_SIDE": {
+						"DESCRIPTION": "侧边栏所在的物理侧：left（面板向右延伸）或 right（面板向左延伸）。"
+					},
+					"CONFIG_PANEL_WIDTH": {
+						"DESCRIPTION": "每个下钻面板的宽度。接受任何有效的 CSS 宽度值。"
+					},
+					"CONFIG_RAIL_TOGGLE": {
+						"DESCRIPTION": "是否在桌面垂直导航的主列上渲染内置边缘切换按钮。当应用自带切换按钮时可禁用。可通过 --hub-nav-rail-toggle-* 令牌完全主题化，包括可替换的 SVG 箭头。"
+					},
+					"CONFIG_LABELS": {
+						"DESCRIPTION": "内置无障碍标签的实例级覆盖。省略的标签依次从共享的 HUBUI.NAV.* 键和英文默认值解析。"
+					},
+					"SCROLL_SPY_ENABLED": {
+						"DESCRIPTION": "启用或禁用区块跟踪。通过选择器本身绑定：[hubNavScrollSpy]=\"false\" 即可关闭跟踪。"
+					},
+					"SCROLL_SPY_OFFSET": {
+						"DESCRIPTION": "计算激活区块时用于补偿粘性头部的顶部偏移量（像素）。"
+					},
+					"SCROLL_SPY_SECTION_SELECTOR": {
+						"DESCRIPTION": "用于在宿主容器内定位可跟踪区块元素的 CSS 选择器。"
+					},
+					"SCROLL_SPY_SECTION_ID": {
+						"DESCRIPTION": "被跟踪区块的可选区块 id。省略时使用宿主元素的 id 属性。"
+					},
+					"SUB_NAV_ITEM": {
+						"DESCRIPTION": "由内部 hub-nav-item 子组件渲染的导航项。由 hub-nav 自动管理；很少直接绑定。"
+					},
+					"SUB_NAV_ITEM_STATE": {
+						"DESCRIPTION": "hub-nav-item 的内部状态输入：嵌套深度、激活与展开标志，以及在移动端或 panel 上下文中强制启用的 accordion 行为。hub-nav-item-list 同样具备 depth 与 forceAccordionMode，可一次强制整层。"
+					},
+					"SUB_ITEM_LIST_ITEMS": {
+						"DESCRIPTION": "由内部 hub-nav-item-list 子组件渲染的条目。由 hub-nav 自动管理。"
+					},
+					"SUB_PANELS": {
+						"DESCRIPTION": "panel 展开模式下由内部 hub-nav-panel-container 渲染的已打开面板状态堆栈。"
+					},
+					"SUB_PANEL": {
+						"DESCRIPTION": "由内部 hub-nav-panel 子组件渲染的单个下钻面板的状态。"
+					},
+					"SUB_FORWARDED": {
+						"DESCRIPTION": "根 hub-nav 转发给其子组件的内部接线输入；每个输入只存在于需要它的那部分组件上，而 isLast 标记堆叠中最外层的面板，让它收住这条边。请通过 hub-nav 上的 config 输入进行配置，而不要直接绑定它们。"
+					},
+					"SUB_OVERLAY_CLASSES": {
+						"DESCRIPTION": "当子菜单渲染到 body 级 overlay 时，根 hub-nav 转发的 overlay 接线：overlayOwnerClass 是把 overlay 关联回其导航、用于处理外部点击的唯一类名；overlayOrientationClass 携带导航的方向，使宿主上下文样式在组件树之外依然生效。"
+					},
+					"CONFIG_ACTIVE_INDICATOR": {
+						"DESCRIPTION": "激活标记是否在项目之间移动，而不是就地出现和消失。默认关闭，并遵循 prefers-reduced-motion。"
+					},
+					"CONFIG_FOLLOW_REPLACED_URLS": {
+						"DESCRIPTION": "导航跟随滚动监听的积极程度，后者通过替换 URL 报告读者位置：true 跟随每次报告，数字毫秒表示待其停止后再跟随，false 从不跟随。"
+					}
+				},
+				"OUTPUT": {
+					"ITEM_CLICK": {
+						"DESCRIPTION": "当 link 项被点击时触发。提供被点击的 HubNavItem。"
+					},
+					"DROPDOWN_OPEN": {
+						"DESCRIPTION": "当 dropdown 项被打开时触发。"
+					},
+					"DROPDOWN_CLOSE": {
+						"DESCRIPTION": "当 dropdown 项被关闭时触发。"
+					},
+					"MOBILE_TOGGLE": {
+						"DESCRIPTION": "当移动端面板被切换时触发。打开时提供 true，关闭时提供 false。"
+					},
+					"PANEL_CHANGE": {
+						"DESCRIPTION": "当面板被打开、关闭、下钻或返回导航时触发。提供该项、面板索引和操作类型。"
+					},
+					"RAIL_CHANGE": {
+						"DESCRIPTION": "当 rail 模型值切换时发出，支持 [(rail)] 双向绑定与应用端持久化。"
+					},
+					"ACTIVE_SECTION_CHANGE": {
+						"DESCRIPTION": "每当可见区块变化时，发出新激活区块的 id。"
+					},
+					"SUB_NAV_ITEM_EVENTS": {
+						"DESCRIPTION": "hub-nav-item 的内部事件：clicked 发出该导航项及原始 DOM 事件，toggleDropdown 发出被切换的 dropdown 项。二者都会向上冒泡到 hub-nav 的输出。"
+					},
+					"SUB_BUBBLED_EVENTS": {
+						"DESCRIPTION": "由内部列表和面板子组件在向 hub-nav 冒泡时重新发出的条目交互事件：itemClick（条目及 DOM 事件）、dropdownToggle（被切换的条目）和 panelOpen（其子项应打开面板的条目）。"
+					},
+					"SUB_PANEL_EVENTS": {
+						"DESCRIPTION": "由内部 hub-nav-panel 在按下关闭按钮（closePanel）或返回按钮（backClick）时发出，附带面板 id。"
+					},
+					"SUB_PANEL_CONTAINER_EVENTS": {
+						"DESCRIPTION": "由内部 hub-nav-panel-container 发出，附带面板 id，将关闭（panelClose）和返回（panelBack）请求转发给 hub-nav。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "hubNavStart",
+						"DESCRIPTION": "在 start 插槽中投影自定义内容。水平方向：视觉起始处（LTR 中为左侧，RTL 中为右侧）。垂直方向：主列的顶部。"
+					},
+					"1": {
+						"NAME": "hubNavEnd",
+						"DESCRIPTION": "在 end 插槽中投影自定义内容。水平方向：视觉结束处（LTR 中为右侧，RTL 中为左侧）。垂直方向：主列的底部。"
+					},
+					"2": {
+						"NAME": "hubNavItemTemplate",
+						"DESCRIPTION": "使用自定义模板覆盖默认的项渲染。接收 HubNavItemTemplateContext，其包含 $implicit（item）、active、expanded 和 depth 属性。"
+					}
+				},
+				"CSS_VAR": {
+					"HEIGHT": {
+						"DESCRIPTION": "导航栏的高度。"
+					},
+					"PADDING_X": {
+						"DESCRIPTION": "nav 容器的水平内边距。"
+					},
+					"PADDING_Y": {
+						"DESCRIPTION": "nav 容器的垂直内边距。"
+					},
+					"GAP": {
+						"DESCRIPTION": "nav 项之间的间隙。"
+					},
+					"BG": {
+						"DESCRIPTION": "导航栏的背景颜色。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "导航的基础文本颜色。"
+					},
+					"BORDER_COLOR": {
+						"DESCRIPTION": "导航栏的边框颜色。"
+					},
+					"ITEM_PADDING_X": {
+						"DESCRIPTION": "nav 项内部的水平内边距。"
+					},
+					"ITEM_PADDING_Y": {
+						"DESCRIPTION": "nav 项内部的垂直内边距。"
+					},
+					"ITEM_COLOR": {
+						"DESCRIPTION": "nav 项的文本颜色。"
+					},
+					"ITEM_BORDER_RADIUS": {
+						"DESCRIPTION": "nav 项的边框半径。"
+					},
+					"ITEM_HOVER_BG": {
+						"DESCRIPTION": "悬停时的背景颜色。"
+					},
+					"ITEM_HOVER_COLOR": {
+						"DESCRIPTION": "悬停时的文本颜色。"
+					},
+					"ITEM_ACTIVE_BG": {
+						"DESCRIPTION": "项处于激活状态时的背景颜色。"
+					},
+					"ITEM_ACTIVE_COLOR": {
+						"DESCRIPTION": "项处于激活状态时的文本颜色。"
+					},
+					"ITEM_DISABLED_COLOR": {
+						"DESCRIPTION": "禁用项的文本颜色。"
+					},
+					"ITEM_DISABLED_OPACITY": {
+						"DESCRIPTION": "禁用项的不透明度。"
+					},
+					"DROPDOWN_BG": {
+						"DESCRIPTION": "下拉面板的背景颜色。"
+					},
+					"DROPDOWN_BORDER_COLOR": {
+						"DESCRIPTION": "下拉面板的边框颜色。"
+					},
+					"DROPDOWN_BORDER_RADIUS": {
+						"DESCRIPTION": "下拉面板的边框半径。"
+					},
+					"DROPDOWN_SHADOW": {
+						"DESCRIPTION": "下拉面板的阴影。"
+					},
+					"DROPDOWN_MIN_WIDTH": {
+						"DESCRIPTION": "下拉面板的最小宽度。"
+					},
+					"BRAND_FONT_SIZE": {
+						"DESCRIPTION": "品牌文本的字号。"
+					},
+					"BRAND_FONT_WEIGHT": {
+						"DESCRIPTION": "品牌文本的字重。"
+					},
+					"BRAND_COLOR": {
+						"DESCRIPTION": "品牌的文本颜色。"
+					},
+					"MOBILE_BG": {
+						"DESCRIPTION": "移动端面板的背景颜色。"
+					},
+					"MOBILE_WIDTH": {
+						"DESCRIPTION": "offcanvas 移动端面板的宽度。"
+					},
+					"MOBILE_BACKDROP_BG": {
+						"DESCRIPTION": "移动端面板后方的背景遮罩颜色。"
+					},
+					"MOBILE_TRANSITION": {
+						"DESCRIPTION": "移动端面板开关动画的过渡时序。"
+					},
+					"ACCORDION_INDENT": {
+						"DESCRIPTION": "垂直 accordion 模式下每个嵌套层级的左侧缩进。"
+					},
+					"ICON_SIZE": {
+						"DESCRIPTION": "导航项图标的尺寸。"
+					},
+					"ICON_GAP": {
+						"DESCRIPTION": "图标与标签文本之间的间隙。"
+					},
+					"PANEL_WIDTH": {
+						"DESCRIPTION": "每个面板的默认宽度。"
+					},
+					"RAIL_WIDTH": {
+						"DESCRIPTION": "折叠图标栏的宽度。"
+					},
+					"RAIL_TRANSITION": {
+						"DESCRIPTION": "进入或离开图标栏时应用于宿主宽度的完整过渡。"
+					},
+					"PANEL_Z_INDEX": {
+						"DESCRIPTION": "面板的堆叠顺序（应低于 dropdown 的 z-index）。"
+					},
+					"PANEL_BG": {
+						"DESCRIPTION": "面板的背景颜色。"
+					},
+					"PANEL_COLOR": {
+						"DESCRIPTION": "面板内部的文本颜色。"
+					},
+					"PANEL_BORDER_COLOR": {
+						"DESCRIPTION": "面板之间的边框颜色。"
+					},
+					"PANEL_SHADOW": {
+						"DESCRIPTION": "面板的阴影。"
+					},
+					"PANEL_HEADER_HEIGHT": {
+						"DESCRIPTION": "面板头部的高度。"
+					},
+					"PANEL_HEADER_BG": {
+						"DESCRIPTION": "面板头部的背景颜色。"
+					},
+					"PANEL_BACK_COLOR": {
+						"DESCRIPTION": "面板头部返回按钮的颜色。"
+					},
+					"PANEL_BACK_HOVER_BG": {
+						"DESCRIPTION": "面板头部按钮的悬停背景。"
+					},
+					"ITEM_ACTIVE_INDICATOR_TRANSITION": {
+						"DESCRIPTION": "启用移动指示器时，激活标记在项目之间的移动方式。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"BASIC_HORIZONTAL": {
+					"TITLE": "基础水平导航"
+				},
+				"VERTICAL_ACCORDION": {
+					"TITLE": "垂直手风琴导航"
+				},
+				"VERTICAL_FLYOUT": {
+					"TITLE": "垂直弹出导航"
+				},
+				"VERTICAL_STICKY": {
+					"TITLE": "垂直粘性侧边栏"
+				},
+				"RAIL_COLLAPSE": {
+					"TITLE": "折叠图标栏"
+				},
+				"NESTED_DROPDOWNS": {
+					"TITLE": "嵌套多级下拉菜单"
+				},
+				"HEADERS_SEPARATORS": {
+					"TITLE": "标题与分隔符"
+				},
+				"DISABLED_STATES": {
+					"TITLE": "禁用状态"
+				},
+				"DROPDOWN_TRIGGERS": {
+					"TITLE": "下拉触发器"
+				},
+				"RESPONSIVE_COLLAPSE": {
+					"TITLE": "响应式折叠模式"
+				},
+				"BRAND_SLOT": {
+					"TITLE": "起始与结束插槽"
+				},
+				"CUSTOM_ITEM_TEMPLATE": {
+					"TITLE": "自定义项模板"
+				},
+				"RTL_SLOTS": {
+					"TITLE": "带起始/结束插槽的 RTL"
+				},
+				"EVENTS_API": {
+					"TITLE": "事件 API"
+				},
+				"ROUTER_ACTIVE": {
+					"TITLE": "路由集成与激活状态"
+				},
+				"PANEL_DRILLDOWN": {
+					"TITLE": "面板钻取导航"
+				},
+				"MIXED_EXPAND_MODES": {
+					"TITLE": "单项 expandMode 覆盖"
+				},
+				"SIDEBAR_RIGHT_PANEL": {
+					"TITLE": "右侧边栏面板模式"
+				},
+				"TRUNCATED_LABELS": {
+					"TITLE": "截断标签与提示"
+				}
+			},
+			"NAV": {
+				"BASIC_HORIZONTAL": "基础水平",
+				"VERTICAL_ACCORDION": "垂直手风琴",
+				"VERTICAL_FLYOUT": "垂直弹出",
+				"VERTICAL_STICKY": "垂直粘性侧边栏",
+				"RAIL_COLLAPSE": "图标栏",
+				"NESTED_DROPDOWNS": "嵌套下拉菜单",
+				"HEADERS_SEPARATORS": "标题与分隔符",
+				"DISABLED_STATES": "禁用状态",
+				"DROPDOWN_TRIGGERS": "下拉触发器",
+				"RESPONSIVE_COLLAPSE": "响应式折叠",
+				"BRAND_SLOT": "品牌插槽",
+				"CUSTOM_ITEM_TEMPLATE": "自定义项模板",
+				"RTL_SLOTS": "RTL 插槽",
+				"EVENTS_API": "事件 API",
+				"ROUTER_ACTIVE": "路由激活状态",
+				"PANEL_DRILLDOWN": "面板下钻",
+				"MIXED_EXPAND_MODES": "混合展开模式",
+				"SIDEBAR_RIGHT_PANEL": "右侧边栏面板"
+			},
+			"A11Y": {
+				"TOGGLE_NAVIGATION": "切换导航",
+				"CLOSE_NAVIGATION": "关闭导航",
+				"COLLAPSE_NAVIGATION": "折叠导航",
+				"EXPAND_NAVIGATION": "展开导航",
+				"GO_BACK": "返回",
+				"CLOSE_PANEL": "关闭面板",
+				"TOGGLE_SECTION": "切换{label}"
+			}
+		},
+		"PAGINABLE": {
+			"FEATURE": {
+				"CORE_USAGE": {
+					"TITLE": "核心用法",
+					"DESCRIPTION": "基础的 table 渲染和分页。"
+				},
+				"DATA_MANAGEMENT": {
+					"TITLE": "数据管理",
+					"DESCRIPTION": "排序、过滤、选择以及服务端操作。"
+				},
+				"ADVANCED_FEATURES": {
+					"TITLE": "高级功能",
+					"DESCRIPTION": "可展开行、自定义模板、响应式布局和动态样式。"
+				},
+				"LIST_COMPONENTS": {
+					"TITLE": "列表组件",
+					"DESCRIPTION": "灵活的列表视图，具备同样强大的分页和选择能力。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"DATA": {
+						"DESCRIPTION": "要在表格中显示的数据项数组，或发出数据数组的 Observable"
+					},
+					"HEADERS": {
+						"DESCRIPTION": "定义表格列及其属性的配置数组"
+					},
+					"PAGINATION": {
+						"DESCRIPTION": "分页配置，包括每页大小、当前页和总条目数"
+					},
+					"PAGINATE": {
+						"DESCRIPTION": "当为 true（默认）且传入不含 totalItems 的普通数组时，表格在内存中进行搜索、过滤、排序和分页。设为 false 则不分页渲染整个数组。"
+					},
+					"OPTIONS": {
+						"DESCRIPTION": "通用表格选项，包括选择模式、加载状态和响应式行为"
+					},
+					"LOADING": {
+						"DESCRIPTION": "通过加载指示器遮罩显示加载状态"
+					},
+					"SELECTED": {
+						"DESCRIPTION": "当前选中项的数组（支持双向绑定）"
+					}
+				},
+				"OUTPUT": {
+					"ROWCLICK": {
+						"DESCRIPTION": "当表格行被点击时触发，包含行数据和事件详情"
+					},
+					"SELECTIONCHANGE": {
+						"DESCRIPTION": "当行选择发生变化时触发，返回选中项的数组"
+					},
+					"SORTCHANGE": {
+						"DESCRIPTION": "当列排序发生变化时触发，返回当前的排序配置"
+					},
+					"FILTERCHANGE": {
+						"DESCRIPTION": "当筛选条件被应用或更改时触发"
+					},
+					"PAGECHANGE": {
+						"DESCRIPTION": "当分页发生变化时触发（页码或每页大小）"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "headerTpt",
+						"DESCRIPTION": "用于定义自定义列头部的自定义头部模板"
+					},
+					"1": {
+						"NAME": "cellTpt",
+						"DESCRIPTION": "用于自定义单元格内容渲染的自定义单元格模板"
+					},
+					"2": {
+						"NAME": "rowTpt",
+						"DESCRIPTION": "用于定义整行结构的自定义行模板"
+					},
+					"3": {
+						"NAME": "filterTpt",
+						"DESCRIPTION": "用于添加筛选 UI 元素的自定义筛选模板"
+					},
+					"4": {
+						"NAME": "loadingTpt",
+						"DESCRIPTION": "用于自定义加载指示器的加载状态模板"
+					},
+					"5": {
+						"NAME": "noResultsTpt",
+						"DESCRIPTION": "当没有可用数据时显示的空状态模板"
+					},
+					"6": {
+						"NAME": "errorTpt",
+						"DESCRIPTION": "用于处理错误情况的错误状态模板"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"BASIC": {
+					"TITLE": "表格基础用法"
+				},
+				"CSS_VARIABLES": {
+					"TITLE": "表格的 CSS 变量"
+				},
+				"PAGINATION": {
+					"TITLE": "表格分页"
+				},
+				"CLIENT_PAGINATION": {
+					"TITLE": "客户端分页"
+				},
+				"ACTION_BUTTONS": {
+					"TITLE": "行操作按钮"
+				},
+				"ACTION_VARIANTS": {
+					"TITLE": "操作样式"
+				},
+				"COLUMN_VISIBILITY": {
+					"TITLE": "列可见性"
+				},
+				"CUSTOM_FILTER_TEMPLATES": {
+					"TITLE": "自定义过滤器模板"
+				},
+				"EMPTY_ERROR_STATES": {
+					"TITLE": "空状态与错误状态"
+				},
+				"RESIZABLE_COLUMNS": {
+					"TITLE": "可调整列宽"
+				},
+				"ROW_CLICK": {
+					"TITLE": "行点击处理"
+				},
+				"SORTING_FILTERING": {
+					"TITLE": "基础排序与筛选"
+				},
+				"ADVANCED_FILTERING": {
+					"TITLE": "高级筛选（范围与下拉）"
+				},
+				"MENU_FILTERS": {
+					"TITLE": "列筛选面板（全部满足 / 任一满足）"
+				},
+				"SELECTION": {
+					"TITLE": "批量选择与操作"
+				},
+				"EXPANDABLE_STICKY": {
+					"TITLE": "可展开行与粘性列"
+				},
+				"CUSTOM_TEMPLATES": {
+					"TITLE": "使用模板进行自定义"
+				},
+				"RESPONSIVE_STATES": {
+					"TITLE": "响应式布局与状态"
+				},
+				"LIST_BASIC": {
+					"TITLE": "可分页与可选择列表"
+				},
+				"LIST_CSS_VARIABLES": {
+					"TITLE": "列表的 CSS 变量"
+				},
+				"LIST_CARDS": {
+					"TITLE": "卡片式列表"
+				},
+				"ROW_CLASS": {
+					"TITLE": "动态行样式（rowClass）"
+				},
+				"I18N": {
+					"TITLE": "国际化（i18n）"
+				},
+				"BATCH_ACTIONS": {
+					"TITLE": "批量操作（batchActions）"
+				},
+				"RTL": {
+					"TITLE": "RTL 布局（从右到左）"
+				},
+				"SERVER_SIDE_OPERATIONS": {
+					"TITLE": "服务端操作"
+				},
+				"BOTTOM_BAR_ORDERING": {
+					"TITLE": "底部栏排序（CSS 变量）"
+				},
+				"LIST_WHOLE_ITEM_DRAG": {
+					"TITLE": "整项拖拽（无手柄）"
+				},
+				"LIST_NESTED_DRAG": {
+					"TITLE": "嵌套列表拖放"
+				},
+				"LIST_DRAG_DROP": {
+					"TITLE": "拖放重新排序"
+				},
+				"LIST_NESTED": {
+					"TITLE": "嵌套列表"
+				},
+				"DEFAULT_STATE_COMPONENTS": {
+					"TITLE": "默认状态组件"
+				},
+				"LIST_STATES": {
+					"TITLE": "列表加载、错误和空状态"
+				},
+				"FORM_CONTROLS": {
+					"TITLE": "无关的表单控件"
+				},
+				"MULTIPLE_STICKY": {
+					"TITLE": "多个固定列"
+				},
+				"THEMEABLE_HEADER": {
+					"TITLE": "可主题化的表头与分隔线"
+				},
+				"STICKY_HEADER_SCROLL": {
+					"TITLE": "滚动时固定表头"
+				},
+				"TAG_RETHEME_DARK": {
+					"TITLE": "通过标签选择器进行深色重设主题"
+				},
+				"MASTER_DETAIL_SELECTION": {
+					"TITLE": "主从选择 (rowClass)"
+				},
+				"CARET_ICONS": {
+					"TITLE": "可自定义的展开图标"
+				},
+				"CONNECTED_LIST": {
+					"TITLE": "连接列表（时间线）"
+				},
+				"CUSTOM_ICONS": {
+					"TITLE": "自定义图标集"
+				},
+				"MIXIN_THEME": {
+					"TITLE": "一键主题（mixin）"
+				},
+				"LIST_SELECTION": {
+					"TITLE": "可选择列表"
+				},
+				"LIST_FLUSH": {
+					"TITLE": "齐平样式 — 列表，而非卡片堆叠"
+				},
+				"LIST_GROUP_SELECTION": {
+					"TITLE": "选择树形列表，以及点击传递的内容"
+				},
+				"TABLE_EDITABLE": {
+					"TITLE": "可编辑——控件呈现为表格"
+				},
+				"ROW_MENUS": {
+					"TITLE": "由按钮库绘制的行内菜单"
+				},
+				"FILTER_THEMING": {
+					"TITLE": "为筛选行设置主题"
+				},
+				"RESOURCE": {
+					"TITLE": "由 resource 驱动的表格"
+				},
+				"LIST_RESOURCE": {
+					"TITLE": "由 resource 驱动的列表"
+				},
+				"SELECT_WHILE_SELECTING": {
+					"TITLE": "选择进行中时点击行即为标记"
+				},
+				"COMPARE_SEARCH_FN": {
+					"TITLE": "自定义搜索与选中项比较"
+				},
+				"PAGINATOR_BASIC": {
+					"TITLE": "单独使用分页器"
+				},
+				"PAGINATION_POSITION": {
+					"TITLE": "分页栏放在哪里"
+				}
+			},
+			"NAV": {
+				"BASIC": "基础表格",
+				"CSS_VARIABLES": "表格的 CSS 变量",
+				"PAGINATION": "分页",
+				"SORTING_FILTERING": "排序与基础筛选",
+				"ADVANCED_FILTERING": "高级筛选",
+				"SELECTION": "选择",
+				"EXPANDABLE_STICKY": "可展开与固定",
+				"CUSTOM_TEMPLATES": "自定义模板",
+				"RESPONSIVE_STATES": "响应式与状态",
+				"LIST_BASIC": "基础列表",
+				"CARDS": "卡片列表",
+				"LIST_CSS_VARIABLES": "列表的 CSS 变量",
+				"ROW_CLASS": "行样式类",
+				"I18N": "国际化",
+				"BATCH_ACTIONS": "批量操作",
+				"RTL": "RTL",
+				"SERVER_SIDE_OPERATIONS": "服务端操作",
+				"BOTTOM_BAR_ORDERING": "底部栏排序",
+				"LIST_WHOLE_ITEM_DRAG": "整项拖拽",
+				"LIST_NESTED_DRAG": "嵌套拖放",
+				"LIST_DRAG_DROP": "拖放",
+				"LIST_NESTED": "嵌套列表"
+			}
+		},
+		"PANELS": {
+			"FEATURE": {
+				"VISUALIZATIONS": {
+					"TITLE": "可视化形式",
+					"DESCRIPTION": "一个组件，四种视图：经典的下划线标签页、圆角胶囊、堆叠式手风琴展开面板和始终可见的无边框卡片——可通过单个 `type` 输入切换。"
+				},
+				"STRIP_LAYOUT": {
+					"TITLE": "条带布局",
+					"DESCRIPTION": "可将标题条带布局以适配任意外壳：在内容旁垂直堆叠、拉伸标题以填满宽度，或让溢出的条带可滚动。"
+				},
+				"PANEL_MANAGEMENT": {
+					"TITLE": "面板管理",
+					"DESCRIPTION": "可禁用单个面板，并让用户通过 ✕ 控件和 Delete 键即时添加或移除面板。"
+				},
+				"CUSTOM_TEMPLATES": {
+					"TITLE": "自定义模板",
+					"DESCRIPTION": "可通过 `hubPanelHeading` 指令用任意 Angular 模板替换纯文本标题——图标、徽章或交互式控件。"
+				},
+				"FORM_INTEGRATION": {
+					"TITLE": "表单集成",
+					"DESCRIPTION": "一流的 ControlValueAccessor 支持可将激活的面板绑定到 Angular 的响应式表单和模板驱动表单。"
+				},
+				"MULTIPLE_SELECTION": {
+					"TITLE": "多选",
+					"DESCRIPTION": "使用 `multiple` 时，可同时打开多个面板。在手风琴视图中它们会全部展开；在标签页/胶囊视图中，每个激活的标题都会开启自己的可见面板，而随后的非激活标题会保持分组并位于该面板上方，直到下一个激活的标题开启新的区块。"
+				},
+				"ACCORDION_OPTIONS": {
+					"TITLE": "手风琴选项",
+					"DESCRIPTION": "手风琴视图支持同时展开多个面板，以及没有外层修饰的边到边 `flush` 布局。"
+				},
+				"ACCESSIBILITY": {
+					"TITLE": "无障碍",
+					"DESCRIPTION": "提供完整的键盘导航（方向键、Home、End、Delete）、可移动的 tabindex，以及针对 tablist 和手风琴展开模式的正确 ARIA 角色。"
+				},
+				"SIDE_PANEL": {
+					"TITLE": "侧边面板",
+					"DESCRIPTION": "停靠在容器一侧的非模态面板：它会收窄内容（side），或浮于内容边缘之上（over），没有遮罩、滚动锁定或焦点陷阱，因此面板打开时页面仍然可用。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"TYPE": {
+						"DESCRIPTION": "容器的可视化方式：下划线 tabs、圆角 pills、堆叠的 accordion 面板，或始终可见的无边框 cards。"
+					},
+					"VERTICAL": {
+						"DESCRIPTION": "将头部条垂直堆叠在内容旁边（tabs / pills 视图）。"
+					},
+					"JUSTIFIED": {
+						"DESCRIPTION": "拉伸各头部以平均分配可用宽度。"
+					},
+					"SCROLLABLE": {
+						"DESCRIPTION": "当头部条溢出时，添加前进/后退滚动按钮。"
+					},
+					"IS_KEYS_ALLOWED": {
+						"DESCRIPTION": "启用键盘导航（方向键 / Home / End / Delete）。"
+					},
+					"MULTIPLE": {
+						"DESCRIPTION": "允许多个面板同时处于激活状态。在 accordion 视图中它们会全部展开；在 tabs/pills 视图中，每个激活的头部都会开启一个可见的面板块，随后的未激活头部会分组停留在该块上方，直到下一个激活的头部开启新的块为止。表单值变为数组。"
+					},
+					"FLUSH": {
+						"DESCRIPTION": "Accordion 视图：无外边框或圆角的贴边面板。"
+					},
+					"TOGGLE_POSITION": {
+						"DESCRIPTION": "用于 <hub-panels>（手风琴视图）：展开箭头位于标题行的哪一侧。\"end\"（默认）跟在标题之后，\"start\" 位于标题之前。仅视觉顺序改变——DOM 保持不变——且偏移使用逻辑属性，因此 \"start\" 在 LTR 中为左边缘，在 RTL 中为右边缘。可通过 HubPanelsConfig.togglePosition 设置全应用默认值。"
+					},
+					"PANELS_VARIANT": {
+						"DESCRIPTION": "hub-panels：导航条的语义强调色——激活/悬停的标签页、激活的胶囊和激活的手风琴标题都会随之改变。内置值（'primary' | 'success' | 'danger' | 'warning' | 'info'）使用设计系统色调，但也接受任意字符串：导航条会读取应用中的 --hub-sys-color-<variant>。默认为 primary。"
+					},
+					"FILL": {
+						"DESCRIPTION": "仅 card 面板：填满父元素高度并让主体滚动，从而使内部的 flex:1/min-height:0 区域（例如标签条 + 滚动窗格）有界。父元素必须是 flex 列。"
+					},
+					"STANDALONE": {
+						"DESCRIPTION": "仅 card 面板，静态属性：让同一模板中的独立 <hub-panel> 脱离祖先 tabs/pills/accordion 分组，使其渲染为普通 card，而不是被捕获为隐藏标签页。"
+					},
+					"BIND_VALUE": {
+						"DESCRIPTION": "应用于每个面板的 value 的点分路径，用于获取所发出的表单值（例如 'meta.key'）。"
+					},
+					"COMPARE_WITH": {
+						"DESCRIPTION": "用于将表单值与面板值进行匹配的相等判断。"
+					},
+					"HEADING": {
+						"DESCRIPTION": "hub-panel：纯文本头部。当提供 hubPanelHeading 模板时将被忽略。"
+					},
+					"ID": {
+						"DESCRIPTION": "hub-panel：用于标签页与其面板（或手风琴标题与其区域）之间 ARIA 关联的 id。自动生成为 hub-panel-<n>；当你需要稳定的 id（例如深层链接或自定义 aria-controls）时可自行设置。"
+					},
+					"VALUE": {
+						"DESCRIPTION": "hub-panel：当容器用作表单控件时贡献的值。"
+					},
+					"ACTIVE": {
+						"DESCRIPTION": "hub-panel：双向绑定的激活/展开状态。"
+					},
+					"DISABLED": {
+						"DESCRIPTION": "hub-panel：阻止该面板被激活。"
+					},
+					"REMOVABLE": {
+						"DESCRIPTION": "hub-panel：显示一个 ✕ 操作提示，并允许使用 Delete 键移除。"
+					},
+					"REMOVE_LABEL": {
+						"DESCRIPTION": "hub-panel：为 ✕ 移除按钮朗读的无障碍名称（aria-label）；覆盖它以本地化该控件。"
+					},
+					"ROUTER_LINK": {
+						"DESCRIPTION": "hub-panel：将面板转变为由 <router-outlet> 支撑的路由面板。"
+					},
+					"QUERY_PARAMS": {
+						"DESCRIPTION": "hub-panel：导航到 routerLink 时附加的查询参数。"
+					},
+					"PATH_MATCH": {
+						"DESCRIPTION": "hub-panel：用于将路由面板标记为激活的 URL 比较。"
+					},
+					"CUSTOM_CLASS": {
+						"DESCRIPTION": "hub-panel：同时应用于导航项和面板内容区的额外 CSS 类。"
+					},
+					"APPEARANCE": {
+						"DESCRIPTION": "hub-panel：独立面板的外观——'card'（默认）或语义化的 'alert' 提示。在 tabs/pills/accordion 视图中忽略。"
+					},
+					"VARIANT": {
+						"DESCRIPTION": "hub-panel：面板的语义强调色——为 alert 着色，并为整张 card 上色（以 data-variant 反映）。内置值（'primary' | 'success' | 'danger' | 'warning' | 'info'）使用设计系统色调，但也接受任意字符串：面板会读取应用中的 --hub-sys-color-<variant>。省略则为中性面板。"
+					},
+					"TAB_NAV_ITEMS": {
+						"DESCRIPTION": "<hub-tab-nav> 中可选中的标签，按渲染顺序排列。每一项都是一个轻量的 { value, label, disabled?, id? } 描述符——该标签条本身不承载任何内容，因此当标签被选中时，它发出的正是 value。"
+					},
+					"TAB_NAV_ACTIVE": {
+						"DESCRIPTION": "<hub-tab-nav> 的双向绑定选中值。设置它可预先选中某个标签，并通过 activeChange 读回；匹配的项即是其 value 与此值相等的那一项。"
+					},
+					"TAB_NAV_APPEARANCE": {
+						"DESCRIPTION": "<hub-tab-nav> 标签条的视觉外观：经典下划线式 'tabs'（默认）或圆角 'pills'。"
+					},
+					"TAB_NAV_JUSTIFIED": {
+						"DESCRIPTION": "当为 true 时，<hub-tab-nav> 的各标签会拉伸以均分可用宽度。"
+					},
+					"TAB_NAV_VERTICAL": {
+						"DESCRIPTION": "当为 true 时，<hub-tab-nav> 标签条将各标签垂直堆叠，而不是横向排成一行。"
+					},
+					"SIDE_PANEL_MODE": {
+						"DESCRIPTION": "<hub-side-panel>：'side' 停靠面板并收窄内容为其腾出空间；'over' 让其浮于内容边缘之上，没有遮罩、滚动锁定或焦点陷阱。"
+					},
+					"SIDE_PANEL_POSITION": {
+						"DESCRIPTION": "<hub-side-panel>：面板所在容器的逻辑行内边缘——'end' 在 LTR 中是右边缘，在 dir=\"rtl\" 下是左边缘。"
+					},
+					"SIDE_PANEL_OPEN": {
+						"DESCRIPTION": "<hub-side-panel>：双向打开状态。关闭只会隐藏面板而不会销毁其投影内容，因此其中的聊天或表单会保留状态。"
+					},
+					"SIDE_PANEL_CLOSE_ON_ESCAPE": {
+						"DESCRIPTION": "<hub-side-panel>：在面板内按下 Escape 是否关闭它。在页面上按下的 Escape 从不被截获；如果内部控件已处理该按键，面板保持打开。"
+					},
+					"SIDE_PANEL_BREAKPOINT": {
+						"DESCRIPTION": "<hub-side-panel>：容器行内尺寸（px）低于此值时，side 面板以 over 方式渲染，因为在窄屏上停靠的面板会挤压内容。设为 0 则在任何宽度下保持停靠。"
+					},
+					"SIDE_PANEL_AUTO_FOCUS": {
+						"DESCRIPTION": "<hub-side-panel>：打开时是否将焦点移入面板——移到第一个 [autofocus] 元素，否则移到第一个可聚焦元素，否则移到面板本身。默认关闭。"
+					},
+					"SIDE_PANEL_ROLE": {
+						"DESCRIPTION": "<hub-side-panel>：地标角色——位于页面主内容旁时用 'complementary'，位于主内容内部时用 'region'。"
+					},
+					"SIDE_PANEL_ARIA_LABEL": {
+						"DESCRIPTION": "<hub-side-panel>：地标的无障碍名称。设置此项或 ariaLabelledBy。"
+					},
+					"SIDE_PANEL_ARIA_LABELLED_BY": {
+						"DESCRIPTION": "<hub-side-panel>：为地标命名的元素 id，通常是头部插槽中的标题。"
+					}
+				},
+				"OUTPUT": {
+					"PANEL_CHANGE": {
+						"DESCRIPTION": "hub-panels：当用户激活（打开）不同面板时触发。提供 { current, prev }。"
+					},
+					"SELECT_PANEL": {
+						"DESCRIPTION": "hub-panel：当面板变为激活状态时触发。"
+					},
+					"DESELECT_PANEL": {
+						"DESCRIPTION": "hub-panel：当面板不再处于激活状态时触发。"
+					},
+					"REMOVED": {
+						"DESCRIPTION": "hub-panel：当面板通过 ✕ 按钮或 Delete 键被移除时触发。"
+					},
+					"ACTIVE_CHANGE": {
+						"DESCRIPTION": "hub-panel：双向 active 模型中负责变更的一半，携带面板新的激活/展开状态发出。"
+					},
+					"TAB_NAV_ACTIVE_CHANGE": {
+						"DESCRIPTION": "每当选中值发生变化时由 <hub-tab-nav> 发出（双向 active 模型中负责变更的一半），携带新选中项的 value。"
+					},
+					"SIDE_PANEL_OPEN_CHANGE": {
+						"DESCRIPTION": "<hub-side-panel>：双向 open 模型的变更部分；无论由谁更改（绑定、Escape、toggle() 或 close()），都会携带新状态发出。"
+					}
+				},
+				"METHOD": {
+					"SELECT_PANEL": {
+						"DESCRIPTION": "像用户点击一样激活一个面板：将其标记为激活、在路由面板上执行导航并发出 panelChange。对禁用的面板不做任何处理。"
+					},
+					"TOGGLE_PANEL": {
+						"DESCRIPTION": "在手风琴视图中切换一个面板，并遵循 multiple：未开启 multiple 时，打开一个会折叠其余面板。"
+					},
+					"REMOVE_PANEL": {
+						"DESCRIPTION": "从分组中移除一个面板。reselect 决定是否由另一个面板接替，emit 决定移除是否通过 panelChange 通知。"
+					},
+					"REMOVE_PANEL_AND_REFOCUS": {
+						"DESCRIPTION": "移除一个面板，并把键盘焦点交给最近的剩余标题，因此移除永远不会让焦点掉回 body。✕ 按钮和 Delete 键调用的正是它。"
+					},
+					"SIDE_PANEL_TOGGLE": {
+						"DESCRIPTION": "打开或关闭面板；传入 true 或 false 可强制设定状态，而不是切换。"
+					},
+					"SIDE_PANEL_CLOSE": {
+						"DESCRIPTION": "关闭面板。如果焦点在面板内，则返回到面板打开时持有焦点的元素。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "hubPanelHeading",
+						"DESCRIPTION": "将 hub-panel 内的 <ng-template> 标记为该面板的自定义头部（tabs/pills 中的条目链接，accordion 中的展开按钮），以替代纯文本的 heading 输入。"
+					},
+					"1": {
+						"NAME": "hubPanelHeader / hubPanelFooter",
+						"DESCRIPTION": "将 hub-panel 内的元素标记为面板内容的页眉/页脚栏。在所有视图（tabs、pills、accordion、card）中均会渲染，区别于 hubPanelHeading。"
+					},
+					"2": {
+						"NAME": "type=\"card\"",
+						"DESCRIPTION": "无修饰的卡片可视化：没有导航条，每个面板始终可见。hub-panel 也可以独立使用（在任何 hub-panels 之外），此时它会渲染为一张卡片。"
+					}
+				},
+				"CSS_VAR": {
+					"FLEX_DIRECTION": {
+						"DESCRIPTION": "标题条相对于内容的方向。"
+					},
+					"BORDER_WIDTH": {
+						"DESCRIPTION": "tabs 标签条和激活标签使用的边框宽度。"
+					},
+					"BORDER_COLOR": {
+						"DESCRIPTION": "tabs 标签条和内容的边框颜色。"
+					},
+					"BORDER_RADIUS": {
+						"DESCRIPTION": "标签头部和内容的圆角半径。"
+					},
+					"CONTENT_BG": {
+						"DESCRIPTION": "内容区域的背景。"
+					},
+					"HEADER_BG": {
+						"DESCRIPTION": "非激活标题和间隔区域后方 tabs/pills 标签条区域的背景。"
+					},
+					"CONTENT_BOX_SHADOW": {
+						"DESCRIPTION": "应用于内容区域包装层的阴影。"
+					},
+					"CONTENT_PADDING_X": {
+						"DESCRIPTION": "内容区域的水平内边距。"
+					},
+					"CONTENT_PADDING_Y": {
+						"DESCRIPTION": "内容区域的垂直内边距。"
+					},
+					"TAB_FONT_WEIGHT": {
+						"DESCRIPTION": "头部标签的字重。"
+					},
+					"TAB_PADDING_X": {
+						"DESCRIPTION": "头部内部的水平内边距。"
+					},
+					"TAB_PADDING_Y": {
+						"DESCRIPTION": "头部内部的垂直内边距。"
+					},
+					"TAB_COLOR": {
+						"DESCRIPTION": "非激活头部的文本颜色。"
+					},
+					"TAB_BG": {
+						"DESCRIPTION": "非激活头部的背景；保持透明以透出 --hub-panels-header-bg。"
+					},
+					"TAB_COLOR_ACTIVE": {
+						"DESCRIPTION": "激活头部的文本颜色。"
+					},
+					"TAB_BG_ACTIVE": {
+						"DESCRIPTION": "激活头部的背景；默认为内容表面，使激活标签与面板融为一体。"
+					},
+					"TAB_BG_HOVER": {
+						"DESCRIPTION": "头部悬停时的背景。"
+					},
+					"TAB_BORDER_COLOR_ACTIVE": {
+						"DESCRIPTION": "激活标签的边框颜色。"
+					},
+					"TAB_ACTIVE_SHADOW": {
+						"DESCRIPTION": "水平 boxed tabs 视图中激活标签使用的高度阴影。"
+					},
+					"TAB_ACTIVE_SHADOW_VERTICAL": {
+						"DESCRIPTION": "垂直 boxed tabs 视图中激活标签使用的高度阴影。"
+					},
+					"TAB_FOCUS_RING_COLOR": {
+						"DESCRIPTION": "键盘聚焦时的聚焦环颜色。"
+					},
+					"PILL_BORDER_RADIUS": {
+						"DESCRIPTION": "pill 头部的圆角半径。"
+					},
+					"PILL_BG_ACTIVE": {
+						"DESCRIPTION": "激活 pill 的背景。"
+					},
+					"PILL_COLOR_ACTIVE": {
+						"DESCRIPTION": "激活 pill 的文本颜色。"
+					},
+					"PILL_GAP": {
+						"DESCRIPTION": "pill 头部之间的间隙。"
+					},
+					"PILL_CONTENT_BORDER_WIDTH": {
+						"DESCRIPTION": "pills 内容卡片的边框宽度；将其设置为共享边框宽度可恢复带边框的面板。"
+					},
+					"NAV_CONTENT_GAP": {
+						"DESCRIPTION": "pills 标签条与内容卡片之间的间隙（垂直时为行内间隙）。"
+					},
+					"PANE_MIN_WIDTH": {
+						"DESCRIPTION": "内容区域开始水平滚动前每个打开面板的最小宽度。"
+					},
+					"PANE_MIN_HEIGHT": {
+						"DESCRIPTION": "垂直布局中每个打开面板的最小高度。"
+					},
+					"PANE_GAP": {
+						"DESCRIPTION": "多个面板区块之间的间隙。"
+					},
+					"ACCORDION_ACTIVE_COLOR": {
+						"DESCRIPTION": "展开状态下 accordion 标题的文本颜色。"
+					},
+					"ACCORDION_ACTIVE_BG": {
+						"DESCRIPTION": "展开状态下 accordion 标题的背景。"
+					},
+					"ACCORDION_BTN_PADDING_X": {
+						"DESCRIPTION": "展开按钮的水平内边距。"
+					},
+					"ACCORDION_BTN_PADDING_Y": {
+						"DESCRIPTION": "展开按钮的垂直内边距。"
+					},
+					"ACCORDION_BTN_ICON_TRANSFORM": {
+						"DESCRIPTION": "展开时应用于 chevron 的变换。"
+					},
+					"ACCORDION_COLLAPSE_TRANSITION_DURATION": {
+						"DESCRIPTION": "展开/折叠动画的持续时间。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"BASIC": {
+					"TITLE": "基础标签页"
+				},
+				"PILLS": {
+					"TITLE": "Pills"
+				},
+				"ACCORDION": {
+					"TITLE": "Accordion 视图"
+				},
+				"VERTICAL": {
+					"TITLE": "垂直标签页"
+				},
+				"JUSTIFIED": {
+					"TITLE": "两端对齐标签页"
+				},
+				"SCROLLABLE": {
+					"TITLE": "可滚动标签页"
+				},
+				"DISABLED": {
+					"TITLE": "禁用面板"
+				},
+				"REMOVABLE": {
+					"TITLE": "可移除与动态面板"
+				},
+				"CUSTOM_HEADING": {
+					"TITLE": "自定义标题模板"
+				},
+				"HEADING_ACTIONS": {
+					"TITLE": "手风琴行操作"
+				},
+				"REACTIVE_FORMS": {
+					"TITLE": "响应式表单集成"
+				},
+				"MULTIPLE": {
+					"TITLE": "多选"
+				},
+				"MULTIPLE_VERTICAL": {
+					"TITLE": "多个垂直标题"
+				},
+				"MULTIPLE_FLUSH": {
+					"TITLE": "手风琴多开与无边框"
+				},
+				"KEYBOARD": {
+					"TITLE": "键盘导航"
+				},
+				"CARD": {
+					"TITLE": "卡片与内容插槽"
+				},
+				"ALERT": {
+					"TITLE": "语义提示框"
+				},
+				"VARIANT": {
+					"TITLE": "语义化标签强调色"
+				},
+				"TAB_NAV": {
+					"TITLE": "Tab nav（无内容标签条）"
+				},
+				"CARD_SLOTS": {
+					"TITLE": "卡片插槽（variant、flush、fill）"
+				},
+				"MIXIN": {
+					"TITLE": "使用 hub-panels-theme mixin 设置主题"
+				},
+				"SIDE_PANEL": {
+					"TITLE": "侧边面板（非模态伴随面板）"
+				}
+			},
+			"NAV": {
+				"BASIC": "基础标签页",
+				"PILLS": "Pills",
+				"ACCORDION": "Accordion 视图",
+				"VERTICAL": "垂直标签页",
+				"JUSTIFIED": "两端对齐标签页",
+				"SCROLLABLE": "可滚动标签页",
+				"DISABLED": "禁用面板",
+				"REMOVABLE": "可移除与动态面板",
+				"CUSTOM_HEADING": "自定义标题模板",
+				"REACTIVE_FORMS": "响应式表单集成",
+				"MULTIPLE": "多选",
+				"MULTIPLE_FLUSH": "手风琴多开与无边框",
+				"KEYBOARD": "键盘导航",
+				"CARD": "卡片与内容插槽",
+				"ALERT": "提示框"
+			}
+		},
+		"PORTAL": {
+			"FEATURE": {
+				"CONTENT_RENDERING": {
+					"TITLE": "内容渲染",
+					"DESCRIPTION": "支持渲染多种内容类型（Component、TemplateRef、String），并具备数据注入和投影能力。"
+				},
+				"OPENING_STRATEGIES": {
+					"TITLE": "打开策略",
+					"DESCRIPTION": "控制 portal 的打开方式：渐进式（堆叠）或独占式（切换）模式。"
+				},
+				"CONTAINER_TARGETING": {
+					"TITLE": "目标容器",
+					"DESCRIPTION": "选择 portal 窗口挂载的位置：默认是文档的 body，也可以是通过 CSS 选择器指定或以 HTMLElement 传入的任意元素。"
+				},
+				"OVERLAY_MANAGEMENT": {
+					"TITLE": "遮罩层管理",
+					"DESCRIPTION": "portal 打开期间，其背后的页面停止滚动，焦点被锁定在最上层窗口内，窗口之外的一切都会被标记为 aria-hidden。"
+				},
+				"INTERACTION": {
+					"TITLE": "交互",
+					"DESCRIPTION": "可携带结果关闭/消除 portal，并支持键盘操作和自定义触发器选择器。"
+				},
+				"LIFECYCLE": {
+					"TITLE": "生命周期",
+					"DESCRIPTION": "用于 portal 状态管理的生命周期钩子和事件订阅。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"ANIMATION": {
+						"DESCRIPTION": "若为 true，portal 的打开和关闭将带有动画。默认值：true"
+					},
+					"ARIA_LABELLED_BY": {
+						"DESCRIPTION": "要设置在 portal 窗口上的 `aria-labelledby` 属性值"
+					},
+					"ARIA_DESCRIBED_BY": {
+						"DESCRIPTION": "要设置在 portal 窗口上的 `aria-describedby` 属性值"
+					},
+					"BEFORE_DISMISS": {
+						"DESCRIPTION": "在 portal 即将关闭（dismiss）之前调用的回调。返回 false 可阻止关闭。"
+					},
+					"CONTAINER": {
+						"DESCRIPTION": "指定所有新 portal 窗口应附加到的元素的选择器。若未指定，则为 `body`。"
+					},
+					"INJECTOR": {
+						"DESCRIPTION": "用于 portal 内容的 `Injector`，以启用依赖注入。"
+					},
+					"KEYBOARD": {
+						"DESCRIPTION": "若为 true，按下 Escape 键时 portal 将关闭。默认值：true"
+					},
+					"SCROLLABLE": {
+						"DESCRIPTION": "可滚动的 portal 内容（默认值为 false）。"
+					},
+					"WINDOW_CLASS": {
+						"DESCRIPTION": "附加到 portal 窗口的自定义类，用于自定义样式和定位。"
+					},
+					"PORTAL_DIALOG_CLASS": {
+						"DESCRIPTION": "附加到 portal 对话框容器的自定义类。"
+					},
+					"PORTAL_CONTENT_CLASS": {
+						"DESCRIPTION": "附加到 portal 内容包装器的自定义类。"
+					},
+					"HEADER_SELECTOR": {
+						"DESCRIPTION": "portal 窗口头部元素的自定义选择器。适用于定位特定的 portal 区域。"
+					},
+					"FOOTER_SELECTOR": {
+						"DESCRIPTION": "portal 窗口底部元素的自定义选择器。适用于定位特定的 portal 区域。"
+					},
+					"DISMISS_SELECTOR": {
+						"DESCRIPTION": "可触发 portal 窗口关闭（dismiss）的元素的自定义选择器。默认值：`[data-dismiss=\"portal\"]`"
+					},
+					"CLOSE_SELECTOR": {
+						"DESCRIPTION": "可触发 portal 窗口关闭（close）的元素的自定义选择器。默认值：`[data-close=\"portal\"]`"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "Portal Template",
+						"DESCRIPTION": "可传递给 HubPortal 服务用于动态渲染的模板引用"
+					}
+				},
+				"METHOD": {
+					"OPEN": {
+						"DESCRIPTION": "使用指定内容（组件类型、TemplateRef 或字符串）和选项打开一个新的 portal 窗口，并返回用于控制它的 HubPortalRef。内容组件可以注入 HubActivePortal，以便从内部关闭（close）或消除（dismiss）该 portal。"
+					},
+					"TOGGLE": {
+						"DESCRIPTION": "以 'toggle' 为原因消除（dismiss）当前打开的所有 portal，等待它们完全隐藏，然后以给定的内容和选项显示一个新的 portal。返回新 portal 的引用。"
+					},
+					"DISMISS_ALL": {
+						"DESCRIPTION": "以所提供的原因消除（dismiss）当前显示的所有 portal 窗口。"
+					},
+					"HAS_OPEN_PORTALS": {
+						"DESCRIPTION": "指示应用中当前是否存在任何打开的 portal 窗口。"
+					},
+					"ACTIVE_INSTANCES": {
+						"DESCRIPTION": "事件发射器，每当有 portal 被打开或移除时，发出当前打开的 HubPortalRef 实例列表。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"COMPONENT_RENDERING": {
+					"TITLE": "组件渲染",
+					"DESCRIPTION": "用组件类打开 portal，并通过返回的引用访问其实例。"
+				},
+				"TEMPLATEREF_RENDERING": {
+					"TITLE": "TemplateRef 渲染",
+					"DESCRIPTION": "把 ng-template 渲染为 portal 的内容，close 与 dismiss 会送入模板上下文。"
+				},
+				"STRING_CONTENT": {
+					"TITLE": "字符串内容",
+					"DESCRIPTION": "把一段纯文本作为内容传入，适用于只需说一句话的 portal。"
+				},
+				"DATA_PASSING": {
+					"TITLE": "数据传递",
+					"DESCRIPTION": "通过自定义 Injector 把数据交给内容组件，再从关闭值里读回结果。"
+				},
+				"CONTENT_PROJECTION": {
+					"TITLE": "内容投影",
+					"DESCRIPTION": "用 headerSelector 与 footerSelector 选项把内容拆成头部、主体和底部。"
+				},
+				"PROGRESSIVE_OPEN": {
+					"TITLE": "渐进式打开（堆叠）",
+					"DESCRIPTION": "用 open() 逐层堆叠 portal，并向服务查询还有多少个处于打开状态。"
+				},
+				"TOGGLE": {
+					"TITLE": "切换（互斥）",
+					"DESCRIPTION": "toggle() 会先消除已打开的 portal，等它隐藏之后，才显示新的那个。"
+				},
+				"BASIC": {
+					"TITLE": "基础用法（旧版）",
+					"DESCRIPTION": "服务最日常的用法：打开 portal、等待 result，再带着一个值关闭它。"
+				},
+				"POSITIONING": {
+					"TITLE": "自定义容器（旧版）",
+					"DESCRIPTION": "把窗口送到别的容器，并用 windowClass 为它换装。位置来自本示例自己的 CSS——库只负责挂载，不负责定位。"
+				},
+				"SERVICE": {
+					"TITLE": "服务与注入（旧版）",
+					"DESCRIPTION": "由服务驱动的 portal：toast、对话框与抽屉，外加 dismissAll、hasOpenPortals 和 activeInstances。"
+				}
+			},
+			"NAV": {
+				"COMPONENT_RENDERING": "组件渲染",
+				"TEMPLATEREF_RENDERING": "TemplateRef 渲染",
+				"STRING_CONTENT": "字符串内容",
+				"DATA_PASSING": "数据传递",
+				"CONTENT_PROJECTION": "内容投影",
+				"PROGRESSIVE_OPEN": "渐进式展开",
+				"TOGGLE": "切换",
+				"BASIC": "基础",
+				"POSITIONING": "自定义容器",
+				"SERVICE": "服务用法"
+			}
+		},
+		"SKELETON": {
+			"NAV": {
+				"PRESET_CATALOGUE": "Preset 目录展示",
+				"CARD_PRESET": "内置 card preset",
+				"COMPACT_DSL": "紧凑的 DSL 模式",
+				"INLINE_TEMPLATE": "内联的类 Emmet 模板",
+				"CUSTOM_PRESET": "编程式自定义 preset",
+				"RESPONSIVE_TABLE": "响应式表格布局",
+				"COMPACT_VARIANT": "紧凑变体",
+				"DASHBOARD_COMPOSITION": "Dashboard 组合"
+			},
+			"FEATURE": {
+				"PRESET_CATALOGUE": {
+					"TITLE": "Preset 目录",
+					"DESCRIPTION": "内置目录刻意做得很宽泛，因为加载状态通常是重复出现的业务 UI，而非孤立的占位符。它包含 card、list-item、table-row、detail-view、form-section、dashboard-widget、stat-card、chart-panel、profile-summary、master-detail、kanban-card、feed-item、search-result、table-toolbar、filter-bar 和 empty-state-skeleton。其理念是让团队从面向生产的加载词汇起步，而不是在每个功能里重建相同的 shimmer 块。实际上，这意味着表格密集的页面可以从 `table-toolbar` 加上重复的 `table-row` 起步，dashboard 页面可以混用 `stat-card`、`chart-panel` 和 `dashboard-widget`，而以内容为主的流程可以使用 `card`、`feed-item` 或 `search-result`，无需从零编写新的布局标记。"
+				},
+				"COMPACT_DSL_AUTHORING": {
+					"TITLE": "紧凑的 DSL 编写",
+					"DESCRIPTION": "内联模板使用紧凑的类 Emmet 语法，因为该库为 Angular 代码库内的快速迭代做了优化。兄弟节点组合使用 `+`，嵌套使用 `>`，修饰符位于括号内，重复使用 `*N`，参数通过 `{{param}}` 插值。这为团队提供了一个紧凑的编写界面，在 pull request 中依然易读，并允许进行小改动而无需重写整棵对象树。关键不在于语法的巧妙，而在于布局意图始终贴近组件用法，并且便于 diff、重构和评审。"
+				},
+				"VARIANTS_AND_RESPONSIVE_LAYOUTS": {
+					"TITLE": "变体与响应式布局",
+					"DESCRIPTION": "加载状态不应忽视布局密度或断点，因为当 skeleton 与真实 UI 毫无关联时用户会察觉到。Presets 可以暴露诸如 `compact` 的变体，单个修饰符的值也可以使用紧凑的响应式令牌在断点之间切换。这使得既能保留一份语义化的 skeleton 定义，又能在移动端、平板和桌面端环境中适配宽度、列数、间距和尺寸。实际效果是更少的重复模板，以及占位阶段与真实渲染界面之间更好的一致性。"
+				},
+				"PROGRAMMATIC_REGISTRATION_AND_THEMING": {
+					"TITLE": "编程式注册与主题",
+					"DESCRIPTION": "内置预设是起点，而非上限。团队可以通过 Angular 依赖注入注册项目专属的预设，并像使用内置目录一样按名称使用它们——当产品拥有自己重复出现的 skeleton 语言时，这一点至关重要。视觉调优保留在 CSS 变量中，因此 shimmer 强度、基础颜色、高亮颜色、间距和圆角都可以与 design system 对齐，而不会把硬编码的值泄漏到功能组件中。这种分离很重要：结构属于预设和 DSL，而视觉策略属于主题化。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"PRESET": {
+						"DESCRIPTION": "已捆绑或已注册预设的名称。提供后，组件将从预设注册表解析默认值、变体和别名组合。"
+					},
+					"TEMPLATE": {
+						"DESCRIPTION": "类 Emmet 的内联 DSL 字符串或模板定义对象，可选地包含响应式断点覆盖。"
+					},
+					"PARAMS": {
+						"DESCRIPTION": "可序列化的参数，会在解析和预设展开之前插值到 `{{param}}` 占位符中。"
+					},
+					"VARIANT": {
+						"DESCRIPTION": "可选的预设变体名称，例如 `compact`，用于切换模板默认值或覆盖基础预设模板。"
+					},
+					"ANIMATED": {
+						"DESCRIPTION": "在保持相同占位布局的同时，启用或禁用微光动画。"
+					},
+					"APPEARANCE": {
+						"DESCRIPTION": "在不改变已解析布局的前提下，改变骨架屏表面的视觉强度。"
+					},
+					"ARIALABEL": {
+						"DESCRIPTION": "应用于容器元素的无障碍标签，供辅助技术使用。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "Bundled Presets",
+						"DESCRIPTION": "初始目录中可用的预设名称：card、list-item、table-row、detail-view、form-section、dashboard-widget、stat-card、chart-panel、profile-summary、master-detail、kanban-card、feed-item、search-result、table-toolbar、filter-bar 和 empty-state-skeleton。"
+					},
+					"1": {
+						"NAME": "Preset DSL",
+						"DESCRIPTION": "紧凑的字符串语法，支持节点名称、修饰符、用 `+` 组合兄弟节点、用 `>` 嵌套子节点，以及用 `*N` 重复。"
+					},
+					"2": {
+						"DESCRIPTION": "在 Angular 依赖注入中注册自定义预设，使任何组件都能按名称渲染它们。"
+					}
+				},
+				"CSS_VAR": {
+					"SKELETON_BG": {
+						"DESCRIPTION": "用于可见骨架屏表面的基础占位颜色。"
+					},
+					"SKELETON_HIGHLIGHT": {
+						"DESCRIPTION": "微光渐变所使用的高亮颜色。"
+					},
+					"SKELETON_RADIUS": {
+						"DESCRIPTION": "block 和 line 节点的默认边框圆角。"
+					},
+					"SKELETON_GAP": {
+						"DESCRIPTION": "当未被修饰符覆盖时，stack 和 grid 节点使用的默认间距。"
+					},
+					"SKELETON_ANIMATION_DURATION": {
+						"DESCRIPTION": "微光动画循环的持续时间。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"CARD_PRESET": {
+					"TITLE": "内置 card preset",
+					"DESCRIPTION": "以默认 shimmer 渲染内置的 card 骨架屏。"
+				},
+				"PRESET_CATALOGUE": {
+					"TITLE": "Preset 目录展示",
+					"DESCRIPTION": "把内置 presets 并列展示，便于团队在编写自定义模板前挑选最接近的起点。"
+				},
+				"INLINE_TEMPLATE": {
+					"TITLE": "内联的类 Emmet 模板",
+					"DESCRIPTION": "以内联方式定义自定义骨架形状，并对 params 做插值。"
+				},
+				"COMPACT_DSL": {
+					"TITLE": "紧凑的 DSL 模式",
+					"DESCRIPTION": "结合结构、params 与响应式 token 的可视化结果，讲解 DSL 的基本构件。"
+				},
+				"CUSTOM_PRESET": {
+					"TITLE": "编程式自定义 preset",
+					"DESCRIPTION": "注册一个本地 preset，并像内置目录一样按名称使用。"
+				},
+				"RESPONSIVE_TABLE": {
+					"TITLE": "响应式表格布局",
+					"DESCRIPTION": "在内置 presets 中使用响应式取值，从紧凑布局适配到更宽的布局。"
+				},
+				"COMPACT_VARIANT": {
+					"TITLE": "紧凑变体",
+					"DESCRIPTION": "对比默认 card preset 与其紧凑变体，用于更密集的界面。"
+				},
+				"DASHBOARD_COMPOSITION": {
+					"TITLE": "Dashboard 组合",
+					"DESCRIPTION": "组合多个 presets，模拟加载中的分析 dashboard。"
+				}
+			},
+			"MIXIN": {
+				"DEMO": {
+					"THEMING": {
+						"TITLE": "使用 hub-skeleton-theme 设置主题"
+					}
+				}
+			}
+		},
+		"SORTABLE": {
+			"NAV": {
+				"ARRAY": "简单数组",
+				"FORM_ARRAY": "FormArray 集成",
+				"OPTIONS": "自定义选项",
+				"MULTIPLE_LISTS": "多个列表",
+				"LAYOUT_BUILDER": "布局构建器",
+				"SIGNAL": "Signals",
+				"MANUAL": "手动模式"
+			},
+			"FEATURE": {
+				"CORE_USAGE": {
+					"TITLE": "核心用法",
+					"DESCRIPTION": "sortable 列表的基本使用场景。",
+					"EXAMPLE": {
+						"ARRAY": {
+							"DESCRIPTION": "重新排序普通数组。"
+						},
+						"SIGNAL": {
+							"DESCRIPTION": "将 sortable 数据绑定到 Angular 的可写 signals。"
+						}
+					}
+				},
+				"FORMS_INTEGRATION": {
+					"TITLE": "表单集成",
+					"DESCRIPTION": "将 sortable 与 Angular 响应式表单结合使用。",
+					"EXAMPLE": {
+						"FORM_ARRAY": {
+							"DESCRIPTION": "通过拖放重新排序 FormArray 控件。"
+						}
+					}
+				},
+				"ADVANCED_CONFIGURATION": {
+					"TITLE": "高级配置",
+					"DESCRIPTION": "自定义 SortableJS 的行为和交互。",
+					"EXAMPLE": {
+						"OPTIONS": {
+							"DESCRIPTION": "配置 handles、过滤器、动画和事件。"
+						},
+						"MULTIPLE_LISTS": {
+							"DESCRIPTION": "连接列表、克隆项目并控制转移规则。"
+						},
+						"LAYOUT_BUILDER": {
+							"DESCRIPTION": "带有 tabs 和 widgets 的嵌套 sortable 容器。"
+						},
+						"MANUAL": {
+							"DESCRIPTION": "使用 `autoUpdateArray=false` 禁用自动更新，并通过 `moveItemInArray`、`transferArrayItem` 和 `copyArrayItem` 辅助函数自行应用更改。"
+						}
+					}
+				}
+			},
+			"API": {
+				"INPUT": {
+					"HUB_SORTABLE": {
+						"DESCRIPTION": "绑定到可排序容器的数据：普通数组、响应式 `FormArray` 或可写信号。会与拖放操作保持同步。该输入是可选的：仅写 `hubSortable` 属性也能启用该指令，此时输出会报告每一次移动而不改动任何数据。"
+					},
+					"OPTIONS": {
+						"DESCRIPTION": "完整的 SortableJS 选项对象。每个 SortableJS 选项也可以作为独立的 input 直接绑定（例如 `handle`、`animation` 或 `group`）。"
+					},
+					"AUTO_UPDATE_ARRAY": {
+						"DESCRIPTION": "为 `true`（默认）时，指令会在每次拖动后自动修改绑定的数组。设为 `false` 可手动控制并自行更新数组。"
+					},
+					"CLONE_FUNCTION": {
+						"DESCRIPTION": "当分组配置为 `pull: 'clone'` 模式时，用于克隆条目的工厂函数。"
+					},
+					"CONTAINER": {
+						"DESCRIPTION": "当宿主包裹实际列表时，应成为可排序的嵌套元素的 CSS 选择器。"
+					},
+					"GROUP": {
+						"DESCRIPTION": "用于连接多个列表并控制哪些列表可以给出或接收条目的分组名称或配置对象。"
+					},
+					"SORT": {
+						"DESCRIPTION": "启用或禁用列表内条目的重新排序。"
+					},
+					"DELAY": {
+						"DESCRIPTION": "开始拖拽前需要按住指针的毫秒数。默认为 `0`；在触摸设备上调高该值，短按即为滚动而非拖拽。"
+					},
+					"DISABLED": {
+						"DESCRIPTION": "在不移除指令的情况下禁用可排序行为。"
+					},
+					"DRAGGABLE": {
+						"DESCRIPTION": "限制哪些子元素可被拖动的 CSS 选择器。"
+					},
+					"HANDLE": {
+						"DESCRIPTION": "每个条目内启动拖动的元素的 CSS 选择器，其余部分仍可交互。"
+					},
+					"ANIMATION": {
+						"DESCRIPTION": "重新排序动画的持续时间（毫秒）。"
+					},
+					"GHOST_CLASS": {
+						"DESCRIPTION": "拖动时显示的占位符所应用的 CSS 类。"
+					},
+					"CHOSEN_CLASS": {
+						"DESCRIPTION": "从被选中到拖拽结束期间应用于该项的 CSS 类。默认为 `sortable-chosen`。"
+					},
+					"DRAG_CLASS": {
+						"DESCRIPTION": "拖拽过程中跟随指针的元素所应用的 CSS 类。默认为 `sortable-drag`。"
+					},
+					"FALLBACK_ON_BODY": {
+						"DESCRIPTION": "把拖拽预览挂到 `document.body` 而不是列表上，避免被带 `overflow: hidden` 的祖先元素裁切。"
+					},
+					"FALLBACK_TOLERANCE": {
+						"DESCRIPTION": "回退拖拽启动前指针需要移动的像素数。默认为 `0`；调高可避免轻点被当作拖拽。"
+					},
+					"FALLBACK_CLASS": {
+						"DESCRIPTION": "绕过原生 HTML5 拖放时所用克隆预览元素的 CSS 类。"
+					},
+					"FALLBACK_OFFSET": {
+						"DESCRIPTION": "回退拖拽预览相对指针的像素偏移。"
+					},
+					"FORCE_FALLBACK": {
+						"DESCRIPTION": "不使用浏览器原生的 HTML5 拖放，始终拖动克隆元素，在各浏览器中外观一致。"
+					},
+					"FILTER": {
+						"DESCRIPTION": "标记不可拖动元素的 CSS 选择器（或谓词函数）。"
+					},
+					"PREVENT_ON_FILTER": {
+						"DESCRIPTION": "对触发 `filter` 的事件调用 `preventDefault()`。默认为 `true`；当被过滤元素是仍需响应点击的控件时应关闭。"
+					},
+					"DIRECTION": {
+						"DESCRIPTION": "列表排列所沿的轴向。未设置时自动判定；网格和会换行的列表请显式指定，自动判定在那里容易出错。"
+					},
+					"SWAP_THRESHOLD": {
+						"DESCRIPTION": "触发交换前指针需覆盖目标项的比例（0 到 1）。默认为 `1`；值越小越早交换。"
+					},
+					"INVERT_SWAP": {
+						"DESCRIPTION": "始终使用反转的交换区域：交换发生在指针离开某项时，而非进入时。"
+					},
+					"INVERTED_SWAP_THRESHOLD": {
+						"DESCRIPTION": "交换区域反转时使用的阈值。未设置时沿用 `swapThreshold`。"
+					},
+					"REMOVE_CLONE_ON_HIDE": {
+						"DESCRIPTION": "克隆元素隐藏期间将其从 DOM 移除，而不只是隐藏。默认为 `true`。"
+					},
+					"IGNORE": {
+						"DESCRIPTION": "项内不得触发拖拽的元素的 CSS 选择器，例如输入框或链接。"
+					},
+					"TOUCH_START_THRESHOLD": {
+						"DESCRIPTION": "延迟拖拽被取消前手指可移动的像素数，也就是拖拽与滚动之间的余量。"
+					},
+					"EMPTY_INSERT_THRESHOLD": {
+						"DESCRIPTION": "距离空列表多少像素时把拖拽项插入其中。默认为 `5`；设为 `0` 则指针必须位于列表内。"
+					},
+					"DROP_BUBBLE": {
+						"DESCRIPTION": "允许 drop 事件继续向祖先元素冒泡。"
+					},
+					"DRAGOVER_BUBBLE": {
+						"DESCRIPTION": "允许 dragover 事件继续向祖先元素冒泡。"
+					},
+					"DATA_ID_ATTR": {
+						"DESCRIPTION": "`Sortable.toArray()` 与 `store` 用作各项 id 的 HTML 属性。默认为 `data-id`。"
+					},
+					"DELAY_ON_TOUCH_ONLY": {
+						"DESCRIPTION": "只对触摸输入应用 `delay`，鼠标拖拽仍然立即开始。"
+					},
+					"EASING": {
+						"DESCRIPTION": "重排动画的 CSS 缓动函数，例如 `cubic-bezier(1, 0, 0, 1)`。"
+					},
+					"SET_DATA": {
+						"DESCRIPTION": "拖拽开始时调用，用于写入原生 `DataTransfer`，这是拖拽到页面之外的接入点。"
+					},
+					"STORE": {
+						"DESCRIPTION": "用于持久化排序并在下次加载时恢复的 `get`/`set` 回调对，以 `dataIdAttr` 为键。"
+					},
+					"KEYBOARD_SORTING": {
+						"DESCRIPTION": "键盘重新排序，默认开启。每个条目都是一个 Tab 停留点：`Enter` 或 `空格` 抓起它，方向键移动它，`Home` 和 `End` 把它送到两端，`Escape` 放回原位。若应用自带键盘操作路径，可设为 `false`。"
+					},
+					"KEYBOARD_MESSAGES": {
+						"DESCRIPTION": "替换键盘重新排序通过实时区域播报的语句。未提供的部分保留默认的英文文案。"
+					}
+				},
+				"OUTPUT": {
+					"INIT": {
+						"DESCRIPTION": "在底层 SortableJS 实例创建后触发。"
+					},
+					"START": {
+						"DESCRIPTION": "在拖动操作开始时触发。"
+					},
+					"END": {
+						"DESCRIPTION": "无论结果如何，在拖动操作结束时触发。"
+					},
+					"ADD": {
+						"DESCRIPTION": "当条目从另一个列表被放入此列表时触发。"
+					},
+					"UPDATE": {
+						"DESCRIPTION": "当条目在同一列表内改变位置时触发。"
+					},
+					"SORT_EVENT": {
+						"DESCRIPTION": "每当列表顺序改变时触发（在 `add` 或 `update` 之后）。"
+					},
+					"REMOVE": {
+						"DESCRIPTION": "当条目离开此列表前往另一个列表时触发。"
+					},
+					"FILTER_EVENT": {
+						"DESCRIPTION": "当尝试拖动被过滤（不可拖动）的条目时触发。"
+					},
+					"CHANGE": {
+						"DESCRIPTION": "当列表因添加或移除操作而改变时触发。"
+					},
+					"CHOOSE": {
+						"DESCRIPTION": "当条目被选中（指针按下）时触发。"
+					},
+					"UNCHOOSE": {
+						"DESCRIPTION": "当条目未经拖动被释放时触发。"
+					},
+					"CLONE": {
+						"DESCRIPTION": "在克隆模式下克隆条目时触发。"
+					},
+					"MOVE": {
+						"DESCRIPTION": "拖动期间持续触发；其返回值可控制是否允许此次移动。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"ARRAY": {
+					"TITLE": "简单数组"
+				},
+				"FORM_ARRAY": {
+					"TITLE": "FormArray 集成"
+				},
+				"OPTIONS": {
+					"TITLE": "自定义选项"
+				},
+				"MULTIPLE_LISTS": {
+					"TITLE": "多个列表"
+				},
+				"LAYOUT_BUILDER": {
+					"TITLE": "布局构建器"
+				},
+				"SIGNAL": {
+					"TITLE": "Signals"
+				},
+				"MANUAL": {
+					"TITLE": "手动模式"
+				}
+			}
+		},
+		"STEPPER": {
+			"NAV": {
+				"BASIC": "基本用法",
+				"VALIDATION": "校验",
+				"PROGRAMMATIC": "程序化控制",
+				"ORIENTATION": "方向",
+				"THEMING": "主题",
+				"CUSTOM_NAV": "自定义导航",
+				"CUSTOM_CONTROLS": "自定义控件",
+				"ANIMATIONS": "动画",
+				"I18N": "国际化",
+				"RTL": "RTL"
+			},
+			"FEATURE": {
+				"CORE_USAGE": {
+					"TITLE": "核心用法",
+					"DESCRIPTION": "基础设置和方向行为。"
+				},
+				"ADVANCED_FLOWS": {
+					"TITLE": "高级流程",
+					"DESCRIPTION": "验证、i18n、RTL、API 驱动的导航、自定义控件和自定义步骤头部。"
+				},
+				"STYLING": {
+					"TITLE": "样式",
+					"DESCRIPTION": "通过主题服务进行运行时主题自定义。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"OPTIONS": {
+						"DESCRIPTION": "Stepper 配置对象：`layout`（`vertical` | `sidebar`）和 `rtl`（布尔值）。"
+					},
+					"VARIANT": {
+						"DESCRIPTION": "应用于当前步骤胶囊以及“下一步 / 提交”控件的语义强调色。内置值：`primary`、`secondary`、`success`、`danger`、`warning`、`info`、`neutral`、`light`、`dark`；其他任意字符串通过 `--hub-sys-color-<variant>` 解析。"
+					},
+					"BACK_LABEL": {
+						"DESCRIPTION": "覆盖 \"Back\" 控件标签。当为 null 时回退到内置的 i18n 标签。"
+					},
+					"CONTINUE_LABEL": {
+						"DESCRIPTION": "覆盖 \"Continue\" 控件标签。"
+					},
+					"SUBMIT_LABEL": {
+						"DESCRIPTION": "覆盖最后一步 \"Submit\" 控件标签。"
+					},
+					"TRUNCATE_TITLES": {
+						"DESCRIPTION": "将轨道中每个步骤的标题裁剪到 `--hub-stepper-nav-title-max-width`（默认 `12rem`），文本溢出时以工具提示显示完整内容。"
+					},
+					"RAIL_LABEL": {
+						"DESCRIPTION": "步骤导轨 tablist 的无障碍名称。"
+					},
+					"TITLE": {
+						"DESCRIPTION": "在 stepper 导航中显示的步骤标题。"
+					},
+					"DISABLED": {
+						"DESCRIPTION": "禁止导航到此步骤。"
+					}
+				},
+				"OUTPUT": {
+					"COMPLETED": {
+						"DESCRIPTION": "当用户提交最后一步时触发。"
+					},
+					"NEXT_STEP": {
+						"DESCRIPTION": "当前进到某一步骤时触发，并带有新的步骤索引。"
+					},
+					"PREVIOUS_STEP": {
+						"DESCRIPTION": "当返回到某一步骤时触发，并带有新的步骤索引。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "stepperNav / hubStepperNav",
+						"DESCRIPTION": "整体替换默认的步骤轨道。模板上下文暴露 steps（投影的 StepComponent 实例）和 currentIndex，使用 let-steps=\"steps\" 与 let-currentIndex=\"currentIndex\" 绑定。"
+					},
+					"1": {
+						"DESCRIPTION": "注册内置的十个词典（en、es、ca、eu、gl、ast、an、de、zh 和 ar）以及内置的 Back / Continue / Submit 控件用来解析文本的 HubTranslationService。它取代了将在 23.0.0 中移除的 StepperModule.forRoot()。"
+					},
+					"2": {
+						"DESCRIPTION": "以普通对象导出的内置词典，便于只注册实际发布的语言，或与自有词典合并。键是扁平的 BACK、CONTINUE 和 SUBMIT，正是组件在 HUBUI.STEPPER 命名空间未命中后所解析的形式。"
+					},
+					"3": {
+						"NAME": "stepTrigger / hubStepTrigger",
+						"DESCRIPTION": "替换默认导轨在每个条目内绘制的控件，导轨本身保持不变：列表、role=\"tablist\"、方向和标签都还在。上下文以 $implicit 和 step 两种方式提供该步骤，另有 title、index、isCurrent、isCompleted 和 disabled；切换步骤仍由你来做，通过宿主上的模板引用。存在 hubStepperNav 模板时会被忽略。"
+					}
+				},
+				"CSS_VAR": {
+					"PRIMARY_COLOR": {
+						"DESCRIPTION": "主强调色（激活状态、进度）。"
+					},
+					"BACKGROUND_COLOR": {
+						"DESCRIPTION": "后退按钮 / 次要表面的背景。"
+					},
+					"TEXT_COLOR": {
+						"DESCRIPTION": "基础文本颜色。"
+					},
+					"BORDER_COLOR": {
+						"DESCRIPTION": "stepper 表面的边框颜色。"
+					},
+					"SURFACE_COLOR": {
+						"DESCRIPTION": "步骤内容的背景。"
+					},
+					"NAV_LINK_COLOR": {
+						"DESCRIPTION": "导航步骤标签的颜色。"
+					},
+					"NAV_LINK_ACTIVE_BG": {
+						"DESCRIPTION": "激活步骤指示器的背景。"
+					},
+					"NAV_LINK_ACTIVE_COLOR": {
+						"DESCRIPTION": "激活步骤指示器的文本颜色。"
+					},
+					"NAV_LINK_DISABLED_COLOR": {
+						"DESCRIPTION": "禁用步骤标签的颜色。"
+					},
+					"GAP": {
+						"DESCRIPTION": "stepper 布局各区域之间的间距。"
+					},
+					"CONTROLS_GAP": {
+						"DESCRIPTION": "导航控件之间的间距。"
+					},
+					"DISABLED_OPACITY": {
+						"DESCRIPTION": "应用于禁用步骤的不透明度。"
+					},
+					"SIDEBAR_WIDTH": {
+						"DESCRIPTION": "`sidebar` 布局中侧边栏的宽度。"
+					},
+					"ANIMATION_DURATION": {
+						"DESCRIPTION": "步骤过渡的持续时间。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"BASIC": {
+					"TITLE": "基本用法"
+				},
+				"VALIDATION": {
+					"TITLE": "校验"
+				},
+				"PROGRAMMATIC": {
+					"TITLE": "程序化控制"
+				},
+				"ORIENTATION": {
+					"TITLE": "方向"
+				},
+				"THEMING": {
+					"TITLE": "主题"
+				},
+				"CUSTOM_NAV": {
+					"TITLE": "自定义导航"
+				},
+				"CUSTOM_CONTROLS": {
+					"TITLE": "自定义控件"
+				},
+				"ANIMATIONS": {
+					"TITLE": "动画"
+				},
+				"I18N": {
+					"TITLE": "国际化（i18n）"
+				},
+				"RTL": {
+					"TITLE": "从右到左（RTL）"
+				},
+				"TRUNCATED_TITLES": {
+					"TITLE": "截断标题与提示"
+				},
+				"MODAL": {
+					"TITLE": "在模态框中"
+				}
+			}
+		},
+		"UTILS": {
+			"NAV": {
+				"PIPES": "工具 pipes",
+				"TRANSLATION": "翻译",
+				"EXTERNAL_ADAPTER": "外部 i18n 适配器",
+				"FUNCTIONS": "工具函数",
+				"FOCUS_TRAP": "焦点捕获",
+				"SCROLLBAR": "Scrollbar 工具",
+				"OVERLAY": "覆盖层系统",
+				"TOOLTIP": "提示指令",
+				"COLOR_PARSING": "颜色解析",
+				"COLOR_CONTRAST": "可读墨色",
+				"COLOR_GAMUT": "sRGB 色域"
+			},
+			"FEATURE": {
+				"FOCUS_MANAGEMENT": {
+					"TITLE": "焦点管理",
+					"DESCRIPTION": "在元素内捕获并管理键盘焦点"
+				},
+				"FOCUS_TRAP": {
+					"TITLE": "焦点捕获",
+					"DESCRIPTION": "使用 hubFocusTrap() 将焦点限定在 modal 或对话框内。"
+				},
+				"FOCUSABLE_ELEMENTS": {
+					"TITLE": "可聚焦元素",
+					"DESCRIPTION": "使用 getFocusableBoundaryElements() 查询边界处的可聚焦元素。"
+				},
+				"INTERNATIONALIZATION_I18N": {
+					"TITLE": "国际化（i18n）",
+					"DESCRIPTION": "用于多语言支持的翻译服务和 pipes"
+				},
+				"TRANSLATION_SERVICE": {
+					"TITLE": "翻译服务",
+					"DESCRIPTION": "HubTranslationService 用于管理翻译"
+				},
+				"TRANSLATE_PIPE": {
+					"TITLE": "翻译 pipe",
+					"DESCRIPTION": "TranslatePipe 用于模板中的翻译"
+				},
+				"TRANSLATION_PROVIDER": {
+					"TITLE": "翻译 provider",
+					"DESCRIPTION": "provideHubTranslations() 用于应用配置"
+				},
+				"OVERLAY_SYSTEM": {
+					"TITLE": "覆盖层系统",
+					"DESCRIPTION": "创建定位的 overlays 和浮动元素"
+				},
+				"OVERLAY_SERVICE": {
+					"TITLE": "Overlay 服务",
+					"DESCRIPTION": "HubOverlayService 用于以编程方式创建 overlay"
+				},
+				"OVERLAY_REFERENCE": {
+					"TITLE": "Overlay 引用",
+					"DESCRIPTION": "OverlayRef 用于管理 overlay 的生命周期"
+				},
+				"POSITIONING": {
+					"TITLE": "定位",
+					"DESCRIPTION": "ConnectionPositionPair 用于灵活定位"
+				},
+				"POPUP_SERVICE": {
+					"TITLE": "Popup 服务",
+					"DESCRIPTION": "简化的 popup 管理"
+				},
+				"POPUP_CREATION": {
+					"TITLE": "Popup 创建",
+					"DESCRIPTION": "HubPopupService 用于快速创建 popup"
+				},
+				"PIPES": {
+					"TITLE": "Pipes",
+					"DESCRIPTION": "用于模板的工具 pipes"
+				},
+				"TYPE_CHECKING_PIPES": {
+					"TITLE": "类型检查 pipes",
+					"DESCRIPTION": "IsStringPipe、IsObjectPipe、IsObservablePipe"
+				},
+				"GETPIPE": {
+					"TITLE": "GetPipe",
+					"DESCRIPTION": "使用点号表示法访问嵌套对象属性"
+				},
+				"UCFIRSTPIPE": {
+					"TITLE": "UcfirstPipe",
+					"DESCRIPTION": "将字符串的首字母大写"
+				},
+				"UNWRAPASYNCPIPE": {
+					"TITLE": "UnwrapAsyncPipe",
+					"DESCRIPTION": "在模板中解包 observables 和 promises"
+				},
+				"UTILITY_FUNCTIONS": {
+					"TITLE": "工具函数",
+					"DESCRIPTION": "通用的 helper 函数"
+				},
+				"TYPE_GUARDS": {
+					"TITLE": "Type guards",
+					"DESCRIPTION": "isString()、isNumber()、isDefined()、isPromise()"
+				},
+				"STRING_UTILITIES": {
+					"TITLE": "字符串工具",
+					"DESCRIPTION": "removeAccents()、interpolateString()、regExpEscape()"
+				},
+				"OBJECT_UTILITIES": {
+					"TITLE": "对象工具",
+					"DESCRIPTION": "equals() 用于深度比较，getValue() 用于点分表示法"
+				},
+				"DOM_UTILITIES": {
+					"TITLE": "DOM 工具",
+					"DESCRIPTION": "closest()、reflow()、getActiveElement()"
+				},
+				"RXJS_UTILITIES": {
+					"TITLE": "RxJS 工具",
+					"DESCRIPTION": "runInZone() 操作符，用于 NgZone 集成"
+				},
+				"SCROLLBAR_UTILITIES": {
+					"TITLE": "Scrollbar 工具",
+					"DESCRIPTION": "测量并补偿 scrollbar 宽度"
+				},
+				"SCROLLBAR_WIDTH": {
+					"TITLE": "Scrollbar 宽度",
+					"DESCRIPTION": "scrollbarWidth() 和 scrollbarPadding() 函数"
+				},
+				"TRANSITIONS": {
+					"TITLE": "过渡",
+					"DESCRIPTION": "CSS 过渡辅助函数"
+				},
+				"RUN_TRANSITION": {
+					"TITLE": "运行过渡",
+					"DESCRIPTION": "hubRunTransition() 用于以编程方式实现 CSS 过渡"
+				},
+				"TOOLTIP": {
+					"TITLE": "提示",
+					"DESCRIPTION": "通过 [hubTooltip] 指令为任意元素提供轻量、可主题化的提示。"
+				},
+				"TOOLTIP_DIRECTIVE": {
+					"TITLE": "提示指令",
+					"DESCRIPTION": "为元素应用 [hubTooltip] 并通过 hubTooltipPlacement 指定位置，即可在悬停或聚焦时显示定位的标签，并可通过 --hub-tooltip-* 变量设置主题。旧的 [tooltip] 仍然可用，但已弃用：它未加前缀的输入名会与同一元素上的其他指令冲突。"
+				},
+				"COLOR": {
+					"TITLE": "颜色",
+					"DESCRIPTION": "无需 DOM 即可解析、测量和转换 CSS 颜色"
+				},
+				"COLOR_PARSING": {
+					"TITLE": "颜色解析",
+					"DESCRIPTION": "parseColor()、toHex() 和 isValidColor() 可解析 hex、rgb()、hsl()、oklch()、oklab() 以及 148 种具名颜色，服务端渲染同样适用"
+				},
+				"COLOR_CONTRAST": {
+					"TITLE": "对比度与可读性",
+					"DESCRIPTION": "contrastRatio()（WCAG 2）、contrastAPCA() 以及按 --hub-sys-color-*-on 令牌选择墨色的 readableOn()"
+				},
+				"COLOR_OKLCH": {
+					"TITLE": "OKLCh 转换",
+					"DESCRIPTION": "rgbToOklch()、oklchToRgb()、maxSrgbChroma() 和 clampToSrgbGamut()，在设计系统混色所用的色彩空间中处理调色板"
+				},
+				"COLOR_PALETTE": {
+					"TITLE": "调色板推导",
+					"DESCRIPTION": "harmoniseSemantics() 将 success、warning、danger 与 info 向品牌色相旋转，最多 15°；tintNeutrals() 以同样的方向倾斜灰阶，彩度上限为 0.015。明度始终不变，因此每个角色当初被选中的对比度得以保留。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"HUBTRANSLATIONSERVICE": {
+						"DESCRIPTION": "用于管理翻译的可注入服务。方法：getTranslation()、setTranslations()"
+					},
+					"HUBOVERLAYSERVICE": {
+						"DESCRIPTION": "用于以编程方式创建和管理遮罩层的服务"
+					},
+					"HUBPOPUPSERVICE": {
+						"DESCRIPTION": "用于创建弹出元素的简化服务"
+					},
+					"HUBTOOLTIPDIRECTIVE": {
+						"DESCRIPTION": "指令（[hubTooltip]），在悬停或聚焦时显示可定位、可主题化的提示框。输入：hubTooltip（文本）、hubTooltipPlacement、hubTooltipDelay、hubTooltipOffset。带前缀的名称使其可以与声明了自身 placement 的指令（如 [hubDropdown]）共存于同一元素。"
+					}
+				},
+				"OUTPUT": {
+					"TRANSLATEPIPE": {
+						"DESCRIPTION": "使用 HubTranslationService 翻译某个键。用法：{{ \"key\" | translate }}"
+					},
+					"GETPIPE": {
+						"DESCRIPTION": "获取嵌套属性值。用法：{{ object | get:\"path.to.property\" }}"
+					},
+					"ISSTRINGPIPE": {
+						"DESCRIPTION": "检查值是否为字符串。用法：{{ value | isString }}"
+					},
+					"ISOBJECTPIPE": {
+						"DESCRIPTION": "检查值是否为对象。用法：{{ value | isObject }}"
+					},
+					"ISOBSERVABLEPIPE": {
+						"DESCRIPTION": "检查值是否为 Observable。用法：{{ value | isObservable }}"
+					},
+					"UCFIRSTPIPE": {
+						"DESCRIPTION": "将首字母大写。用法：{{ \"hello\" | ucfirst }} → \"Hello\""
+					},
+					"UNWRAPASYNCPIPE": {
+						"DESCRIPTION": "在模板中解包 Observable 或 Promise 值"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "hubFocusTrap()",
+						"DESCRIPTION": "将键盘焦点限制在某个元素内。适用于模态框和对话框。"
+					},
+					"1": {
+						"NAME": "interpolateString()",
+						"DESCRIPTION": "用对象中的值替换 {{ placeholders }} 占位符"
+					},
+					"2": {
+						"NAME": "getValue()",
+						"DESCRIPTION": "使用点分表示法获取嵌套属性"
+					},
+					"3": {
+						"NAME": "equals()",
+						"DESCRIPTION": "对对象和数组进行深度相等比较"
+					}
+				},
+				"CSS_VAR": {
+					"BG": {
+						"DESCRIPTION": "提示的背景颜色。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "提示的文本颜色。"
+					},
+					"OPACITY": {
+						"DESCRIPTION": "显示时提示的不透明度。"
+					},
+					"PADDING_X": {
+						"DESCRIPTION": "提示内的水平内边距。"
+					},
+					"PADDING_Y": {
+						"DESCRIPTION": "提示内的垂直内边距。"
+					},
+					"BORDER_RADIUS": {
+						"DESCRIPTION": "提示的圆角半径。"
+					},
+					"FONT_SIZE": {
+						"DESCRIPTION": "提示文本的字号。"
+					},
+					"MAX_WIDTH": {
+						"DESCRIPTION": "文本换行前的最大宽度。"
+					},
+					"Z_INDEX": {
+						"DESCRIPTION": "提示元素的堆叠顺序。"
+					},
+					"TRANSITION_DURATION": {
+						"DESCRIPTION": "淡入/淡出的持续时间。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"PIPES": {
+					"TITLE": "工具 pipes"
+				},
+				"TRANSLATION": {
+					"TITLE": "翻译服务与 pipe"
+				},
+				"EXTERNAL_ADAPTER": {
+					"TITLE": "外部 i18n 适配器",
+					"DESCRIPTION": "在 app.config.ts 中配置一个响应式翻译桥接器，供所有 Hub UI 库使用。"
+				},
+				"FUNCTIONS": {
+					"TITLE": "工具函数"
+				},
+				"FOCUS_TRAP": {
+					"TITLE": "焦点捕获"
+				},
+				"SCROLLBAR": {
+					"TITLE": "Scrollbar 工具"
+				},
+				"OVERLAY": {
+					"TITLE": "覆盖层系统"
+				},
+				"TOOLTIP": {
+					"TITLE": "提示指令"
+				},
+				"POPUP": {
+					"TITLE": "从 TypeScript 打开弹窗"
+				},
+				"TRANSITIONS": {
+					"TITLE": "等待 CSS 过渡结束"
+				},
+				"DOM": {
+					"TITLE": "DOM 与 RxJS 辅助函数"
+				},
+				"COLOR_PARSING": {
+					"TITLE": "解析任意 CSS 颜色"
+				},
+				"COLOR_CONTRAST": {
+					"TITLE": "选择可读的墨色"
+				},
+				"COLOR_GAMUT": {
+					"TITLE": "sRGB 色域并非圆柱体"
+				},
+				"COLOR_PALETTE": {
+					"TITLE": "从一个品牌色推导整套调色板"
+				}
+			}
+		},
+		"TOAST": {
+			"NAV": {
+				"BASIC": "基本类型",
+				"CONFIG": "配置选项",
+				"POSITION": "定位",
+				"PREVENT_DUPLICATES": "防止重复",
+				"MAX_OPENED": "最大打开数",
+				"LIFECYCLE": "生命周期事件",
+				"CSS_VARIABLES": "CSS 变量"
+			},
+			"FEATURE": {
+				"BASIC_TYPES": {
+					"TITLE": "基本 toast 类型",
+					"DESCRIPTION": "四种语义类型 —— success、error、warning 和 info —— 每一种都映射到对应的设计系统颜色令牌。"
+				},
+				"CONFIGURATION": {
+					"TITLE": "配置选项",
+					"DESCRIPTION": "可按调用或通过 provideToast() 全局控制 auto-dismiss 超时、进度条、关闭按钮以及 tap-to-dismiss 行为。"
+				},
+				"POSITIONING": {
+					"TITLE": "定位",
+					"DESCRIPTION": "屏幕上的六个固定位置：top/bottom 与 right、left 或 center 组合。"
+				},
+				"DEDUPLICATION": {
+					"TITLE": "去重",
+					"DESCRIPTION": "preventDuplicates 会静默丢弃与已显示消息和类型相匹配的新通知。"
+				},
+				"CAPACITY": {
+					"TITLE": "容量控制",
+					"DESCRIPTION": "maxOpened 限制可见堆栈的数量；autoDismiss 决定在达到上限时是移除最旧的 toast 还是静默丢弃新的。"
+				},
+				"LIFECYCLE": {
+					"TITLE": "生命周期 observables",
+					"DESCRIPTION": "每个 HubToastRef 都暴露 onShown、onHidden 和 onTap observables，以及用于命令式控制的 manualClose() 和 resetTimeout()。"
+				},
+				"THEMING": {
+					"TITLE": "CSS 变量主题化",
+					"DESCRIPTION": "每一处视觉细节 —— 背景、圆角、阴影、内边距、进度条 —— 都是一个 --hub-toast-* 自定义属性，可从任意祖先元素或样式表中覆盖。"
+				}
+			},
+			"EXAMPLE": {
+				"BASIC": {
+					"TITLE": "基本类型"
+				},
+				"CONFIG": {
+					"TITLE": "配置选项"
+				},
+				"POSITION": {
+					"TITLE": "定位"
+				},
+				"PREVENT_DUPLICATES": {
+					"TITLE": "防止重复"
+				},
+				"MAX_OPENED": {
+					"TITLE": "最大打开数与 autoDismiss"
+				},
+				"LIFECYCLE": {
+					"TITLE": "生命周期 observables"
+				},
+				"CSS_VARIABLES": {
+					"TITLE": "CSS 变量主题化"
+				}
+			},
+			"API": {
+				"CSS_VAR": {
+					"WIDTH": {
+						"DESCRIPTION": "每个 toast 卡片的最大宽度。"
+					},
+					"BORDER_RADIUS": {
+						"DESCRIPTION": "toast 卡片的圆角半径。"
+					},
+					"PADDING_X": {
+						"DESCRIPTION": "toast 主体内部的水平内边距。"
+					},
+					"PADDING_Y": {
+						"DESCRIPTION": "toast 主体内部的垂直内边距。"
+					},
+					"GAP": {
+						"DESCRIPTION": "容器中堆叠 toast 之间的间距。"
+					},
+					"SHADOW": {
+						"DESCRIPTION": "toast 卡片投射的阴影。"
+					},
+					"BG": {
+						"DESCRIPTION": "toast 卡片的背景颜色。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "toast 主体文本颜色。"
+					},
+					"TITLE_FONT_SIZE": {
+						"DESCRIPTION": "Toast 标题的字体大小。"
+					},
+					"TITLE_FONT_WEIGHT": {
+						"DESCRIPTION": "Toast 标题的字体粗细。"
+					},
+					"ACCENT": {
+						"DESCRIPTION": "左边框或高亮颜色；对于内置类型会自动从 DS 令牌族中设置。"
+					},
+					"PROGRESS_HEIGHT": {
+						"DESCRIPTION": "进度条条带的高度。"
+					},
+					"PROGRESS_BG": {
+						"DESCRIPTION": "进度条填充的背景颜色。"
+					},
+					"CONTAINER_GAP": {
+						"DESCRIPTION": "容器中相邻 toast 之间的垂直间距。"
+					},
+					"CONTAINER_OFFSET": {
+						"DESCRIPTION": "从屏幕边缘到容器的距离。"
+					},
+					"Z_INDEX": {
+						"DESCRIPTION": "toast 容器相对于其他 overlay 的堆叠顺序。"
+					}
+				},
+				"INPUT": {
+					"DATA": {
+						"DESCRIPTION": "要渲染的 toast：id、类型、消息、可选标题、解析后的配置以及生命周期 Subject。由 ToastContainerComponent 在内部提供——通常你永远不需要自己绑定它。"
+					},
+					"POSITION": {
+						"DESCRIPTION": "该容器负责的屏幕角落。它只渲染 positionClass 与之匹配的提示，因此新通知不会移动已经显示的提示。ToastService 在挂载容器时设置该值。"
+					},
+					"TIME_OUT": {
+						"DESCRIPTION": "timeOut 是自动关闭前的持续时间（毫秒，0 = 常驻）；extendedTimeOut 是用户停止悬停 toast 后额外给予的时间。"
+					},
+					"CLOSE_BUTTON": {
+						"DESCRIPTION": "closeButton 在 toast 上显示一个关闭按钮；progressBar 显示一个倒计时进度条，指示距自动关闭还有多久。"
+					},
+					"CLOSE_BUTTON_ARIA_LABEL": {
+						"DESCRIPTION": "关闭按钮朗读出的无障碍名称。× 字形仅作装饰，因此这是屏幕阅读器唯一可用的名称；在非英语应用中请翻译它。"
+					},
+					"TAP_TO_DISMISS": {
+						"DESCRIPTION": "当用户点击 toast 上的任意位置时将其关闭。"
+					},
+					"DISABLE_TIME_OUT": {
+						"DESCRIPTION": "禁用自动关闭：true 或 'timeOut' 禁用初始计时器；'extendedTimeOut' 仅禁用悬停延长时间。"
+					},
+					"NEWEST_ON_TOP": {
+						"DESCRIPTION": "为 true 时，最新的 toast 插入到堆栈顶部而不是底部。"
+					},
+					"POSITION_CLASS": {
+						"DESCRIPTION": "该提示显示的角落：六个内置类 toast-top/bottom-left/center/right 之一，或自定义类名。每个位置都有各自的容器。"
+					},
+					"MAX_OPENED": {
+						"DESCRIPTION": "同时可见提示的最大数量，按所有位置合计而非逐个角落计算；0 表示不限。"
+					},
+					"AUTO_DISMISS": {
+						"DESCRIPTION": "达到 maxOpened 时自动移除屏幕上最旧的提示以腾出位置；由于上限是全局的，被移除的可能位于另一个角落。关闭时，该调用会被丢弃，其 HubToastRef 会报告 dropped: true。"
+					},
+					"PREVENT_DUPLICATES": {
+						"DESCRIPTION": "忽略消息和类型与已显示 toast 相同的新 toast，转而返回既有 toast 的句柄。"
+					}
+				},
+				"OUTPUT": {
+					"CLOSED": {
+						"DESCRIPTION": "当 toast 应被关闭时发出其 id——在自动关闭计时器结束、启用 tapToDismiss 时被点按，或按下关闭按钮之后。"
+					}
+				},
+				"METHOD": {
+					"SUCCESS": {
+						"DESCRIPTION": "显示一个成功 toast，带有给定消息、可选标题和按调用生效的配置覆盖。"
+					},
+					"ERROR": {
+						"DESCRIPTION": "显示一个错误 toast，带有给定消息、可选标题和按调用生效的配置覆盖。"
+					},
+					"WARNING": {
+						"DESCRIPTION": "显示一个警告 toast，带有给定消息、可选标题和按调用生效的配置覆盖。"
+					},
+					"INFO": {
+						"DESCRIPTION": "显示一个信息 toast，带有给定消息、可选标题和按调用生效的配置覆盖。"
+					},
+					"SHOW": {
+						"DESCRIPTION": "以内置或自定义类型字符串显示一个 toast；该类型会作为 data-type 应用到 toast 宿主上，并驱动强调色样式。"
+					},
+					"REMOVE": {
+						"DESCRIPTION": "按 show 系列方法返回的 id 移除特定的 toast。"
+					},
+					"CLEAR": {
+						"DESCRIPTION": "立即移除所有活动的 toast，并完成每个 toast 的 onHidden Observable。"
+					}
+				}
+			}
+		},
+		"BUTTONS": {
+			"NAV": {
+				"BTN_VARIANTS": "Button Variants",
+				"FAB": "Floating Action Button",
+				"SPEED_DIAL": "Speed Dial",
+				"DROPDOWN": "Dropdown",
+				"CSS_VARIABLES": "CSS Variables"
+			},
+			"FEATURE": {
+				"BTN_VARIANTS": {
+					"TITLE": "Button Variants",
+					"DESCRIPTION": "Five visual styles (solid, outline, soft, ghost, link) × nine built-in semantic colours with size scale sm–xl."
+				},
+				"FAB": {
+					"TITLE": "Floating Action Button",
+					"DESCRIPTION": "Fixed-position circular button with nine placement presets and optional scroll-collapse behaviour."
+				},
+				"SPEED_DIAL": {
+					"TITLE": "Speed Dial",
+					"DESCRIPTION": "Expandable FAB that reveals a stack of action items. Closes on Escape or backdrop click."
+				},
+				"DROPDOWN": {
+					"TITLE": "Overlay Dropdown",
+					"DESCRIPTION": "Directive-driven dropdown that attaches a template-ref panel to any trigger element via the overlay service."
+				},
+				"THEMING": {
+					"TITLE": "CSS Variable Theming",
+					"DESCRIPTION": "Every visual detail — size, radius, shadow, colour — is a --hub-btn-* or --hub-dropdown-* custom property."
+				},
+				"LOADING": {
+					"TITLE": "加载 / 忙碌状态",
+					"DESCRIPTION": "加载中的按钮会显示可替换的动画 SVG 加载图标，并完全不可交互 —— aria-busy、原生 disabled、移出 Tab 顺序，避免重复提交。"
+				},
+				"CUSTOM_COLOR": {
+					"TITLE": "自定义颜色与变体",
+					"DESCRIPTION": "color 输入是开放集合：用 hub-btn-color-rules() mixin 注册任意强调色，或用 hub-btn-variant-rules() 打造全新外观。"
+				},
+				"SINGLE_OPEN": {
+					"TITLE": "一次只开一个下拉菜单",
+					"DESCRIPTION": "打开任一下拉菜单都会关闭已经打开的那个，无论它是怎么被打开的。点击外部关闭只覆盖了存在点击的情形；由代码打开的菜单会让两个面板同时留在页面上。"
+				}
+			},
+			"EXAMPLE": {
+				"BTN_VARIANTS": {
+					"TITLE": "Button Variants"
+				},
+				"FAB": {
+					"TITLE": "Floating Action Button"
+				},
+				"SPEED_DIAL": {
+					"TITLE": "Speed Dial"
+				},
+				"DROPDOWN": {
+					"TITLE": "Overlay Dropdown"
+				},
+				"CSS_VARIABLES": {
+					"TITLE": "CSS Variable Theming"
+				},
+				"LOADING": {
+					"TITLE": "加载 / 忙碌状态"
+				},
+				"CUSTOM_COLOR": {
+					"TITLE": "自定义颜色与变体"
+				},
+				"SINGLE_OPEN": {
+					"TITLE": "一次只开一个下拉菜单"
+				}
+			},
+			"API": {
+				"CSS_GROUP": {
+					"BTN_COLORS": {
+						"DESCRIPTION": "Background, text and border tokens for each variant. Semantic colours resolve from --hub-sys-color-<variant>-*."
+					},
+					"FAB": {
+						"DESCRIPTION": "Tokens for the floating action button size, shadow, offset and z-index."
+					},
+					"DROPDOWN": {
+						"DESCRIPTION": "Background, border, radius, shadow, hover and item-level tokens for the dropdown overlay."
+					}
+				},
+				"INPUT": {
+					"VARIANT": {
+						"DESCRIPTION": "按钮的视觉风格：solid、outline、soft、ghost 或 link。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "按钮的语义强调色。开放集合：九个内置强调色中的任意一个、通过 hub-btn-color-rules() 注册的自定义强调色、CSS 命名颜色，或字面值（#hex、rgb()、oklch()、var(...)）。它填充 --hub-btn-accent 槽位，所有角色颜色均由该槽位派生。"
+					},
+					"SIZE": {
+						"DESCRIPTION": "按钮的尺寸 token：sm、md、lg 或 xl。"
+					},
+					"LOADING": {
+						"DESCRIPTION": "显示动画 spinner，并将按钮同时标记为忙碌与禁用：反映 aria-busy=\"true\" 和原生 disabled 属性，将按钮移出 Tab 顺序并阻止指针/键盘激活，使进行中的提交无法触发第二次。"
+					},
+					"DISABLED": {
+						"DESCRIPTION": "禁用按钮，在宿主元素上映射原生 disabled 属性。"
+					},
+					"FAB_COLOR": {
+						"DESCRIPTION": "FAB 背景的语义强调色。通过 --hub-fab-accent 槽位接受内置强调色或任何自定义/字面颜色。"
+					},
+					"FAB_SIZE": {
+						"DESCRIPTION": "圆形 FAB 的直径：mini、standard 或 large。"
+					},
+					"FAB_EXTENDED": {
+						"DESCRIPTION": "将 FAB 渲染为扩展的胶囊形，在图标旁显示所投影的 [slot=label] 内容。"
+					},
+					"FAB_POSITION": {
+						"DESCRIPTION": "FAB 在视口中的固定位置，基于九槽位网格；使用 CSS 逻辑属性实现，以支持 RTL。"
+					},
+					"FAB_COLLAPSE_ON_SCROLL": {
+						"DESCRIPTION": "为 true 时，扩展态 FAB 会在页面滚动超过 50px 后折叠为仅图标。"
+					},
+					"FAB_DISABLED": {
+						"DESCRIPTION": "禁用 FAB，应用 hub-fab-disabled 外观。"
+					},
+					"SPEED_DIAL_COLOR": {
+						"DESCRIPTION": "绘制在 speed dial 触发 FAB 上的语义强调色。接受内置强调色或任何自定义/字面颜色。"
+					},
+					"SPEED_DIAL_SIZE": {
+						"DESCRIPTION": "触发 FAB 的尺寸：mini、standard 或 large。"
+					},
+					"SPEED_DIAL_POSITION": {
+						"DESCRIPTION": "speed dial 在九槽位 FAB 网格上的固定视口位置。"
+					},
+					"SPEED_DIAL_DIRECTION": {
+						"DESCRIPTION": "操作项从触发器展开的方向：up、down、left 或 right。"
+					},
+					"SPEED_DIAL_TRIGGER": {
+						"DESCRIPTION": "打开 speed dial 的交互方式：click 点击切换；hover 在 mouseenter 时打开、mouseleave 时关闭。"
+					},
+					"SPEED_DIAL_IS_OPEN": {
+						"DESCRIPTION": "speed dial 可双向绑定的打开状态（model 信号）。按下 Escape 会自动将其关闭。"
+					},
+					"SPEED_DIAL_ITEM_ICON": {
+						"DESCRIPTION": "操作图标的 CSS 类字符串，以 <i [class]=\"icon()\"> 的形式渲染在条目按钮内。未设置标签时也用作 aria-label 的回退。"
+					},
+					"SPEED_DIAL_ITEM_LABEL": {
+						"DESCRIPTION": "显示在操作按钮旁的工具提示标签；同时用作其无障碍 aria-label。"
+					},
+					"SPEED_DIAL_ITEM_COLOR": {
+						"DESCRIPTION": "操作按钮的语义强调色；'default' 保持中性外观。自定义/字面颜色通过 --hub-speed-dial-item-accent 槽位生效。"
+					},
+					"SPEED_DIAL_ITEM_DISABLED": {
+						"DESCRIPTION": "禁用该操作项按钮；禁用期间不会发出 itemClick。"
+					},
+					"DROPDOWN_TPL": {
+						"DESCRIPTION": "在 body 层级浮层面板内渲染的 ng-template，以 [hubDropdown]=\"tpl\" 的形式绑定。"
+					},
+					"DROPDOWN_PLACEMENT": {
+						"DESCRIPTION": "面板相对于触发元素的放置位置；浮层会先尝试映射的位置，并逐一回退，直至找到适配视口的位置。"
+					},
+					"DROPDOWN_TRIGGER": {
+						"DESCRIPTION": "打开下拉菜单的交互方式：click 点击切换；hover 在 mouseenter 时打开、mouseleave 时关闭。"
+					},
+					"DROPDOWN_CLOSE_ON_SELECT": {
+						"DESCRIPTION": "为 true 时，在面板内容内的任意点击都会自动关闭下拉菜单。"
+					},
+					"DROPDOWN_DISABLED": {
+						"DESCRIPTION": "阻止下拉菜单打开。"
+					},
+					"DROPDOWN_OFFSET_Y": {
+						"DESCRIPTION": "触发器与面板之间沿放置轴向的偏移量（像素）。"
+					},
+					"DROPDOWN_PANEL_CLASS": {
+						"DESCRIPTION": "在默认的 hub-dropdown-overlay 类之外，为浮层面板额外添加的 CSS 类。"
+					},
+					"DROPDOWN_IS_OPEN": {
+						"DESCRIPTION": "下拉菜单可双向绑定的打开状态（model 信号）。在按下 Escape、点击外部和页面滚动时自动关闭。"
+					},
+					"DROPDOWN_PANEL_COLOR": {
+						"DESCRIPTION": "面板顶部边框的语义强调色；'default' 保持中性边框。"
+					},
+					"DROPDOWN_ITEM_COLOR": {
+						"DESCRIPTION": "条目标签颜色的语义强调色；'default' 继承面板颜色。"
+					},
+					"DROPDOWN_ITEM_ICON": {
+						"DESCRIPTION": "可选的图标 CSS 类字符串，以 <i [class]=\"icon()\"> 的形式渲染在标签之前。"
+					},
+					"DROPDOWN_ITEM_DISABLED": {
+						"DESCRIPTION": "禁用该菜单项；点击会被忽略，且不会发出 itemClick。"
+					},
+					"DROPDOWN_ITEM_SELECTED": {
+						"DESCRIPTION": "显示一个对勾指示器，将该条目标记为已选中。"
+					},
+					"ACTIONS_CELL_CONFIG": {
+						"DESCRIPTION": "以中立术语描述一行所提供的操作：按钮和菜单及其图标、标签、提示和 disabled 状态，均已针对该行解析完成。由宿主库通过 hubActionsAdapter 写入，而非手写。"
+					}
+				},
+				"OUTPUT": {
+					"FAB_CLICK": {
+						"DESCRIPTION": "当 FAB 被激活时发出，无论通过指针还是 Enter/空格键。处于 disabled 状态时不会发出。"
+					},
+					"SPEED_DIAL_IS_OPEN_CHANGE": {
+						"DESCRIPTION": "每当 isOpen model 变化时发出新的打开状态（双向绑定的配套输出）。"
+					},
+					"SPEED_DIAL_OPENED": {
+						"DESCRIPTION": "在 speed dial 打开后发出。"
+					},
+					"SPEED_DIAL_CLOSED": {
+						"DESCRIPTION": "在 speed dial 关闭后发出，包括通过 Escape 键关闭的情况。"
+					},
+					"SPEED_DIAL_ITEM_CLICK": {
+						"DESCRIPTION": "当操作项按钮被激活时发出。"
+					},
+					"DROPDOWN_IS_OPEN_CHANGE": {
+						"DESCRIPTION": "每当 isOpen model 变化时发出新的打开状态（双向绑定的配套输出）。"
+					},
+					"DROPDOWN_OPENED": {
+						"DESCRIPTION": "在浮层面板挂载且下拉菜单打开后发出。"
+					},
+					"DROPDOWN_CLOSED": {
+						"DESCRIPTION": "在下拉菜单关闭且浮层被销毁后发出（Escape、点击外部、滚动或 closeOnSelect）。"
+					},
+					"DROPDOWN_ITEM_CLICK": {
+						"DESCRIPTION": "当菜单项被激活时发出；条目处于禁用状态时不发出。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"DESCRIPTION": "作为 FAB 图标投影的内容。在圆形与扩展形态下都会渲染。"
+					},
+					"1": {
+						"DESCRIPTION": "投影到图标旁的标签。仅在 FAB 处于扩展形态且未因滚动折叠时渲染。"
+					},
+					"2": {
+						"DESCRIPTION": "投影到 speed dial 触发按钮中的内容。操作项放在其外部的默认插槽中。"
+					}
+				}
+			}
+		},
+		"BADGES": {
+			"NAV": {
+				"MATRIX": "语义矩阵",
+				"SCALE_SHAPE": "尺寸与形状",
+				"STATUS_COUNTERS": "状态与计数",
+				"REMOVABLE": "可移除筛选器",
+				"THEMING": "开放式语义主题",
+				"CHIP": "过滤器纸片",
+				"CHIP_COLORS": "纸片颜色"
+			},
+			"FEATURE": {
+				"MATRIX": {
+					"TITLE": "语义矩阵",
+					"DESCRIPTION": "徽章的核心表现形式：在 solid、soft、outline、ghost、subtle 和 surface 变体中呈现语义颜色。"
+				},
+				"SCALE_SHAPE": {
+					"TITLE": "尺寸与形状",
+					"DESCRIPTION": "紧凑的 XS 标签、更宽松的 LG 胶囊以及三种外壳形状，可适配密集表格或宽松的仪表盘。"
+				},
+				"STATUS_COUNTERS": {
+					"TITLE": "状态与计数",
+					"DESCRIPTION": "使用同一个基础组件即可实现状态圆点、警报计数、图标徽章和轻量的元数据胶囊。"
+				},
+				"REMOVABLE": {
+					"TITLE": "可移除筛选器",
+					"DESCRIPTION": "用于活动筛选器、限定范围搜索胶囊和轻量 token 界面的可移除标签。"
+				},
+				"THEMING": {
+					"TITLE": "开放式语义主题",
+					"DESCRIPTION": "内置颜色读取共享的 design system token，自定义强调色则通过公开的 SCSS mixin 接入。"
+				},
+				"TRUNCATION": {
+					"TITLE": "截断与提示",
+					"DESCRIPTION": "较长的标签会以省略号截断，并在悬停时显示完整内容——使用原生 title，或在接入后使用 hub-ui 提示。"
+				},
+				"CHIP": {
+					"TITLE": "筛选 chip",
+					"DESCRIPTION": "可切换的 hub-chip 标签，由 hub-chip-set 统一协调实现单选或多选，并复用 badge 的强调色主题。"
+				},
+				"CHIP_COLORS": {
+					"TITLE": "纸片颜色",
+					"DESCRIPTION": "chip 上的九种内置强调色，外加一个独立的双向切换、一个可移除标签和一个禁用的 chip——全部位于 chip-set 之外。"
+				}
+			},
+			"EXAMPLE": {
+				"MATRIX": {
+					"TITLE": "语义矩阵"
+				},
+				"SCALE_SHAPE": {
+					"TITLE": "尺寸与形状"
+				},
+				"STATUS_COUNTERS": {
+					"TITLE": "状态与计数"
+				},
+				"REMOVABLE": {
+					"TITLE": "可移除筛选器"
+				},
+				"THEMING": {
+					"TITLE": "开放式语义主题"
+				},
+				"TRUNCATION": {
+					"TITLE": "截断与提示"
+				},
+				"CHIP": {
+					"TITLE": "可交互的筛选 chip"
+				},
+				"CHIP_COLORS": {
+					"TITLE": "纸片颜色"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"VARIANT": {
+						"DESCRIPTION": "徽章外壳的视觉样式。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "语义颜色族。内置值映射到 design system 的 token 族，同时支持自定义名称。"
+					},
+					"SIZE": {
+						"DESCRIPTION": "徽章的尺寸级别。"
+					},
+					"SHAPE": {
+						"DESCRIPTION": "徽章外壳的圆角处理。"
+					},
+					"DOT": {
+						"DESCRIPTION": "在标签前渲染一个状态圆点。"
+					},
+					"REMOVABLE": {
+						"DESCRIPTION": "启用移除操作，使徽章成为可移除的筛选器/标签。"
+					},
+					"REMOVE_LABEL": {
+						"DESCRIPTION": "应用于移除按钮的无障碍标签。"
+					},
+					"DISABLED": {
+						"DESCRIPTION": "禁用徽章的交互——移除操作，以及在 interactive 徽章上的切换。内容仍然可见可读。"
+					},
+					"TOOLTIP": {
+						"DESCRIPTION": "显式提示文本。省略时，仅当内容被截断时，徽章才会将自身内容显示为提示。"
+					},
+					"INTERACTIVE": {
+						"DESCRIPTION": "将 badge 变为可交互的切换项：内容元素获得 role=\"button\"、一个键盘 tab 停靠点和 aria-pressed，并在激活时发出 selected 输出。移除按钮仍是同级控件。"
+					},
+					"ACTIVE": {
+						"DESCRIPTION": "反映可交互 badge 的按下/选中状态，切换 .hub-badge--active 类与 aria-pressed 属性。"
+					},
+					"DOT_OVERLAY": {
+						"DESCRIPTION": "将状态点渲染为固定在 badge 外壳角落的叠加标记，而不是内联的前导圆点。"
+					},
+					"DOT_PLACEMENT": {
+						"DESCRIPTION": "启用 dotOverlay 时，叠加圆点固定所在的角落（例如 top-end、top-start、bottom-end、bottom-start）。"
+					}
+				},
+				"OUTPUT": {
+					"REMOVED": {
+						"DESCRIPTION": "当可移除徽章的移除操作被触发时发出。"
+					},
+					"SELECTED": {
+						"DESCRIPTION": "当可交互 badge 通过点击、Enter 或 Space 激活时发出。"
+					}
+				},
+				"CSS_VAR": {
+					"FONT_SIZE": {
+						"DESCRIPTION": "徽章的基础字号。"
+					},
+					"PADDING_X": {
+						"DESCRIPTION": "徽章内的水平内边距。"
+					},
+					"PADDING_Y": {
+						"DESCRIPTION": "徽章内的垂直内边距。"
+					},
+					"BORDER_RADIUS": {
+						"DESCRIPTION": "徽章的圆角半径。"
+					},
+					"GAP": {
+						"DESCRIPTION": "圆点、图标、标签和移除按钮之间的间距。"
+					},
+					"ACCENT": {
+						"DESCRIPTION": "徽章外观所派生的根语义强调色。"
+					},
+					"ACCENT_SUBTLE": {
+						"DESCRIPTION": "soft 和 subtle 变体使用的浅色表面。"
+					},
+					"ACCENT_EMPHASIS": {
+						"DESCRIPTION": "outline、ghost 和 soft 变体使用的强调前景色。"
+					},
+					"ACCENT_BORDER": {
+						"DESCRIPTION": "subtle 和 surface 变体使用的边框角色。"
+					},
+					"DOT_SIZE": {
+						"DESCRIPTION": "可选状态圆点的直径。"
+					},
+					"REMOVE_SIZE": {
+						"DESCRIPTION": "移除按钮点击区域的大小。"
+					},
+					"REMOVE_HOVER_BG": {
+						"DESCRIPTION": "移除按钮悬停时的背景表面。"
+					},
+					"DIRECTION": {
+						"DESCRIPTION": "徽章内容（投影的图标、标签和移除按钮）的 flex 方向。"
+					},
+					"ALIGN": {
+						"DESCRIPTION": "徽章内容在交叉轴上的对齐方式。"
+					},
+					"MAX_WIDTH": {
+						"DESCRIPTION": "徽章在标签被省略号截断之前的最大宽度。"
+					}
+				},
+				"CHIP": {
+					"INPUT": {
+						"SELECTED": {
+							"DESCRIPTION": "hub-chip：chip 的双向 selected（按下）状态。"
+						},
+						"VALUE": {
+							"DESCRIPTION": "hub-chip：在其所属 hub-chip-set 内标识该 chip 的不透明 value。"
+						},
+						"COLOR": {
+							"DESCRIPTION": "hub-chip：驱动 chip 颜色的语义强调色，与 hub-badge 共享。"
+						},
+						"DISABLED": {
+							"DESCRIPTION": "hub-chip：禁用该 chip——不可切换、不可移除，并从 tab 顺序中移除。"
+						},
+						"REMOVABLE": {
+							"DESCRIPTION": "hub-chip：启用关闭功能，与 badge 的关闭模式保持一致。"
+						},
+						"REMOVE_LABEL": {
+							"DESCRIPTION": "hub-chip：关闭按钮的无障碍标签。"
+						}
+					},
+					"OUTPUT": {
+						"SELECTED_CHANGE": {
+							"DESCRIPTION": "hub-chip：每当双向 selected 状态发生变化时发出。"
+						},
+						"REMOVED": {
+							"DESCRIPTION": "hub-chip：当关闭按钮被激活时发出。"
+						},
+						"CHIP_CLICK": {
+							"DESCRIPTION": "hub-chip：在每次激活（click / Enter / Space）时、于应用切换之前发出。"
+						}
+					},
+					"TEMPLATE": {
+						"LEADING": {
+							"DESCRIPTION": "向 chip 中投影一个前导图标或头像，渲染在 chip 内容之前。"
+						}
+					}
+				},
+				"CHIPSET": {
+					"INPUT": {
+						"SELECTION_MODE": {
+							"DESCRIPTION": "hub-chip-set：一次可选中一个（single）还是多个（multiple）chip。"
+						},
+						"VALUE": {
+							"DESCRIPTION": "hub-chip-set：双向选中值——single 模式下为选中的 chip value，或 multiple 模式下为选中值的数组。"
+						}
+					},
+					"OUTPUT": {
+						"VALUE_CHANGE": {
+							"DESCRIPTION": "hub-chip-set：每当双向选中值发生变化时发出。"
+						}
+					}
+				}
+			}
+		},
+		"ICONS": {
+			"FEATURE": {
+				"RENDERING": {
+					"TITLE": "渲染图标",
+					"DESCRIPTION": "通过一个 API 渲染任意图标集 —— 图标包、变体以及 [hubIcon] 指令。"
+				},
+				"THEMING_INTEGRATION": {
+					"TITLE": "主题与集成",
+					"DESCRIPTION": "用 --hub-icon-* 令牌统一为所有图标包设置主题，并在其他 ng-hub-ui 组件中渲染图标。"
+				}
+			},
+			"EXAMPLE": {
+				"SETUP": {
+					"TITLE": "配置"
+				},
+				"FONT_AWESOME": {
+					"TITLE": "Font Awesome"
+				},
+				"BOOTSTRAP": {
+					"TITLE": "Bootstrap Icons"
+				},
+				"MATERIAL": {
+					"TITLE": "Material Symbols"
+				},
+				"SOLAR": {
+					"TITLE": "Solar"
+				},
+				"SVG": {
+					"TITLE": "自定义 SVG"
+				},
+				"SPRITE": {
+					"TITLE": "SVG 精灵图"
+				},
+				"IMG": {
+					"TITLE": "图片"
+				},
+				"VARIANTS": {
+					"TITLE": "变体"
+				},
+				"DIRECTIVE": {
+					"TITLE": "指令"
+				},
+				"THEMING": {
+					"TITLE": "主题"
+				},
+				"BUTTONS": {
+					"TITLE": "按钮集成"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"NAME": {
+						"DESCRIPTION": "图标名称。支持 pack:variant:name 简写。"
+					},
+					"NAME_DIRECTIVE": {
+						"DESCRIPTION": "[hubIcon] 指令上的图标名称。可选：省略时使用绑定到指令本身的值。"
+					},
+					"HUB_ICON": {
+						"DESCRIPTION": "通过指令属性绑定的图标名称，[hubIcon]=\"'house'\"。两者都设置时以 name 为准。"
+					},
+					"PACK": {
+						"DESCRIPTION": "图标包键；覆盖简写中的包和配置的 defaultPack。"
+					},
+					"VARIANT": {
+						"DESCRIPTION": "变体；覆盖简写中的变体和图标包默认值。"
+					},
+					"SIZE": {
+						"DESCRIPTION": "单实例尺寸，写入 --hub-icon-size（仅 hub-icon）。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "单实例颜色，写入 --hub-icon-color（仅 hub-icon）。"
+					},
+					"LABEL": {
+						"DESCRIPTION": "无障碍标签：设置 role=\"img\" + aria-label；不设置时图标为装饰性。hub-icon 与 [hubIcon] 均可使用。"
+					},
+					"SPIN": {
+						"DESCRIPTION": "持续旋转图标，例如用于加载指示（仅 hub-icon）。"
+					}
+				},
+				"CSS_VAR": {
+					"SIZE": {
+						"DESCRIPTION": "图标尺寸（字形用 font-size；SVG 用宽/高）。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "图标颜色（字形用 color；SVG 用 fill）。"
+					},
+					"FILL": {
+						"DESCRIPTION": "Material Symbols 的 FILL 轴。"
+					},
+					"WEIGHT": {
+						"DESCRIPTION": "Material Symbols 的 wght 轴。"
+					},
+					"GRADE": {
+						"DESCRIPTION": "Material Symbols 的 GRAD 轴。"
+					},
+					"OPTICAL_SIZE": {
+						"DESCRIPTION": "Material Symbols 的 opsz 轴。"
+					}
+				}
+			}
+		},
+		"SIGNATURE": {
+			"EXAMPLE": {
+				"LABEL": "签名",
+				"HELP": "使用鼠标、触摸屏或手写笔绘制。",
+				"I18N": {
+					"TITLE": "Transloco 和 ngx-translate",
+					"DESCRIPTION": "绑定响应式翻译流，以便在语言切换时更新操作。"
+				},
+				"DRAW_EVENTS": {
+					"TITLE": "绘制事件与笔画数据",
+					"DESCRIPTION": "用 (drawStart) 和 (drawEnd) 响应绘制过程，用 isEmpty() 查询字段状态，并用 toStrokes() 和 fromStrokes() 在字段之间搬运几何数据本身。",
+					"SOURCE_LABEL": "在此签名",
+					"REPLAY_LABEL": "由笔画重现",
+					"COPY": "把笔画复制到另一个字段",
+					"DRAWING": "绘制中",
+					"EMPTY": "空",
+					"SIGNED": "已签名，笔画"
+				},
+				"KEYBOARD": {
+					"TITLE": "用键盘签名",
+					"DESCRIPTION": "该字段无需指针即可操作：方向键移动笔尖，Space 或 Enter 落笔与抬笔，Escape 丢弃正在书写的笔画。产生的笔画与手绘的完全相同，这正是 (drawStart) 携带 PointerEvent | KeyboardEvent 的原因——差异只保留在事件负载中。",
+					"LABEL": "签名",
+					"HELP": "用 Tab 键进入方框，然后使用下面的按键。",
+					"MOVE": "移动笔尖",
+					"COARSE": "移动得更远",
+					"TOGGLE": "落笔，再次按下则抬笔并提交笔画",
+					"DISCARD": "丢弃正在书写的笔画",
+					"UNSIGNED": "尚未签名",
+					"BY_KEYBOARD": "已用键盘签名",
+					"BY_POINTER": "已用指针签名"
+				},
+				"FORM": {
+					"TITLE": "作为表单控件的签名",
+					"DESCRIPTION": "该字段是一个 ControlValueAccessor，其值就是它自己序列化出的 SVG。必填标记与错误信息来自控件的验证器；成功信息需要同时提供 [showValid] 与 [validFeedback]。",
+					"LABEL": "签名",
+					"HELP": "用指针或键盘在方框内签名。",
+					"VALID": "已记录签名。",
+					"SUBMIT": "发送",
+					"SUBMITTED": "已发送 · {bytes} 个 SVG 字符"
+				},
+				"SURFACE": {
+					"TITLE": "调整绘制区域与笔触",
+					"DESCRIPTION": "在字段为空时拖动滑块：[height] 会重新测量并重绘，因此 toSvg() 输出的 viewBox 始终描述屏幕上的方框。[strokeWidth] 与 [strokeColor] 在笔画开始时读取并存入该笔画，所以已经画好的笔画保留当时的笔；(valueChange) 会在每次用户更改后报告 SVG。",
+					"LABEL": "签名",
+					"HEIGHT": "绘制区域高度",
+					"STROKE_WIDTH": "笔画粗细",
+					"INK": "墨色",
+					"VALUE": "SVG · {chars} 个字符",
+					"EMPTY": "尚未签名"
+				},
+				"LABEL_TYPE": {
+					"TITLE": "标签的位置",
+					"DESCRIPTION": "[labelType] 使用 ng-hub-ui-forms 的共享标签词汇，让签名字段与周围的字段对齐。'horizontal' 把标签放进第一列，把操作、帮助文字与校验信息堆叠在第二列；'floating' 会被接受但回退为堆叠，因为放在方框内的标签在有人签名的瞬间就会压在墨迹上。",
+					"STACKED": "堆叠标签",
+					"HORIZONTAL": "水平标签"
+				},
+				"NAMING": {
+					"TITLE": "单独为一个字段命名",
+					"DESCRIPTION": "[ariaLabel] 用于命名没有可见标签的绘制区域；在带 [label] 的字段上它完全不会被读取，因为标签本身就是可访问名称。[labels] 只改写单个字段的内置操作文案，不触碰应用的词典：请把它放在 signal 或 computed 中，不要写成模板里的对象字面量。",
+					"CAPTION": "授权签署人",
+					"ARIA_LABEL": "授权签署人的签名",
+					"LABELLED": "签名",
+					"CLEAR": "重新开始",
+					"UNDO": "撤销上一笔",
+					"REDO": "重做上一笔"
+				},
+				"THEMING": {
+					"LABEL": "签名",
+					"HELP": "同一个字段，用主题 mixin 重新配色。"
+				},
+				"INHERITED": {
+					"TITLE": "继承表单主题",
+					"DESCRIPTION": "为表单配一次色，签名字段就会跟随：它的插槽默认经由 --hub-input-* 取绘制区样式、经由 --hub-label-* 取标签样式，因此一条 --hub-signature-* 规则都不需要。注意这里的不对称：这些 token 通过 var() 读取继承值，所以在外层容器上设置有效；而 --hub-signature-* 声明在字段元素本身。",
+					"INPUT_LABEL": "姓名",
+					"INPUT_PLACEHOLDER": "与合同上的写法一致",
+					"SIGNATURE_LABEL": "签名",
+					"HELP": "用指针或键盘签名。"
+				},
+				"PROJECTED": {
+					"TITLE": "以标记书写的帮助文字与错误",
+					"DESCRIPTION": "hubFormText 与 hubValidationError 由 ng-hub-ui-forms 导出，该字段两者都会渲染：带真实按键的键盘提示，以及用产品自己措辞写成的必填提示。每个错误键都会先解析自己的模板，然后才轮到默认的消息生成器，因此覆盖其中一个不会影响其余。",
+					"LABEL": "签名",
+					"HELP": "用指针签名，或用方向键移动笔尖，按空格键落笔。",
+					"REQUIRED": "没有签名就无法归档合同。",
+					"SUBMIT": "归档合同",
+					"FILED": "已归档。"
+				}
+			},
+			"ACTION": {
+				"CLEAR": "清除签名",
+				"UNDO": "撤销笔画",
+				"REDO": "重做笔画"
+			}
+		},
+		"METRICS": {
+			"NAV": {
+				"PROGRESS": "进度条",
+				"METER": "计量表",
+				"RING": "环形图"
+			},
+			"FEATURE": {
+				"PROGRESS": {
+					"TITLE": "线性进度",
+					"DESCRIPTION": "一个确定或不确定的进度条，具有尺寸刻度、语义色彩以及可选的数值标签。"
+				},
+				"METER": {
+					"TITLE": "分级计量表",
+					"DESCRIPTION": "一个遵循 HTML <meter> 语义的仪表，会根据相对于 low/high 平台区间及最优点的所在区段为自身重新着色。"
+				},
+				"RING": {
+					"TITLE": "圆环形仪表",
+					"DESCRIPTION": "一个用于呈现归一化分数的 SVG 环，具有颜色阈值以及通过 <ng-content> 投影的说明文字。"
+				},
+				"THEMING": {
+					"TITLE": "主题化",
+					"DESCRIPTION": "用语义化的 `color` 输入（映射到 ds 的 `--hub-sys-color-*` 系列）为单个基元着色，或用一次调用的 SCSS mixin `hub-metrics-theme()` 和 `--hub-*` 自定义属性一次性为三者重新着色。"
+				}
+			},
+			"EXAMPLE": {
+				"PROGRESS": {
+					"TITLE": "进度条"
+				},
+				"METER": {
+					"TITLE": "分级计量表"
+				},
+				"RING": {
+					"TITLE": "环形仪表"
+				},
+				"THEMING": {
+					"TITLE": "使用 mixin 和语义颜色进行主题化"
+				}
+			},
+			"API": {
+				"PROGRESS": {
+					"INPUT": {
+						"VALUE": {
+							"DESCRIPTION": "当前进度值，以 [0, max] 刻度表示。"
+						},
+						"MAX": {
+							"DESCRIPTION": "进度刻度的上限。"
+						},
+						"INDETERMINATE": {
+							"DESCRIPTION": "为时长未知的工作呈现一个循环滚动的进度条；会去掉 aria-valuenow。"
+						},
+						"COLOR": {
+							"DESCRIPTION": "驱动指示器颜色的可选强调色：单个词（语义名称、已注册强调色或 CSS 命名颜色）会映射到 --hub-sys-color-<name>，并以该词本身作为回退；字面值（#hex、rgb()、oklch()、var()…）则原样使用。设置后以内联样式应用；省略时由 --hub-progress-accent 令牌决定强调色。"
+						},
+						"SIZE": {
+							"DESCRIPTION": "控制进度条粗细的尺寸令牌（sm、md 或 lg）。"
+						},
+						"SHOW_VALUE": {
+							"DESCRIPTION": "是否在进度条旁边呈现取整后的百分比。"
+						},
+						"LABEL": {
+							"DESCRIPTION": "描述进度条所测量内容的无障碍标签。"
+						}
+					}
+				},
+				"METER": {
+					"INPUT": {
+						"VALUE": {
+							"DESCRIPTION": "当前测量值，以 [min, max] 刻度表示。"
+						},
+						"MIN": {
+							"DESCRIPTION": "刻度的下限。"
+						},
+						"MAX": {
+							"DESCRIPTION": "刻度的上限。"
+						},
+						"LOW": {
+							"DESCRIPTION": "“low”区域的上限；省略时默认为 min。"
+						},
+						"HIGH": {
+							"DESCRIPTION": "“high”区域的下限；省略时默认为 max。"
+						},
+						"OPTIMUM": {
+							"DESCRIPTION": "范围内的首选点；省略时默认为中点。"
+						},
+						"LABEL": {
+							"DESCRIPTION": "为量表命名的无障碍标签；role=meter 的名称只能由作者提供，缺少它量表就没有名称。"
+						}
+					}
+				},
+				"RING": {
+					"INPUT": {
+						"VALUE": {
+							"DESCRIPTION": "分数值，以 0..1 的比率或 0..max 的数字表示。"
+						},
+						"MAX": {
+							"DESCRIPTION": "用于对数值进行归一化的上限。"
+						},
+						"SIZE": {
+							"DESCRIPTION": "环的外径（数字按 px 处理，或任意 CSS 长度字符串），设置后以内联样式应用。省略时由 --hub-ring-size 令牌决定外径。"
+						},
+						"THICKNESS": {
+							"DESCRIPTION": "环的描边宽度（数字按 px 处理，或任意 CSS 长度字符串），设置后以内联样式应用。省略时由 --hub-ring-thickness 令牌决定描边宽度。"
+						},
+						"THRESHOLDS": {
+							"DESCRIPTION": "可选的颜色阈值，按区段（low/high）为指示器重新着色。"
+						},
+						"SHOW_VALUE": {
+							"DESCRIPTION": "是否在中心呈现取整后的百分比。"
+						},
+						"LABEL": {
+							"DESCRIPTION": "为环形量表命名的无障碍标签；投影的说明文字和中心百分比都无法为 role=meter 提供名称。"
+						}
+					},
+					"TEMPLATE": {
+						"CAPTION": {
+							"DESCRIPTION": "投影到圆环中央作为说明文字的内容，与内置百分比并排显示（或取代它）。它只是装饰，而不是名称：role=\"meter\" 元素的名称只能由作者给出，因此请传入 `label` 输入。"
+						}
+					}
+				}
+			}
+		},
+		"TABLE": {
+			"GROUP": {
+				"GETTING_STARTED": {
+					"TITLE": "快速开始"
+				},
+				"PAGING_SORTING_FILTERING": {
+					"TITLE": "分页、排序与筛选"
+				},
+				"SELECTION_ROW_ACTIONS": {
+					"TITLE": "选择与行操作"
+				},
+				"COLUMNS_LAYOUT": {
+					"TITLE": "列、固定与响应式"
+				},
+				"TEMPLATES_STATES": {
+					"TITLE": "模板与状态"
+				},
+				"LISTS_DRAG": {
+					"TITLE": "列表与拖放"
+				},
+				"THEMING_ICONS": {
+					"TITLE": "主题与图标"
+				},
+				"INTERNATIONALIZATION": {
+					"TITLE": "国际化"
+				}
+			}
+		},
+		"LOADING": {
+			"NAV": {
+				"BASIC_USAGE": "基本用法",
+				"INDICATOR_VARIANTS": "指示器变体",
+				"CONTAINER_OVERLAY": "容器 overlay",
+				"FULLSCREEN_SERVICE": "全屏服务",
+				"BRANDED_IMAGE": "品牌图像",
+				"CSS_VARIABLES": "CSS 变量",
+				"PAGE_PROGRESS": "页面进度条",
+				"DETERMINATE_BAR": "已知与未知的进度",
+				"ROUTER_HTTP_BAR": "路由与 HTTP 接入",
+				"RTL_SWEEP": "从右向左扫动"
+			},
+			"FEATURE": {
+				"INLINE_BLOCK": {
+					"TITLE": "内联块",
+					"DESCRIPTION": "`inline` 之所以是默认模式，是因为一块尚且为空的区域本就该先把内容将要占据的空间留出来：该块参与正常的文档流，因此真实内容到达时不会发生跳动。`message` 渲染在指示器下方，标签之间投影的任何内容再渲染在消息下方——那是放置取消操作，或提示“本次操作比平时更久”的位置。宿主元素带有 `role=\"status\"`、`aria-live=\"polite\"` 与 `aria-busy=\"true\"`，因此屏幕阅读器会在消息出现时读到它，而不会打断正在朗读的内容。",
+					"HIGHLIGHT": "参与正常文档流并为待加载内容预留空间的块，指示器下方可放置消息与投影内容。"
+				},
+				"INDICATORS_AND_ACCENTS": {
+					"TITLE": "指示器与强调色",
+					"DESCRIPTION": "库内置五种纯 CSS 指示器——`spinner`、`dots`、`bars`、`pulse` 与 `ring`——因此不会引入任何图片资源或图标字体。三档尺寸预设了 `--hub-loading-size`，而当布局需要这三档之外的尺寸时，该令牌本身仍可单独覆盖。`color` 并非普通的 CSS 颜色：它会经过 `resolveHubAccent()`，把 `primary` 这样的裸名称解析为跟随主题的设计系统令牌，而 hex、`oklch()` 字面量或 `var(...)` 引用则原样使用。",
+					"HIGHLIGHT": "五种纯 CSS 指示器、三档尺寸，强调色会把语义名称解析为主题令牌，并原样放行任何 CSS 颜色字面量。"
+				},
+				"OVERLAY_AND_FULLSCREEN": {
+					"TITLE": "Overlay 与全屏",
+					"DESCRIPTION": "`overlay` 覆盖的是某一块区域，而不是整个页面。它采用绝对定位，因此由最近的已定位祖先决定被覆盖的范围——请给该容器加上 `position: relative`，否则 overlay 会一路向上逃逸到碰巧被定位的那个祖先。这样限定范围可以让页面其余部分仍能滚动与操作。`fullscreen` 固定于 viewport，正是 `HubLoadingService` 挂载到 `document.body` 上的那一层；它位于所有组件子树之外，因此不会被祖先的 `overflow` 或层叠上下文裁切。除非关闭 `backdrop`，两种模式都会绘制半透明遮罩。",
+					"HIGHLIGHT": "覆盖单个已定位容器并让页面其余部分保持可用，或通过在所有组件子树之外挂载 overlay 的服务占据整个 viewport。"
+				},
+				"BRANDING_AND_THEMING": {
+					"TITLE": "品牌化与主题化",
+					"DESCRIPTION": "`image` 会用你自己的标识替换内置指示器，并以 `none`、`spin` 或 `pulse` 赋予动效：`spin` 只在径向对称的标识上才好看，而 `pulse` 能让文字标识保持端正易读。所有视觉相关的设定都在 `--hub-loading-*` 令牌里，声明于 `:where(.hub-loading)`，因此任何祖先都能设置它们——强调色、尺寸、速度、线条粗细、间距、图像尺寸、文本颜色，以及遮罩的色调与模糊。Sass 混入 `hub-loading-theme()` 一次调用即可设定整套令牌，而 `provideHubLoading()` 无需改动任何模板就能为整个应用重设默认值。",
+					"HIGHLIGHT": "用品牌标识替换指示器，并通过 `--hub-loading-*` 令牌或一次调用的 Sass 混入 `hub-loading-theme()` 重新设定强调色、尺寸、速度与遮罩。"
+				},
+				"PAGE_PROGRESS_BAR": {
+					"TITLE": "页面进度条",
+					"DESCRIPTION": "`hub-loading-bar` 是那条细带，用来告诉读者页面本身正在路上——就是导航栏下面的那一条。三个决定让它可信。它对调用方计数：一次导航加上页面发出的三个请求就是四个引用，进度条随最后一个结束，而不是第一个。它在画出任何东西之前先等待：在宽限期内完成的工作根本不会出现进度条，因为一条 40 毫秒的路由闪一下进度条，读起来像故障而不像快。它的自动推进随着填充而减速，并且停在终点之前——这里没有人知道真实的百分比，所以只有 `complete()` 可以显示 100%，因为只有 `complete()` 知道那是真的。用 `mode=\"overlay\"` 放进一个已定位的导航栏，或者当导航栏本身固定时，用 `mode=\"fixed\"` 配合 `--hub-loading-bar-offset`。",
+					"HIGHLIGHT": "导航栏下的那条细带，接到路由和 HttpClient 上，出现之前先等一等，没结束就绝不宣称结束。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"MODE": {
+						"DESCRIPTION": "块所处的位置。`inline` 参与正常文档流并预留自身空间；`overlay` 采用绝对定位并覆盖最近的已定位祖先；`fullscreen` 固定于 viewport。"
+					},
+					"VARIANT": {
+						"DESCRIPTION": "渲染哪一种纯 CSS 指示器。设置了 `image` 时会被忽略，因为图像会替换内置指示器。"
+					},
+					"IMAGE": {
+						"DESCRIPTION": "用于替代内置指示器渲染的 URL 或 data URI，通常是品牌标识。其盒子尺寸由 `--hub-loading-image-size` 决定。"
+					},
+					"IMAGE_ANIMATION": {
+						"DESCRIPTION": "施加于 `image` 的动效；未设置图像时不起作用。`spin` 适合径向对称的标识，`pulse` 让文字标识保持端正易读，`none` 则令其静止。"
+					},
+					"MESSAGE": {
+						"DESCRIPTION": "渲染在指示器下方的文本，也是块出现时实时区域所播报的内容。为 `null` 时不渲染消息。"
+					},
+					"SIZE": {
+						"DESCRIPTION": "输入 `--hub-loading-size` 的尺寸档位。当布局需要这三档之外的尺寸时，该令牌本身仍可单独覆盖。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "指示器的强调色，由 `resolveHubAccent()` 归一化到唯一的 `--hub-loading-accent` 槽位。`primary` 这样的裸名称会解析为 `--hub-sys-color-*` 令牌并跟随主题；hex、`oklch()` 字面量或 `var(...)` 引用则原样使用。为 `null` 时保留该令牌自身的层叠默认值。"
+					},
+					"BACKDROP": {
+						"DESCRIPTION": "在被覆盖的内容之上绘制半透明遮罩。在什么都不覆盖的 `inline` 模式下会被忽略。"
+					},
+					"ARIA_LABEL": {
+						"DESCRIPTION": "由宿主元素的 `role=\"status\"` 实时区域播报的无障碍名称。"
+					},
+					"BAR_MODE": {
+						"DESCRIPTION": "细带所处的位置。`inline` 参与正常文档流并预留自己的一行，出现时不会顶动任何内容；`overlay` 采用绝对定位，相对最近的已定位祖先——你设过 `position: relative` 的那个导航栏；`fixed` 则按 `--hub-loading-bar-offset` 固定到 viewport。"
+					},
+					"BAR_PLACEMENT": {
+						"DESCRIPTION": "`overlay` 与 `fixed` 贴附的边。`bottom` 就是把进度条挂在导航栏下缘的那个值；`inline` 会忽略它。"
+					},
+					"BAR_PROGRESS": {
+						"DESCRIPTION": "接管进度条。不绑定时跟随 `HubLoadingBarService`；0 到 100 的数值直接驱动它并作为 `aria-valuenow` 公开；`null` 将其隐藏。"
+					},
+					"BAR_INDETERMINATE": {
+						"DESCRIPTION": "不再填充，而是让一段来回扫动，适用于没有可度量进度的工作。此时不公布数值，而这正是 ARIA 标记位置未知的进度条的方式。"
+					},
+					"BAR_GLOW": {
+						"DESCRIPTION": "跟在前缘之后的柔光——即使在两次自动推进之间，它也仍读得出运动。"
+					},
+					"BAR_COLOR": {
+						"DESCRIPTION": "填充的强调色。单独的名称会解析为 `--hub-sys-color-*` 令牌并跟随主题；十六进制、`oklch()` 或 `var(...)` 则原样使用。"
+					},
+					"BAR_ARIA_LABEL": {
+						"DESCRIPTION": "宿主 `role=\"progressbar\"` 的无障碍名称。"
+					}
+				},
+				"METHOD": {
+					"SHOW": {
+						"DESCRIPTION": "登记一个调用方，若全屏 overlay 尚未挂起则将其挂载。只有实际传入的键才会覆盖到应用默认值之上，因此嵌套调用是叠加而非互相重置。"
+					},
+					"HIDE": {
+						"DESCRIPTION": "注销一个调用方，并在没有调用方剩下时拆除 overlay。计数器在零处被钳制，因此一次多余的 `hide()` 不会让之后的 `show()` 变成空操作。"
+					},
+					"HIDE_ALL": {
+						"DESCRIPTION": "一次性丢弃所有待处理的调用方并立即移除 overlay。这是留给错误处理与路由切换的应急出口，不能取代成对的 `show()` / `hide()`。"
+					},
+					"UPDATE": {
+						"DESCRIPTION": "在不触碰引用计数的前提下重新装扮正在显示的 overlay——例如操作中途变化的进度消息，或切换变体。"
+					},
+					"IS_LOADING": {
+						"DESCRIPTION": "只要还有至少一个调用方在等待，该 signal 即为 true。在服务端渲染期间也可安全读取：此时只有计数器在运行，不会挂载 overlay。"
+					},
+					"BAR_START": {
+						"DESCRIPTION": "登记一个调用方。第一个开启一轮——在宽限期之后，而不是立即——其余的只是加入计数。"
+					},
+					"BAR_COMPLETE": {
+						"DESCRIPTION": "撤回一个调用方。当一个都不剩时，进度条走到 100% 然后淡出；若宽限期吞掉了整个操作，它就悄无声息地消失。"
+					},
+					"BAR_COMPLETE_ALL": {
+						"DESCRIPTION": "一次性丢弃所有待处理的调用方并结束进度条。供错误处理使用，或用于从未配平自己 `start()` 的调用方。"
+					},
+					"BAR_SET": {
+						"DESCRIPTION": "把进度条移到一个确切的值并立即显示，不等待宽限期。适用于百分比真实的工作；数值被限制在 0–100，但不受自动推进上限的约束。"
+					},
+					"BAR_INC": {
+						"DESCRIPTION": "推进并显示进度条。不给数量时由配置的推进曲线决定，正是它让一段未知的等待始终在动却永不抵达。"
+					},
+					"BAR_RESET": {
+						"DESCRIPTION": "一次性取消一切——没有结束动画，没有待处理的调用方，屏幕上什么也不剩。"
+					},
+					"BAR_PROGRESS": {
+						"DESCRIPTION": "当前填充，0–100。在服务端渲染期间读取也是安全的。"
+					},
+					"BAR_IS_ACTIVE": {
+						"DESCRIPTION": "是否还有调用方在等待——「页面在加载吗」这个诚实的问题，与进度条是否已决定现身无关。"
+					},
+					"BAR_IS_VISIBLE": {
+						"DESCRIPTION": "进度条是否真的被画了出来。宽限期内为假，结束余韵期间仍为真。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "默认内容插槽",
+						"DESCRIPTION": "标签之间投影的任何内容都会渲染在消息下方——取消操作、进度说明，或提示本次操作比平时更久。"
+					},
+					"1": {
+						"DESCRIPTION": "通过 `HUB_LOADING_CONFIG` 令牌注册应用级默认值——品牌图像、偏好变体、已翻译的标签——使 `<hub-loading>` 与 `HubLoadingService` 都以此为起点，各个调用点保持简洁。"
+					},
+					"2": {
+						"NAME": "导航栏下的进度条",
+						"DESCRIPTION": "进度条得名的那种摆放。导航栏上的 `position: relative` 才是把 overlay 限制在它内部的原因，而 `placement=\"bottom\"` 把它挂在下缘。"
+					},
+					"3": {
+						"DESCRIPTION": "让进度条恰好运行一次导航的时长，包括被守卫拒绝或以错误告终的那一次——手工接线的进度条通常就卡在这两种情况上。"
+					},
+					"4": {
+						"DESCRIPTION": "在每个 HTTP 请求的整个生命周期内保持进度条开启。`finalize` 在成功、出错与取消时同样配平。"
+					},
+					"5": {
+						"DESCRIPTION": "把某个请求排除在计数之外。否则定时轮询会让进度条永远开着，而一个永不结束的进度条比没有更糟。"
+					},
+					"6": {
+						"DESCRIPTION": "通过 `HUB_LOADING_BAR_CONFIG` 令牌注册应用级的进度条默认值——强调色、节奏、宽限期、推进曲线与已翻译的标签。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"BASIC_USAGE": {
+					"TITLE": "内联块基础",
+					"DESCRIPTION": "内联块的三种实用形态：仅指示器、指示器加消息，以及消息下方投影一个取消操作。"
+				},
+				"INDICATOR_VARIANTS": {
+					"TITLE": "变体、尺寸与强调色",
+					"DESCRIPTION": "内置的五种指示器、三档尺寸，以及强调色可以采取的三种写法——语义名称、CSS 颜色字面量与 `var(...)` 引用。"
+				},
+				"CONTAINER_OVERLAY": {
+					"TITLE": "容器 overlay",
+					"DESCRIPTION": "借助卡片自身的 `position: relative` 把 overlay 限制在这张卡片内，页面其余部分仍可滚动。切换 `backdrop`，即可看出后台刷新与「使屏幕内容失效的操作」之间的差别。"
+				},
+				"FULLSCREEN_SERVICE": {
+					"TITLE": "全屏服务",
+					"DESCRIPTION": "从 TypeScript 驱动的 `HubLoadingService`。两个相互重叠的请求说明了引用计数为何重要：第一次 `hide()` 不会撤下 overlay，因为第二个调用方仍持有引用，而 `update()` 会在进行途中改写消息。"
+				},
+				"BRANDED_IMAGE": {
+					"TITLE": "品牌图像",
+					"DESCRIPTION": "以品牌标识替换内置指示器，并分别配以三种图像动效，让 `spin`、`pulse` 与 `none` 之间的取舍一目了然。"
+				},
+				"CSS_VARIABLES": {
+					"TITLE": "CSS 变量主题化",
+					"DESCRIPTION": "通过设置在包裹元素上的 `--hub-loading-*` 令牌进行实时主题化，包括仅在 `overlay` 与 `fullscreen` 模式下才起作用的遮罩色调与模糊。"
+				},
+				"PAGE_PROGRESS": {
+					"TITLE": "页面进度条",
+					"DESCRIPTION": "挂在模拟导航栏上的进度条。三条路由展示三种行为：普通的会推进，慢的能看出推进在减速，40 毫秒的那条则根本不画进度条。"
+				},
+				"DETERMINATE_BAR": {
+					"TITLE": "已知与未知的进度",
+					"DESCRIPTION": "绑定 `progress` 会把进度条交给调用方并公开 `aria-valuenow`；`indeterminate` 改为扫动并隐去数值。第三种状态 `null` 则把它收起来。"
+				},
+				"ROUTER_HTTP_BAR": {
+					"TITLE": "路由与 HTTP 接入",
+					"DESCRIPTION": "进度条为什么要对调用方计数：一次导航加三个请求就是四个引用，进度条随最后一个结束。代码展示了 `provideHubLoadingBarRouter()`、拦截器与排除方式。"
+				},
+				"RTL_SWEEP": {
+					"TITLE": "从右向左扫动",
+					"DESCRIPTION": "同一条 `indeterminate` 进度条，分别置于 `dir=\"ltr\"` 与 `dir=\"rtl\"` 之下。扫动方向由 `--hub-loading-bar-sweep-direction` 决定，会随文字方向翻转，无需为每种语言绑定或复制任何东西。"
+				}
+			}
+		},
+		"INSTALLER": {
+			"NAV": {
+				"INTERACTIVE": "交互式安装",
+				"NON_INTERACTIVE": "参数与脚本",
+				"RESOLVED_DEPENDENCIES": "解析后的依赖"
+			},
+			"FEATURE": {
+				"ONE_COMMAND": {
+					"TITLE": "一条命令",
+					"DESCRIPTION": "`ng add ng-hub-ui` 就是全部安装过程。Angular CLI 拉取该包并运行它的 `ng-add` 原理图，原理图会询问你需要目录中 25 个库里的哪些。空格键选择，`a` 全选切换，`i` 反选；确认后所选内容被解析为 npm 包，写入 `dependencies`，安装交给 CLI 检测到的包管理器完成。",
+					"HIGHLIGHT": "一条 `ng add`、一份包含 25 个库的多选列表，包就写进了你的清单。"
+				},
+				"SCRIPTABLE": {
+					"TITLE": "参数与脚本",
+					"DESCRIPTION": "交互提示可以跳过，这正是安装器能用于 CI 和项目自身初始化脚本的原因。`--libraries` 接受逗号分隔的列表，也接受重复传入同一个参数，两种写法归一化的结果一致：去空格、去重、保持传入顺序。`--skip-install` 只写清单就停下。请传目录中的标识符，而不是提示里显示的标签——两者是不同的字符串，未知标识符会在 `package.json` 被改动之前中止原理图。",
+					"HIGHLIGHT": "`--libraries` 的两种写法加上 `--skip-install`，让工作区可以由脚本而不是人工搭建。"
+				},
+				"RESOLVED_DEPENDENCIES": {
+					"TITLE": "解析后的依赖",
+					"DESCRIPTION": "选中的清单并不等于写入的清单。目录中的每个库都声明了自己需要的对等依赖——家族里绝大多数需要 `ng-hub-ui-utils`，panels 需要 `ng-hub-ui-ds`，signature 需要 `ng-hub-ui-forms`，还有根本不属于我们的 `sortablejs`——而且解析是传递性的，被一并装上的库还会带来它自己的对等依赖。每个版本范围的下限都不低于家族对它提出的最高要求，这才避免写出 npm 无法满足的组合。已经存在的键永远不会被改写，因此你锁定的版本会保留。原理图只做依赖接线：不动 `angular.json`，不注册提供者，不注册组件，也不添加样式表条目。",
+					"HIGHLIGHT": "对等依赖自动且传递地引入，每个范围都高于家族的要求，你锁定的版本原样保留。"
+				}
+			},
+			"EXAMPLE": {
+				"INTERACTIVE": {
+					"TITLE": "交互式安装",
+					"DESCRIPTION": "命令以及它打开的提示，与终端中所见一致。"
+				},
+				"NON_INTERACTIVE": {
+					"TITLE": "用参数代替提示",
+					"DESCRIPTION": "三种非交互写法，以及错误选择被拒绝的两种方式。"
+				},
+				"RESOLVED_DEPENDENCIES": {
+					"TITLE": "这次选择写入了什么",
+					"DESCRIPTION": "请求两个库，写入五个包——把连带安装讲清楚。"
+				}
+			}
+		}
+	},
+	"I18N_GUIDE": {
+		"TITLE": "国际化",
+		"INTRO": "只需配置一次全局适配器，所有 Hub UI 库都会响应语言切换。",
+		"SETUP": "全局配置",
+		"RESERVED": "请保留 HUBUI，以避免与应用程序键发生冲突。",
+		"DICTIONARY": "按库划分的字典",
+		"BRANCHES": "当前命名空间：HUBUI.SIGNATURE.*、HUBUI.PAGINABLE.*、HUBUI.STEPPER.* 和 HUBUI.CALENDAR.*。",
+		"OVERRIDE": "显式自定义",
+		"OVERRIDE_TEXT": "响应式覆盖会替换一个键，同时保留共享字典。",
+		"PRIORITY": "优先级与兼容性",
+		"PRIORITY_TEXT": "优先级：显式覆盖 → HUBUI.<库>.* → 内置回退。Paginable、Stepper 和 Calendar 在迁移期间保留旧键。"
+	}
+}

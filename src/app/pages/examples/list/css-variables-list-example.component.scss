@@ -1,0 +1,21 @@
+// Demonstrates the `hub-list-theme()` mixin shipped with ng-hub-ui-paginable:
+// the whole "Ocean" theme below is produced by one include, instead of
+// hand-writing every `--hub-list-*` override (see the Forest/Dusk themes in the
+// component's inline `styles`). Only the accent is required — the selected item
+// derives from it.
+@use '../../../../../projects/paginable/src/lib/styles/mixins/list-theme' as *;
+
+.theme-sample--ocean .hub-list {
+	@include hub-list-theme(
+		$accent: var(--hub-sys-color-info, #0dcaf0),
+		$bg: #f0fbff,
+		$item-bg: #ffffff,
+		$item-color: #0b4a5a,
+		$item-border-color: #a5e8f7,
+		$item-border-radius: 0.85rem,
+		$item-padding-x: 1rem,
+		$item-padding-y: 0.85rem,
+		$gap: 0.6rem,
+		$selected-color: #ffffff
+	);
+}

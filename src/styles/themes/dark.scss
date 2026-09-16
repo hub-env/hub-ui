@@ -1,0 +1,66 @@
+// ============================================================
+// Dark theme — code highlighting layer
+// ============================================================
+// styles.scss imports the GitHub *light* highlight.js theme
+// globally; this block re-colors highlighted code under
+// [data-theme='dark'] with a GitHub-Dark-inspired palette so
+// code blocks stay readable on dark surfaces.
+// ============================================================
+
+[data-theme='dark'] {
+	pre,
+	code {
+		background-color: #16181d;
+	}
+
+	.hljs {
+		background: #16181d;
+		color: #c9d1d9;
+	}
+
+	.hljs-comment,
+	.hljs-quote {
+		color: #8b949e;
+		font-style: italic;
+	}
+
+	.hljs-keyword,
+	.hljs-selector-tag,
+	.hljs-built_in,
+	.hljs-name,
+	.hljs-tag {
+		color: #ff7b72;
+	}
+
+	.hljs-string,
+	.hljs-attr,
+	.hljs-template-tag,
+	.hljs-addition {
+		color: #a5d6ff;
+	}
+
+	.hljs-number,
+	.hljs-literal,
+	.hljs-variable,
+	.hljs-type,
+	.hljs-params {
+		color: #79c0ff;
+	}
+
+	.hljs-title,
+	.hljs-section {
+		color: #d2a8ff;
+	}
+
+	.hljs-attribute,
+	.hljs-symbol,
+	.hljs-bullet,
+	.hljs-link,
+	.hljs-deletion {
+		color: #7ee787;
+	}
+
+	.hljs-meta {
+		color: #ffa657;
+	}
+}

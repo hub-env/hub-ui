@@ -1,0 +1,123 @@
+name: Deploy to Hostinger
+
+on:
+    push:
+        branches:
+            - main
+    # Manual trigger so the SFTP credentials can be verified end-to-end
+    # (gh workflow run deploy.yml --ref <branch>) without pushing to main.
+    workflow_dispatch:
+
+# Serialize deploys: two overlapping SFTP mirrors race on the same remote tree
+# (observed: one run's chmod hit a file the other had just replaced → exit 1).
+# Queue the newer run instead of cancelling — an interrupted mirror leaves a
+# half-updated site.
+concurrency:
+    group: deploy-production
+    cancel-in-progress: false
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v7
+              with:
+                  submodules: recursive
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v7
+              with:
+                  node-version: '22'
+                  cache: 'npm'
+
+            - name: Install dependencies
+              run: npm ci
+
+            # Gate the deploy on green library tests: never mirror a build whose
+            # libraries are red, even if the app itself still compiles.
+            - name: Test libraries
+              run: npm run test:libs
+
+            - name: Build
+              run: npm run build -- --configuration production
+
+            # Hostinger disabled plain FTP (the old FTP action failed with
+            # "server only supports SFTP" / control-socket timeout), so the transport is SSH.
+            # SSH/SFTP credentials on Hostinger usually DIFFER from the FTP ones (enable SSH in
+            # hPanel → Advanced → SSH Access), so set SSH_USERNAME / SSH_PASSWORD secrets;
+            # they fall back to the FTP_* ones if identical. Optional overrides for the
+            # Hostinger shared-hosting defaults: SFTP_PORT (65002), DEPLOY_REMOTE_PATH (/public_html/).
+            - name: Deploy via rsync, falling back to the SFTP mirror
+              env:
+                  SFTP_HOST: ${{ secrets.SSH_HOST || secrets.FTP_SERVER }}
+                  SFTP_USER: ${{ secrets.SSH_USERNAME || secrets.FTP_USERNAME }}
+                  SFTP_PASS: ${{ secrets.SSH_PASSWORD || secrets.FTP_PASSWORD }}
+                  SFTP_PORT: ${{ secrets.SFTP_PORT || 65002 }}
+                  REMOTE_PATH: ${{ secrets.DEPLOY_REMOTE_PATH || '/public_html/' }}
+              run: |
+                  sudo apt-get update -qq && sudo apt-get install -y -qq lftp rsync sshpass
+
+                  SRC=./dist/ng-hub-ui/browser/
+
+                  # rsync first. The build is ~2.000 small prerendered files and
+                  # lftp's SFTP mirror pays a round trip per file, which is why a
+                  # good run took 10-31 minutes and a third of them died partway
+                  # ("mirror: Fatal error: max-retries exceeded"). rsync holds one
+                  # SSH session, skips unchanged files by size and mtime, and can
+                  # resume, so the window for a dropped connection is far smaller.
+                  #
+                  # No --delete: the lftp mirror never removed remote files either,
+                  # and anything dropped into public_html by hand would go with it.
+                  #
+                  # Retried, because the refusals seen so far are transient. Probed against the
+                  # live host: remote command execution works, /usr/bin/rsync 3.2.5 is installed,
+                  # and the exact invocation below succeeded 9 times out of 9 — cold runner
+                  # included — yet two of three real deploys were dropped at zero bytes within
+                  # 100 ms. A single attempt therefore sends a whole deploy to the slow path over
+                  # a blip: the 2026-08-12 run took 14 minutes where the rsync one took 9.
+                  # Retrying costs nothing on success and is safe on failure, since --partial
+                  # means an interrupted transfer resumes instead of restarting.
+                  echo "Trying rsync over SSH…"
+                  for rsync_try in 1 2 3; do
+                    if sshpass -p "$SFTP_PASS" rsync -rlptz --partial --exclude '.git*' \
+                         -e "ssh -p $SFTP_PORT -o StrictHostKeyChecking=no -o ServerAliveInterval=15" \
+                         "$SRC" "$SFTP_USER@$SFTP_HOST:$REMOTE_PATH"; then
+                      echo "Deployed with rsync (attempt $rsync_try)."
+                      exit 0
+                    fi
+                    echo "rsync attempt $rsync_try failed."
+                    [ "$rsync_try" -lt 3 ] && sleep 10
+                  done
+
+                  # Only reached when rsync was refused three times over ~20 seconds, which
+                  # points at something durable rather than a blip: a host that stopped shipping
+                  # rsync, or an SSH account restricted to SFTP. Fall back to the mirror that
+                  # carried deploys before rather than leave the site unpublished.
+                  echo "::warning::rsync refused three times — falling back to the SFTP mirror"
+
+                  attempt=0
+                  until lftp -c "
+                    set sftp:auto-confirm yes;
+                    set net:max-retries 5;
+                    set net:timeout 30;
+                    set net:reconnect-interval-base 5;
+                    open -u \"$SFTP_USER\",\"$SFTP_PASS\" -p \"$SFTP_PORT\" \"sftp://$SFTP_HOST\";
+                    mirror -R --verbose --exclude-glob .git* \"$SRC\" \"$REMOTE_PATH\";
+                  "; do
+                    attempt=$((attempt + 1))
+                    if [ "$attempt" -ge 3 ]; then
+                      echo "::error::SFTP mirror failed after $attempt attempts"
+                      exit 1
+                    fi
+                    echo "::warning::SFTP mirror attempt $attempt failed — retrying in 30s"
+                    sleep 30
+                  done
+
+            # Notify IndexNow-compatible search engines about the fresh deploy.
+            # Runs only when the mirror above succeeded (default step gating) and
+            # is non-fatal: a failed ping must never mark a completed deploy red.
+            - name: Ping IndexNow
+              if: ${{ success() }}
+              run: node scripts/indexnow-ping.mjs || true

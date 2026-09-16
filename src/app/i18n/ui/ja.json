@@ -1,0 +1,346 @@
+{
+	"UI": {
+		"TOKENS": {
+			"TITLE": "デザイントークン",
+			"INTRO": "ng-hub-ui は 3 層のトークンシステムで構築されています。リファレンストークン（--hub-ref-*）は生のプリミティブを保持し、システムトークン（--hub-sys-*）は意味的な役割を割り当て、コンポーネントトークンはコンポーネントごとにスタイルのスコープを定めます。各トークンは CSS 変数なので、:root やラッパーで値を上書きすることで、ライブラリ全体のテーマを実行時に変更できます。",
+			"SEARCH_PLACEHOLDER": "トークンを検索…",
+			"REF_TITLE": "リファレンス (--hub-ref-*)",
+			"SYS_TITLE": "システム (--hub-sys-*)",
+			"COMPONENT_TITLE": "コンポーネントトークン",
+			"LIBRARIES_TITLE": "トークンを持つライブラリ",
+			"LIBRARIES_INTRO": "各ライブラリは独自のコンポーネントトークン（--hub-{プレフィックス}-*）を宣言します。いずれかを開いてドキュメントをご覧ください。",
+			"LIBRARIES_TOKENS": "トークン",
+			"COL_SWATCH": "色",
+			"COL_TOKEN": "Token",
+			"COL_VALUE": "値",
+			"COL_RESOLVED": "解決後の値",
+			"COPY_HINT": "クリックでコピー",
+			"NO_RESULTS": "検索に一致するトークンはありません。"
+		},
+		"TOPBAR": {
+			"SEARCH": "コンポーネントを検索...",
+			"GITHUB": "GitHub",
+			"CONSULTING": "コンサルティング",
+			"LANG_LABEL": "JA",
+			"LANGUAGE": "言語",
+			"DARK_MODE": "ダークモード",
+			"LIGHT_MODE": "ライトモード",
+			"THEME_LABEL": "テーマ",
+			"ORIENTATION_VERTICAL": "縦レイアウト",
+			"ORIENTATION_HORIZONTAL": "横レイアウト",
+			"PAGE_LOADING": "ページを読み込み中"
+		},
+		"NAV": {
+			"HOME": "ホーム",
+			"ABOUT": "概要",
+			"COMPONENTS": "コンポーネント"
+		},
+		"CONSENT": {
+			"TITLE": "分析クッキー",
+			"BODY": "訪問数を測定し、ドキュメントのどの部分が最も効果的かを把握するために Google Analytics を使用します。承認した場合にのみ読み込まれます。",
+			"REJECT": "拒否",
+			"ACCEPT": "同意する",
+			"POLICY_LINK": "Cookieポリシー"
+		},
+		"HOME": {
+			"HERO": {
+				"BADGE": "Angular 22 · Standalone · 独立パッケージ",
+				"TITLE": "Standalone アプリ向け Angular コンポーネントライブラリ",
+				"SUBTITLE": "standalone アプリ、Angular Signals のワークフロー、アクセシビリティ、CSS 変数に対応した再利用可能な Angular UI コンポーネント。モーダル、データテーブル、ナビゲーション、カレンダーなどを網羅した本番運用に耐えるドキュメント付き。",
+				"CTA_PRIMARY": "Modal のドキュメントを見る",
+				"CTA_SECONDARY": "GitHub でスターを付ける",
+				"INSTALL": "npm install ng-hub-ui-modal",
+				"COPY_INSTALL": "インストールコマンドをコピー"
+			},
+			"STATS": {
+				"COMPONENTS": "コンポーネント",
+				"CSS_VARS": "CSS 変数",
+				"THEMES": "テーマ",
+				"ANGULAR_VERSION": "Angular"
+			},
+			"FEATURES": {
+				"SECTION_TITLE": "なぜ Hub UI なのか？",
+				"ACCESSIBLE": {
+					"TITLE": "完全なアクセシビリティ",
+					"DESCRIPTION": "すべてのコンポーネントは WCAG 2.1 ガイドラインに準拠し、完全なキーボード操作とスクリーンリーダーに対応しています。"
+				},
+				"CUSTOMIZABLE": {
+					"TITLE": "CSS 変数で駆動",
+					"DESCRIPTION": "すべてのコンポーネントが CSS カスタムプロパティを公開しています。トークンを上書きするだけでブランドに合わせられ、変更はすべてのテーマに即座に反映されます。"
+				},
+				"TYPESCRIPT": {
+					"TITLE": "TypeScript ファースト",
+					"DESCRIPTION": "全体を通して厳格な型付け。完全な自動補完、コンパイル時の安全性、最高クラスの開発体験を享受できます。"
+				},
+				"STANDALONE": {
+					"TITLE": "Standalone アーキテクチャ",
+					"DESCRIPTION": "Angular のモダンな standalone コンポーネントモデルの上に構築。必要なものだけをインポートして、バンドルを軽量に保てます。"
+				}
+			},
+			"COMPONENTS": {
+				"SECTION_TITLE": "すべてのコンポーネント",
+				"SECTION_SUBTITLE": "実際のプロダクトチーム、再利用可能なデザインシステム、保守しやすい standalone アプリケーションのために作られた Angular コンポーネントをご覧ください。",
+				"DESCRIPTIONS": {
+					"AVATAR": "イニシャル、画像フォールバック、ステータス表示に対応した Angular アバターコンポーネント。",
+					"BOARD": "ワークフロー UI 向けのドラッグ＆ドロップ対応 Angular かんばんボードコンポーネント。",
+					"BREADCRUMBS": "ルーター連携とカスタムテンプレートに対応した Angular パンくずリスト。",
+					"CALENDAR": "スケジュール、イベント、計画用インターフェース向けの Angular カレンダーコンポーネント。",
+					"HISTORY": "エディター、フォーム、ローコードビルダー向けの Angular の元に戻す／やり直しストア。",
+					"MODAL": "スタッキング、フルスクリーンモード、テンプレートに対応したアクセシブルな Angular モーダルコンポーネント。",
+					"NAV": "サイドバー、ドロップダウン、ドリルダウンパネル、レスポンシブレイアウト向けの Angular ナビゲーションメニュー。",
+					"PAGINABLE": "フィルタリング、ソート、サーバーサイド処理に対応した Angular データテーブルとページネーション付きリスト。",
+					"PORTAL": "ドロワー、フローティングパネル、動的コンテナ向けの Angular ポータルとオーバーレイ描画。",
+					"SKELETON": "プリセット、インライン DSL テンプレート、レスポンシブなシマーレイアウトに対応した Angular スケルトンプレースホルダー。",
+					"SORTABLE": "配列、FormArray コントロール、ドラッグ＆ドロップビルダー向けの Angular ソート可能リストユーティリティ。",
+					"STEPPER": "ウィザードフォーム、オンボーディング、複数ステップの検証フロー向けの Angular ステッパーコンポーネント。",
+					"UTILS": "オーバーレイ、フォーカス管理、パイプ、翻訳ヘルパーを備えた Angular ユーティリティライブラリ。",
+					"TOAST": "位置指定・スタック・自動クローズに対応した Angular のトースト／通知コンポーネント。",
+					"BUTTONS": "アクション豊富な UI 向けの Angular ボタン・FAB・スピードダイヤル・ドロップダウンディレクティブ。",
+					"BADGES": "ラベル・カウント・ステータス表示向けの、フルテーマ対応 Angular バッジコンポーネント。",
+					"PANELS": "単一／複数展開とフルテーマに対応した Angular のパネル／アコーディオンコンポーネント。",
+					"FORMS": "高機能な入力・セレクト・バリデーション・動的レンダリングを備えた Angular フォームライブラリ。",
+					"MILESTONES": "縦・横・アニメーション表示に対応した Angular のタイムライン／進捗ステップコンポーネント。",
+					"ICONS": "Font Awesome、Bootstrap、Material、カスタム SVG パックに対応したセット非依存の Angular アイコンコンポーネント。",
+					"METRICS": "完全な ARIA セマンティクスとトークンテーマ対応の Angular プログレス・メーター・ゲージコンポーネント。"
+				}
+			},
+			"INSTALL": {
+				"SECTION_TITLE": "数秒で始められる",
+				"STEP1": "コンポーネントをインストール",
+				"STEP2": "standalone でインポート",
+				"STEP3": "CSS 変数でカスタマイズ",
+				"READ_DOCS": "ドキュメントを読む"
+			},
+			"THEMES_DEMO": {
+				"SECTION_TITLE": "1 つのライブラリで、あらゆるブランドに",
+				"SECTION_SUBTITLE": "すべてのコンポーネントは CSS 変数で駆動します。テーマを選ぶと、サイト全体が再描画される様子を確認できます。リビルドも追加の CSS も不要です。",
+				"HINT": "試してみてください — これでサイト全体のテーマがリアルタイムに切り替わります。"
+			},
+			"CODE_DEMO": {
+				"SECTION_TITLE": "本物のコード、本物のコンポーネント",
+				"SECTION_SUBTITLE": "テンプレート数行で十分です。左側のスニペットが、右側のライブコンポーネントを描画します。",
+				"CODE_LABEL": "Template",
+				"RESULT_LABEL": "ライブ結果"
+			},
+			"FINAL_CTA": {
+				"TITLE": "Hub UI で次の Angular UI を構築しよう",
+				"SUBTITLE": "オープンソース、モジュール式、本番運用対応。今日から最初のコンポーネントをインストールしましょう。",
+				"GITHUB": "GitHub でスターを付ける",
+				"START": "始める"
+			},
+			"COLLAGE": {
+				"TAB_ONE_HEADING": "タブ",
+				"TAB_ONE_BODY": "本物のライブコンポーネント。",
+				"TAB_TWO_HEADING": "ライブ",
+				"TAB_TWO_BODY": "これはスクリーンショットではありません。"
+			},
+			"USE_CASES": {
+				"SECTION_TITLE": "本番の Angular 開発のために作られた",
+				"SECTION_SUBTITLE": "うまく実装するのに最も時間がかかりがちなコンポーネントカテゴリから始めましょう。",
+				"MODAL": {
+					"TITLE": "モーダルとオーバーレイのフロー",
+					"DESCRIPTION": "アクセシブルなモーダル動作を必要とする Angular アプリ向けの、ダイアログ、フルスクリーンフロー、プロジェクション、サービス駆動のオーバーレイ。"
+				},
+				"PAGINABLE": {
+					"TITLE": "データテーブルとリスト",
+					"DESCRIPTION": "管理パネル、バックオフィス、マネジメントダッシュボード向けのサーバーサイドページネーション、ソート、フィルタリング、選択機能。"
+				},
+				"SORTABLE": {
+					"TITLE": "ソートとドラッグ＆ドロップ",
+					"DESCRIPTION": "Angular に適したドラッグ＆ドロップユーティリティで、配列、FormArray コントロール、連結リストを並べ替えられます。"
+				},
+				"CALENDAR": {
+					"TITLE": "スケジューリングとカレンダービュー",
+					"DESCRIPTION": "イベント、テンプレート、ドラッグ＆ドロップ、テーマフックを備えた、計画ワークフロー向けのカレンダーインターフェース。"
+				}
+			}
+		},
+		"PRIVACY": {
+			"TITLE": "プライバシーポリシー",
+			"UPDATED": "最終更新日：2025年1月1日",
+			"INTRO": "このプライバシーポリシーは、カルロス・モルシリョ・フェルナンデス（以下「当社」）が、本ドキュメントサイトへのアクセス時に個人データをどのように収集・使用・保護するかを説明するものです。",
+			"S1_HEADING": "1. データ管理者",
+			"S1_P1": "Carlos Morcillo Fernández（カルロス・モルシリョ・フェルナンデス）",
+			"S1_P2": "メールアドレス：carlos.morcillo@me.com",
+			"S1_P3": "本サイトは個人によるオープンソースのドキュメントプロジェクトであり、いかなる企業によっても運営されていません。",
+			"S2_HEADING": "2. 収集するデータ",
+			"S2_P1": "Google Analytics 4を使用して、匿名のブラウジングデータを収集します。収集データには、閲覧ページ、ページ滞在時間、アクセス元の国、デバイスの種類、ブラウザが含まれます。IPアドレスは処理前に匿名化されます。氏名、メールアドレス、その他の直接識別可能な個人データは収集しません。",
+			"S3_HEADING": "3. 処理の目的",
+			"S3_P1": "分析データは、訪問者がドキュメントとどのように関わっているか、どのセクションが最も有用か、コンテンツ全体の品質をどのように改善するかを把握するためにのみ使用します。",
+			"S4_HEADING": "4. 法的根拠",
+			"S4_P1": "データ処理は、お客様の自由意思による、具体的かつ十分な情報に基づく同意（GDPR第6条第1項(a)）に基づいて行います。Cookieバナーの「拒否」をクリックするか、ブラウザのCookieを管理することで、いつでも同意を撤回することができます。",
+			"S5_HEADING": "5. 受取人およびデータ処理者",
+			"S5_P1": "匿名の分析データはGoogle LLCに送信されます。Google LLCはデータ処理契約に基づくデータ処理者として機能します。Googleは欧州経済領域外のサーバーでデータを処理する場合があります。",
+			"S6_HEADING": "6. 国際データ移転",
+			"S6_P1": "Google Analyticsが処理したデータは米国に移転される場合があります。Google LLCはEU-米国データプライバシーフレームワークに参加しており、EEA外に移転される個人データの適切な保護水準を確保するために標準契約条項（SCC）を使用しています。",
+			"S7_HEADING": "7. 保持期間",
+			"S7_P1": "分析データはGoogle Analytics 4のデフォルトのデータ保持設定である14ヶ月間保持されます。この期間が経過すると、個々のイベントデータは自動的に削除されます。",
+			"S8_HEADING": "8. お客様の権利",
+			"S8_P1": "GDPRに基づき、お客様には以下の権利があります：個人データへのアクセス権、不正確なデータの訂正権、削除の要求権、処理への異議申し立て権、処理の制限を要求する権利、データポータビリティの権利。",
+			"S8_P2": "これらの権利を行使するには、carlos.morcillo@me.com にご連絡ください。30日以内に回答いたします。",
+			"S9_HEADING": "9. Cookie",
+			"S9_P1": "当社が使用するCookieの詳細については、Cookieポリシーをお読みください。",
+			"S10_HEADING": "10. このポリシーの変更",
+			"S10_P1": "本プライバシーポリシーは随時更新される場合があります。ページ上部の日付は常に最新の改訂を反映しています。変更後も引き続きサイトをご利用いただくことで、更新されたポリシーに同意したものとみなされます。",
+			"S11_HEADING": "11. 苦情申し立ての権利",
+			"S11_P1": "お客様は、居住地または勤務地のデータ保護を担当する監督機関に苦情を申し立てる権利があります。",
+			"LINK_COOKIES": "Cookieポリシー"
+		},
+		"COOKIES": {
+			"TITLE": "Cookieポリシー",
+			"UPDATED": "最終更新日：2025年1月1日",
+			"INTRO": "本CookieポリシーはCookieとは何か、本サイトがどのCookieを使用しているか、およびその管理方法について説明します。",
+			"WHAT_HEADING": "Cookieとは？",
+			"WHAT_P1": "Cookieとは、お客様が訪問するウェブサイトがデバイスに設置する小さなテキストファイルです。ウェブサイトを機能させたり、より効率的に機能させたりするため、またサイト所有者にレポート情報を提供するために広く使用されています。",
+			"WHAT_P2": "Cookieには「ファーストパーティ」（本サイトが設置）と「サードパーティ」（訪問しているドメインとは異なるドメインが設置）があります。また、セッションベース（ブラウザを閉じると削除）または永続的（指定された期間保存）のものがあります。",
+			"USED_HEADING": "使用するCookie",
+			"USED_INTRO": "本サイトはGoogle Analytics 4の分析Cookieのみを使用します。その他のCookieは設置されません。マーケティング、ターゲティング、またはソーシャルメディアのCookieは使用しません。",
+			"TABLE_COL_NAME": "Cookie名",
+			"TABLE_COL_PROVIDER": "プロバイダー",
+			"TABLE_COL_PURPOSE": "目的",
+			"TABLE_COL_DURATION": "期間",
+			"TABLE_COL_TYPE": "種類",
+			"ROW_GA_PURPOSE": "ランダムに生成された番号をクライアント識別子として割り当てることで、ユニークユーザーを識別します。",
+			"ROW_GA_DURATION": "2年",
+			"ROW_GA_TYPE": "分析 / サードパーティ",
+			"ROW_GA_STAR_PURPOSE": "特定のGA4測定IDのセッション状態を維持します。",
+			"ROW_GA_STAR_DURATION": "2年",
+			"ROW_GA_STAR_TYPE": "分析 / サードパーティ",
+			"ROW_GID_PURPOSE": "ユーザーを識別します。リクエストレートを制限するために使用されます。",
+			"ROW_GID_DURATION": "24時間",
+			"ROW_GID_TYPE": "分析 / サードパーティ",
+			"NECESSARY_HEADING": "厳密に必要なCookie",
+			"NECESSARY_P1": "本サイトはセッション管理、認証、またはサーバーサイドの状態を使用しません。そのため、このドメインからは厳密に必要なCookieは設置されません。上記の分析Cookieは、お客様が明示的に承認した後にのみ読み込まれます。",
+			"MANAGE_HEADING": "Cookieの管理方法",
+			"MANAGE_P1": "分析Cookieは以下の方法で制御できます：",
+			"MANAGE_P2": "1. ページ下部の同意バナーで「拒否」をクリックします。Google Analyticsは読み込まれず、Cookieは設置されません。",
+			"MANAGE_P3": "2. ブラウザに既に保存されているCookieを削除します。手順はブラウザによって異なります：ブラウザの設定を開き、プライバシーまたはCookieのセクションを探してください。",
+			"MANAGE_P4": "3. https://tools.google.com/dlpage/gaoptout からGoogle Analyticsオプトアウトブラウザアドオンをインストールして、すべてのウェブサイトでのGoogle Analyticsによるデータ収集を防止します。",
+			"MANAGE_P5": "Cookieのブロックまたは削除により、お客様が訪問する他のウェブサイトの機能に影響が出る場合があることにご注意ください。",
+			"CHANGES_HEADING": "本Cookieポリシーの変更",
+			"CHANGES_P1": "本CookieポリシーはI随時更新される場合があります。ページ上部の日付は常に最新の改訂を反映しています。定期的にこのページをご確認いただくことをお勧めします。",
+			"LINK_PRIVACY": "プライバシーポリシー"
+		},
+		"LIBRARY": {
+			"EXAMPLE_VIEWER": {
+				"COPY_SNIPPET": "スニペットをコピー",
+				"COPY_SOURCE": "サンプルのソースをコピー",
+				"COPY_TO_CLIPBOARD": "ソースをクリップボードにコピー",
+				"VIEW_FULL": "完全な例を表示",
+				"COPY_LINK": "サンプルへのリンクをコピー",
+				"VIEW_SNIPPET_ONLY": "スニペットのみ表示",
+				"VIEW_LESS": "折りたたむ",
+				"VIEW_CODE": "コードを表示",
+				"HIDE_CODE": "コードを隠す",
+				"VIEW_SOURCE": "ソースコードを表示",
+				"HARNESS_NOTICE": "この例にはテストが含まれます。実行するには開発環境で開いてください。",
+				"CODE_COPIED": "コードをコピーしました",
+				"COPY_ERROR": "コピーに失敗しました。もう一度お試しください！",
+				"LINK_COPIED": "リンクをコピーしました",
+				"LINK_COPY_ERROR": "リンクのコピーに失敗しました。もう一度お試しください！",
+				"DEMO": "デモ",
+				"CODE": "コード"
+			},
+			"TABS": {
+				"OVERVIEW": "概要",
+				"API": "API",
+				"STYLES": "スタイル",
+				"EXAMPLES": "サンプル",
+				"PLAYGROUND": "プレイグラウンド"
+			},
+			"API": {
+				"METHODS_TITLE": "メソッド"
+			},
+			"PAGE": {
+				"WHY_SEARCH": "チームがこのライブラリを探す理由",
+				"FAQ": "よくある質問",
+				"INSTALL": "インストール",
+				"JUMP_TO": "ジャンプ",
+				"IDEAL_FOR": "最適な用途",
+				"ABOUT_PREFIX": "について",
+				"KEY_FEATURES": "主な機能",
+				"FEATURE_GUIDES": "機能ガイド",
+				"FEATURE_GUIDES_EMPTY": "このライブラリにはまだ機能ガイドがドキュメント化されていません。",
+				"RECENT_CHANGES": "最近の変更",
+				"RELATED_LIBRARIES": "関連ライブラリ",
+				"NO_CHANGELOG": "利用可能な変更履歴のエントリはありません。",
+				"API_REFERENCE": "API リファレンス",
+				"API_INTRO": "{name} の完全な仕様をここにまとめました。バインド、リッスン、プロジェクション、テーマ設定ができるすべてが一か所に集約されています。必要なものを接続し、好きなようにスタイリングしてください — standalone で signal フレンドリーです。",
+				"API_INPUTS_LEDE": "{count} 個のインプットで {name} を調整。通常の Angular @Input と同じようにバインドできます。",
+				"API_OUTPUTS_LEDE": "{name} の動作に反応 — ロジックを接続できる {count} 個のイベント。",
+				"API_METHODS_LEDE": "{name} をコードから操作 — プログラム操作のための {count} 個のメソッドを備えています。",
+				"API_TEMPLATES_LEDE": "自分好みに — {count} 個のテンプレートスロットでカスタムマークアップをプロジェクションできます。",
+				"API_CSS_VARS_LEDE": "{count} 個の CSS 変数であらゆるピクセルをテーマ設定。:root で上書きするか、ラッパーにスコープを限定できます。",
+				"INPUTS": "インプット",
+				"OUTPUTS": "アウトプット",
+				"TEMPLATES": "テンプレート",
+				"CSS_VARIABLES": "CSS 変数",
+				"NAME": "名前",
+				"VARIABLE": "変数",
+				"DESCRIPTION_COLUMN": "説明",
+				"TYPE": "型",
+				"DEFAULT": "デフォルト",
+				"SIGNATURE": "シグネチャ",
+				"RETURNS": "戻り値",
+				"EXAMPLES": "サンプル",
+				"EXAMPLE": "サンプル",
+				"REQUIRED": "必須",
+				"NO_INPUTS": "インプットはまだドキュメント化されていません。",
+				"NO_OUTPUTS": "アウトプットはまだドキュメント化されていません。",
+				"NO_TEMPLATES": "テンプレートはまだドキュメント化されていません。",
+				"NO_CSS_VARIABLES": "CSS 変数はまだドキュメント化されていません。",
+				"STYLING_GUIDE": "スタイリングとテーマ設定",
+				"STYLING_EMPTY": "スタイリングのサンプルはまだドキュメント化されていません。このセクションには、カスタマイズのレシピやテーマ設定のサンプルが含まれる予定です。",
+				"MIXINS": "ミックスインとスタイル",
+				"MIXIN": "ミックスイン",
+				"PARAMETERS": "パラメータ",
+				"INTERACTIVE_EXAMPLES": "インタラクティブなサンプル",
+				"INTERACTIVE_EXAMPLES_INTRO": "一般的な Angular のユースケースでライブラリがどのように動作するかを示すライブサンプルをご覧ください。",
+				"INTERACTIVE_EXAMPLES_EMPTY": "インタラクティブなサンプルはまだ登録されていません。利用可能になるとここに表示されます。",
+				"PLAYGROUND_TITLE": "インタラクティブなプレイグラウンド",
+				"PLAYGROUND_INTRO": "すべてのインプットを設定して、コンポーネントがライブで更新される様子を確認できます。調整するたびに、生成されるテンプレートが同期されます。",
+				"PLAYGROUND_EMPTY": "このライブラリにはまだプレイグラウンドが設定されていません。",
+				"LIVE_PREVIEW_UNAVAILABLE": "このサンプルのライブプレビューはまだ利用できません。",
+				"CODE": "コード",
+				"IMPORT": "Import",
+				"TEMPLATE": "Template",
+				"COMPONENT": "Component"
+			},
+			"LAST_UPDATED": "最終更新"
+		},
+		"NOT_FOUND": {
+			"TITLE": "ページが見つかりません",
+			"MESSAGE": "お探しのページは存在しないか、移動しました。",
+			"CTA": "ホームページに戻る"
+		},
+		"THEMES": {
+			"BASE": "ベース",
+			"BOOTSTRAP": "Bootstrap",
+			"DARK": "ダーク",
+			"SUNSET": "サンセット",
+			"FOREST": "フォレスト",
+			"MONO": "モノクロ",
+			"TERMINAL": "ターミナル"
+		},
+		"DESIGN_SYSTEM": {
+			"QUE_ES": "これは何か",
+			"INSTALACION": "はじめに",
+			"ARQUITECTURA": "アーキテクチャ",
+			"COLORES": "色とテーマ",
+			"CREA_TU_TEMA": "テーマを作る",
+			"FAMILIA": "ファミリー",
+			"MODIFICAR": "変更のしかた",
+			"FUNCIONES": "SCSS 関数",
+			"ESTRUCTURA": "構造レイヤー",
+			"MIXINS": "ミックスインとスタイル",
+			"UTILIDADES": "ユーティリティ",
+			"FLEXBOX": "Flexbox",
+			"COLUMNAS": "カラムと余白",
+			"TEXTO": "テキスト",
+			"SUPERFICIES": "サーフェス",
+			"HELPERS": "位置とヘルパー",
+			"PUENTES": "他システムとの橋渡し",
+			"REFERENCIA": "リファレンス"
+		}
+	}
+}

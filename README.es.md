@@ -159,7 +159,33 @@ Todos los paquetes se publican en npm con el prefijo `ng-hub-ui-*`. Su versión 
 - **Sin framework de UI por debajo.** El arrastrar y soltar, los overlays y la gestión del foco están en `ng-hub-ui-utils`, así que no hace falta Angular CDK ni el JavaScript de Bootstrap. Las únicas dependencias de terceros en tiempo de ejecución son SortableJS (en `ng-hub-ui-sortable`) y ts-md5 (en `ng-hub-ui-avatar`).
 - **Temas con variables CSS.** Los componentes leen propiedades `--hub-*` con valores por defecto. Sin `ng-hub-ui-ds` se ven con esos valores; al añadirlo toman la paleta común, el modo oscuro y el resto de temas.
 - **Las versiones siguen a Angular.** Cuando salga Angular 23, todos los paquetes pasarán juntos a `23.0.0`. Un cambio incompatible dentro de una versión mayor se anuncia en el `BREAKING_CHANGES.md` del paquete.
-- **Cada paquete tiene su propio repositorio y su changelog.** Este repositorio es la puerta de entrada: presentación, roadmap y gestor de incidencias de todos los paquetes.
+- **Cada paquete tiene su propio repositorio y su changelog.** Este repositorio es la puerta de entrada: web de documentación, entorno de desarrollo, roadmap y gestor de incidencias de todos los paquetes.
+
+## Paquetes que funcionan mejor juntos
+
+Cada paquete funciona solo y nunca exige a otro. Cuando dos paquetes pueden colaborar, la librería expone un token de inyección y un helper `provide…()`: registras una vez el adaptador del otro paquete y la función mejora en toda la aplicación; si no lo registras, el componente usa el comportamiento nativo.
+
+| Función | En el paquete | Se conecta con | Adaptador de | Sin él |
+| --- | --- | --- | --- | --- |
+| Tooltip en un badge recortado | `ng-hub-ui-badges` | `provideHubBadgeTooltip(hubTooltipAdapter)` | `ng-hub-ui-utils` | `title` nativo |
+| Tooltip en una miga de pan recortada | `ng-hub-ui-breadcrumbs` | `provideHubBreadcrumbTooltip(hubTooltipAdapter)` | `ng-hub-ui-utils` | `title` nativo |
+| Búsqueda y tamaño de página de la tabla | `ng-hub-ui-paginable` | `provideHubPaginableFormControls(hubFormControlAdapter)` | `ng-hub-ui-forms` | `<input>` y `<select>` nativos |
+| Botones y menús de fila de la tabla | `ng-hub-ui-paginable` | `provideHubPaginableActions(hubActionsAdapter)` | `ng-hub-ui-buttons` | marcado propio |
+
+El README de cada paquete explica en detalle sus puntos de integración.
+
+## Desarrollar Hub UI
+
+Este repositorio es también el entorno de desarrollo. Contiene el código de [hubui.dev](https://hubui.dev/es/), y cada librería está montada en `projects/` como submódulo de git que apunta a su propio repositorio:
+
+```bash
+git clone --recurse-submodules https://github.com/hub-env/hub-ui.git
+cd hub-ui
+npm ci
+npm start
+```
+
+[CONTRIBUTING.md](CONTRIBUTING.md) explica el resto: comandos, dónde va cada cambio y cómo enviarlo.
 
 ## Incidencias y preguntas
 
@@ -167,7 +193,7 @@ Los errores, las dudas y las ideas sobre cualquier paquete van a las [incidencia
 
 ## Contribuir
 
-Cualquier contribución es bienvenida, desde corregir una errata hasta añadir un ejemplo. [CONTRIBUTING.md](CONTRIBUTING.md) explica cómo están organizados los repositorios y cómo enviar un cambio.
+Cualquier contribución es bienvenida, desde corregir una errata hasta añadir un ejemplo. [CONTRIBUTING.md](CONTRIBUTING.md) explica cómo están organizados los repositorios y cómo enviar un cambio, y quien participa sigue el [código de conducta](CODE_OF_CONDUCT.md).
 
 ## Roadmap
 

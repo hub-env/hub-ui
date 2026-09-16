@@ -1,0 +1,110 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Canonical host: redirect www to the bare domain (301).
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+    # Canonical root: redirect the bare domain to the default locale (301),
+    # replacing the prerendered meta-refresh stub with a real server redirect.
+    RewriteRule ^$ /en/ [R=301,L]
+
+    # Same treatment for the other 686 stubs. Angular prerenders every
+    # `redirectTo` route as a meta-refresh page, and because the file exists the
+    # passthrough below serves it with a 200 — an empty "Redirecting" document
+    # with no canonical and no noindex, which Google is free to index. These
+    # rules answer with a real 301 before the file is ever reached.
+    #
+    # Each rule that could collide with a real page is guarded by a -f test on
+    # its target, so it only fires when the canonical destination exists. That
+    # is what keeps /en/about/ and /en/tokens/ from being rewritten as if they
+    # were libraries.
+    #
+    # `home` is the router's alias for the locale root, not a page of its own.
+    # It has to be matched before the generic rules: the locale-less form would
+    # otherwise resolve to /en/home/, which is another stub.
+    RewriteRule ^(en|es|fr|de|ja|ru|ar|zh)/home/?$ /$1/ [R=301,L]
+    RewriteRule ^home/?$ /en/ [R=301,L]
+
+    # Retired tab names. Never real pages, so no guard is needed.
+    RewriteRule ^(en|es|fr|de|ja|ru|ar|zh)/([a-z][a-z0-9-]*)/styling/?$ /$1/$2/api/ [R=301,L]
+    RewriteRule ^(en|es|fr|de|ja|ru|ar|zh)/([a-z][a-z0-9-]*)/functionalities/?$ /$1/$2/overview/ [R=301,L]
+
+    # A library root opens on its overview; only libraries have one.
+    RewriteCond %{DOCUMENT_ROOT}/$1/$2/overview/index.html -f
+    RewriteRule ^(en|es|fr|de|ja|ru|ar|zh)/([a-z][a-z0-9-]*)/?$ /$1/$2/overview/ [R=301,L]
+
+    # Locale-less paths predate the i18n routing and must gain the default
+    # locale. The lookahead keeps /en/, /es/ … out, which would otherwise match
+    # the single-segment rules below and redirect to themselves.
+    RewriteRule ^(?!(?:en|es|fr|de|ja|ru|ar|zh)/)([a-z][a-z0-9-]*)/styling/?$ /en/$1/api/ [R=301,L]
+    RewriteRule ^(?!(?:en|es|fr|de|ja|ru|ar|zh)/)([a-z][a-z0-9-]*)/functionalities/?$ /en/$1/overview/ [R=301,L]
+
+    RewriteCond %{DOCUMENT_ROOT}/en/$1/$2/index.html -f
+    RewriteRule ^(?!(?:en|es|fr|de|ja|ru|ar|zh)/)([a-z][a-z0-9-]*)/([a-z][a-z0-9-]*)/?$ /en/$1/$2/ [R=301,L]
+
+    RewriteCond %{DOCUMENT_ROOT}/en/$1/overview/index.html -f
+    RewriteRule ^(?!(?:en|es|fr|de|ja|ru|ar|zh)/?$)([a-z][a-z0-9-]*)/?$ /en/$1/overview/ [R=301,L]
+
+    RewriteCond %{DOCUMENT_ROOT}/en/$1/index.html -f
+    RewriteRule ^(?!(?:en|es|fr|de|ja|ru|ar|zh)/?$)([a-z][a-z0-9-]*)/?$ /en/$1/ [R=301,L]
+
+    # Serve existing files and directories directly.
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # No blanket SPA fallback: every real route is prerendered to a file, so a
+    # request that reaches this point is a genuine 404. Serve the CSR shell as
+    # the error body (it boots Angular and renders the not-found page, noindex)
+    # but with a REAL 404 status — unknown URLs used to answer 200 index,follow.
+</IfModule>
+
+ErrorDocument 404 /index.csr.html
+
+# Security headers. Additive (mod_headers), no effect on routing.
+# NOTE: HSTS is intentionally apex-only here. Add `includeSubDomains; preload`
+# only after confirming every subdomain is HTTPS and you intend to submit the
+# domain to the HSTS preload list (both are hard to roll back).
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+    # HTML: short shared cache with stale-while-revalidate. Prerendered pages
+    # only change on deploy, so a 5-minute freshness window plus a 1-hour
+    # serve-stale-while-refreshing grace keeps crawls and repeat visits fast
+    # without delaying deploys meaningfully.
+    <FilesMatch "\.html$">
+        Header set Cache-Control "public, max-age=300, stale-while-revalidate=3600"
+    </FilesMatch>
+</IfModule>
+
+# Plain-text discovery files (robots.txt, llms.txt, llms-full.txt, the IndexNow
+# key file) contain UTF-8 content — declare the charset so em dashes and
+# non-Latin text render correctly instead of defaulting to ISO-8859-1.
+<IfModule mod_mime.c>
+    AddCharset UTF-8 .txt
+</IfModule>
+
+# GZIP compression for text-based assets
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml font/woff2
+</IfModule>
+
+# Cache strategy: Angular hashes JS/CSS filenames on each build, so they
+# can be cached indefinitely. HTML uses the short stale-while-revalidate
+# Cache-Control policy set via mod_headers above (mod_expires cannot express
+# stale-while-revalidate, so text/html is intentionally absent here).
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType application/javascript    "access plus 1 year"
+    ExpiresByType text/css                  "access plus 1 year"
+    ExpiresByType image/png                 "access plus 1 year"
+    ExpiresByType image/svg+xml             "access plus 1 year"
+    ExpiresByType image/x-icon              "access plus 1 year"
+    ExpiresByType font/woff2                "access plus 1 year"
+    ExpiresByType application/manifest+json "access plus 1 week"
+</IfModule>

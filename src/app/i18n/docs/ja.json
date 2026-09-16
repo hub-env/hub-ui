@@ -1,0 +1,5620 @@
+{
+	"DOCS": {
+		"ACTION_SHEET": {
+			"FEATURE": {
+				"OPENING": {
+					"TITLE": "シートを開く",
+					"DESCRIPTION": "シートはサービスから開き、一度だけ応答します。閉じている間はページに何も残りません。",
+					"HIGHLIGHT": "サービスから開き、呼び出しは選択された結果で解決します。"
+				},
+				"ROLES": {
+					"TITLE": "ロールとハンドラー",
+					"DESCRIPTION": "ロールは各アクションの位置と見え方を決め、ハンドラーはシートを閉じてよいかを決めます。",
+					"HIGHLIGHT": "キャンセルは切り離し、破壊的操作は危険色、ハンドラーは閉じるのを拒否できます。"
+				},
+				"GROUPS": {
+					"TITLE": "アクションのグループ化",
+					"DESCRIPTION": "独自の見出しを持つブロック。平坦なリストでは読みづらくなる長いシート向けです。",
+					"HIGHLIGHT": "見出し付きのブロック。選択中・無効のアクションもリストの形を保ちます。"
+				},
+				"THEMING": {
+					"TITLE": "アクセントとトークン",
+					"DESCRIPTION": "シート全体に効く 1 つのセマンティックアクセントと、その下の各視覚要素の CSS 変数。",
+					"HIGHLIGHT": "アクセントは 1 スロット、細部は --hub-action-sheet-* で。"
+				},
+				"ACCESSIBILITY": {
+					"TITLE": "キーボードとスクリーンリーダー",
+					"DESCRIPTION": "見出しで名付けられたモーダルダイアログ。開くとフォーカスが入り、内部に保持され、閉じると開いた要素へ戻ります。",
+					"HIGHLIGHT": "モーダルダイアログ。フォーカスは入り、留まり、戻ります。"
+				}
+			},
+			"EXAMPLE": {
+				"BASIC": {
+					"TITLE": "シートを開く",
+					"DESCRIPTION": "見出しと 3 つのアクションと出口。呼び出しは選択で解決します。"
+				},
+				"ROLES": {
+					"TITLE": "ロールと拒否するハンドラー",
+					"DESCRIPTION": "破壊的アクションは初回に失敗し、シートを開いたままにします。"
+				},
+				"GROUPS": {
+					"TITLE": "アクションのグループ化",
+					"DESCRIPTION": "見出し付きブロック、現在の形式のマーク、無効化された 1 件。"
+				},
+				"THEMING": {
+					"TITLE": "アクセントとトークン",
+					"DESCRIPTION": "同じシートをセマンティックアクセントとブランドトークンで。"
+				}
+			},
+			"NAV": {
+				"BASIC": "開く",
+				"ROLES": "ロール",
+				"GROUPS": "グループ",
+				"THEMING": "テーマ"
+			},
+			"API": {
+				"OPTION": {
+					"BUTTONS": {
+						"DESCRIPTION": "アクション。平坦にも、見出し付きグループにもできます。"
+					},
+					"HEADER": {
+						"DESCRIPTION": "シートのタイトルであり、アクセシブルネーム。"
+					},
+					"SUB_HEADER": {
+						"DESCRIPTION": "見出しの下の補助行。"
+					},
+					"VARIANT": {
+						"DESCRIPTION": "セマンティックアクセント。--hub-sys-color-<variant> として読まれます。"
+					},
+					"BACKDROP_DISMISS": {
+						"DESCRIPTION": "背景をクリックするとシートを閉じます。"
+					},
+					"KEYBOARD": {
+						"DESCRIPTION": "Escape でシートを閉じます。"
+					},
+					"SWIPE_TO_CLOSE": {
+						"DESCRIPTION": "しきい値を超えて下へドラッグすると閉じます。"
+					},
+					"ANIMATION": {
+						"DESCRIPTION": "開閉をアニメーションします。prefers-reduced-motion では無視されます。"
+					},
+					"PANEL_CLASS": {
+						"DESCRIPTION": "シート要素への追加クラス。1 枚だけを装飾するために。"
+					},
+					"ARIA_LABEL": {
+						"DESCRIPTION": "見出しがない場合のアクセシブルネーム。"
+					}
+				},
+				"METHOD": {
+					"OPEN": {
+						"DESCRIPTION": "シートをドキュメントにマウントし、その結果へのハンドルを返します。"
+					},
+					"RESULT": {
+						"DESCRIPTION": "一度だけ解決します。選択されたアクションのロールとデータ、または閉じられ方で。"
+					},
+					"CLOSED": {
+						"DESCRIPTION": "result と同じ値を、ストリームで扱う利用側のために。"
+					},
+					"DISMISS": {
+						"DESCRIPTION": "外部からシートを閉じ、指定したロールを報告します。"
+					},
+					"SETTLED": {
+						"DESCRIPTION": "シートがすでに結果を返したかどうか。開いているシートと閉じたシートを呼び出し側が見分けられます。"
+					},
+					"PROVIDE": {
+						"DESCRIPTION": "すべてのシートの出発点となるアプリ全体の既定値を設定します。4 つの挙動フラグに加えて variant と panelClass も含みます。"
+					},
+					"CONFIG_TOKEN": {
+						"DESCRIPTION": "サービスが読み取るトークン。直接提供すると、設定を統合せず丸ごと置き換えます。"
+					},
+					"DEFAULTS": {
+						"DESCRIPTION": "誰も指定しないときのシートの動作: backdropDismiss、keyboard、swipeToClose、animation がすべて true。"
+					}
+				}
+			}
+		},
+		"AVATAR": {
+			"FEATURE": {
+				"AVATAR_SOURCES": {
+					"TITLE": "アバターのソース",
+					"DESCRIPTION": "ソーシャルプロフィール、カスタム画像、名前のイニシャル、またはカスタム値からアバターを解決し、自動フォールバックを備えています。"
+				},
+				"FALLBACK_SYSTEM": {
+					"TITLE": "フォールバックシステム",
+					"DESCRIPTION": "意味のある表現が表示されるまで、設定されたすべてのソースを段階的にフォールバックします。"
+				},
+				"SIZING": {
+					"TITLE": "サイズ設定",
+					"DESCRIPTION": "アバターの寸法、テキストとサイズの比率、レンダリングされるイニシャルの数を制御します。"
+				},
+				"STYLING": {
+					"TITLE": "スタイリング",
+					"DESCRIPTION": "形状、角の半径、色、ボーダー、任意のインラインスタイルはすべて、入力と CSS 変数によって駆動されます。"
+				},
+				"INTERACTIVITY": {
+					"TITLE": "インタラクティビティ",
+					"DESCRIPTION": "アバターのクリックイベントでユーザーのインタラクションに反応します。"
+				},
+				"GROUPS_STATUS": {
+					"TITLE": "グループとバッジ",
+					"DESCRIPTION": "アバターをグループに重ね、角にバッジ（プレゼンスのドットやカウント）を重ねます。色はセマンティックパレットから。"
+				},
+				"CUSTOM_CONTENT": {
+					"TITLE": "カスタムコンテンツ",
+					"DESCRIPTION": "任意のアイコン、インライン SVG、画像、絵文字をアバター内に投影できます。中央寄せ・パディング・アバター形状でのクリップが行われ、サイズは非依存に調整され（フォントアイコンは拡大、SVG/画像はフィット）、通常の bgColor / fgColor 入力でテーマ設定できます。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"SIZE": {
+						"DESCRIPTION": "アバターのサイズ（ピクセル）"
+					},
+					"NAME": {
+						"DESCRIPTION": "画像ソースが失敗したときにイニシャルを生成するためのユーザー名"
+					},
+					"SRC": {
+						"DESCRIPTION": "アバターの主要なカスタム画像ソース URL"
+					},
+					"ALT": {
+						"DESCRIPTION": "アクセシビリティのためのアバター画像の代替テキスト"
+					},
+					"ROUND": {
+						"DESCRIPTION": "アバターを円形にする（true）か、cornerRadius に従わせるか"
+					},
+					"INTERACTIVE": {
+						"DESCRIPTION": "アバターをインタラクティブなコントロールとしてマークします：role=“button” を公開し、フォーカス可能にし、Enter/Space で clickOnAvatar を発火します。(clickOnAvatar) をバインドするときは必ず有効にしてください。"
+					},
+					"AUTO_COLOR": {
+						"DESCRIPTION": "`true`（既定）の場合、イニシャルアバターは名前のハッシュから背景色を生成します。`false` にすると `--hub-avatar-bg-color` 変数でテーマ設定できます。明示的な `bgColor` は常に優先されます。"
+					},
+					"BG_COLOR": {
+						"DESCRIPTION": "テキストアバターの背景色。指定しない場合は自動生成されます"
+					},
+					"FG_COLOR": {
+						"DESCRIPTION": "テキスト avatar のイニシャルのテキスト色"
+					},
+					"BORDER_COLOR": {
+						"DESCRIPTION": "アバター周囲のボーダー色"
+					},
+					"CORNER_RADIUS": {
+						"DESCRIPTION": "round が false のときの角丸半径"
+					},
+					"TEXT_SIZE_RATIO": {
+						"DESCRIPTION": "アバターサイズからテキストサイズを計算する比率（size / textSizeRatio）"
+					},
+					"INITIALS_SIZE": {
+						"DESCRIPTION": "表示するイニシャルの数を制限します（0 = 制限なし）"
+					},
+					"FACEBOOK_ID": {
+						"DESCRIPTION": "プロフィール画像用の Facebook ユーザー ID（ベストエフォート、API 制限が適用される場合があります）"
+					},
+					"GITHUB_ID": {
+						"DESCRIPTION": "プロフィール画像を取得するための GitHub ユーザー名"
+					},
+					"GRAVATAR_ID": {
+						"DESCRIPTION": "プロフィール画像を取得するための Gravatar のメールアドレスまたは MD5 ハッシュ"
+					},
+					"VALUE": {
+						"DESCRIPTION": "カスタム値をアバターとして表示します（例: \"75%\"、\"+5\"）"
+					},
+					"STYLE": {
+						"DESCRIPTION": "レンダリングされた内容（画像・イニシャル・投影コンテンツのスロット）にマージされるインラインスタイル。スタイルオブジェクトまたは CSS 文字列を受け取り、ホスト要素には適用されません"
+					},
+					"REFERRERPOLICY": {
+						"DESCRIPTION": "アバター画像のリファラーポリシー（例: \"no-referrer\"）"
+					},
+					"PLACEHOLDER": {
+						"DESCRIPTION": "最後の手段となる画像。ほかに何も描かれていないあいだ（解決したソースがない、ソースが指定されていない、あるいは読み込み中）で、イニシャルもない場合にだけ表示されます。フォールバック連鎖には決して加わらないため、`src` のようにイニシャルを追い越すことはありません。"
+					},
+					"BADGE": {
+						"DESCRIPTION": "角のオーバーレイ：`badge` / `[badge]=\"true\"` → ドット、`badge=\"4k\"` → ラベル付きピル、null / 未指定 → なし。"
+					},
+					"BADGE_COLOR": {
+						"DESCRIPTION": "バッジのセマンティックカラー（primary · secondary · success · danger · warning · info · light · dark）→ `--hub-sys-color-*`。"
+					}
+				},
+				"OUTPUT": {
+					"CLICK_ON_AVATAR": {
+						"DESCRIPTION": "クリック時、および `interactive` 指定時は Enter/Space でも発行されます。アバターを描画しているソース（`sourceType`、`sourceId`、`getAvatar(size)` を持ちます。解決したものがなければ null）を返します。`Source` はパッケージから公開されているので、ハンドラーは any に逃げずに型を書けます"
+					}
+				},
+				"CSS_VAR": {
+					"AVATAR_BORDER_RADIUS": {
+						"DESCRIPTION": "avatar コンテナの境界半径"
+					},
+					"AVATAR_BG_COLOR": {
+						"DESCRIPTION": "テキスト avatar の背景色"
+					},
+					"AVATAR_TEXT_COLOR": {
+						"DESCRIPTION": "テキスト avatar のイニシャルのテキスト色"
+					},
+					"AVATAR_BORDER_COLOR": {
+						"DESCRIPTION": "avatar 周囲の境界線の色"
+					},
+					"AVATAR_BORDER_WIDTH": {
+						"DESCRIPTION": "avatar 周囲の境界線の幅"
+					},
+					"AVATAR_FONT_FAMILY": {
+						"DESCRIPTION": "avatar イニシャルのフォントファミリー"
+					},
+					"AVATAR_FONT_WEIGHT": {
+						"DESCRIPTION": "avatar イニシャルのフォントウェイト"
+					},
+					"AVATAR_TEXT_TRANSFORM": {
+						"DESCRIPTION": "イニシャルのテキスト変換"
+					},
+					"AVATAR_CONTENT_PADDING": {
+						"DESCRIPTION": "投影コンテンツとアバター端の間のパディング。"
+					},
+					"AVATAR_CONTENT_ICON_SIZE": {
+						"DESCRIPTION": "投影するフォントアイコン／絵文字のフォントサイズ（グリフが継承）。"
+					}
+				},
+				"METHOD": {
+					"SOURCE_GET_AVATAR": {
+						"DESCRIPTION": "指定したサイズでそのソースが描くものを解決します。リモートのソースなら画像の URL、ローカルならイニシャルや素のテキストです。`Source` は `clickOnAvatar` のペイロードで、パッケージから公開されています。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"FACEBOOK": {
+					"TITLE": "Facebook プロフィール"
+				},
+				"GRAVATAR": {
+					"TITLE": "Gravatar"
+				},
+				"GITHUB": {
+					"TITLE": "GitHub プロフィール"
+				},
+				"CUSTOM_IMAGE": {
+					"TITLE": "カスタム画像ソース"
+				},
+				"INITIALS": {
+					"TITLE": "名前のイニシャル"
+				},
+				"VALUE": {
+					"TITLE": "値の表示"
+				},
+				"FALLBACK": {
+					"TITLE": "フォールバックシステム"
+				},
+				"SIZE": {
+					"TITLE": "カスタムサイズ"
+				},
+				"TEXT_RATIO": {
+					"TITLE": "テキストサイズ比率"
+				},
+				"INITIALS_SIZE": {
+					"TITLE": "イニシャルサイズの上限"
+				},
+				"ROUND": {
+					"TITLE": "丸型アバター"
+				},
+				"CORNER_RADIUS": {
+					"TITLE": "角の丸み"
+				},
+				"COLORS": {
+					"TITLE": "背景色 & 前景色"
+				},
+				"BORDER": {
+					"TITLE": "枠線の色"
+				},
+				"CUSTOM_STYLE": {
+					"TITLE": "カスタムスタイル"
+				},
+				"CLICK": {
+					"TITLE": "クリックイベントハンドラー"
+				},
+				"GROUP": {
+					"TITLE": "アバターグループ表示"
+				},
+				"STATUS": {
+					"TITLE": "バッジ（ドット＆カウント）"
+				},
+				"CUSTOM_CONTENT": {
+					"TITLE": "カスタムコンテンツ（アイコン・SVG）"
+				}
+			},
+			"NAV": {
+				"FACEBOOK": "Facebook プロフィール",
+				"GRAVATAR": "Gravatar",
+				"GITHUB": "GitHub プロフィール",
+				"CUSTOM_IMAGE": "カスタム画像",
+				"INITIALS": "名前のイニシャル",
+				"VALUE": "値の表示",
+				"FALLBACK": "フォールバックシステム",
+				"SIZE": "カスタムサイズ",
+				"TEXT_RATIO": "テキスト比率",
+				"INITIALS_SIZE": "イニシャルサイズ",
+				"ROUND": "丸型アバター",
+				"CORNER_RADIUS": "角の丸み",
+				"COLORS": "色",
+				"BORDER": "枠線",
+				"CUSTOM_STYLE": "カスタムスタイル",
+				"CLICK": "クリックイベント",
+				"GROUP": "アバターグループ",
+				"STATUS": "バッジ",
+				"CUSTOM_CONTENT": "カスタムコンテンツ"
+			}
+		},
+		"BOARD": {
+			"FEATURE": {
+				"BASIC_USAGE": {
+					"TITLE": "基本的な使い方",
+					"DESCRIPTION": "board の基本機能"
+				},
+				"INTERACTIONS": {
+					"TITLE": "インタラクション",
+					"DESCRIPTION": "ユーザーインタラクション機能"
+				},
+				"ADVANCED_FEATURES": {
+					"TITLE": "高度な機能",
+					"DESCRIPTION": "スクロールと高度な動作"
+				},
+				"TEMPLATES": {
+					"TITLE": "テンプレート",
+					"DESCRIPTION": "外観のカスタマイズ"
+				},
+				"CONFIGURATION": {
+					"TITLE": "設定",
+					"DESCRIPTION": "board の設定オプション"
+				},
+				"STYLING": {
+					"TITLE": "スタイリング",
+					"DESCRIPTION": "CSS 変数による外観のカスタマイズ"
+				}
+			},
+			"EXAMPLE": {
+				"BASIC": {
+					"TITLE": "基本的なボードの例"
+				},
+				"CARD_DRAG_DROP": {
+					"TITLE": "カードのドラッグ & ドロップ"
+				},
+				"COLUMN_REORDERING": {
+					"TITLE": "列の並べ替え"
+				},
+				"CARD_CLICK": {
+					"TITLE": "カードクリックイベント"
+				},
+				"INFINITE_SCROLL": {
+					"TITLE": "無限スクロール"
+				},
+				"CUSTOM_CARD_TEMPLATE": {
+					"TITLE": "カスタムカードテンプレート"
+				},
+				"CUSTOM_HEADER_TEMPLATE": {
+					"TITLE": "カスタムヘッダーテンプレート"
+				},
+				"CUSTOM_FOOTER_TEMPLATE": {
+					"TITLE": "カスタムフッターテンプレート"
+				},
+				"DISABLE_SORTING": {
+					"TITLE": "並べ替えを無効化"
+				},
+				"DRAG_BEHAVIOR": {
+					"TITLE": "ドラッグ動作モード"
+				},
+				"STYLING_CUSTOMIZATION": {
+					"TITLE": "CSS カスタマイズ"
+				},
+				"CARD_PLACEHOLDER": {
+					"TITLE": "カスタムカードプレースホルダー"
+				},
+				"COLUMN_PLACEHOLDER": {
+					"TITLE": "カスタム列プレースホルダー"
+				},
+				"DRAG_PREVIEW": {
+					"TITLE": "カスタムドラッグプレビュー"
+				},
+				"EVENTS": {
+					"TITLE": "ボードイベント"
+				},
+				"KEYBOARD_ACCESSIBILITY": {
+					"TITLE": "キーボードとスクリーンリーダー"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"BOARD_LABEL": {
+						"DESCRIPTION": "ボードのリストコンテナのアクセシブルな名前。"
+					},
+					"BOARD": {
+						"DESCRIPTION": "レンダリングするボード全体の定義：columns 配列に、コンポーネントが表示するカラムとカードのデータを保持するオブジェクトです。"
+					},
+					"VARIANT": {
+						"DESCRIPTION": "ドラッグ＆ドロップのプレースホルダーのセマンティックアクセント。デザインシステム組み込みのアクセント、登録済みの任意のカスタムアクセント名、またはリテラルカラー（#hex、rgb()、oklch()、CSS の名前付きカラー）を受け付けます。未設定の場合は primary アクセントがデフォルトです。"
+					},
+					"COLUMN_SORTING_DISABLED": {
+						"DESCRIPTION": "true の場合、ボード全体でドラッグ＆ドロップによるカラムの並べ替えが無効になります。"
+					},
+					"DRAG_BEHAVIOR": {
+						"DESCRIPTION": "ドラッグ中の要素の見た目を制御します：'ghost' は半分の不透明度で表示したままにし、'hide' は非表示にしつつスペースを保持し、'collapse' は要素とそのスペースを完全に取り除きます。"
+					}
+				},
+				"CSS_VAR": {
+					"COLUMN_BG": {
+						"DESCRIPTION": "board カラムの背景色"
+					},
+					"COLUMN_COLOR": {
+						"DESCRIPTION": "board カラム内のテキスト色"
+					},
+					"COLUMN_BORDER_COLOR": {
+						"DESCRIPTION": "board カラム周囲の境界線の色"
+					},
+					"COLUMN_BORDER_WIDTH": {
+						"DESCRIPTION": "カラム境界線の幅"
+					},
+					"COLUMN_BORDER_RADIUS": {
+						"DESCRIPTION": "カラムの角の境界半径"
+					},
+					"COLUMN_GAP": {
+						"DESCRIPTION": "カラム間の間隔"
+					},
+					"COLUMN_BODY_PADDING_X": {
+						"DESCRIPTION": "カラム本体（カードを含む領域）の水平パディング"
+					},
+					"COLUMN_BODY_PADDING_Y": {
+						"DESCRIPTION": "カラム本体（カードを含む領域）の垂直パディング"
+					},
+					"COLUMN_CAP_BG": {
+						"DESCRIPTION": "カラムヘッダーの背景色"
+					},
+					"COLUMN_CAP_COLOR": {
+						"DESCRIPTION": "カラムヘッダーのテキスト色"
+					},
+					"COLUMN_CAP_PADDING_X": {
+						"DESCRIPTION": "カラムのヘッダーとフッター内の水平パディング"
+					},
+					"COLUMN_CAP_PADDING_Y": {
+						"DESCRIPTION": "カラムのヘッダーとフッター内の垂直パディング"
+					},
+					"CARD_BG": {
+						"DESCRIPTION": "カードの背景色"
+					},
+					"CARD_COLOR": {
+						"DESCRIPTION": "カードのテキスト色"
+					},
+					"CARD_BORDER": {
+						"DESCRIPTION": "カードの枠線の色"
+					},
+					"CARD_BORDER_WIDTH": {
+						"DESCRIPTION": "カードの枠線の太さ"
+					},
+					"CARD_BORDER_RADIUS": {
+						"DESCRIPTION": "カードの角の境界半径"
+					},
+					"CARD_PADDING_X": {
+						"DESCRIPTION": "カード内の水平パディング"
+					},
+					"CARD_PADDING_Y": {
+						"DESCRIPTION": "カード内の垂直パディング"
+					},
+					"CARD_SHADOW": {
+						"DESCRIPTION": "カードのボックスシャドウ"
+					},
+					"DROP_ZONE_BG": {
+						"DESCRIPTION": "アクティブなドロップゾーンの背景色"
+					},
+					"DROP_ZONE_BORDER": {
+						"DESCRIPTION": "ドラッグ＆ドロッププレースホルダーの枠線の色"
+					},
+					"PLACEHOLDER_BORDER_WIDTH": {
+						"DESCRIPTION": "ドラッグ＆ドロッププレースホルダーの枠線の太さ"
+					},
+					"DRAG_TRANSITION": {
+						"DESCRIPTION": "ドラッグ＆ドロップ中にカードへ適用される CSS トランジション（プロパティ・時間・イージングを 1 つの値で指定）"
+					}
+				},
+				"OUTPUT": {
+					"ON_CARD_CLICK": {
+						"DESCRIPTION": "ボード内でカードがクリックされるたびに、クリックされたカードを発行します。"
+					},
+					"ON_CARD_MOVED": {
+						"DESCRIPTION": "ポインタードラッグまたはキーボード操作でカードが移動されたとき（同じカラム内または別のカラムへ）に発行され、移動前後のインデックスと移動元／移動先のカラムを伴います。"
+					},
+					"ON_COLUMN_MOVED": {
+						"DESCRIPTION": "ドラッグ＆ドロップでカラムが並べ替えられたときに発行され、並べ替え前後のカラムインデックスを伴います。"
+					},
+					"REACHED_END": {
+						"DESCRIPTION": "カラム本文が最下部までスクロールされたときに、カラムのインデックスとデータを伴って発行されます — 無限スクロール読み込みを実現できます。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "cardTpt",
+						"DESCRIPTION": "カードの既定の本体を置き換えます。テンプレートのコンテキストは item（カード）と column（そのカードが属する列）を公開するため、let-card=\"item\" とバインドします。"
+					},
+					"1": {
+						"NAME": "columnHeaderTpt",
+						"DESCRIPTION": "列の既定のヘッダーを置き換えます。テンプレートのコンテキストは column を公開します。"
+					},
+					"2": {
+						"NAME": "columnFooterTpt",
+						"DESCRIPTION": "列の本体の下にフッターを追加します。テンプレートのコンテキストは column を公開します。テンプレートがなければフッターは描画されません。"
+					},
+					"3": {
+						"NAME": "cardPlaceholder",
+						"DESCRIPTION": "カードのドラッグ中に表示されるカスタムのドロップ領域です。コンテキストは card（ドラッグ中のカード）と column（ドロップ先の列）を公開します。"
+					},
+					"4": {
+						"NAME": "columnPlaceholder",
+						"DESCRIPTION": "列のドラッグ中に表示されるカスタムのドロップ領域です。コンテキストは column（ドラッグ中の列）を公開します。"
+					},
+					"5": {
+						"NAME": "cardDragPreview",
+						"DESCRIPTION": "カードのドラッグ中にカーソルへ追従するカスタム要素です。コンテキストは card と column（ドラッグ元の列）を公開します。"
+					},
+					"6": {
+						"NAME": "columnDragPreview",
+						"DESCRIPTION": "列のドラッグ中にカーソルへ追従するカスタム要素です。コンテキストは column を公開します。"
+					}
+				}
+			},
+			"NAV": {
+				"BASIC": "基本ボード",
+				"CARD_DRAG_DROP": "カードのドラッグ & ドロップ",
+				"KEYBOARD_ACCESSIBILITY": "キーボードとスクリーンリーダー",
+				"COLUMN_REORDERING": "列の並べ替え",
+				"CARD_CLICK": "カードクリックイベント",
+				"INFINITE_SCROLL": "無限スクロール",
+				"CUSTOM_CARD_TEMPLATE": "カスタムカードテンプレート",
+				"CUSTOM_HEADER_TEMPLATE": "カスタムヘッダー",
+				"CUSTOM_FOOTER_TEMPLATE": "カスタムフッター",
+				"DISABLE_SORTING": "並べ替えを無効化",
+				"DRAG_BEHAVIOR": "ドラッグ動作",
+				"STYLING_CUSTOMIZATION": "CSS カスタマイズ",
+				"CARD_PLACEHOLDER": "カードプレースホルダー",
+				"COLUMN_PLACEHOLDER": "列プレースホルダー",
+				"DRAG_PREVIEW": "ドラッグプレビュー",
+				"EVENTS": "イベント"
+			},
+			"GROUP": {
+				"BASICS": {
+					"TITLE": "基本と操作"
+				},
+				"DRAG_AND_DROP": {
+					"TITLE": "ドラッグ＆ドロップ"
+				},
+				"TEMPLATES": {
+					"TITLE": "テンプレート"
+				},
+				"PLACEHOLDERS_STYLING": {
+					"TITLE": "プレースホルダーとスタイル"
+				}
+			}
+		},
+		"BREADCRUMBS": {
+			"FEATURE": {
+				"CORE_FEATURES": {
+					"TITLE": "コア機能",
+					"DESCRIPTION": "自動的なルート検出とナビゲーションパス表示を備えた、breadcrumbs の基本機能。"
+				},
+				"DYNAMIC_CONTENT": {
+					"TITLE": "動的コンテンツ",
+					"DESCRIPTION": "プレースホルダーをサポートし、ルートデータとリゾルバーから breadcrumbs コンテンツを動的に解決します。"
+				},
+				"TEMPLATES_CUSTOMIZATION": {
+					"TITLE": "テンプレートとカスタマイズ",
+					"DESCRIPTION": "breadcrumbs 項目のカスタムテンプレートと強化されたスタイリングによる豊富なカスタマイズオプション。"
+				},
+				"ADVANCED_FEATURES": {
+					"TITLE": "高度な機能",
+					"DESCRIPTION": "アイコンのサポート、RTL レイアウト互換性、長いパンくずの折りたたみ、トークン化されたキーボードフォーカスリングを含む強化された機能。"
+				}
+			},
+			"EXAMPLE": {
+				"BASIC": {
+					"TITLE": "基本のパンくず",
+					"DESCRIPTION": "ルート設定からそのまま読み取られるパンくず。追加の配線は不要です。"
+				},
+				"DYNAMIC": {
+					"TITLE": "動的なパンくず",
+					"DESCRIPTION": "ルートのプレースホルダーと resolver が返すデータからラベルを組み立てます。"
+				},
+				"CUSTOM_TEMPLATES": {
+					"TITLE": "カスタムテンプレート",
+					"DESCRIPTION": "hubBreadcrumbItem テンプレートで各項目のマークアップを自分で用意します。"
+				},
+				"ICONS": {
+					"TITLE": "パンくずのアイコン",
+					"DESCRIPTION": "ルートデータで宣言したアイコンを、カスタム項目テンプレートで描画します。"
+				},
+				"RTL": {
+					"TITLE": "RTL レイアウト",
+					"DESCRIPTION": "右から左への対応。区切り文字はパンくずが来る側に配置されます。"
+				},
+				"TRUNCATION": {
+					"TITLE": "省略とツールチップ",
+					"DESCRIPTION": "長いラベルを省略記号で切り詰め、ホバーで全文を表示します。"
+				},
+				"STYLING": {
+					"TITLE": "CSS 変数によるカスタマイズ",
+					"DESCRIPTION": "区切り文字、色、間隔、角丸をすべて CSS カスタムプロパティで調整します。"
+				},
+				"COLLAPSE": {
+					"TITLE": "長いパンくずの折りたたみ",
+					"DESCRIPTION": "深いパンくずの中間をインジケーターボタンの背後に折りたたみ、その場で展開します。"
+				},
+				"EXTERNAL_LINKS": {
+					"TITLE": "ルーター外のリンク先",
+					"DESCRIPTION": "Angular アプリケーションの外部やダウンロードするファイルを指す項目を、通常のアンカーとして描画します。"
+				},
+				"FOCUS_RING": {
+					"TITLE": "キーボードフォーカスリング",
+					"DESCRIPTION": "リンクと折りたたみインジケーターに適用されるデザインシステムのフォーカスリング。CSS 変数で色を変更できます。"
+				},
+				"SIGNAL": {
+					"TITLE": "シグナルとしてのパンくず",
+					"DESCRIPTION": "最後のパンくずからページ見出しを組み立てるヘッダーです。`HubBreadcrumbsService.breadcrumbs` はシグナルなので、コンポーネントの外にあるものでもそこから派生できます。購読も後片付けも要りません。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"ITEMS": {
+						"DESCRIPTION": "利用側が渡すパンくず。ルーターから導出されたものを置き換えます。null のままなら、コンポーネントは HubBreadcrumbsService を読み続けます。"
+					},
+					"VARIANT": {
+						"DESCRIPTION": "パンくずリンクのセマンティックアクセント（primary、success など）または任意のカスタムトークン名。"
+					},
+					"TRUNCATE_ITEMS": {
+						"DESCRIPTION": "true のとき、各ラベルを --hub-breadcrumb-max-item-width で省略記号付きに切り詰め、あふれた場合はツールチップを表示します。hubBreadcrumbItem テンプレートも対象です。コンポーネントが投影された内容を自前の span.hub-breadcrumb__custom で包み、その箱を切り詰めます。カプセル化されたスタイルは、利用側コンポーネントが所有する要素には届かないからです。"
+					},
+					"MAX_ITEMS": {
+						"DESCRIPTION": "この長さを超えるとパンくずがインジケーターの背後に折りたたまれます。undefined の場合、どれだけ長くなっても折りたたみません。"
+					},
+					"ITEMS_BEFORE_COLLAPSE": {
+						"DESCRIPTION": "折りたたまれたパンくずの先頭に残す項目数。"
+					},
+					"ITEMS_AFTER_COLLAPSE": {
+						"DESCRIPTION": "折りたたまれたパンくずの末尾に残す項目数（現在のページを含む）。"
+					},
+					"COLLAPSED_ARIA_LABEL": {
+						"DESCRIPTION": "折りたたみインジケーターのアクセシブルネーム。このコンポーネントが読み上げる唯一の文字列を、ホストアプリケーション側で翻訳できます。"
+					}
+				},
+				"OUTPUT": {
+					"COLLAPSED_CLICK": {
+						"DESCRIPTION": "折りたたみインジケーターが操作されたときに発火します。パンくず自体は自動的に展開されるため、このイベントは追加の処理を行う利用側のためのものです。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "hubBreadcrumbItem",
+						"DESCRIPTION": "個々のパンくず項目をレンダリングするためのカスタムテンプレート"
+					},
+					"1": {
+						"NAME": "hubBreadcrumbLabel",
+						"DESCRIPTION": "切り詰められたラベルの全文をツールチップとして見せるディレクティブ。コンポーネントは自身が描画するラベルと、hubBreadcrumbItem テンプレートを包む箱にこれを適用します。手で付けるのは、ツールチップの文言を差し替えたいときだけです。"
+					}
+				},
+				"CSS_VAR": {
+					"BREADCRUMB_DIVIDER": {
+						"DESCRIPTION": "breadcrumbs 項目間の区切りとして使用される文字または記号"
+					},
+					"BREADCRUMB_DIVIDER_COLOR": {
+						"DESCRIPTION": "区切り文字の色"
+					},
+					"BREADCRUMB_PADDING_X": {
+						"DESCRIPTION": "breadcrumbs コンポーネント全体の水平パディング"
+					},
+					"BREADCRUMB_PADDING_Y": {
+						"DESCRIPTION": "breadcrumbs コンポーネント全体の垂直パディング"
+					},
+					"BREADCRUMB_BG": {
+						"DESCRIPTION": "breadcrumbs コンテナの背景色"
+					},
+					"BREADCRUMB_ITEM_COLOR": {
+						"DESCRIPTION": "非アクティブな breadcrumbs 項目（リンク）のテキスト色"
+					},
+					"BREADCRUMB_ITEM_ACTIVE_COLOR": {
+						"DESCRIPTION": "アクティブな（現在の）breadcrumbs 項目のテキスト色"
+					},
+					"BREADCRUMB_ITEM_HOVER_COLOR": {
+						"DESCRIPTION": "breadcrumbs リンクにホバーした際のテキスト色"
+					},
+					"BREADCRUMB_ITEM_PADDING_X": {
+						"DESCRIPTION": "個々の breadcrumbs 項目の水平パディング"
+					},
+					"BREADCRUMB_FONT_SIZE": {
+						"DESCRIPTION": "breadcrumbs テキストのフォントサイズ"
+					},
+					"BREADCRUMB_BORDER_RADIUS": {
+						"DESCRIPTION": "breadcrumbs コンテナの境界半径"
+					},
+					"BREADCRUMB_MARGIN_BOTTOM": {
+						"DESCRIPTION": "breadcrumbs コンポーネントの下マージン"
+					},
+					"BREADCRUMB_RTL_DIVIDER": {
+						"DESCRIPTION": "RTL レイアウトで使用される区切り文字（方向が反転）"
+					},
+					"BREADCRUMB_MAX_ITEM_WIDTH": {
+						"DESCRIPTION": "切り詰め有効時の単一ラベルの最大幅。"
+					}
+				},
+				"METHOD": {
+					"PROVIDE_TOOLTIP": {
+						"DESCRIPTION": "ツールチップアダプターをアプリ全体に一度だけ登録し、切り詰められたラベルがネイティブの title 属性ではなく hub-ui のツールチップを表示するようにします。プロバイダーを外すと title に戻ります。"
+					},
+					"BREADCRUMBS": {
+						"DESCRIPTION": "シグナルとしてのパンくず。コンポーネント自身が読むのもこの面です。サービスの内側で一度だけラップされ、アプリケーション全体で一度だけ購読されるので、ページヘッダーでもドキュメントタイトルでも、async パイプなしで派生できます。"
+					},
+					"BREADCRUMBS_STREAM": {
+						"DESCRIPTION": "同じパンくずを Observable として。すでに rxjs で組み立てているコードのために残されています。どちらも同じナビゲーションを報告するので、呼び出し側がすでに話しているほうを取ってください。"
+					}
+				}
+			},
+			"STYLING": {
+				"CSS_VARIABLES_THEMING": {
+					"TITLE": "CSS 変数とテーマ設定",
+					"DESCRIPTION": "区切り文字、色、間隔、視覚的な外観に対する CSS カスタムプロパティを使用した完全なテーマ制御。"
+				}
+			},
+			"NAV": {
+				"BASIC": "基本",
+				"DYNAMIC": "動的コンテンツ",
+				"CUSTOM": "カスタムテンプレート",
+				"ICONS": "アイコン",
+				"STYLING": "スタイリング",
+				"RTL": "RTL",
+				"TRUNCATION": "省略とツールチップ",
+				"COLLAPSE": "折りたたみ",
+				"EXTERNAL_LINKS": "外部リンク",
+				"FOCUS_RING": "フォーカスリング",
+				"SIGNAL": "シグナルのパンくず"
+			}
+		},
+		"CALENDAR": {
+			"FEATURE": {
+				"VIEWS_NAVIGATION": {
+					"TITLE": "ビュー & ナビゲーション",
+					"DESCRIPTION": "月、週、日、年の各ビューを切り替え、期間を移動します"
+				},
+				"EVENTS": {
+					"TITLE": "イベント",
+					"DESCRIPTION": "イベントを表示し、イベントおよび日付の操作を処理します"
+				},
+				"TEMPLATES": {
+					"TITLE": "テンプレート",
+					"DESCRIPTION": "テンプレートでイベントと日付セルのレンダリングをカスタマイズします"
+				},
+				"CONFIGURATION": {
+					"TITLE": "設定",
+					"DESCRIPTION": "設定オプションでカレンダーの動作を調整します"
+				},
+				"STYLING_I18N": {
+					"TITLE": "スタイリング & i18n",
+					"DESCRIPTION": "CSS 変数でテーマを設定し、カレンダーをローカライズします"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"VARIANT": {
+						"DESCRIPTION": "今日と選択中の日、アクティブなビューボタン、イベントチップに適用されるセマンティックアクセント: primary、secondary、success、danger、warning、info、neutral、light、dark、または --hub-sys-color-<variant> として読み取られる任意の名前。"
+					},
+					"EVENTS": {
+						"DESCRIPTION": "カレンダーに表示するイベントの配列"
+					},
+					"VIEW": {
+						"DESCRIPTION": "現在のビュータイプ（viewChange による双方向バインディング）"
+					},
+					"SELECTED_DATE": {
+						"DESCRIPTION": "現在フォーカスされている日付（selectedDateChange による双方向バインディング）"
+					},
+					"CONFIG": {
+						"DESCRIPTION": "カレンダーの設定オプション"
+					},
+					"EVENT_CLASS": {
+						"DESCRIPTION": "イベントに適用する CSS クラス。静的または動的に指定できます"
+					},
+					"WEEK_STARTS_ON": {
+						"DESCRIPTION": "週の開始曜日（0 = 日曜、1 = 月曜など）。指定するとconfig.weekStartsOnより優先されます。未指定の場合は設定側が決定し、その既定値は0です。"
+					},
+					"LOCALE": {
+						"DESCRIPTION": "組み込み辞書の言語コード。英語とスペイン語はライブラリに同梱され、それ以外のコードは英語にフォールバックします。"
+					},
+					"HEIGHT": {
+						"DESCRIPTION": "カレンダーの高さ。スクロールするか伸びるかもこれで決まります。数値はピクセルとして読まれ、任意の CSS 長さが使えます。`auto` はスクロールせず内容に合わせて伸びます。未指定ならコンテナいっぱいに広がります。スタイルシートで指定するより安全です。スコープ付きの `hub-calendar { … }` セレクターはコンポーネント自身のレイアウトに勝ち、それを壊すことがあります。"
+					},
+					"DISPLAY_FORMAT": {
+						"DESCRIPTION": "ヘッダーの見出しが月と年をどう書くか。Intl のオプション、`MMMM yyyy` のような Angular の日付パターン、または関数を受け取ります。未指定なら組み込みの組み立てを使い、見出しが年を指す年表示はそのままです。"
+					},
+					"TIME_DISPLAY_FORMAT": {
+						"DESCRIPTION": "チップと日付のツールチップに出る時刻の Intl オプション。`hourFormat` と組み合わされます。既定は時と分です。"
+					},
+					"EVENT_TIME_FORMAT": {
+						"DESCRIPTION": "月表示のチップが時刻付きイベントの前に印字する時刻。未指定なら狭いセル向けの省略形のままで、分がゼロのときは省かれます。"
+					},
+					"SLOT_LABEL_FORMAT": {
+						"DESCRIPTION": "週表示と日表示の時刻目盛りのラベル。未指定なら従来どおり素の `9:00` のままで、`hourFormat` を指定するだけで本物の時計になります。"
+					},
+					"HOUR_FORMAT": {
+						"DESCRIPTION": "カレンダーが時刻を書くすべての場所で 12 時間制か 24 時間制かを固定します。未指定なら言語が決めます。`hub-datepicker` と同じ意味です。"
+					},
+					"WEEKDAY_FORMAT": {
+						"DESCRIPTION": "曜日の列見出しの幅。`short` と `long` はカレンダー自身の辞書を読むのでアプリケーションの辞書が届きます。`narrow` は辞書に項目がなく、ロケールから導かれます。"
+					},
+					"MONTH_FORMAT": {
+						"DESCRIPTION": "ヘッダーの見出しと年表示のカードで月をどう書くか。既定は `long` で、カレンダーがこれまで印字してきたものです。"
+					}
+				},
+				"OUTPUT": {
+					"EVENT_CLICK": {
+						"DESCRIPTION": "イベントがクリックされたときに発行されます"
+					},
+					"DAY_CLICK": {
+						"DESCRIPTION": "日付セルがクリックされたときに発行されます"
+					},
+					"EVENT_DROP": {
+						"DESCRIPTION": "イベントが別の日にドロップされたときに発行されます"
+					},
+					"VIEW_CHANGE": {
+						"DESCRIPTION": "ビュータイプが変化したときに発行されます"
+					},
+					"DATE_CHANGE": {
+						"DESCRIPTION": "ナビゲーションにより表示日付が変化したときに発行されます"
+					},
+					"SELECTED_DATE_CHANGE": {
+						"DESCRIPTION": "選択された日付が変化したときに発行されます。[(selectedDate)] による双方向バインディングをサポートします"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"DESCRIPTION": "個々のイベントをレンダリングするためのテンプレート。コンテキスト: { event: CalendarEvent }"
+					},
+					"1": {
+						"DESCRIPTION": "日付セルのレンダリングをカスタマイズするためのテンプレート。コンテキスト: { day: CalendarDay }"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"BASIC": {
+					"TITLE": "カレンダービュー"
+				},
+				"NAVIGATION": {
+					"TITLE": "ナビゲーション"
+				},
+				"EVENTS": {
+					"TITLE": "イベント処理"
+				},
+				"EVENT_OVERFLOW": {
+					"TITLE": "イベントコンテンツのオーバーフロー"
+				},
+				"DRAG_DROP": {
+					"TITLE": "drag & drop イベント"
+				},
+				"TEMPLATES": {
+					"TITLE": "カスタムテンプレート"
+				},
+				"CONFIGURATION": {
+					"TITLE": "カレンダー設定"
+				},
+				"STYLING": {
+					"TITLE": "CSS 変数によるテーマ設定"
+				},
+				"VARIANT": {
+					"TITLE": "セマンティックアクセント (variant)"
+				},
+				"I18N": {
+					"TITLE": "国際化（i18n）"
+				},
+				"FORMATS": {
+					"TITLE": "日付と時刻の書式"
+				}
+			},
+			"NAV": {
+				"BASIC": "カレンダービュー",
+				"NAVIGATION": "ナビゲーション",
+				"EVENTS": "イベント処理",
+				"EVENT_OVERFLOW": "イベントのあふれ",
+				"DRAG_DROP": "drag & drop",
+				"TEMPLATES": "カスタムテンプレート",
+				"CONFIGURATION": "設定",
+				"STYLING": "CSS テーマ設定",
+				"VARIANT": "セマンティックアクセント",
+				"I18N": "国際化"
+			}
+		},
+		"DESIGN_SYSTEM": {
+			"LEAD": "ng-hub-ui ファミリーが共有する<strong>デザイントークン</strong>の土台です。CSS 変数 <code>--hub-ref-*</code>（プリミティブ）と <code>--hub-sys-*</code>（セマンティック）を、ライト/ダークと 8 つのテーマとともに提供します。一度読み込めば、ファミリー全体が同じパレットを読みます。",
+			"WHAT": {
+				"TITLE": "これは何で、何のためのものか",
+				"BODY": "役割は、ファミリー<strong>すべてのライブラリ</strong>にまたがるスタイル変数を<strong>そろえ</strong>、<strong>つなぐ</strong>ことです。各ライブラリは <code>--hub-*</code> 変数でテーマ付けされますが、<strong>それを定義はしません</strong>。<em>消費する</em>だけです。このパッケージはそれらを結ぶ<strong>唯一の真実の源</strong>であり、その結果:",
+				"LIST_1": "<strong>ひとつのパレット</strong>が panels、forms、calendar、board… を同時に養います。",
+				"LIST_2": "<strong>テーマ変更は一度だけ</strong>（トークンひとつ）で、変更がファミリー全体に届きます。",
+				"LIST_3": "<strong>ダークモードと 8 テーマ</strong>が用意され、属性ひとつで切り替わります。",
+				"LIST_4": "<strong>自分の CSS</strong> でも使えるので、あなたの UI がコンポーネントとそろいます。",
+				"NOTE": "接続はライブラリ単位で進めています。下の<a href=\"#familia\">ファミリー</a>に、それぞれの統合状況があります。トークンの全一覧をお探しですか。<a href=\"{{tokens}}\">トークンリファレンス</a>にあります。"
+			},
+			"START": {
+				"TITLE": "はじめに",
+				"BODY": "全体の道筋です。何をインストールし、何をどこに読み込み、どの変更にどの仕組みを使うか。<code>ds</code> は依存関係がなく（純粋な CSS/SCSS）、<strong>読み込まないかぎり何も出力しません</strong>。",
+				"STEP1_TITLE": "1 · インストール",
+				"STEP1_NOTE": "<code>ds</code> が土台です。使うファミリーのライブラリを足してください。どれもパレットを定義せず、すべて <code>ds</code> のトークンを<em>消費</em>します。",
+				"STEP2_TITLE": "2 · 読み込み — ルートで一度だけ、この順序で",
+				"STEP2_NOTE": "Sass なしでも動きます。各シートにはコンパイル済みの <code>.css</code> があります — <code>{{css}}</code> — あるいは <code>angular.json</code> 経由で:",
+				"STEP3_TITLE": "3 · 変更する — 変えたい内容ごとの仕組み",
+				"TABLE_WANT": "やりたいこと",
+				"TABLE_MECHANISM": "仕組み",
+				"TABLE_WHERE": "説明のある場所",
+				"ROW1_WANT": "グローバルな色を変える（たとえば primary）",
+				"ROW1_HOW": "<code>:root { --hub-sys-color-primary: … }</code> — <strong>ファミリー全体</strong>のテーマが変わります",
+				"ROW2_WANT": "新しいアクセントを足す（brand、tertiary…）",
+				"ROW2_HOW": "CSS: <code>--hub-sys-color-brand</code> · Sass: <code>$hub-accents-extra</code>",
+				"ROW3_WANT": "使わないバリアントを外す",
+				"ROW3_HOW": "Sass: マップを置き換えます — <code>with ($hub-accents: (primary: …, danger: …))</code> — そのファミリーだけが出力されます",
+				"ROW4_WANT": "spacing / 角丸 / グリッドを調整する",
+				"ROW4_HOW": "構造トークン <code>--hub-ref-space-*</code> / <code>--hub-sys-radius-*</code> / <code>--hub-sys-grid-*</code> を上書きします",
+				"ROW5_WANT": "テーマまるごと（dark、corporate…）",
+				"ROW5_HOW": "<code>[data-theme='…'] { 異なるトークン }</code> と <code>&lt;html&gt;</code> の属性",
+				"ROW6_WANT": "同じ仕組みで自分のコンポーネントを作る",
+				"ROW6_HOW": "<strong>ミックスイン</strong>: <code>@include hub.stack()</code> · <code>hub.text-bg(brand)</code> · <code>hub.radius(lg)</code>… — またはユーティリティクラス",
+				"ROW7_WANT": "Bootstrap / Material / Tailwind と共存する",
+				"ROW7_HOW": "<strong>ブリッジ用ミックスイン</strong>: <code>@include hub.bridge-bootstrap($mode: adopt | project)</code>",
+				"ROW8_WANT": "あるライブラリのあるコンポーネントだけ微調整する",
+				"ROW8_HOW": "そのコンポーネント固有のフック <code>--hub-&lt;component&gt;-*</code>（スコープ付きでもグローバルでも）",
+				"LINK_MODIFY": "<a href=\"#modificar\">変更のしかた</a>",
+				"LINK_FUNCTIONS": "<a href=\"#funciones\">SCSS 関数</a>",
+				"LINK_STRUCTURE": "<a href=\"#estructura\">構造レイヤー</a>",
+				"LINK_THEME": "<a href=\"#crea-tu-tema\">テーマを作る</a>",
+				"LINK_MIXINS": "<a href=\"#mixins\">ミックスインとスタイル</a>",
+				"LINK_BRIDGES": "<a href=\"#puentes\">ブリッジ</a>",
+				"LINK_TOKENS": "<a href=\"{{tokens}}\">トークンリファレンス</a>と各ライブラリのページ",
+				"STEP4_TITLE": "4 · そして残りのライブラリ",
+				"STEP4_BODY": "トークンを読み込めば、<strong>ほかに設定するものはありません</strong>。どの <code>ng-hub-ui-*</code> も <code>--hub-sys-*</code> を読み、あなたの上書きに合わせて自分でテーマを組み替えます。さらに各コンポーネントは微調整用の <code>--hub-&lt;component&gt;-*</code> フックを公開し、いくつかのライブラリはトークンの隣で<strong>一度だけ読み込む独自のシート</strong>を持ちます — 正確なパスは各 README が記しています（たとえば <code>forms</code> の共通クロームや <code>utils</code> のツールチップ/オーバーレイ。手順 2 のブロックにあるとおりです）。各ライブラリの統合状況は<a href=\"#familia\">ファミリー</a>にあります。"
+			},
+			"ARCH": {
+				"TITLE": "アーキテクチャ: 2 つのレイヤー",
+				"REF": "文脈を持たない生の値。カラーランプ、余白、角丸、タイポグラフィ。",
+				"SYS": "意味を担う割り当て。コンポーネントが消費するのはこちらです。",
+				"RULE": "原則: コンポーネントが参照するのは <code>sys</code> トークンだけで、<code>sys</code> は <code>ref</code> を指します。<code>sys</code> を変えるとテーマが変わり、<code>ref</code> を変えると基本パレットが動きます。"
+			},
+			"COLORS": {
+				"TITLE": "セマンティックカラー · テーマの実演",
+				"BODY": "セットは<strong>開かれて</strong>います。既定で 9 バリアント（有彩 5 + 中間色 4）、それにあなたが足したもの。どのアクセントも同じ形のロール一式を公開します — <code>subtle</code>、<code>border-subtle</code>、<code>emphasis</code>、そしてコントラスト用の <code>on</code>。テーマを切り替えて、パレット全体が塗り替わる様子をご覧ください。",
+				"ALERT": "通知"
+			},
+			"BUILDER": {
+				"TITLE": "テーマを作る · 変えるのはベースの色だけ",
+				"BODY": "各セマンティックファミリーの<strong>ベースの色</strong>だけを定義します。残り（<code>subtle</code>、<code>border-subtle</code>、<code>emphasis</code>、<code>on</code>）は <code>color-mix</code> / <em>relative color</em> で<strong>自動的に導出</strong>されます。下のコンポーネントがその場で色を変えるのが、共有された配線そのものです。",
+				"RESET": "リセット",
+				"HINT": "ベース → 導出",
+				"SHOWCASE": "コンポーネントの実演"
+			},
+			"FAMILY": {
+				"TITLE": "ファミリー · 統合状況",
+				"BODY": "ファミリー全体がこれらのトークンを読みます。バッジは、そのライブラリがすでに <code>--hub-sys-*</code> に<strong>接続済み</strong>か（デザインシステムと一緒にテーマが変わります）、まだ<strong>未対応</strong>か（あとで着手します）を示します。どれかを押すと、その例が見られます。",
+				"WIRED": "✓ 統合済み",
+				"PENDING": "⏳ 未対応"
+			},
+			"MODIFY": {
+				"TITLE": "変更のしかた",
+				"OVERRIDE_TITLE": "1. トークンを上書きする（CSS）— 主な道",
+				"OVERRIDE_BODY": "どの値も CSS 変数なので、テーマの変更は 1 行で済み、ファミリー全体にカスケードします。",
+				"ACCENT_TITLE": "2. 自分のアクセントを足す",
+				"ACCENT_BODY": "<code>--hub-sys-color-&lt;name&gt;</code> のファミリーを定義すると、セマンティックバリアントを受け取るコンポーネントがそのまま拾います。ここで試せます:",
+				"ACCENT_LABEL": "アクセントカラー",
+				"ACCENT_SAMPLE": "<strong>brand</strong> の通知 — 背景・文字・境界を <code>color-mix</code> でアクセントから導出しています。",
+				"ACCENT_NOTE": "<code>--hub-sys-color-brand</code> だけでも動きます（残りはコンポーネントが <code>color-mix</code> で導出します）。正確な色味がほしいときにファミリーを全部定義してください。",
+				"OPEN_MAP_TITLE": "… または開かれたマップに先に書く（Sass）",
+				"OPEN_MAP_BODY": "Sass を使うなら、パッケージを取り込む前に <code>$hub-accents-extra</code> で<strong>開かれたアクセントマップ</strong>を広げます。再コンパイルされるのは <code>ds</code> だけで、<strong>ライブラリは一切</strong>再コンパイルされません。新しいバリアントはそれぞれ完全なファミリー（<code>subtle · border-subtle · emphasis · on</code>）を得ます:",
+				"THEME_TITLE": "3. 自分のテーマを作る",
+				"THEME_MIXIN_TITLE": "4. …あるいは <code>hub.theme()</code> でまとめて（Sass）",
+				"THEME_MIXIN_BODY": "<strong>部分的なテーマ設定</strong>のためのミックスインひとつ。変更点だけをマップで渡せば、正規の名前で変数を出力します。各トークンにぶら下がるもの — <code>sys</code> エイリアス、ロールのファミリー、ユーティリティ、コンポーネント — は <code>var()</code> の連鎖で勝手に導出し直されます:"
+			},
+			"FUNCTIONS": {
+				"TITLE": "SCSS 関数: 内部でどう生成しているか",
+				"BODY": "セマンティックなカラーファミリーは手書きしていません。アクセントの集合は <code>!default</code> 付きの<strong>開かれたマップ</strong>で、ファミリーは <code>map.keys($hub-accents)</code> に対する <code>@each</code> で導出されます。だから色を 1 つ（あるいは 9 つ）足す作業は一様で、<em>定型コード</em>がありません。マップのどのキーも自動的に自分のファミリーを得ます。",
+				"NOTE": "多くの場合、<strong>SCSS に触れる必要はありません</strong>。CSS 変数の上書きだけで、テーマの変更もアクセントの追加もまかなえます。マップとミックスインは内部の仕組みで、パッケージに貢献するときに役立ちます。"
+			},
+			"STRUCTURE": {
+				"TITLE": "構造レイヤー · トークンの実演",
+				"BODY": "色に加えて、<code>ds</code> は<strong>正規の構造</strong>レイヤーも定義します。spacing のスケール（<code>--hub-ref-space-*</code>）、サイズと分数（<code>--hub-sys-size-*</code>）、グリッド（<code>--hub-sys-grid-columns</code>、ガター）、そしてセマンティックな <code>gap</code> のスケール（<code>--hub-sys-gap-*</code>）です。以下はすべてこれらの変数を消費して描かれています。",
+				"SPACING_TITLE": "spacing のスケール · <code>--hub-ref-space-0…7</code>",
+				"GAP_TITLE": "gap のスケール · <code>--hub-sys-gap-0…5</code>",
+				"FRACTIONS_TITLE": "幅の分数 · <code>--hub-sys-size-*</code>",
+				"GRID_TITLE": "グリッド auto-fit + コンテナ幅"
+			},
+			"MIXINS": {
+				"TITLE": "ミックスインとスタイル",
+				"BODY": "<code>ds</code> の Sass API です。正規のトークンを消費するヘルパーで、spacing も色も焼き込みません。<code>@use 'ng-hub-ui-ds' as hub</code> と名前空間付きで読み込みます。ユーティリティのシートも同じミックスインから作られているので、挙動を<strong>変えたり広げたり</strong>することは、そのミックスインで自分のクラスを作ることと同じです。以下のデモはすべて<strong>実際のミックスイン</strong>から組まれています。全一覧は最後にあります。",
+				"NOTE": "どのミックスインにも対応するユーティリティがあります。以下のデモは <code>ds</code> の実クラス（<code>.cluster</code>、<code>.stack</code>…）を使っており、このページでミックスインを当て直してはいません。",
+				"CLUSTER_TITLE": "<code>hub.cluster()</code> · <code>.cluster</code> — 折り返す行",
+				"STACK_TITLE": "<code>hub.stack()</code> · <code>.stack</code> — 列",
+				"GRID_TITLE": "<code>hub.grid()</code> · <code>.grid-auto</code> — auto-fit グリッド",
+				"CENTER_TITLE": "<code>hub.center()</code> · <code>.center</code> — 中央寄せのラッパー",
+				"CENTER_DEMO": "中央寄せの内容（max-width xl）",
+				"CHIP_1": "ホーム",
+				"CHIP_2": "製品",
+				"CHIP_3": "料金",
+				"CHIP_4": "お問い合わせ",
+				"CHIP_5": "その他",
+				"BLOCK": "ブロック",
+				"CATALOG_TITLE": "全一覧",
+				"TABLE_MIXIN": "ミックスイン",
+				"TABLE_PARAMS": "引数",
+				"TABLE_DESC": "説明"
+			},
+			"UTILITIES": {
+				"TITLE": "ユーティリティ",
+				"BODY": "同じレイヤーを包む任意導入のクラスで、名前は <strong>Bootstrap とまったく同じ</strong>です。差し替えとして使えますが、同じドキュメントでこれらのシートとグローバルな Bootstrap を両方読み込まないでください。シートは 3 つ。<code>layout</code>（display/flex、grid、spacing、sizing、position、helpers — これらの節）、<code>text</code>（「テキスト」の節）、<code>surfaces</code>（「サーフェス」の節）です。デモは実クラスを使っています:",
+				"SIZING_TITLE": "サイズ · <code>.w-50 · .w-25 · .w-auto</code>",
+				"ONE": "いち",
+				"TWO": "に",
+				"THREE": "さん",
+				"FOUR": "よん"
+			},
+			"FLEX": {
+				"TITLE": "Flexbox",
+				"BODY": "<strong>display と flexbox</strong> のユーティリティ一式を、Bootstrap とまったく同じ命名で用意しています。デモは <code>ds</code> の実クラスを使っています。",
+				"JUSTIFY_TITLE": "<code>justify-content</code> · <code>.justify-content-*</code> — 主軸",
+				"ALIGN_TITLE": "<code>align-items</code> · <code>.align-items-*</code> — 交差軸",
+				"DIRECTION_TITLE": "<code>flex-direction</code> · <code>.flex-column</code>",
+				"GROW_TITLE": "<code>flex-fill</code> / <code>flex-grow-0</code> — 伸ばす・固定する",
+				"GROW_LABEL": ".flex-fill（伸びます）",
+				"RESPONSIVE_TITLE": "レスポンシブ · <code>.flex-md-row · .align-items-md-center</code>",
+				"RESPONSIVE_NOTE": "flex 系はすべてブレークポイントごとのバリアントを持ちます。モバイルでは列、<code>md</code> 以上では中央寄せの行 — ウィンドウの幅を変えてみてください:",
+				"DIVIDER_TITLE": "縦の区切り · <code>.vr</code>",
+				"ROW": "行",
+				"LEFT": "左",
+				"RIGHT": "右"
+			},
+			"COLS": {
+				"TITLE": "カラム、幅、spacing",
+				"BODY": "<strong>12 カラム</strong>のグリッド（<code>.row</code> + <code>.col-1…12</code> + <code>.offset-1…11</code>、<code>--hub-sys-grid-columns</code> が駆動）と、幅、そして<strong>方向つきの padding/margin</strong>。どのデモも実際のユーティリティを使っています。",
+				"COLUMNS_TITLE": "カラム · <code>.row</code> + <code>.col-N</code>",
+				"OFFSETS_TITLE": "オフセット · <code>.offset-N</code>",
+				"OFFSETS_NOTE": "セルは同じグリッドの <code>n + 1</code> 番目のトラックから始まります（<code>grid-column-start</code>）。ブレークポイント付きなら <code>.offset-md-8</code>、<code>.offset-md-0</code> で自動配置に戻ります。",
+				"WIDTHS_TITLE": "幅 · <code>.w-25 / 50 / 75 / 100 / auto</code>",
+				"PADDING_TITLE": "Padding · <code>.p-1…5</code>（四辺）",
+				"PADDING_AXIS_TITLE": "軸ごとの padding · <code>.px-* / .py-*</code>",
+				"MARGIN_TITLE": "Margin · <code>.m-1…5</code>（基準となる枠の中で）",
+				"MARGIN_AXIS_TITLE": "軸ごとの margin · <code>.mx-* / .my-*</code>",
+				"RESPONSIVE_TITLE": "レスポンシブ · <code>.col-md-6 · .d-lg-none · .p-sm-3</code>",
+				"RESPONSIVE_NOTE": "モバイルファーストのバリアント（sm 576 · md 768 · lg 992 · xl 1200 · xxl 1400）が、display、カラムとオフセット、spacing、gap、そして flex 系すべて（<code>.flex-md-row</code>、<code>.justify-content-md-center</code>、<code>.align-items-md-start</code>、<code>.order-lg-*</code>…）にあります。ウィンドウの幅を変えてみてください — これらのセルは <code>.col-12 .col-md-6 .col-xl-3</code> です:"
+			},
+			"TEXT": {
+				"TITLE": "テキスト",
+				"BODY": "<strong>タイポグラフィとテキスト</strong>のユーティリティを Bootstrap とまったく同じ命名で、タイポグラフィのミックスイン（<code>hub.font-size()</code>、<code>hub.font-weight()</code>、<code>hub.text-color()</code>…）の上に組んでいます。どの値もトークンへ解決されるので、トークンを上書きすればユーティリティのテーマも変わります。ミックスインを使えば自分のバリアントも作れます。",
+				"SIZE_TITLE": "サイズ · <code>.fs-1…6</code> · 見出し · <code>.h1…6</code>",
+				"SAMPLE_HEADING": "見出しの例",
+				"SIZE_NOTE": "<code>.fs-*</code> はサイズだけを変えます。<code>.h1…6</code> は見出しのタイポグラフィ一式（サイズ + 太字 + 詰まった行間 + 余白）をセマンティクス抜きで当てます — <code>&lt;div class=\"h5\"&gt;</code> が <code>&lt;h5&gt;</code> のように見えます:",
+				"WEIGHT_TITLE": "ウェイト · <code>.fw-*</code> · スタイル · <code>.fst-italic</code>",
+				"WEIGHT_SAMPLE": "ウェイトはトークン由来です — {{weight}}",
+				"ITALIC": "斜体",
+				"ALIGN_TITLE": "揃え · <code>.text-start / .text-center / .text-end</code>",
+				"TRANSFORM_TITLE": "Transform · 装飾 · ファミリー",
+				"TABULAR_TITLE": "等幅数字 · <code>.font-tabular-nums</code>",
+				"TABULAR_BODY": "プロポーショナルの数字は桁ごとに幅が違うため、1 は 0 より細く、2 つの金額の一の位がずれた場所に来ます。金額の列は上下に見比べて読むものです。左右で小数点がどこに来るか見てください。",
+				"TABULAR_DEFAULT": "既定",
+				"TABULAR_NUMS": ".font-tabular-nums",
+				"TRUNCATE_TITLE": "省略 · <code>.text-truncate</code>",
+				"TRUNCATE_SAMPLE": "16rem に収まらず、三点リーダーで省略されるだけの長さを持たせた文章です。",
+				"LH_TITLE": "行間 · <code>.lh-1 / .lh-sm / .lh-base / .lh-lg</code>",
+				"LH_SAMPLE": "スケールの各段が与える行間を確かめられるだけの、2 行分のテキストです。",
+				"COLORS_TITLE": "色 · <code>.text-primary … .text-muted</code>",
+				"OPACITY_TITLE": "文字の不透明度 · <code>.text-opacity-*</code> · リンク · <code>.link-*</code>"
+			},
+			"SURFACES": {
+				"TITLE": "サーフェス",
+				"BODY": "背景、境界、角丸、影、不透明度を Bootstrap とまったく同じ命名で、サーフェスのミックスイン（<code>hub.bg()</code>、<code>hub.text-bg()</code>、<code>hub.radius()</code>、<code>hub.shadow()</code>…）と <code>--hub-sys-color-*</code> / <code>--hub-sys-radius-*</code> / <code>--hub-sys-shadow-*</code> のトークンの上に組んでいます。",
+				"BACKGROUNDS_TITLE": "背景 · <code>.bg-*</code> と <code>.bg-*-subtle</code>",
+				"TEXT_BG_TITLE": "背景 + コントラスト保証 · <code>.text-bg-*</code>",
+				"BORDERS_TITLE": "境界 · <code>.border · .border-&#123;variant&#125; · .border-1…5</code>",
+				"BORDERS_NONE": "上下なし",
+				"RADIUS_TITLE": "角丸 · <code>.rounded-0…3 · .rounded-pill · .rounded-circle</code>",
+				"SHADOWS_TITLE": "影 · <code>.shadow-sm / .shadow / .shadow-lg</code>",
+				"OPACITY_TITLE": "不透明度 · <code>.opacity-*</code>（要素）· <code>.bg-opacity-*</code>（背景のみ）"
+			},
+			"HELPERS": {
+				"TITLE": "配置とヘルパー",
+				"BODY": "position/inset、overflow、order、float、可視性、z-index、object-fit、そして操作の制御 — さらに挙動のヘルパー（<code>.visually-hidden</code>、<code>.stretched-link</code>、<code>.ratio-*</code>、<code>.clearfix</code>）。すべて Bootstrap とまったく同じ命名です。",
+				"POSITION_TITLE": "配置 · <code>.position-* + .top/.start/.translate-middle</code>",
+				"RATIO_TITLE": "比率 · <code>.ratio .ratio-16x9</code>",
+				"OVERFLOW_TITLE": "Overflow · 操作 · 左右の spacing",
+				"OVERFLOW_SAMPLE": "収まりきらない内容を持つブロックです。overflow-auto はページのレイアウトをはみ出す代わりに、内側のスクロールを足します。",
+				"FOCUS_TITLE": "フォーカスリング · <code>.focus-ring</code>",
+				"FOCUS_NOTE": "<code>--hub-sys-focus-ring-*</code> のトークンで制御されるフォーカスリングです。クリックするか Tab を押してください:",
+				"FOCUS_BUTTON": "押してみて",
+				"A11Y_TITLE": "アクセシビリティ · <code>.visually-hidden</code>",
+				"A11Y_NOTE": "この段落には、視覚的には隠れているがスクリーンリーダーには読み上げられる文が入っています: <span class=\"visually-hidden\">支援技術のためだけの文</span>（DOM を調べると見えます）。"
+			},
+			"BRIDGES": {
+				"TITLE": "他システムへのブリッジ",
+				"BODY": "その場にあるフレームワークと hub をつなぐ<strong>任意導入</strong>のミックスインです。呼ばなければコストはゼロ。<code>$mode</code> で 2 方向あります。<strong>adopt</strong>（hub がホストのテーマを取り込む）と <strong>project</strong>（hub が自分のテーマをホストに投影する）です。",
+				"TABLE_MIXIN": "ミックスイン",
+				"TABLE_SYSTEM": "システム",
+				"BOOTSTRAP_ADOPT": "<code>--bs-*</code> を読む",
+				"BOOTSTRAP_PROJECT": "<code>--bs-*</code> とガター/角丸に色を付ける",
+				"MATERIAL_ADOPT": "<code>--mat-sys-*</code> を読む",
+				"MATERIAL_PROJECT": "<code>--mat-sys-*</code> に色を付ける（color/on の対）",
+				"TAILWIND_ADOPT": "<code>--color-*</code> を読む",
+				"TAILWIND_PROJECT": "<code>@theme</code> 用に <code>--color-*</code> を出力する",
+				"OPEN_PROPS_ADOPT": "ランプのエイリアス"
+			},
+			"QUICKREF": {
+				"TITLE": "早見表",
+				"TABLE_WANT": "やりたいこと",
+				"TABLE_HOW": "方法",
+				"WANT_1": "パレットを使う",
+				"WANT_2": "グローバルな色を変える",
+				"WANT_3": "独自のバリアントを足す",
+				"WANT_4": "コントラストのある文字",
+				"WANT_5": "レイアウト（ミックスイン / ユーティリティ）",
+				"WANT_6": "テキスト（ミックスイン / ユーティリティ）",
+				"WANT_7": "サーフェス（ミックスイン / ユーティリティ）",
+				"WANT_8": "配置 / ヘルパー",
+				"WANT_9": "レスポンシブ",
+				"WANT_10": "Bootstrap/Material へのブリッジ",
+				"WANT_11": "テーマを作る",
+				"WANT_12": "部分的なテーマ設定（Sass）"
+			},
+			"CATALOG": {
+				"GROUP_THEME": "テーマ",
+				"GROUP_BREAKPOINTS": "ブレークポイント",
+				"GROUP_LAYOUT": "レイアウト",
+				"GROUP_TYPOGRAPHY": "タイポグラフィ",
+				"GROUP_SURFACES": "サーフェス",
+				"GROUP_HELPERS": "ヘルパー",
+				"GROUP_BRIDGES": "ブリッジ",
+				"THEME": "一度の呼び出しで部分的にテーマを設定します。変更点だけをマップで渡すと正規の変数を出力し、そこから導かれるものは自動で導出し直されます。",
+				"MEDIA_UP": "そのブレークポイント以上のモバイルファースト・メディアクエリ（sm 576 · md 768 · lg 992 · xl 1200 · xxl 1400）。",
+				"MEDIA_DOWN": "そのブレークポイント未満のメディアクエリ。",
+				"STACK": "トークンの gap を持つ flex の列。",
+				"CLUSTER": "折り返す flex の行。",
+				"GRID": "セルの最小幅を指定する auto-fit グリッド。",
+				"GRID_FIXED": "N 列固定のグリッド。",
+				"ROW": "12 トラックの行（--hub-sys-grid-columns）。",
+				"COL": "row() の $span 個のトラックにまたがるセル。",
+				"OFFSET": "col() を $n + 1 番目のトラックから始めます（Bootstrap の offset）。0 で解除。",
+				"CENTER": "コンテナの max-width に中央寄せするラッパー。",
+				"FONT_FAMILY": "base | display | mono。",
+				"FONT_SIZE": "1–6（見出しのスケール）または xs | sm | base | lg。",
+				"FONT_WEIGHT": "light | base | medium | semibold | bold。",
+				"LINE_HEIGHT": "1 | sm | base | lg。",
+				"TEXT_COLOR": "開かれたマップのアクセント、body、または muted。--hub-text-opacity で薄くできます。",
+				"LINK_COLOR": "アクセントのリンク。ホバーで -emphasis、下線には不透明度（--hub-link-underline-opacity）。",
+				"TEXT_TRUNCATE": "1 行で三点リーダー省略。",
+				"TEXT_BREAK": "長い単語や URL をはみ出さずに折り返します。",
+				"BG": "アクセントの背景（またはその subtle の色味）、body、transparent。--hub-bg-opacity で薄くできます。",
+				"TEXT_BG": "アクセントの背景 + コントラストを保証する -on の文字色。",
+				"BORDER": "既定の境界トークンによる実線の境界。",
+				"BORDER_COLOR": "開かれたマップのアクセントから取る境界色。",
+				"RADIUS": "none | sm | md | lg | xl | xxl | pill | circle。",
+				"SHADOW": "none | sm | md | lg | inset。",
+				"FOCUS_RING": "--hub-sys-focus-ring-* のトークンを使うフォーカスリング。",
+				"VISUALLY_HIDDEN": "視覚的に隠しつつ、スクリーンリーダーからは読めるままにします。",
+				"STRETCHED_LINK": "リンクのクリック領域を、位置指定された祖先まで広げます。",
+				"RATIO": "ネイティブの aspect-ratio による固定比率。",
+				"CLEARFIX": "float を解除します（::after）。",
+				"BRIDGE_BOOTSTRAP": "--bs-* のテーマを取り込む、またはそこへ投影します。",
+				"BRIDGE_MATERIAL": "--mat-sys-* でも同様（Angular Material 3）。",
+				"BRIDGE_TAILWIND": "--color-* でも同様（Tailwind v4 @theme）。",
+				"BRIDGE_OPEN_PROPS": "Open Props のランプのエイリアス。"
+			}
+		},
+		"COMMON": {
+			"NAV": {
+				"TOKENS": "トークン",
+				"THEMING": "テーマ設定",
+				"DESIGN_SYSTEM": "デザインシステム"
+			},
+			"LIBRARY": {
+				"AVATAR": "アバター",
+				"BOARD": "ボード",
+				"BADGES": "バッジ",
+				"BREADCRUMBS": "パンくずリスト",
+				"CALENDAR": "カレンダー",
+				"FORMS": "フォーム",
+				"HISTORY": "履歴",
+				"MILESTONES": "マイルストーン",
+				"MODAL": "モーダル",
+				"NAV": "ナビゲーション",
+				"PAGINABLE": "ページネーション",
+				"PANELS": "パネル",
+				"PORTAL": "ポータル",
+				"SKELETON": "スケルトン",
+				"SORTABLE": "並べ替え",
+				"STEPPER": "ステッパー",
+				"UTILS": "ユーティリティ",
+				"TOAST": "トースト通知",
+				"BUTTONS": "ボタン",
+				"ICONS": "アイコン",
+				"METRICS": "メトリクス",
+				"SIGNATURE": "署名",
+				"LOADING": "ローディング",
+				"ACTION_SHEET": "アクションシート",
+				"INSTALLER": "インストーラー"
+			}
+		},
+		"FORMS": {
+			"FEATURE": {
+				"TEXT_FIELDS": {
+					"TITLE": "テキストフィールド",
+					"DESCRIPTION": "リアクティブフォームのバインディングと、配線不要の自動エラー表示を備えた `hub-input` フィールドです。text、email、password、number、counter に加え、フローティングラベルと input-group のアドオンに対応します。"
+				},
+				"MULTILINE_RANGE": {
+					"TITLE": "複数行＆範囲",
+					"DESCRIPTION": "文字カウンター付きの自動拡張テキストエリアと、単一／デュアルサムの範囲スライダーです。"
+				},
+				"SELECTION": {
+					"TITLE": "選択",
+					"DESCRIPTION": "hub トークンでテーマ化されたフォーク版 ng-select エンジンに加え、同じ値に対して独自の UI をレンダリングする button、radio、checkbox の各フォーマットを提供します。"
+				},
+				"DATE_PICKING": {
+					"TITLE": "日付選択",
+					"DESCRIPTION": "ネイティブの Date と CDK Overlay 上にゼロから構築した日付／範囲ピッカーで、境界値、キーボードナビゲーション、完全な i18n を備えています。"
+				},
+				"CONTAINERS_VALIDATION": {
+					"TITLE": "コンテナ＆バリデーション",
+					"DESCRIPTION": "`form[hubForm]`、`fieldset[hubFieldset]` / `hub-fieldset`、`hub-legend` は、フィールドがコントロールエラーを表示するのと同じ方法で、グループレベルおよびフォームレベル（クロスフィールド）のエラーを自動的に表示します。"
+				},
+				"FILE_UPLOAD": {
+					"TITLE": "ファイルアップロード",
+					"DESCRIPTION": "ドラッグ＆ドロップ、クリップボードからの貼り付け、種類とサイズの制約、プレビュー、そして任意のファイル単位のアップロード進捗に対応したファイルフィールド。"
+				},
+				"RTL": {
+					"TITLE": "右から左へ",
+					"DESCRIPTION": "`dir=\"rtl\"` ですべてのフィールドが反転します。大半は論理 CSS プロパティで書かれているため無償ですが、スライダー・スイッチ・セグメンテッドコントロールはジオメトリの半分が CSS の外にあるため、個別に対応しました。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"FORM_CONTROL_NAME": {
+						"DESCRIPTION": "任意のフィールドをリアクティブコントロールにバインドします。コントロールが touched かつ無効な場合、エラーが自動的に表示されます。"
+					},
+					"LABEL": {
+						"DESCRIPTION": "フィールドのラベルテキスト。"
+					},
+					"LABEL_TYPE": {
+						"DESCRIPTION": "ラベルの配置。`floating` はラベルをコントロールの内側に配置し、フィールドがフォーカスされるか値を持つまで、プレースホルダーの代わりを務めます。"
+					},
+					"PLACEHOLDER": {
+						"DESCRIPTION": "プレースホルダーテキスト。"
+					},
+					"FORM_TEXT": {
+						"DESCRIPTION": "コントロールの下に表示されるヘルパーテキスト。"
+					},
+					"TYPE": {
+						"DESCRIPTION": "hub-input のフォーマット。"
+					},
+					"PASSWORD_REVEALED": {
+						"DESCRIPTION": "パスワードフィールドの表示状態を表す双方向モデル。目のアイコンをクリックすると更新され、値を設定すると表示または非表示になります。"
+					},
+					"PASSWORD_TOGGLE": {
+						"DESCRIPTION": "パスワードフィールドに統合された表示切り替えボタンをレンダリングするかどうか。"
+					},
+					"HIDE_ON_BLUR": {
+						"DESCRIPTION": "フィールドからフォーカスが外れたときに、表示中のパスワードを自動的に再度マスクするかどうか。"
+					},
+					"CAPS_LOCK_WARNING": {
+						"DESCRIPTION": "Caps Lock が有効な間、フィールドの下にヒントを表示するかどうか。"
+					},
+					"PASSWORD_STRENGTH": {
+						"DESCRIPTION": "フィールドの下にオプションの4セグメント強度メーターを表示します。スコアリングは provideHubForms で上書きできます。"
+					},
+					"AUTOCOMPLETE": {
+						"DESCRIPTION": "ネイティブの autocomplete 属性。パスワードマネージャー向けに current-password や new-password などを指定します。"
+					},
+					"PREPEND_APPEND": {
+						"DESCRIPTION": "ボックスとして描画されるあらゆるフィールドに付く静的なグループアドオン。文字列は 1 つのアドオン、配列はその連なりを表し、空の項目は空のボックスとして描かれず破棄されます。アドオンはフィールドの境界線を共有し、フォーカスできません。縁に付く操作可能なコントロールが必要な場合は [hubPrepend] / [hubAppend] テンプレートを使ってください。両方を同時に指定でき、投影されたコンテンツは常にその側の最も外側の要素になります。"
+					},
+					"MASK": {
+						"DESCRIPTION": "テキストフォーマット用のパターンマスク。トークン: 0 = 数字、A = 英字、* = 英数字。その他の文字はリテラルな区切り文字です。例: \"0000 0000 0000 0000\"。"
+					},
+					"UNMASK_VALUE": {
+						"DESCRIPTION": "マスクを設定した場合、フォーマット済みテキストの代わりに、入力された生の文字（区切り文字なし）をフォームに保存します。"
+					},
+					"RANGE": {
+						"DESCRIPTION": "2 つのつまみを持つレンジスライダー。値は [lower, upper] のタプルになります。"
+					},
+					"FORMAT": {
+						"DESCRIPTION": "select が同じ値をどのようにレンダリングするか。"
+					},
+					"ITEMS": {
+						"DESCRIPTION": "選択肢、オブジェクト項目の label/value プロパティ名、および複数選択。"
+					},
+					"ADD_TAG": {
+						"DESCRIPTION": "検索語から項目を作成します（dropdown フォーマット）：true は検索語をそのまま追加し、関数は検索語を新しい項目にマッピングします（同期または Promise）。"
+					},
+					"ADD_TAG_TEXT": {
+						"DESCRIPTION": "addTag が有効なとき、入力中に表示される「項目を追加」行のラベル。"
+					},
+					"MIN_TERM_LENGTH": {
+						"DESCRIPTION": "フィルタリング（または typeahead の Subject）が動き出すまでの検索語の最小長。"
+					},
+					"TYPEAHEAD": {
+						"DESCRIPTION": "非同期／サーバーサイド読み込みのために検索語の変更を受け取る Subject。指定するとクライアントサイドのフィルタリングは無効になります — 結果は items を通じて返してください。"
+					},
+					"COMPARE_WITH": {
+						"DESCRIPTION": "項目とバインドされた値のカスタム等価判定（例：オブジェクトを id で比較）。省略時はベンダー組み込みの比較が適用されます。"
+					},
+					"MODE": {
+						"DESCRIPTION": "単一の日付、自由な日付範囲、または 1 日の中での開始時刻と終了時刻。"
+					},
+					"MIN_MAX": {
+						"DESCRIPTION": "選択可能な範囲と、日付ごとの無効化述語です。範囲は日単位ではなく時刻まで考慮します。その日のどの瞬間も許可されない場合にのみ日が無効になるため、min = 2026-09-01T14:00 では 9 月 1 日はクリック可能なままで、それより早い時刻は時刻コントロールが拒否します。ISO 文字列、Date、エポックミリ秒を受け取ります。"
+					},
+					"CLEARABLE": {
+						"DESCRIPTION": "true の場合、値が入ると内部に ✕ ボタンを表示します。コントロールをクリアし、空の検索語を発行します。"
+					},
+					"INDETERMINATE": {
+						"DESCRIPTION": "true のとき、チェックボックスは混在状態を示します。部分的に選択されたリストの「すべて選択」に対する正直な答えです。双方向で、クリックすると解決します。switch 形式では無視されます。"
+					},
+					"DEBOUNCE_TIME": {
+						"DESCRIPTION": "search イベントが発火するまでのデバウンス時間（ミリ秒、0 はキー入力ごと）。"
+					},
+					"OPTIONS": {
+						"DESCRIPTION": "hub-segmented の選択可能なオプションを、レンダリング順に指定します — それぞれ { value, label, disabled? } です。"
+					},
+					"SIZE": {
+						"DESCRIPTION": "セグメンテッドコントロールの視覚的な密度：'sm'、'md'（デフォルト）または 'lg'。"
+					},
+					"DISABLED": {
+						"DESCRIPTION": "フィールドを無効化します。共通の基底クラスからすべてのフィールドが継承しており、双方向です — リアクティブコントロール経由で無効化されたフィールドは、その変化を返します。`hub-segmented` では、個々のオプションも `option.disabled` を通じて個別に除外できます。"
+					},
+					"SEGMENTED_MULTIPLE": {
+						"DESCRIPTION": "複数選択を許可します。値は配列になり、オプションは aria-pressed でトグルします。"
+					},
+					"SEGMENTED_VERTICAL": {
+						"DESCRIPTION": "セグメントを横一列ではなく縦に積み重ねます。"
+					},
+					"SEGMENTED_COLOR": {
+						"DESCRIPTION": "選択セグメントのセマンティックアクセント（primary, success, …）または任意の色。single モードでスライドします。"
+					},
+					"FILE_MULTIPLE": {
+						"DESCRIPTION": "複数のファイルを保持できるかどうか。コントロールの値を File から File[] に切り替えます。"
+					},
+					"FILE_ACCEPT": {
+						"DESCRIPTION": "許可するファイル種別（例: image/*,.pdf）。OS のダイアログだけでなく、ドロップや貼り付けにも適用されます。"
+					},
+					"FILE_SIZES": {
+						"DESCRIPTION": "ファイルごとの最大・最小サイズと、合計の最大サイズ（バイト）。"
+					},
+					"FILE_MAX_FILES": {
+						"DESCRIPTION": "ファイル数の上限。multiple と併用する場合にのみ意味を持ちます。"
+					},
+					"FILE_DRAG_DROP": {
+						"DESCRIPTION": "フィールドにファイルをドロップできるか、また貼り付けられるか。"
+					},
+					"FILE_PREVIEW": {
+						"DESCRIPTION": "保持しているファイルの表示方法：表示しない、リスト、ドロップゾーンの下のタイル（grid）、フィールド内のタイル（inline）。inline のタイルが 1 つならフィールド全体を占め、multiple ではタイルがグリッドになり、最後に追加用のタイルが並びます。"
+					},
+					"FILE_ALLOW_DUPLICATES": {
+						"DESCRIPTION": "同じファイルを二度選択できるかどうか（名前・サイズ・更新日時をキーとします）。"
+					},
+					"FILE_CAPTURE": {
+						"DESCRIPTION": "対応プラットフォームで、ファイルブラウザーではなく端末のカメラを開きます。"
+					},
+					"FILE_AUTO_UPLOAD": {
+						"DESCRIPTION": "受理されたファイルを直ちにアップロードするかどうか。アップローダー未登録なら無視されます。"
+					},
+					"FILE_BUTTON_LABEL": {
+						"DESCRIPTION": "参照ボタンのテキストと、自動生成される制約のヒントを上書きします。"
+					},
+					"FILE_DROP_TEXT": {
+						"DESCRIPTION": "ドロップゾーンの 2 行の案内文をインスタンス単位で上書きします。どちらも既定ではグローバルなラベルを使います。"
+					},
+					"GROUP_BY": {
+						"DESCRIPTION": "ドロップダウン項目をオプショングループのヘッダーの下にグループ化するために使用されるプロパティ名（ドットパス）。"
+					},
+					"SEARCHABLE_CLEARABLE": {
+						"DESCRIPTION": "入力によってオプションを絞り込めるか（searchable）、および組み込みのクリアボタンで選択を解除できるか（clearable）。どちらもデフォルトは true です。"
+					},
+					"CLOSE_ON_SELECT": {
+						"DESCRIPTION": "項目を選択した後にドロップダウンを閉じるかどうか。multiple モードで複数の値を選ぶ間開いたままにするには false を設定します。"
+					},
+					"FIXED_PLACEHOLDER": {
+						"DESCRIPTION": "値が選択されてもプレースホルダーを表示したままにします。デフォルトは false（選択時にプレースホルダーが隠れる）で、ng-select v23 の慣例に反するデフォルトを反転させています。"
+					},
+					"LOADING_NOT_FOUND": {
+						"DESCRIPTION": "loading は非同期の項目を取得している間、ドロップダウンのローディング状態を表示します。notFoundText は検索語に一致する項目がないときに表示されるメッセージです。"
+					},
+					"SELECT_READONLY": {
+						"DESCRIPTION": "true の場合、フィールドは値を表示しつつ一切の操作を受け付けません。disabled のスタイルやフォーム状態の変更は伴いません。"
+					},
+					"APPEND_TO": {
+						"DESCRIPTION": "ドロップダウンパネルを追加する先の要素の CSS セレクタ。デフォルトは 'body' で、パネルが overflow/transform を持つ祖先（カード、スクロールコンテナ、モーダル）から抜け出せるようにします。インラインでレンダリングするには undefined を渡します。"
+					},
+					"SEGMENTED_VALUE": {
+						"DESCRIPTION": "双方向バインド可能な選択値（model()）：single モードでは選択されたオプションの値、multiple モードでは選択値の配列になります。valueChange を発行します。通常は代わりに formControlName を通じて制御します。"
+					},
+					"DATEPICKER_LOCALE": {
+						"DESCRIPTION": "カレンダーの i18n：locale は表示値と月／曜日名に使う BCP-47 タグです（デフォルトはアプリの LOCALE_ID、なければ en-US）。firstDayOfWeek は週の最初の曜日を設定します（0 = 日曜、1 = 月曜…）。weekdayFormat は曜日ヘッダーの表示幅を選びます。後の 2 つはグローバルな provideHubForms 設定にフォールバックします。"
+					},
+					"DATEPICKER_FORMAT": {
+						"DESCRIPTION": "表示の書式です。displayFormat は選択された値を描画し、Intl.DateTimeFormatOptions、'dd/MM/yyyy HH:mm' のような Angular の日付パターン、または関数を受け取ります。粒度が時刻を含むようになると timeDisplayFormat がその上に合成されるため、日付部分は displayFormat が指定したままに保たれます。rangeSeparator は範囲の 2 つの日付のあいだに入るテキスト、labels はインスタンスごとに UI ラベルを上書きします（グローバル設定の上にマージされます）。"
+					},
+					"DATEPICKER_BEHAVIOR": {
+						"DESCRIPTION": "動作フラグ：clearable はクリアのショートカットを表示し、showToday は「今日」ショートカットを表示し、closeOnSelect は日付を選択した後にカレンダーを閉じます（single モードのみ）。デフォルト: true / true / true。"
+					},
+					"DATEPICKER_GRANULARITY": {
+						"DESCRIPTION": "選択された各時点が持つ精度と、それを選ぶパネルを決めます。year と month は 12 セルのグリッド、day はカレンダーを表示し、hour・minute・second はそこに時刻入力を追加します。mode とは直交する軸で、mode は選ぶ点の数を、granularity は各点の精度を決めます。既定は day で、従来どおり YYYY-MM-DD の文字列を出力します。hour 以降では、閲覧者のローカル時刻とその日付のオフセットを含む完全な ISO 8601 タイムスタンプになります。"
+					},
+					"DATEPICKER_VALUE_FORMAT": {
+						"DESCRIPTION": "値に関する軸です。valueFormat はバインドされたコントロールが保持する形を決めます: 'iso'（既定）、ネイティブな Date なら 'date'、エポックミリ秒なら 'timestamp'、それ以外は関数を渡します。parse は入力値の読み取り方を決め、任意の桁数の ISO 文字列・Date インスタンス・エポックミリ秒の自動判定を置き換えます。min と max にも適用されます。"
+					},
+					"DATEPICKER_TIME": {
+						"DESCRIPTION": "時刻まわりの設定です。minuteStep と secondStep はスピンボタンの増分、hourFormat は 12 時間制か 24 時間制を強制します。未指定ならロケールから導出され、パネルだけでなく入力欄の表示にも適用されるため、両者が食い違うことはありません。3 つとも provideHubForms のグローバル設定にフォールバックします。"
+					},
+					"CLASSLIST": {
+						"DESCRIPTION": "ホスト要素に適用する追加の CSS クラス。"
+					},
+					"FORM_TEXT_TYPE": {
+						"DESCRIPTION": "ヘルプテキストの表示場所です。`bottom`（既定）はコントロールの下に描き、`tooltip` はラベル行の末尾の疑問符の裏に格納します。決めた原則は、一文なら下に、それ以上ならツールチップに——各フィールドの下に段落が並ぶと、フォームは文書になってしまいます。トリガーはラベルの中ではなく隣に置いたボタンで、開いてもコントロールにフォーカスが移らず、アクセシブル名はヘルプテキストそのものです。"
+					},
+					"ROWS": {
+						"DESCRIPTION": "表示するテキストの行数。"
+					},
+					"COLS": {
+						"DESCRIPTION": "表示する列数。指定するとテキストエリアは全幅への伸張をやめます。"
+					},
+					"MAXLENGTH": {
+						"DESCRIPTION": "最大文字数。ネイティブの制限とカウンターの両方を決めます。"
+					},
+					"COUNTER": {
+						"DESCRIPTION": "コントロールの下に文字数カウンターを表示するかどうか。"
+					},
+					"AUTORESIZE": {
+						"DESCRIPTION": "テキストエリアが内容に合わせて広がるかどうか。"
+					},
+					"LENGTH": {
+						"DESCRIPTION": "コードのセル数（文字数）。"
+					},
+					"SECRET": {
+						"DESCRIPTION": "パスワードのように文字を伏せます。"
+					},
+					"SEPARATOR": {
+						"DESCRIPTION": "グループ間に表示する区切り文字。"
+					},
+					"SEPARATOR_EVERY": {
+						"DESCRIPTION": "N セルごとに視覚的な区切りを挿入します（0 は挿入しない）。"
+					},
+					"SHOW_VALUE": {
+						"DESCRIPTION": "つまみの上に値のバブルを表示するかどうか。"
+					},
+					"STEP": {
+						"DESCRIPTION": "ステップ値（数値入力・カウンター入力）。"
+					},
+					"LEGEND": {
+						"DESCRIPTION": "凡例のテキスト。`hubLegend` テンプレートを投影した場合は無視されます。"
+					},
+					"REQUIRED_LEGEND": {
+						"DESCRIPTION": "必須インジケーターを表示するかどうか。"
+					},
+					"INVALID_LEGEND": {
+						"DESCRIPTION": "無効状態のスタイルを適用するかどうか。"
+					},
+					"LABEL_TYPE_STACKED_ONLY": {
+						"DESCRIPTION": "ラベルの配置。これらのフィールドに `floating` のバリアントはありません。`floating` を渡しても、stacked のラベルを描画します。"
+					},
+					"SELECT_VERTICAL": {
+						"DESCRIPTION": "非推奨であり、同じく非推奨の dropdown 以外のフォーマットに紐づいています。buttons／checkbox／radio のオプションを縦方向に並べます。`<hub-segmented [vertical]=\"true\">` を使ってください。"
+					},
+					"SEARCH_FN": {
+						"DESCRIPTION": "`searchable` が使う組み込みのマッチング処理を置き換えます。入力された検索語と項目を受け取り、その項目が一致するかどうかを返します — これにより、ラベルに表示されていないフィールドまで検索の対象にできます。"
+					},
+					"SHOW_VALID": {
+						"DESCRIPTION": "有効なフィールドが有効状態を表示するかどうか。未操作のフィールドまで残らず緑に塗るフォームは何も伝えないため、デフォルトではオフです。無効状態のほうは常に表示されます。"
+					},
+					"VALID_FEEDBACK": {
+						"DESCRIPTION": "`showValid` が有効なとき、フィールドが有効になった時点でその下に表示されるメッセージ。"
+					},
+					"INVALID_FEEDBACK_TEMPLATE_FN": {
+						"DESCRIPTION": "特定のエラーキーに対するメッセージを、このフィールドに限って上書きします。エラーキーとその値を受け取り、表示するテキストを返します — アプリ全体のデフォルトは `provideHubForms` にあります。"
+					},
+					"INPUT_MIN_MAX": {
+						"DESCRIPTION": "number および counter フォーマットにおける数値の下限・上限。双方向であるため、自身の値をクランプするカウンターは、その境界値を呼び出し元に返します。"
+					},
+					"OTP_MODE": {
+						"DESCRIPTION": "各ボックスが受け付ける文字と、スマートフォンで表示されるキーボードの種類：数字のみか、英字と数字か。"
+					},
+					"TIMEPICKER_MIN_MAX": {
+						"DESCRIPTION": "フィールドが受け付ける最も早い時刻と最も遅い時刻を `HH:MM` で指定します。空の場合は制限なしです。"
+					},
+					"TIMEPICKER_STEP": {
+						"DESCRIPTION": "ネイティブのステッパーの刻み幅（秒単位）。`0` の場合はブラウザーのデフォルトである 1 分のままになります。"
+					},
+					"GROUP": {
+						"DESCRIPTION": "コンテナがエラーを表示する対象のグループ。`group` には `AbstractControl` を直接渡すか、`groupName` には囲んでいるフォームの子コントロールの名前を渡します — コンテナがすでに対象のグループを囲んでいる場合は、どちらも不要です。"
+					},
+					"ERROR_TRIGGER": {
+						"DESCRIPTION": "グループレベルのエラーが表示されるタイミング：グループが touched になった時点か、送信が試みられた後のみか、直ちに表示するか。"
+					},
+					"REQUIRED_ALL": {
+						"DESCRIPTION": "フィールドが必須かどうか。リアクティブなバインディングでは、コントロール自身のバリデーターから導出されるため、テンプレート上で直接指定した値が尊重されるのはテンプレート駆動のフィールドのみです。この値がアスタリスクと `required` 属性を制御します。"
+					},
+					"DATEPICKER_MONTH_FORMAT": {
+						"DESCRIPTION": "パネルのヘッダーが月をどう表記するか。既定は省略形です。パネルの幅は日付グリッドとちょうど同じで、ヘッダーはナビゲーションボタンが残した分しか使えません — 102px に対し、綴った «septiembre de 2026» は 152px を要し、切り詰められます。`--hub-daterangepicker-cell-size` や `--hub-datepicker-grid-gap` でパネルを広げた場所で `long` を指定してください。 幅を広げる操作はグローバルです。カレンダーは `document.body` に付けられたオーバーレイに描画されるため、フィールドに設定したカスタムプロパティは届きません — トークンは `:root` で宣言してください。"
+					},
+					"PLAINTEXT": {
+						"DESCRIPTION": "フィールドの枠を持たない値。`readonly` はまだ入力途中の欄の状態で、テーマは `--hub-input-readonly-bg` / `-border-color` で枠を与えます。`plaintext` は単に表示されるだけの値のためのもので、枠がないことそのものであって、たまたま纏った色ではありません。出荷時の既定値では `readonly` も枠を描かないため、手を加えなければ両者の違いは水平パディング、左右のボーダー幅、カーソル、アフォーダンスです。`readonly` を含意し、二つの表示は排他的です。コントロールは本物の input のままです。"
+					},
+					"SLIDER_MIN_MAX": {
+						"DESCRIPTION": "つまみが動く範囲の下限と上限。刻み幅は step が決めます。つまみが 2 つのスライダーでは、両方が同じ範囲を共有します。"
+					},
+					"INPUT_FILE_DEPRECATED": {
+						"DESCRIPTION": "hub-input の非推奨となった file 形式の名残です。公開されたままで動作もしますが、ファイル選択は hub-file-input に移りました。こちらは OS のダイアログだけでなくドロップや貼り付けにも accept を適用します。次のメジャーで削除されます。"
+					},
+					"HUB_AUTORESIZE": {
+						"DESCRIPTION": "素の textarea に使える単独のディレクティブで、内容に合わせて要素を伸ばします。hub-textarea は自身の autoresize 入力からこれを適用します。ライブラリの外にある textarea では、これを直接使います。"
+					},
+					"FILE_CURRENT_FILE": {
+						"DESCRIPTION": "レコードが既に持っているファイル。preview=\"inline\" で表示されます。URL、HubCurrentFile { url, name?, type? }、または multiple ではそれらの配列。表示専用で、フォームの値には入りません。"
+					},
+					"FILE_IMAGE_PREVIEW": {
+						"DESCRIPTION": "画像を画像として表示するかどうか。オフにすると、すべてのファイルが種類のアイコンで描かれ、サムネイル用の object URL は作成されません。"
+					},
+					"FILE_READONLY": {
+						"DESCRIPTION": "ファイルは表示されたまま開けますが、選択・ドロップ・貼り付け・置き換え・削除はできません。disabled と違い、フォーカスを保ち、送信されます。"
+					},
+					"FILE_CLEARABLE": {
+						"DESCRIPTION": "フィールドの内容（選択済みまたは保存済み）をユーザーが削除できるかどうか。list と grid の削除ボタンと「Remove all」にも適用されます。"
+					},
+					"COLOR_SWATCHES": {
+						"DESCRIPTION": "type=\"color\" がスウォッチのグリッドとして提示する色。CSS の色文字列または { value, label }。null は provideHubForms({ color }) のパレットを使い、なければ従来の hex フィールドになります。[] は従来のフィールドを強制します。HUB_COLOR_PALETTES に 5 つのリストがあります。"
+					},
+					"COLOR_ALLOW_CUSTOM": {
+						"DESCRIPTION": "グリッドの最後に、リスト外の色を選ぶネイティブピッカーを開くセルを置くかどうか。閉じたパレットではオフにします。"
+					},
+					"COLOR_CUSTOM_LABEL": {
+						"DESCRIPTION": "自由色セルのアクセシブルな名前。空の場合はグローバル設定の color.customColorLabel を使います。"
+					}
+				},
+				"OUTPUT": {
+					"VALUE_CHANGE": {
+						"DESCRIPTION": "フィールドの値が変化するたびに発行されます。"
+					},
+					"SUBMIT": {
+						"DESCRIPTION": "カスタム出力ではありません。`hubForm` はフォーム自身の `submit` イベントを購読し、デフォルトの画面遷移を抑止し、ツリーを touched としてマークして、submitted の状態を切り替えます。独自のハンドラーはフォームの `(submit)` にバインドしてください。"
+					},
+					"OPENED": {
+						"DESCRIPTION": "カレンダーのライフサイクルおよびナビゲーションイベント。"
+					},
+					"ON_OPEN": {
+						"DESCRIPTION": "ドロップダウンのライフサイクルおよびタグ／タイプアヘッドイベント。"
+					},
+					"SEARCH": {
+						"DESCRIPTION": "入力中に発行されるデバウンス済みのタイプアヘッド語（テキスト系入力）。"
+					},
+					"REJECTED": {
+						"DESCRIPTION": "宣言された制約により拒否されたファイルと、それぞれの拒否理由。"
+					},
+					"FILE_REMOVED": {
+						"DESCRIPTION": "選択から外れた選択済みファイル（削除、またはタイルからの置き換え）。"
+					},
+					"UPLOAD_STATE_CHANGE": {
+						"DESCRIPTION": "アップロードの状態または進捗が変わるたびの、項目の全リスト。"
+					},
+					"ON_FOCUS_BLUR": {
+						"DESCRIPTION": "ドロップダウンコントロールがフォーカスを得たり失ったりしたときに発行されます（dropdown フォーマット）。ベンダーの focus/blur イベントを中継します。"
+					},
+					"SCROLL": {
+						"DESCRIPTION": "scroll はドロップダウンリストのスクロール中に可視範囲の { start, end } ウィンドウを発行し、scrollToEnd はリストが末尾に達したときに発行されます — typeahead と組み合わせた無限／ページング読み込みのフックです。"
+					},
+					"ENTER": {
+						"DESCRIPTION": "Enter キーが押されたときに現在の値を発行します。"
+					},
+					"COMPLETED": {
+						"DESCRIPTION": "すべてのセルが埋まると完全なコードを発行します。"
+					},
+					"MODEL_CHANGE": {
+						"DESCRIPTION": "双方向の `model()` 入力はいずれも対応する `Change` 出力を公開しており、そのおかげで `[(disabled)]` などが機能します。バナナ・イン・ア・ボックス構文ではそれらが見えないため、ここに記載しています。"
+					},
+					"CURRENT_FILE_REMOVED": {
+						"DESCRIPTION": "フィールドから外れた保存済みファイル（currentFile）。削除されたか、選択したファイルで置き換えられた場合です。フォームの値には含まれていないため、サーバー側で削除する合図になります。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "hubFormText",
+						"DESCRIPTION": "リッチなヘルパーテキストコンテンツを投影します。"
+					},
+					"1": {
+						"NAME": "hubValidationError",
+						"DESCRIPTION": "指定されたエラーキーのメッセージを上書きします。"
+					},
+					"2": {
+						"NAME": "hub-legend",
+						"DESCRIPTION": "fieldset の legend を要素として投影します。必須マークと無効状態もここが持ちます。"
+					},
+					"3": {
+						"NAME": "hubSelectOption (hub-select)",
+						"DESCRIPTION": "ドロップダウン項目のカスタム描画。hubSelect* スロットの 1 つで、hubSelectLabel・hubSelectHeader・hubSelectFooter・hubSelectNotFound などがパネルの他の部分を担います。"
+					},
+					"4": {
+						"NAME": "hubFileIcon (hub-file-input)",
+						"DESCRIPTION": "サムネイルのないファイル用のアイコン。項目を暗黙のコンテキストとして受け取ります。"
+					},
+					"5": {
+						"NAME": "hubFilePreview (hub-file-input)",
+						"DESCRIPTION": "選択されたファイルの描画全体を置き換えます。項目に加えて、削除・再試行・キャンセルの各アクションを受け取ります。"
+					},
+					"6": {
+						"NAME": "hubFileDropzoneNotice (hub-file-input)",
+						"DESCRIPTION": "ドロップゾーンの最上部、アイコンの上に任意のマークアップを投影します。案内文にも制約のヒントにも表せない通知のための場所です。"
+					},
+					"7": {
+						"NAME": "hubSegmentedOption (hub-segmented)",
+						"DESCRIPTION": "各セグメントの内容（アイコン、バッジ、リッチなマークアップ）を置き換えます。選択、キーボードナビゲーション、ARIA は引き続きコンポーネントが管理します。コンテキスト：選択肢（暗黙）、selected、index。"
+					},
+					"8": {
+						"NAME": "hubSelectSuffix (hub-select、非推奨)",
+						"DESCRIPTION": "22.16.0 で非推奨 — すべてのフィールドで同じことができる [hubAppend] を使ってください。引き続き動作しますが、両方ある場合は [hubAppend] が優先されます。セレクトの行末側の端に操作可能なコントロールを付けます。選択中の項目に対して働くボタン — 設定する、参照する、新規作成するといった用途です。投影コンテンツではなくテンプレートとして宣言するのは、セレクトの総取り ng-content が ng-option をエンジンへ渡す役目を持ち、そのまま飲み込んでしまうためです。テンプレートから描画することで DOM 上でもアクションがコントロールの後に残るため、タブ移動は先にフィールドへ到達します。コントロールとアクションは境界線を共有し、ひとつのフィールドとして読めます。"
+					},
+					"9": {
+						"NAME": "hubPrepend / hubAppend (all box-shaped fields)",
+						"DESCRIPTION": "フィールドの端に付ける、prepend / append の文字列では運べない内容 — アイコンや、値に対して働くボタンです。値を持つ箱として描かれるすべてのフィールド（hub-input、hub-select、hub-textarea、hub-datepicker）で使えます。文字列アドオンを置き換えるのではなく組み合わせます。文字列が先に描画されるため、投影された内容は常にその側の最も外側になります — 単位がフィールドを説明し、アクションはその外側に置かれます。投影された要素は自身のものではなくフィールドの境界線・角丸・高さをまといます。そのためボタンがコントロールの横に二重の太い継ぎ目を描くことはありません。フィールドの ng-content はすでに別用途で使われているため、テンプレートとして宣言します。 スロットには別のフィールド（hub-input、hub-select、hub-textarea、hub-datepicker を直接の子として）も渡せます。ホストのフィールドとぴったり接するため、価格とその期間が本来ひとつである記述として読めます。"
+					},
+					"10": {
+						"NAME": "hubInputPrefix / hubInputSuffix (hub-input)",
+						"DESCRIPTION": "フィールドの行頭側または行末側のアフィックス領域に内容を投影します — 先頭のアイコン、通貨記号、インライン SVG など。テンプレートではなく属性ディレクティブなので、投影する要素自体に付けます。フィールドが内側のパディングを確保するので、テキストがアフィックスの下に入ることはありません。投影された hub-icon は --hub-input-icon-* トークンでテーマが適用されます。両端は書き方向に従うため、dir=\"rtl\" で左右が入れ替わります。クリアボタンには組み込みの clearable 入力を使ってください。"
+					}
+				},
+				"CSS_VAR": {
+					"LABEL_FONT_WEIGHT": {
+						"DESCRIPTION": "フィールドラベルのウェイト。"
+					},
+					"INPUT_BG": {
+						"DESCRIPTION": "コントロールの背景。"
+					},
+					"INPUT_BORDER_COLOR": {
+						"DESCRIPTION": "コントロールの境界線の色。"
+					},
+					"INPUT_BORDER_RADIUS": {
+						"DESCRIPTION": "コントロールの境界半径。"
+					},
+					"INPUT_PADDING_Y": {
+						"DESCRIPTION": "コントロールの垂直パディング。"
+					},
+					"INPUT_PADDING_X": {
+						"DESCRIPTION": "コントロールの水平パディング。"
+					},
+					"INPUT_FOCUS_BORDER_COLOR": {
+						"DESCRIPTION": "フォーカス時の境界線の色。"
+					},
+					"SELECT_OPTION_SELECTED_BG": {
+						"DESCRIPTION": "選択されたドロップダウンオプションの背景。"
+					},
+					"SELECT_VALUE_BG": {
+						"DESCRIPTION": "複数選択チップの背景。"
+					},
+					"SLIDER_TRACK_FILL_BG": {
+						"DESCRIPTION": "slider トラックの塗りつぶし部分。"
+					},
+					"SLIDER_THUMB_BG": {
+						"DESCRIPTION": "slider のつまみの色。"
+					},
+					"DATERANGEPICKER_ACTIVE_BG": {
+						"DESCRIPTION": "選択されたカレンダー日の背景。"
+					},
+					"DATERANGEPICKER_IN_RANGE_BG": {
+						"DESCRIPTION": "範囲内のカレンダー日の背景。"
+					},
+					"DATERANGEPICKER_PREVIEW_BG": {
+						"DESCRIPTION": "終了日を選択している間にプレビューされる、暫定的な範囲の背景。"
+					},
+					"INPUT_ICON_COLOR": {
+						"DESCRIPTION": "フィールド内アイコンアフィックスの色。"
+					},
+					"INPUT_ICON_SIZE": {
+						"DESCRIPTION": "フィールド内アイコンアフィックスのサイズ。"
+					},
+					"INPUT_CLEAR_ICON": {
+						"DESCRIPTION": "✕（クリア）ボタンのグリフ（マスク画像）。差し替えてアイコンを変更できます。"
+					},
+					"INPUT_CLEAR_COLOR": {
+						"DESCRIPTION": "クリアボタンの色。"
+					},
+					"INPUT_CLEAR_HOVER_COLOR": {
+						"DESCRIPTION": "ホバー／フォーカス時のクリアボタンの色。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"INPUT_BASIC": {
+					"TITLE": "テキストフィールド & 自動エラー"
+				},
+				"INPUT_PASSWORD": {
+					"TITLE": "パスワードフィールド — 表示切替、強度メーター、オートコンプリート"
+				},
+				"INPUT_FORMATS": {
+					"TITLE": "数値、カウンター、カラー、スイッチ、チェックボックス"
+				},
+				"INPUT_COLOR_SWATCHES": {
+					"TITLE": "カラースウォッチ — 入力欄と同じ高さのパレット"
+				},
+				"INPUT_GROUPS": {
+					"TITLE": "入力グループ、ファイル & フローティングラベル"
+				},
+				"INPUT_MASK": {
+					"TITLE": "パターンマスク（カード、IBAN、電話、日付）"
+				},
+				"INPUT_OTP": {
+					"TITLE": "ワンタイムコード（OTP）入力"
+				},
+				"TEXTAREA": {
+					"TITLE": "カウンター & 自動リサイズ付きテキストエリア"
+				},
+				"SLIDER": {
+					"TITLE": "Slider & デュアルサムレンジ"
+				},
+				"SELECT": {
+					"TITLE": "選択 & 複数選択"
+				},
+				"SELECT_FORMATS": {
+					"TITLE": "ボタン、ラジオ & チェックボックス形式"
+				},
+				"DATEPICKER": {
+					"TITLE": "Datepicker & 範囲"
+				},
+				"DATEPICKER_TIME": {
+					"TITLE": "時刻付き日付ピッカー"
+				},
+				"DATEPICKER_GRANULARITY": {
+					"TITLE": "粒度: 年から秒まで"
+				},
+				"DATEPICKER_FORMATS": {
+					"TITLE": "入力・値・表示のフォーマット"
+				},
+				"DATEPICKER_DAY_TIME_RANGE": {
+					"TITLE": "1 日の中の時間範囲"
+				},
+				"CONTAINERS": {
+					"TITLE": "コンテナ & フィールド間エラー"
+				},
+				"SELECT_GROUPED": {
+					"TITLE": "グループ化オプション"
+				},
+				"SELECT_SEARCH": {
+					"TITLE": "タイプアヘッド検索"
+				},
+				"SELECT_TYPEAHEAD": {
+					"TITLE": "Select：非同期タイプアヘッド"
+				},
+				"SELECT_TEMPLATES": {
+					"TITLE": "オプション/ラベルのカスタムテンプレート"
+				},
+				"INPUT_SEARCH": {
+					"TITLE": "アイコン付き検索ボックスとタイプアヘッド"
+				},
+				"SEGMENTED": {
+					"TITLE": "セグメンテッドコントロール"
+				},
+				"SEGMENTED_TEMPLATE": {
+					"TITLE": "Segmented：カスタム選択肢テンプレート"
+				},
+				"SLIDER_STYLING": {
+					"TITLE": "スライダーのスタイル（グラデーション/フラッシュ）"
+				},
+				"SELECT_IN_MODAL": {
+					"TITLE": "モーダル内のセレクト"
+				},
+				"SELECT_ADDONS": {
+					"TITLE": "アドオンと付随アクション"
+				},
+				"FIELD_ATTACHED": {
+					"TITLE": "フィールドに付随するアイコン・ボタン・フィールド"
+				},
+				"FILE_INPUT_BASIC": {
+					"TITLE": "単一ファイルとバリデーション"
+				},
+				"FILE_INPUT_DROPZONE": {
+					"TITLE": "ドラッグ＆ドロップ・制限・プレビュー"
+				},
+				"FILE_INPUT_UPLOAD": {
+					"TITLE": "アップロード進捗・キャンセル・再試行"
+				},
+				"FILE_INPUT_INLINE": {
+					"TITLE": "インラインプレビュー（フィールド内にファイルを表示）"
+				},
+				"TIMEPICKER": {
+					"TITLE": "タイムピッカー — 一日の時刻"
+				},
+				"RTL": {
+					"TITLE": "右から左へ — すべてのフィールドを反転"
+				},
+				"DATEPICKER_IN_MODAL": {
+					"TITLE": "モーダル内のデートピッカー"
+				},
+				"PLAINTEXT": {
+					"TITLE": "プレーンテキストのフィールド"
+				},
+				"FORM_TEXT_TOOLTIP": {
+					"TITLE": "ヘルプテキスト：下に置くか、記号の裏に"
+				},
+				"LABEL_VISUALLY_HIDDEN": {
+					"TITLE": "切り取られたラベル — 名前は残し、描かない"
+				}
+			}
+		},
+		"HISTORY": {
+			"FEATURE": {
+				"MANUAL_COMMITS_AND_TIME_TRAVEL": {
+					"TITLE": "手動コミットとタイムトラベル",
+					"DESCRIPTION": "状態の変更を追跡し、線形の履歴を前後に移動します。",
+					"HIGHLIGHT": "必要なときにスナップショットをコミットし、undo() と redo() で線形のタイムラインを行き来します。"
+				},
+				"NESTED_OBJECTS_AND_ARRAYS": {
+					"TITLE": "ネストされたオブジェクトと配列",
+					"DESCRIPTION": "深いオブジェクトグラフやリストの変更には、パッチベースの追跡を使用します。",
+					"HIGHLIGHT": "各エントリは前方・後方のパッチを保持するため、深いオブジェクトやリストの変更は完全なコピーではなくバイト単位で済みます。"
+				},
+				"AUTOMATIC_FORM_TRACKING": {
+					"TITLE": "自動フォーム追跡",
+					"DESCRIPTION": "組み込みのウォッチヘルパーで、フォーム値の変更を自動コミットします。",
+					"HIGHLIGHT": "watchForm() は FormGroup の値の変更をすべてコミットし、停止用の関数を返します。"
+				},
+				"TRANSACTIONS_AND_RETENTION": {
+					"TITLE": "トランザクションと保持",
+					"DESCRIPTION": "複数の操作を1つのエントリにまとめ、設定された制限に従って古いエントリを削除します。",
+					"HIGHLIGHT": "一連のコミットを 1 つのエントリにまとめ、エントリ数や概算バイト数で保持量を制限します。"
+				}
+			},
+			"API": {
+				"METHOD": {
+					"CREATE_HISTORY_STORE": {
+						"DESCRIPTION": "id によって複数のオブジェクトを追跡する、シグナルベースの履歴ストアを作成するファクトリ。省略可能な保持上限（maxEntries はデフォルト 100、maxBytes はデフォルト 512000）、keySelector、およびカスタムの diff/patch 戦略を受け付けます。"
+					},
+					"STATES": {
+						"DESCRIPTION": "オブジェクト id をキーとした、現在のイミュータブルな状態スナップショットのマップを公開する computed シグナル。"
+					},
+					"REGISTER_OBJECT": {
+						"DESCRIPTION": "追跡対象オブジェクトを初期状態とともに登録し、その id 用に新しい空の履歴タイムラインを開始します。"
+					},
+					"REGISTER_FROM_OBJECT": {
+						"DESCRIPTION": "設定済みの keySelector から id を導出して追跡対象オブジェクトを登録し、その id を返します。keySelector が設定されていない場合は例外をスローします。"
+					},
+					"COMMIT": {
+						"DESCRIPTION": "登録済みの id に対して新しい状態スナップショットをコミットし、前進／後退パッチを保存して、ポインターより先にある redo エントリを破棄します。新しい状態に変更がない場合は false を返します。トランザクションが開いている間は、エントリを作成せずに現在の状態のみを更新します。"
+					},
+					"COMMIT_FROM_OBJECT": {
+						"DESCRIPTION": "設定済みの keySelector から id を導出して新しい状態をコミットします。keySelector が設定されていない場合は例外をスローします。"
+					},
+					"UNDO": {
+						"DESCRIPTION": "エントリの後退パッチを適用して、履歴を 1 ステップ戻します。undo できるものがない場合は false を返します。"
+					},
+					"REDO": {
+						"DESCRIPTION": "エントリの前進パッチを適用して、履歴を 1 ステップ再適用します。redo できるものがない場合は false を返します。"
+					},
+					"CAN_UNDO": {
+						"DESCRIPTION": "指定されたオブジェクト id に対して、現在 undo が可能かどうかを返します。"
+					},
+					"CAN_REDO": {
+						"DESCRIPTION": "指定されたオブジェクト id に対して、現在 redo が可能かどうかを返します。"
+					},
+					"GET_STATE": {
+						"DESCRIPTION": "指定された id の現在の状態のディープクローンを返します。id が未登録の場合は undefined を返します。"
+					},
+					"HISTORY": {
+						"DESCRIPTION": "オブジェクトの履歴に関する読み取り専用メタデータを返します：ポインター、エントリ数、保持中のおおよそのバイト数、およびエントリごとのラベル・タイムスタンプ・バイト数。"
+					},
+					"BEGIN_TRANSACTION": {
+						"DESCRIPTION": "トランザクションを開始し、以降のコミットが 1 つに統合された履歴エントリにまとめられるようにします。その id に対してトランザクションがすでに開いている場合は例外をスローします。"
+					},
+					"END_TRANSACTION": {
+						"DESCRIPTION": "開いているトランザクションを終了し、トランザクション開始時の状態から現在の状態までを 1 つに統合したエントリとしてコミットします。トランザクションが開いていなかった場合や変更がなかった場合は false を返します。"
+					},
+					"WATCH_FORM": {
+						"DESCRIPTION": "FormGroup の valueChanges を購読して各発行を自動的にコミットします。最初の発行はオプションでスキップできます。購読解除用のコールバックを返します。"
+					},
+					"CLEAR_HISTORY": {
+						"DESCRIPTION": "指定された id のすべての履歴エントリをクリアし、現在の状態を新しいベーススナップショットとして保持して、開いているトランザクションを破棄します。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"BASIC": {
+					"TITLE": "基本的な履歴",
+					"DESCRIPTION": "単一の追跡対象オブジェクトに対する手動コミット、undo、redo。"
+				},
+				"NESTED": {
+					"TITLE": "ネストされたオブジェクトの履歴",
+					"DESCRIPTION": "ネストされたプロパティとリストの更新をパッチとして記録します。"
+				},
+				"REACTIVE_FORM": {
+					"TITLE": "リアクティブフォームの監視",
+					"DESCRIPTION": "watchForm() が FormGroup の値の変更を自動でコミットします。"
+				},
+				"TRANSACTION_LIMITS": {
+					"TITLE": "トランザクション + 制限",
+					"DESCRIPTION": "トランザクションでまとめられたコミットを、エントリ数とバイト数の制限のもとで扱います。"
+				}
+			},
+			"NAV": {
+				"BASIC": "基本的な履歴",
+				"NESTED": "ネストされたオブジェクト",
+				"REACTIVE_FORM": "リアクティブフォーム",
+				"TRANSACTION_LIMITS": "トランザクション & 上限"
+			}
+		},
+		"MILESTONES": {
+			"FEATURE": {
+				"ORIENTATION": {
+					"TITLE": "向き",
+					"DESCRIPTION": "タイムラインを縦方向（デフォルトで、ウィザードやアクティビティフィードに最適）または横方向（ページ上部に進捗ステップを並べる）にレイアウトします。ノードは DOM の順序で自動的に採番されます。"
+				},
+				"NODE_STATES": {
+					"TITLE": "ノードの状態",
+					"DESCRIPTION": "各 `hub-milestone` は `state`（complete、active、pending、error）を持ち、これがノードとコネクターの色を駆動します。`label` 入力は円の内側にフォールバックテキストをレンダリングします。"
+				},
+				"CUSTOM_NODES_THEMING": {
+					"TITLE": "カスタムノード＆テーマ設定",
+					"DESCRIPTION": "`<ng-template hubMilestoneNode>` で任意のコンテンツ（数字、アイコン、絵文字、アバター）を円内に投影したり、`color` で単一のノードをオーバーライドしたり、`--hub-milestone-*` CSS 変数でタイムライン全体のテーマを変更したりできます。"
+				},
+				"ANIMATION": {
+					"TITLE": "アニメーション",
+					"DESCRIPTION": "タイムラインがビューポートに入ると、アクセントの線がアクティブノードまで完成します（デフォルトで有効、`provideHubMilestones` でグローバルに設定可能）。`[pulse]` を追加すると、アクティブノードが柔らかな波を放ちます。どちらのアニメーションも `prefers-reduced-motion` を尊重します。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"ORIENTATION": {
+						"DESCRIPTION": "タイムラインのレイアウト方向。"
+					},
+					"STATE": {
+						"DESCRIPTION": "ノードの視覚的な state。ノードとコネクタの色を制御します。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "ノードごとの色の上書き（任意の CSS 色）。state の色より優先されます。"
+					},
+					"LABEL": {
+						"DESCRIPTION": "`hubMilestoneNode` テンプレートが指定されていない場合に、ノード内に表示されるフォールバックテキスト。"
+					},
+					"PULSE": {
+						"DESCRIPTION": "`<hub-milestones>` に設定すると、アクティブノードが柔らかく広がる波を放ち、現在のステップを強調します。オプトイン。`prefers-reduced-motion` を尊重します。"
+					},
+					"REVEAL": {
+						"DESCRIPTION": "タイムラインがビューポートに入ると、アクセントの線がアクティブノードまで満たされるアニメーションを再生します。デフォルトで有効 — `provideHubMilestones({ reveal: false })` でグローバルに、または `[reveal]` でインスタンスごとに設定できます。`prefers-reduced-motion` を尊重します。"
+					},
+					"STATE_LABEL": {
+						"DESCRIPTION": "このノードが読み上げられるときの語。ページからは切り取られ、ステップと一緒に読まれます。`provideHubMilestones` のアプリ全体の `stateLabels` より優先され、`''` はこのノードを黙らせます。未設定なら設定済みの語を継承します（既定は英語で Completed、Pending、Error。active は `aria-current=\"step\"` が既に示すため何も読みません）。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "hubMilestoneNode",
+						"DESCRIPTION": "コンテンツがマイルストーンの円の内側にレンダリングされる `<ng-template>` を指定します（数字、アイコン、絵文字、アバター）。`label` および自動採番より優先されます。"
+					},
+					"1": {
+						"NAME": "hub-milestone body (ng-content)",
+						"DESCRIPTION": "`hub-milestone` に直接投影されたコンテンツ（ノードテンプレートの外側）は、円の隣に本文としてレンダリングされます。"
+					}
+				},
+				"CSS_VAR": {
+					"NODE_SIZE": {
+						"DESCRIPTION": "ノード円の直径。"
+					},
+					"NODE_FONT_SIZE": {
+						"DESCRIPTION": "ノードコンテンツ（数値/ラベル）のフォントサイズ。"
+					},
+					"NODE_COLOR": {
+						"DESCRIPTION": "完了/アクティブ状態のノード背景。ノードごとの `color` がこれを上書きします。"
+					},
+					"NODE_TEXT": {
+						"DESCRIPTION": "色付きノード上のノードコンテンツの色。"
+					},
+					"PENDING_BG": {
+						"DESCRIPTION": "保留中ノードの背景。"
+					},
+					"PENDING_COLOR": {
+						"DESCRIPTION": "保留中ノードのコンテンツの色。"
+					},
+					"PENDING_BORDER": {
+						"DESCRIPTION": "保留中ノードの境界線の色。"
+					},
+					"ERROR_BG": {
+						"DESCRIPTION": "エラーノードの背景。"
+					},
+					"CONNECTOR_THICKNESS": {
+						"DESCRIPTION": "接続レールの太さ。"
+					},
+					"CONNECTOR_BG": {
+						"DESCRIPTION": "完了/アクティブなノード間のコネクタの塗りつぶし。"
+					},
+					"CONNECTOR_PENDING_BG": {
+						"DESCRIPTION": "保留中ノードへ続くコネクタの塗りつぶし。"
+					},
+					"GAP": {
+						"DESCRIPTION": "ノードレールと本文コンテンツの間隔。"
+					},
+					"SPACING": {
+						"DESCRIPTION": "連続するステップ間の間隔。"
+					},
+					"BODY_COLOR": {
+						"DESCRIPTION": "本文の主要テキスト色。"
+					},
+					"BODY_MUTED": {
+						"DESCRIPTION": "控えめな/二次的な本文テキスト色。"
+					},
+					"PULSE_COLOR": {
+						"DESCRIPTION": "アクティブノードのパルス波の色。デフォルトはノードのアクセント色で、ノードごとの `color` オーバーライドに従います。"
+					},
+					"PULSE_DURATION": {
+						"DESCRIPTION": "パルス1サイクルの長さ。"
+					},
+					"PULSE_SPREAD": {
+						"DESCRIPTION": "パルス波がノードからどれだけ外側へ広がるか。"
+					},
+					"REVEAL_DURATION": {
+						"DESCRIPTION": "リビール時に各コネクタが満たされる長さ。"
+					},
+					"REVEAL_STAGGER": {
+						"DESCRIPTION": "連続するコネクタが満たされる間の遅延。カスケード状のリビールを作ります。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"VERTICAL": {
+					"TITLE": "縦型タイムライン"
+				},
+				"HORIZONTAL": {
+					"TITLE": "横型進行ステップ"
+				},
+				"STATES": {
+					"TITLE": "ノードの状態"
+				},
+				"CUSTOM_NODES": {
+					"TITLE": "カスタムノード & ノードごとの色"
+				},
+				"CSS_VARIABLES": {
+					"TITLE": "CSS 変数によるテーマ設定"
+				},
+				"HORIZONTAL_PULSE": {
+					"TITLE": "アクティブパルス付きの横型"
+				}
+			}
+		},
+		"MODAL": {
+			"FEATURE": {
+				"OPENING_MODALS_CONTENT_TYPES": {
+					"TITLE": "モーダルを開く（コンテンツタイプ）",
+					"DESCRIPTION": "TemplateRef、Component、String のコンテンツでモーダルを開く方法を示します。"
+				},
+				"CONFIGURATION_OPTIONS": {
+					"TITLE": "設定とオプション",
+					"DESCRIPTION": "モーダルの外観と動作をカスタマイズします"
+				},
+				"MODAL_REFERENCE_HUBMODALREF": {
+					"TITLE": "モーダル参照（HubModalRef）",
+					"DESCRIPTION": "開いたモーダルの状態を制御・参照します"
+				},
+				"ACTIVE_MODAL_HUBACTIVEMODAL": {
+					"TITLE": "アクティブモーダル（HubActiveModal）",
+					"DESCRIPTION": "モーダルのコンテンツ内からモーダルを操作します"
+				},
+				"STACK_MANAGEMENT": {
+					"TITLE": "スタック管理",
+					"DESCRIPTION": "複数の積み重なったモーダルを管理します"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"ANIMATION": {
+						"DESCRIPTION": "true の場合、モーダルの開閉がアニメーションされます。デフォルト: true"
+					},
+					"BACKDROP": {
+						"DESCRIPTION": "true の場合、バックドロップ要素が作成されます。あるいは \"static\" を指定すると、クリックでモーダルが閉じないバックドロップになります。デフォルト: true"
+					},
+					"CENTERED": {
+						"DESCRIPTION": "true の場合、モーダルは垂直方向に中央揃えされます。デフォルト: false"
+					},
+					"PLACEMENT": {
+						"DESCRIPTION": "ビューポート内のモーダルの配置位置を制御します。デフォルト: HubModalPlacement.Center"
+					},
+					"KEYBOARD": {
+						"DESCRIPTION": "true の場合、Escape キーが押されるとモーダルが閉じます。デフォルト: true"
+					},
+					"SIZE": {
+						"DESCRIPTION": "モーダルウィンドウのサイズ"
+					},
+					"WINDOWCLASS": {
+						"DESCRIPTION": "モーダルウィンドウに付加するカスタムクラス"
+					},
+					"BACKDROPCLASS": {
+						"DESCRIPTION": "モーダルのバックドロップに付加するカスタムクラス"
+					},
+					"DISMISSSELECTOR": {
+						"DESCRIPTION": "モーダルウィンドウの dismiss をトリガーできる要素のカスタムセレクタ。デフォルト: \"[data-dismiss=\\\"modal\\\"]\""
+					},
+					"CLOSESELECTOR": {
+						"DESCRIPTION": "モーダルウィンドウの close をトリガーできる要素のカスタムセレクタ。デフォルト: \"[data-close=\\\"modal\\\"]\""
+					},
+					"HEADERSELECTOR": {
+						"DESCRIPTION": "モーダルウィンドウのヘッダー要素のカスタムセレクタ"
+					},
+					"FOOTERSELECTOR": {
+						"DESCRIPTION": "モーダルウィンドウのフッター要素のカスタムセレクタ"
+					},
+					"DATA": {
+						"DESCRIPTION": "モーダルウィンドウを開くときに渡す追加データ"
+					},
+					"OFFCANVAS": {
+						"DESCRIPTION": "ダイアログを引き出しとして開きます。`placement` が指す縁にぴったり寄せ、その側の角を落とし、全高（上下からなら全幅）まで伸ばし、本文がスクロールするのでヘッダーとフッターは動きません。幅はサイズスケールではなく `--hub-modal-offcanvas-width` から取ります。`size: 'lg'` は800pxで、狭いウィンドウでは引き出しが並べて読まれるはずの文書そのものを覆ってしまうからです。`placement` を省くと終端の縁から開きます。"
+					},
+					"VARIANT": {
+						"DESCRIPTION": "ダイアログのセマンティックなアクセント。破壊的な確認や成功の通知など、意味を持つダイアログのためのものです。単一のスロット `--hub-modal-accent` を置き換えると、emphasis / subtle / on / border の各ロールがダイアログ自身の上でそこから導出されるので、値ひとつで色を帯びた背景、外枠とヘッダー・フッターの罫線、そしてタイトルまでが塗り替わります。スタイルシートには9つが同梱されています：`primary`、`secondary`、`success`、`danger`、`warning`、`info`、`neutral`、`light`、`dark`。それ以外の任意の文字列も受け付け、ウィンドウに `hub-modal--<名前>` を付けます。独自のアクセントはグローバルなスタイルシートの1ルールだけで済み、再ビルドは不要です。上端のアクセントバーもこの一式に含まれますが、幅ゼロで出荷されます。ダイアログに `--hub-modal-accent-bar-width` を設定すると表示されます。variant を指定しなければダイアログはニュートラルなままです。"
+					},
+					"ARIALABELLEDBY": {
+						"DESCRIPTION": "ダイアログにラベルを与える要素の ID。モーダルウィンドウの `aria-labelledby` として適用されます。"
+					},
+					"ARIADESCRIBEDBY": {
+						"DESCRIPTION": "ダイアログを説明する要素の ID。モーダルウィンドウの `aria-describedby` として適用されます。"
+					},
+					"CLOSEARIALABEL": {
+						"DESCRIPTION": "ライブラリが自前のヘッダーに描く閉じるボタンのアクセシブル名。このボタンにはテキストがなく、記号は CSS が描いているため、この文字列がスクリーンリーダーの読み上げるすべてです。翻訳した文字列をここに渡すか、`HubModalConfig` で既定値を一度だけ設定してください。デフォルト: \"Close\""
+					},
+					"BEFOREDISMISS": {
+						"DESCRIPTION": "モーダルが破棄される直前に呼ばれるガード。`false`、`false` で解決される Promise、または拒否された Promise を返すと、ダイアログは開いたままになります。"
+					},
+					"CONTAINER": {
+						"DESCRIPTION": "モーダルウィンドウを追加する CSS セレクターまたは要素。デフォルト: `body`"
+					},
+					"FULLSCREEN": {
+						"DESCRIPTION": "`true` はどの幅でもダイアログを全画面に保ちます。`\"md\"` のようなブレークポイント名なら、その幅より下でのみ全画面になります。それ以外の文字列は `modal-fullscreen-<値>-down` を適用します。デフォルト: false"
+					},
+					"INJECTOR": {
+						"DESCRIPTION": "コンテンツコンポーネントの依存関係を解決するために使う Injector。"
+					},
+					"SCROLLABLE": {
+						"DESCRIPTION": "ダイアログを固定し、ビューポートを超えて伸ばす代わりに本文をスクロールさせます。デフォルト: false"
+					},
+					"MODALDIALOGCLASS": {
+						"DESCRIPTION": "`hub-modal__dialog` 要素に追加するカスタムクラス"
+					},
+					"BODYSELECTOR": {
+						"DESCRIPTION": "子要素が本文になるブロックの CSS セレクター。指定しない場合、本文はヘッダーとフッターが残したもので、コンテンツを書いた順序に左右されます。指定すると本文は意図した位置に置かれ、どのスロットにも取られなかったものは引き続きその後ろに続きます。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "Modal Template",
+						"DESCRIPTION": "モーダルサービスに渡せるテンプレート参照。ヘッダー・本文・フッターのブロックは、`open()` で `headerSelector`・`bodySelector`・`footerSelector` を指定したときにのみスロットになります。指定しなければテンプレート全体が本文に入ります。"
+					}
+				},
+				"OUTPUT": {
+					"DISMISS": {
+						"DESCRIPTION": "ユーザーがモーダルを dismiss したとき（Escape キーを押す、バックドロップをクリックする、組み込みの閉じるボタンを押すなど）にモーダルウィンドウから発行されます。ペイロードは dismiss の理由です（ModalDismissReasons.ESC、ModalDismissReasons.BACKDROP_CLICK、またはカスタム値）。"
+					}
+				},
+				"METHOD": {
+					"OPEN": {
+						"DESCRIPTION": "指定されたコンテンツ（コンポーネント型、TemplateRef、または文字列）とオプションで新しいモーダルウィンドウを開き、それを制御するための HubModalRef を返します。コンテンツコンポーネントは HubActiveModal と HUB_MODAL_DATA トークンを注入して、モーダルとやり取りしたり data ペイロードを読み取ったりできます。"
+					},
+					"DISMISS_ALL": {
+						"DESCRIPTION": "現在表示されているすべてのモーダルウィンドウを、指定された理由で dismiss します。"
+					},
+					"HAS_OPEN_MODALS": {
+						"DESCRIPTION": "アプリケーション内に現在開いているモーダルウィンドウがあるかどうかを示します。"
+					},
+					"ACTIVE_INSTANCES": {
+						"DESCRIPTION": "モーダルが開かれるか削除されるたびに、現在開いている HubModalRef インスタンスのリストを発行するイベントエミッター。"
+					},
+					"REF_CLOSE": {
+						"DESCRIPTION": "省略可能な結果値とともにモーダルを閉じます。HubModalRef.result の Promise は指定された値で解決されます。"
+					},
+					"REF_DISMISS": {
+						"DESCRIPTION": "省略可能な理由の値とともにモーダルを dismiss します。HubModalRef.result の Promise は指定された値で拒否されます。beforeDismiss ガードが設定されている場合はそれに従います。"
+					},
+					"REF_UPDATE": {
+						"DESCRIPTION": "開いているモーダルのオプション（aria 属性、centered、placement、fullscreen、backdropClass、size、variant、windowClass、modalDialogClass）を更新します。"
+					},
+					"REF_COMPONENT_INSTANCE": {
+						"DESCRIPTION": "モーダルコンテンツとして使用されたコンポーネントのインスタンス。コンテンツに TemplateRef を使用した場合や、モーダルが閉じられている場合は undefined を返します。"
+					},
+					"REF_RESULT": {
+						"DESCRIPTION": "モーダルが閉じられたときに close の結果で解決され、dismiss されたときにその理由で拒否される Promise。"
+					},
+					"REF_CLOSED": {
+						"DESCRIPTION": "モーダルが閉じられたときに、close() に渡された結果を発行する Observable。"
+					},
+					"REF_DISMISSED": {
+						"DESCRIPTION": "モーダルが dismiss されたときにその理由を発行する Observable — dismiss() に渡された値、またはバックドロップクリックや Escape などの内部的な理由です。"
+					},
+					"REF_SHOWN": {
+						"DESCRIPTION": "モーダルが完全に表示され、開くアニメーションが終了した時点で発行して完了する Observable。"
+					},
+					"REF_HIDDEN": {
+						"DESCRIPTION": "モーダルウィンドウとバックドロップの両方が非表示になり、アニメーションが終了し、それらの要素が DOM から削除された時点で発行して完了する Observable。"
+					},
+					"ACTIVE_CLOSE": {
+						"DESCRIPTION": "コンテンツコンポーネントをホストしているモーダルを閉じ、HubModalRef.result の Promise を省略可能な結果値で解決します。"
+					},
+					"ACTIVE_DISMISS": {
+						"DESCRIPTION": "コンテンツコンポーネントをホストしているモーダルを dismiss し、HubModalRef.result の Promise を省略可能な理由の値で拒否します。"
+					},
+					"ACTIVE_UPDATE": {
+						"DESCRIPTION": "コンテンツコンポーネントの内側から、開いているモーダルのオプションを更新します。"
+					},
+					"ACTIVE_DATA": {
+						"DESCRIPTION": "HubModalOptions.data を通じて渡される型付きペイロード。HUB_MODAL_DATA トークンを注入するのと同等で、data オプションが指定されなかった場合は null になります。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"CONTENT": {
+					"TITLE": "モーダルのコンテンツタイプ"
+				},
+				"OPTIONS": {
+					"TITLE": "設定オプション"
+				},
+				"PLACEMENT": {
+					"TITLE": "モーダルの配置"
+				},
+				"REF": {
+					"TITLE": "モーダル参照による制御"
+				},
+				"ACTIVE": {
+					"TITLE": "アクティブモーダル（自己クローズ）"
+				},
+				"STACK": {
+					"TITLE": "積み重ねモーダル"
+				},
+				"FULLSCREEN": {
+					"TITLE": "フルスクリーンモーダル"
+				},
+				"PROJECTION": {
+					"TITLE": "コンテンツプロジェクション"
+				},
+				"BODY_SELECTOR": {
+					"TITLE": "名前付きボディスロット"
+				},
+				"STYLING": {
+					"TITLE": "CSS 変数によるスタイリング"
+				},
+				"TYPED_DATA": {
+					"TITLE": "型付きデータペイロード"
+				},
+				"OFFCANVAS": {
+					"TITLE": "オフキャンバス：縁に接する引き出し"
+				},
+				"VARIANTS": {
+					"TITLE": "セマンティックバリアント：アクセント一つでダイアログ全体"
+				}
+			},
+			"NAV": {
+				"CONTENT": "コンテンツタイプ",
+				"OPTIONS": "オプション",
+				"PLACEMENT": "配置",
+				"REF": "参照コントロール",
+				"ACTIVE": "アクティブモーダル",
+				"STACK": "Stack",
+				"FULLSCREEN": "Fullscreen",
+				"PROJECTION": "投影",
+				"STYLING": "スタイリング"
+			}
+		},
+		"NAV": {
+			"FEATURE": {
+				"CORE_NAVIGATION": {
+					"TITLE": "コアナビゲーション",
+					"DESCRIPTION": "データ駆動の項目レンダリング、アイコン、バッジ、無効状態を備えた、基本的な横方向・縦方向のナビゲーションです。"
+				},
+				"DROPDOWN_NESTING": {
+					"TITLE": "ドロップダウンのネスト",
+					"DESCRIPTION": "click、hover、またはそれらを組み合わせたトリガーモードを備えた、無制限の多階層ドロップダウンメニューです。セパレーターとヘッダー項目を含みます。"
+				},
+				"STATES": {
+					"TITLE": "状態",
+					"DESCRIPTION": "無効化されたルート項目とネストされた項目、およびそれらのインタラクション動作を示します。"
+				},
+				"RESPONSIVE_BEHAVIOR": {
+					"TITLE": "レスポンシブな動作",
+					"DESCRIPTION": "レスポンシブな折りたたみ、モバイルレンダリング、RTL スロットの動作です。"
+				},
+				"RAIL": {
+					"TITLE": "デスクトップアイコンレール",
+					"DESCRIPTION": "縦型ナビをアイコンのみのレールに折りたたみ、各セクションをワンクリックで維持します。ラベルはツールチップとして表示され、グループはオーバーレイのフライアウトで開き、トグルと永続化は双方向の rail バインディングを通じてアプリが所有します。"
+				},
+				"SLOTS_TEMPLATES": {
+					"TITLE": "スロット＆テンプレート",
+					"DESCRIPTION": "カスタマイズされたナビゲーション UI を構築するための、start/end スロットの投影とカスタム項目テンプレートです。"
+				},
+				"ROUTER_INTEGRATION": {
+					"TITLE": "Router 統合",
+					"DESCRIPTION": "routerLinkActive オプションを介した、router リンク、クエリパラメータ、フラグメント、アクティブ状態のマッチングです。"
+				},
+				"EVENTS": {
+					"TITLE": "イベント",
+					"DESCRIPTION": "リンク、ドロップダウン、モバイルトグル、パネルナビゲーションのインタラクションイベントを監視します。"
+				},
+				"PANEL_DRILL_DOWN": {
+					"TITLE": "パネルのドリルダウン",
+					"DESCRIPTION": "ドロップダウンをクリックすると子項目がサイドパネルに開く、スタック式のパネルナビゲーションです。設定可能な最大パネル数、戻るナビゲーション付きのドリルダウン、左右のサイドバー配置をサポートします。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"ITEMS": {
+						"DESCRIPTION": "レンダリングするナビゲーション項目の配列。各項目はその type（link、dropdown、header、separator、custom）、label、route、icon、badge、children などを定義します。"
+					},
+					"CONFIG": {
+						"DESCRIPTION": "グローバルなデフォルトとマージされる部分的な設定の上書き。向き、ドロップダウンのトリガー、折りたたみモード、ブレークポイント、位置などを制御します。"
+					},
+					"NAV_CLASS": {
+						"DESCRIPTION": "nav コンテナ要素に適用される追加の CSS クラス。"
+					},
+					"ITEM_TEMPLATE": {
+						"DESCRIPTION": "入力バインディングによって nav 項目をレンダリングするための任意のカスタムテンプレート。hubNavItemTemplate ディレクティブはこの入力より優先されます。"
+					},
+					"AUTO_OPEN_FROM_ROUTE": {
+						"DESCRIPTION": "true の場合、初期化時とナビゲーションのたびに、アクティブな router URL に一致するドロップダウンとドリルダウンパネルを nav が自動的に開きます。URL が開閉状態を決めるサイドバーナビゲーションで便利です。ルートごとに展開方法が異なるメニューでは、開いたままになるセクションは 1 つだけです。アコーディオンのルートに移動すると、離れたパネルルートのパネルが閉じ、その逆も同様です。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "ホバー／アクティブのアフォーダンスに適用されるセマンティックアクセント。セマンティック名（primary、success、danger、warning、info）、登録済みのアクセント名、CSS の名前付きカラー、またはリテラルの #hex / rgb() / oklch() / var() を受け付けます。裸のワードは --hub-sys-color-<name> トークンに解決され、省略時のデフォルトは primary です。"
+					},
+					"RAIL": {
+						"DESCRIPTION": "デスクトップ専用のアイコンレール。true の場合、縦型ナビはレール幅でアイコンのみを表示します。collapseBreakpoint 未満では無視され、常にオフキャンバス動作が優先されます。[(rail)] で双方向バインド可能です。"
+					},
+					"CONFIG_ORIENTATION": {
+						"DESCRIPTION": "ナビゲーションの向き：horizontal はトップバーを、vertical はサイドバーをレンダリングします。"
+					},
+					"CONFIG_VERTICAL_EXPAND_MODE": {
+						"DESCRIPTION": "縦向きのときに子項目を展開する方法：accordion はインラインで展開し、flyout は位置指定されたサイドサブメニューを開き、panel はスタック式のドリルダウンパネルを開きます。"
+					},
+					"CONFIG_DROPDOWN_TRIGGER": {
+						"DESCRIPTION": "ドロップダウンメニューを開く仕組み：hover、click、またはその両方。"
+					},
+					"CONFIG_DROPDOWN_RENDER_MODE": {
+						"DESCRIPTION": "ドロップダウンおよび flyout メニューのレンダリング戦略：inline は nav の DOM 内に、overlay はクリッピングを避けるために body レベルのレイヤーにレンダリングします。panel ドリルダウンモードには影響しません。"
+					},
+					"CONFIG_POSITION": {
+						"DESCRIPTION": "nav コンテナの CSS ポジショニング戦略。sticky の配置は縦方向のナビゲーションでのみ有効になります。"
+					},
+					"CONFIG_STICKY_TOP": {
+						"DESCRIPTION": "sticky 配置が有効なときに使用される上端オフセット。任意の有効な CSS の長さ値を受け付けます。"
+					},
+					"CONFIG_COLLAPSE_MODE": {
+						"DESCRIPTION": "小さいビューポートでメニューが折りたたまれたときの表示モード：offcanvas はスライドインするドロワー、dropdown はトグラーの下のドロップダウン、fullscreen は全画面オーバーレイです。"
+					},
+					"CONFIG_COLLAPSE_BREAKPOINT": {
+						"DESCRIPTION": "メニューが折りたたまれるビューポート幅（ピクセル単位）。0 を設定するとレスポンシブな折りたたみが無効になります。"
+					},
+					"CONFIG_OFFCANVAS_POSITION": {
+						"DESCRIPTION": "offcanvas パネルがスライドインしてくる側。collapseMode が offcanvas の場合にのみ適用されます。"
+					},
+					"CONFIG_ARIA_LABEL": {
+						"DESCRIPTION": "nav 要素に適用されるアクセシブルなラベル。"
+					},
+					"CONFIG_PANEL_MAX_VISIBLE": {
+						"DESCRIPTION": "panel 展開モードで同時に表示できるパネルの最大数。これを超えると、最後のパネルが戻るナビゲーション付きでその場でドリルダウンします。"
+					},
+					"CONFIG_SIDEBAR_SIDE": {
+						"DESCRIPTION": "サイドバーの物理的な側：left（パネルは右へ広がる）または right（パネルは左へ広がる）。"
+					},
+					"CONFIG_PANEL_WIDTH": {
+						"DESCRIPTION": "各ドリルダウンパネルの幅。任意の有効な CSS の幅の値を受け付けます。"
+					},
+					"CONFIG_RAIL_TOGGLE": {
+						"DESCRIPTION": "縦型デスクトップナビの主要カラムに組み込みのエッジトグルを表示するかどうか。アプリ独自のトグルを用意する場合は無効にします。--hub-nav-rail-toggle-* トークンで完全にテーマ設定でき、SVG 矢印も差し替え可能です。"
+					},
+					"CONFIG_LABELS": {
+						"DESCRIPTION": "組み込みのアクセシブルラベルのインスタンス単位の上書き。省略したラベルは共有の HUBUI.NAV.* キー、次に英語の既定値から解決されます。"
+					},
+					"SCROLL_SPY_ENABLED": {
+						"DESCRIPTION": "セクション追跡を有効または無効にします。セレクタ自体を通じてバインドします：[hubNavScrollSpy]=\"false\" でスパイをオフにできます。"
+					},
+					"SCROLL_SPY_OFFSET": {
+						"DESCRIPTION": "アクティブなセクションを計算する際に sticky ヘッダーを補正するための上端オフセット（ピクセル単位）。"
+					},
+					"SCROLL_SPY_SECTION_SELECTOR": {
+						"DESCRIPTION": "ホストコンテナ内で追跡可能なセクション要素を見つけるために使用される CSS セレクタ。"
+					},
+					"SCROLL_SPY_SECTION_ID": {
+						"DESCRIPTION": "追跡対象セクションの省略可能なセクション id。省略時はホスト要素の id 属性が使用されます。"
+					},
+					"SUB_NAV_ITEM": {
+						"DESCRIPTION": "内部の hub-nav-item 子コンポーネントがレンダリングするナビゲーション項目。hub-nav によって自動的に管理されるため、直接バインドすることはほとんどありません。"
+					},
+					"SUB_NAV_ITEM_STATE": {
+						"DESCRIPTION": "hub-nav-item の内部状態インプット：ネストの深さ、active／expanded フラグ、およびモバイルやパネルコンテキスト内での強制的な accordion 動作。hub-nav-item-list にも depth と forceAccordionMode があり、階層をまとめて強制できます。"
+					},
+					"SUB_ITEM_LIST_ITEMS": {
+						"DESCRIPTION": "内部の hub-nav-item-list 子コンポーネントがレンダリングする項目。hub-nav によって自動的に管理されます。"
+					},
+					"SUB_PANELS": {
+						"DESCRIPTION": "panel 展開モードで内部の hub-nav-panel-container がレンダリングする、開いているパネル状態のスタック。"
+					},
+					"SUB_PANEL": {
+						"DESCRIPTION": "内部の hub-nav-panel 子コンポーネントがレンダリングする、単一のドリルダウンパネルの状態。"
+					},
+					"SUB_FORWARDED": {
+						"DESCRIPTION": "ルートの hub-nav が子コンポーネントへ転送する内部配線用のインプット。それぞれは必要とするコンポーネントのサブセットにのみ存在し、isLast はスタック最外側のパネルを示して、その端を閉じさせます。直接バインドせず、hub-nav の config インプットを通じて設定してください。"
+					},
+					"SUB_OVERLAY_CLASSES": {
+						"DESCRIPTION": "サブメニューを body 直下のオーバーレイに描画するときにルートの hub-nav が転送するオーバーレイ用の配線です。overlayOwnerClass は外側クリック処理のためにオーバーレイを元のナビへ結びつける一意のクラス、overlayOrientationClass はナビの向きを運び、コンポーネントツリーの外でもホストコンテキストのスタイルが効くようにします。"
+					},
+					"CONFIG_ACTIVE_INDICATOR": {
+						"DESCRIPTION": "アクティブ表示がその場で現れ消えるのではなく、項目間を移動するかどうか。既定はオフで、prefers-reduced-motion を尊重します。"
+					},
+					"CONFIG_FOLLOW_REPLACED_URLS": {
+						"DESCRIPTION": "URL を置き換えて読者の位置を知らせるスクロールスパイに、ナビがどれだけ追従するか。true は各通知に追従、ミリ秒数は通知が止まってから追従、false は追従しません。"
+					}
+				},
+				"OUTPUT": {
+					"ITEM_CLICK": {
+						"DESCRIPTION": "link 項目がクリックされたときに発行されます。クリックされた HubNavItem を提供します。"
+					},
+					"DROPDOWN_OPEN": {
+						"DESCRIPTION": "ドロップダウン項目が開かれたときに発行されます。"
+					},
+					"DROPDOWN_CLOSE": {
+						"DESCRIPTION": "ドロップダウン項目が閉じられたときに発行されます。"
+					},
+					"MOBILE_TOGGLE": {
+						"DESCRIPTION": "モバイルパネルがトグルされたときに発行されます。開いているときは true、閉じているときは false を提供します。"
+					},
+					"PANEL_CHANGE": {
+						"DESCRIPTION": "パネルが開かれた、閉じられた、ドリルダウンされた、または戻る操作が行われたときに発行されます。項目、パネルのインデックス、アクションタイプを提供します。"
+					},
+					"RAIL_CHANGE": {
+						"DESCRIPTION": "rail モデル値が切り替わったときに発行され、[(rail)] の双方向バインディングとアプリ側の永続化を可能にします。"
+					},
+					"ACTIVE_SECTION_CHANGE": {
+						"DESCRIPTION": "表示中のセクションが変わるたびに、新たにアクティブになったセクションの id を発行します。"
+					},
+					"SUB_NAV_ITEM_EVENTS": {
+						"DESCRIPTION": "内部の hub-nav-item イベント：clicked は項目と元の DOM イベントを、toggleDropdown はトグルされるドロップダウン項目を発行します。どちらも hub-nav のアウトプットへバブルアップします。"
+					},
+					"SUB_BUBBLED_EVENTS": {
+						"DESCRIPTION": "内部のリストおよびパネル子コンポーネントが hub-nav へバブルアップさせながら再発行する項目インタラクションイベント：itemClick（項目と DOM イベント）、dropdownToggle（トグルされた項目）、panelOpen（その子項目をパネルで開くべき項目）。"
+					},
+					"SUB_PANEL_EVENTS": {
+						"DESCRIPTION": "閉じるボタン（closePanel）または戻るボタン（backClick）が押されたときに、内部の hub-nav-panel からパネル id とともに発行されます。"
+					},
+					"SUB_PANEL_CONTAINER_EVENTS": {
+						"DESCRIPTION": "内部の hub-nav-panel-container からパネル id とともに発行され、閉じる要求（panelClose）と戻る要求（panelBack）を hub-nav に中継します。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "hubNavStart",
+						"DESCRIPTION": "start スロットにカスタムコンテンツを投影します。水平方向: 視覚的な開始位置（LTR では左、RTL では右）。垂直方向: 主要カラムの上部。"
+					},
+					"1": {
+						"NAME": "hubNavEnd",
+						"DESCRIPTION": "end スロットにカスタムコンテンツを投影します。水平方向: 視覚的な終了位置（LTR では右、RTL では左）。垂直方向: 主要カラムの下部。"
+					},
+					"2": {
+						"NAME": "hubNavItemTemplate",
+						"DESCRIPTION": "デフォルトの項目レンダリングをカスタムテンプレートで上書きします。$implicit（item）、active、expanded、depth の各プロパティを持つ HubNavItemTemplateContext を受け取ります。"
+					}
+				},
+				"CSS_VAR": {
+					"HEIGHT": {
+						"DESCRIPTION": "ナビゲーションバーの高さ。"
+					},
+					"PADDING_X": {
+						"DESCRIPTION": "nav コンテナの水平パディング。"
+					},
+					"PADDING_Y": {
+						"DESCRIPTION": "nav コンテナの垂直パディング。"
+					},
+					"GAP": {
+						"DESCRIPTION": "nav 項目間の間隔。"
+					},
+					"BG": {
+						"DESCRIPTION": "ナビゲーションバーの背景色。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "ナビゲーションの基本テキスト色。"
+					},
+					"BORDER_COLOR": {
+						"DESCRIPTION": "ナビゲーションバーの境界線の色。"
+					},
+					"ITEM_PADDING_X": {
+						"DESCRIPTION": "nav 項目内の水平パディング。"
+					},
+					"ITEM_PADDING_Y": {
+						"DESCRIPTION": "nav 項目内の垂直パディング。"
+					},
+					"ITEM_COLOR": {
+						"DESCRIPTION": "nav 項目のテキスト色。"
+					},
+					"ITEM_BORDER_RADIUS": {
+						"DESCRIPTION": "nav 項目の境界半径。"
+					},
+					"ITEM_HOVER_BG": {
+						"DESCRIPTION": "ホバー時の背景色。"
+					},
+					"ITEM_HOVER_COLOR": {
+						"DESCRIPTION": "ホバー時のテキスト色。"
+					},
+					"ITEM_ACTIVE_BG": {
+						"DESCRIPTION": "項目がアクティブな際の背景色。"
+					},
+					"ITEM_ACTIVE_COLOR": {
+						"DESCRIPTION": "項目がアクティブな際のテキスト色。"
+					},
+					"ITEM_DISABLED_COLOR": {
+						"DESCRIPTION": "無効な項目のテキスト色。"
+					},
+					"ITEM_DISABLED_OPACITY": {
+						"DESCRIPTION": "無効な項目の不透明度。"
+					},
+					"DROPDOWN_BG": {
+						"DESCRIPTION": "ドロップダウンパネルの背景色。"
+					},
+					"DROPDOWN_BORDER_COLOR": {
+						"DESCRIPTION": "ドロップダウンパネルの境界線の色。"
+					},
+					"DROPDOWN_BORDER_RADIUS": {
+						"DESCRIPTION": "ドロップダウンパネルの境界半径。"
+					},
+					"DROPDOWN_SHADOW": {
+						"DESCRIPTION": "ドロップダウンパネルのボックスシャドウ。"
+					},
+					"DROPDOWN_MIN_WIDTH": {
+						"DESCRIPTION": "ドロップダウンパネルの最小幅。"
+					},
+					"BRAND_FONT_SIZE": {
+						"DESCRIPTION": "ブランドテキストのフォントサイズ。"
+					},
+					"BRAND_FONT_WEIGHT": {
+						"DESCRIPTION": "ブランドテキストのフォントウェイト。"
+					},
+					"BRAND_COLOR": {
+						"DESCRIPTION": "ブランドのテキスト色。"
+					},
+					"MOBILE_BG": {
+						"DESCRIPTION": "モバイルパネルの背景色。"
+					},
+					"MOBILE_WIDTH": {
+						"DESCRIPTION": "オフキャンバスのモバイルパネルの幅。"
+					},
+					"MOBILE_BACKDROP_BG": {
+						"DESCRIPTION": "モバイルパネルの背後の背景色。"
+					},
+					"MOBILE_TRANSITION": {
+						"DESCRIPTION": "モバイルパネルの開閉アニメーションのトランジションタイミング。"
+					},
+					"ACCORDION_INDENT": {
+						"DESCRIPTION": "垂直 accordion モードにおけるネストレベルごとの左インデント。"
+					},
+					"ICON_SIZE": {
+						"DESCRIPTION": "ナビゲーション項目アイコンのサイズ。"
+					},
+					"ICON_GAP": {
+						"DESCRIPTION": "アイコンとラベルテキストの間隔。"
+					},
+					"PANEL_WIDTH": {
+						"DESCRIPTION": "各パネルのデフォルト幅。"
+					},
+					"RAIL_WIDTH": {
+						"DESCRIPTION": "折りたたまれたアイコンレールの幅。"
+					},
+					"RAIL_TRANSITION": {
+						"DESCRIPTION": "レールの出入り時にホスト幅へ適用される完全なトランジション。"
+					},
+					"PANEL_Z_INDEX": {
+						"DESCRIPTION": "パネルの重なり順（ドロップダウンの z-index より低くする必要があります）。"
+					},
+					"PANEL_BG": {
+						"DESCRIPTION": "パネルの背景色。"
+					},
+					"PANEL_COLOR": {
+						"DESCRIPTION": "パネル内のテキスト色。"
+					},
+					"PANEL_BORDER_COLOR": {
+						"DESCRIPTION": "パネル間の境界線の色。"
+					},
+					"PANEL_SHADOW": {
+						"DESCRIPTION": "パネルのボックスシャドウ。"
+					},
+					"PANEL_HEADER_HEIGHT": {
+						"DESCRIPTION": "パネルヘッダーの高さ。"
+					},
+					"PANEL_HEADER_BG": {
+						"DESCRIPTION": "パネルヘッダーの背景色。"
+					},
+					"PANEL_BACK_COLOR": {
+						"DESCRIPTION": "パネルヘッダー内の戻るボタンの色。"
+					},
+					"PANEL_BACK_HOVER_BG": {
+						"DESCRIPTION": "パネルヘッダーボタンのホバー背景。"
+					},
+					"ITEM_ACTIVE_INDICATOR_TRANSITION": {
+						"DESCRIPTION": "移動するインジケーターが有効なとき、アクティブ表示が項目間をどう移動するか。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"BASIC_HORIZONTAL": {
+					"TITLE": "基本的な水平ナビゲーション"
+				},
+				"VERTICAL_ACCORDION": {
+					"TITLE": "垂直アコーディオンナビゲーション"
+				},
+				"VERTICAL_FLYOUT": {
+					"TITLE": "垂直フライアウトナビゲーション"
+				},
+				"VERTICAL_STICKY": {
+					"TITLE": "垂直スティッキーサイドバー"
+				},
+				"RAIL_COLLAPSE": {
+					"TITLE": "折りたたみアイコンレール"
+				},
+				"NESTED_DROPDOWNS": {
+					"TITLE": "ネストされた多階層ドロップダウン"
+				},
+				"HEADERS_SEPARATORS": {
+					"TITLE": "ヘッダー & 区切り線"
+				},
+				"DISABLED_STATES": {
+					"TITLE": "無効状態"
+				},
+				"DROPDOWN_TRIGGERS": {
+					"TITLE": "ドロップダウントリガー"
+				},
+				"RESPONSIVE_COLLAPSE": {
+					"TITLE": "レスポンシブな折りたたみモード"
+				},
+				"BRAND_SLOT": {
+					"TITLE": "開始 & 終了スロット"
+				},
+				"CUSTOM_ITEM_TEMPLATE": {
+					"TITLE": "カスタムアイテムテンプレート"
+				},
+				"RTL_SLOTS": {
+					"TITLE": "RTL と開始/終了スロット"
+				},
+				"EVENTS_API": {
+					"TITLE": "イベント API"
+				},
+				"ROUTER_ACTIVE": {
+					"TITLE": "ルーター統合 & アクティブ状態"
+				},
+				"PANEL_DRILLDOWN": {
+					"TITLE": "パネルのドリルダウンナビゲーション"
+				},
+				"MIXED_EXPAND_MODES": {
+					"TITLE": "アイテムごとの expandMode 上書き"
+				},
+				"SIDEBAR_RIGHT_PANEL": {
+					"TITLE": "右サイドバーパネルモード"
+				},
+				"TRUNCATED_LABELS": {
+					"TITLE": "省略ラベルとツールチップ"
+				}
+			},
+			"NAV": {
+				"BASIC_HORIZONTAL": "基本の水平",
+				"VERTICAL_ACCORDION": "垂直アコーディオン",
+				"VERTICAL_FLYOUT": "垂直フライアウト",
+				"VERTICAL_STICKY": "垂直スティッキーサイドバー",
+				"RAIL_COLLAPSE": "アイコンレール",
+				"NESTED_DROPDOWNS": "ネストされたドロップダウン",
+				"HEADERS_SEPARATORS": "ヘッダー & 区切り線",
+				"DISABLED_STATES": "無効状態",
+				"DROPDOWN_TRIGGERS": "ドロップダウントリガー",
+				"RESPONSIVE_COLLAPSE": "レスポンシブな折りたたみ",
+				"BRAND_SLOT": "ブランドスロット",
+				"CUSTOM_ITEM_TEMPLATE": "カスタムアイテムテンプレート",
+				"RTL_SLOTS": "RTL スロット",
+				"EVENTS_API": "イベント API",
+				"ROUTER_ACTIVE": "ルーターのアクティブ状態",
+				"PANEL_DRILLDOWN": "パネルのドリルダウン",
+				"MIXED_EXPAND_MODES": "混在展開モード",
+				"SIDEBAR_RIGHT_PANEL": "右サイドバーパネル"
+			},
+			"A11Y": {
+				"TOGGLE_NAVIGATION": "ナビゲーションを切り替える",
+				"CLOSE_NAVIGATION": "ナビゲーションを閉じる",
+				"COLLAPSE_NAVIGATION": "ナビゲーションを折りたたむ",
+				"EXPAND_NAVIGATION": "ナビゲーションを展開する",
+				"GO_BACK": "戻る",
+				"CLOSE_PANEL": "パネルを閉じる",
+				"TOGGLE_SECTION": "{label}を切り替える"
+			}
+		},
+		"PAGINABLE": {
+			"FEATURE": {
+				"CORE_USAGE": {
+					"TITLE": "基本的な利用",
+					"DESCRIPTION": "table の基本的なレンダリングとページネーション。"
+				},
+				"DATA_MANAGEMENT": {
+					"TITLE": "データ管理",
+					"DESCRIPTION": "並べ替え、フィルタリング、選択、サーバーサイド操作。"
+				},
+				"ADVANCED_FEATURES": {
+					"TITLE": "高度な機能",
+					"DESCRIPTION": "展開可能な行、カスタムテンプレート、レスポンシブレイアウト、動的スタイリング。"
+				},
+				"LIST_COMPONENTS": {
+					"TITLE": "リストコンポーネント",
+					"DESCRIPTION": "同じく強力なページネーションと選択機能を備えた、柔軟なリストビューです。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"DATA": {
+						"DESCRIPTION": "テーブルに表示するデータ項目の配列、またはデータ配列を発行する Observable"
+					},
+					"HEADERS": {
+						"DESCRIPTION": "テーブルの列とそのプロパティを定義する設定配列"
+					},
+					"PAGINATION": {
+						"DESCRIPTION": "ページサイズ、現在のページ、総項目数を含むページネーション設定"
+					},
+					"PAGINATE": {
+						"DESCRIPTION": "true（既定）でtotalItemsなしの配列を渡すと、テーブルはメモリ上で検索・フィルタ・並べ替え・ページ分割を行います。falseにすると配列全体をページ分割せずに表示します。"
+					},
+					"OPTIONS": {
+						"DESCRIPTION": "選択モード、ローディング状態、レスポンシブ動作を含む一般的なテーブルオプション"
+					},
+					"LOADING": {
+						"DESCRIPTION": "スピナーオーバーレイでローディング状態を表示します"
+					},
+					"SELECTED": {
+						"DESCRIPTION": "現在選択されている項目の配列（双方向バインディング対応）"
+					}
+				},
+				"OUTPUT": {
+					"ROWCLICK": {
+						"DESCRIPTION": "テーブルの行がクリックされたときに発行され、行データとイベントの詳細を含みます"
+					},
+					"SELECTIONCHANGE": {
+						"DESCRIPTION": "行の選択が変化したときに発行され、選択された項目の配列を返します"
+					},
+					"SORTCHANGE": {
+						"DESCRIPTION": "列のソートが変化したときに発行され、現在のソート設定を返します"
+					},
+					"FILTERCHANGE": {
+						"DESCRIPTION": "フィルターが適用または変更されたときに発行されます"
+					},
+					"PAGECHANGE": {
+						"DESCRIPTION": "ページネーションが変化したとき（ページ番号またはサイズ）に発行されます"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "headerTpt",
+						"DESCRIPTION": "カスタムの列ヘッダーを定義するためのカスタムヘッダーテンプレート"
+					},
+					"1": {
+						"NAME": "cellTpt",
+						"DESCRIPTION": "セルコンテンツのレンダリングをカスタマイズするためのカスタムセルテンプレート"
+					},
+					"2": {
+						"NAME": "rowTpt",
+						"DESCRIPTION": "行全体の構造を定義するためのカスタム行テンプレート"
+					},
+					"3": {
+						"NAME": "filterTpt",
+						"DESCRIPTION": "フィルタリング UI 要素を追加するためのカスタムフィルターテンプレート"
+					},
+					"4": {
+						"NAME": "loadingTpt",
+						"DESCRIPTION": "カスタムのローディングインジケーター用のローディング状態テンプレート"
+					},
+					"5": {
+						"NAME": "noResultsTpt",
+						"DESCRIPTION": "データがないときに表示される空状態テンプレート"
+					},
+					"6": {
+						"NAME": "errorTpt",
+						"DESCRIPTION": "エラー状態を処理するためのエラー状態テンプレート"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"BASIC": {
+					"TITLE": "テーブルの基本的な使い方"
+				},
+				"CSS_VARIABLES": {
+					"TITLE": "テーブルの CSS 変数"
+				},
+				"PAGINATION": {
+					"TITLE": "テーブルのページネーション"
+				},
+				"CLIENT_PAGINATION": {
+					"TITLE": "クライアントサイドのページネーション"
+				},
+				"ACTION_BUTTONS": {
+					"TITLE": "行アクションボタン"
+				},
+				"ACTION_VARIANTS": {
+					"TITLE": "アクションのバリアント"
+				},
+				"COLUMN_VISIBILITY": {
+					"TITLE": "列の表示／非表示"
+				},
+				"CUSTOM_FILTER_TEMPLATES": {
+					"TITLE": "カスタムフィルターテンプレート"
+				},
+				"EMPTY_ERROR_STATES": {
+					"TITLE": "空・エラー状態"
+				},
+				"RESIZABLE_COLUMNS": {
+					"TITLE": "列幅のリサイズ"
+				},
+				"ROW_CLICK": {
+					"TITLE": "行クリックの処理"
+				},
+				"SORTING_FILTERING": {
+					"TITLE": "基本的な並べ替えとフィルタリング"
+				},
+				"ADVANCED_FILTERING": {
+					"TITLE": "高度なフィルタリング（範囲とドロップダウン）"
+				},
+				"MENU_FILTERS": {
+					"TITLE": "列フィルターパネル（すべて / いずれか）"
+				},
+				"SELECTION": {
+					"TITLE": "選択と一括操作"
+				},
+				"EXPANDABLE_STICKY": {
+					"TITLE": "展開可能な行とスティッキー列"
+				},
+				"CUSTOM_TEMPLATES": {
+					"TITLE": "テンプレートによるカスタマイズ"
+				},
+				"RESPONSIVE_STATES": {
+					"TITLE": "レスポンシブレイアウトと状態"
+				},
+				"LIST_BASIC": {
+					"TITLE": "ページ送り & 選択可能なリスト"
+				},
+				"LIST_CSS_VARIABLES": {
+					"TITLE": "リストの CSS 変数"
+				},
+				"LIST_CARDS": {
+					"TITLE": "カード形式のリスト"
+				},
+				"ROW_CLASS": {
+					"TITLE": "動的な行スタイル（rowClass）"
+				},
+				"I18N": {
+					"TITLE": "国際化（i18n）"
+				},
+				"BATCH_ACTIONS": {
+					"TITLE": "一括操作（batchActions）"
+				},
+				"RTL": {
+					"TITLE": "RTL レイアウト（右から左）"
+				},
+				"SERVER_SIDE_OPERATIONS": {
+					"TITLE": "サーバーサイド操作"
+				},
+				"BOTTOM_BAR_ORDERING": {
+					"TITLE": "下部バーの順序（CSS 変数）"
+				},
+				"LIST_WHOLE_ITEM_DRAG": {
+					"TITLE": "アイテム全体のドラッグ（ハンドルなし）"
+				},
+				"LIST_NESTED_DRAG": {
+					"TITLE": "ネストされたリストのドラッグ＆ドロップ"
+				},
+				"LIST_DRAG_DROP": {
+					"TITLE": "ドラッグ＆ドロップでの並べ替え"
+				},
+				"LIST_NESTED": {
+					"TITLE": "ネストされたリスト"
+				},
+				"DEFAULT_STATE_COMPONENTS": {
+					"TITLE": "デフォルトの状態コンポーネント"
+				},
+				"LIST_STATES": {
+					"TITLE": "リストの読み込み・エラー・空状態"
+				},
+				"FORM_CONTROLS": {
+					"TITLE": "非依存のフォームコントロール"
+				},
+				"MULTIPLE_STICKY": {
+					"TITLE": "複数の固定列"
+				},
+				"THEMEABLE_HEADER": {
+					"TITLE": "テーマ設定可能なヘッダーと区切り"
+				},
+				"STICKY_HEADER_SCROLL": {
+					"TITLE": "スクロール時の固定ヘッダー"
+				},
+				"TAG_RETHEME_DARK": {
+					"TITLE": "タグセレクターによるダーク再テーマ"
+				},
+				"MASTER_DETAIL_SELECTION": {
+					"TITLE": "マスター詳細の選択 (rowClass)"
+				},
+				"CARET_ICONS": {
+					"TITLE": "変更可能な展開アイコン"
+				},
+				"CONNECTED_LIST": {
+					"TITLE": "コネクテッドリスト（タイムライン）"
+				},
+				"CUSTOM_ICONS": {
+					"TITLE": "カスタムアイコンセット"
+				},
+				"MIXIN_THEME": {
+					"TITLE": "ミックスインによるテーマ設定"
+				},
+				"LIST_SELECTION": {
+					"TITLE": "選択可能なリスト"
+				},
+				"LIST_FLUSH": {
+					"TITLE": "フラット表示 — カードの積み重ねではなくリストとして"
+				},
+				"LIST_GROUP_SELECTION": {
+					"TITLE": "ツリーの選択と、クリックが渡すもの"
+				},
+				"TABLE_EDITABLE": {
+					"TITLE": "編集可能 — 表計算のように見えるコントロール"
+				},
+				"ROW_MENUS": {
+					"TITLE": "ボタンライブラリが描く行メニュー"
+				},
+				"FILTER_THEMING": {
+					"TITLE": "フィルター行のテーマ設定"
+				},
+				"RESOURCE": {
+					"TITLE": "resource から供給するテーブル"
+				},
+				"LIST_RESOURCE": {
+					"TITLE": "resource から供給するリスト"
+				},
+				"SELECT_WHILE_SELECTING": {
+					"TITLE": "選択中は行クリックで選択する"
+				},
+				"COMPARE_SEARCH_FN": {
+					"TITLE": "検索と選択一致のカスタマイズ"
+				},
+				"PAGINATOR_BASIC": {
+					"TITLE": "ページャー単体で使う"
+				},
+				"PAGINATION_POSITION": {
+					"TITLE": "ページングバーを置く位置"
+				}
+			},
+			"NAV": {
+				"BASIC": "基本テーブル",
+				"CSS_VARIABLES": "テーブルの CSS 変数",
+				"PAGINATION": "ページネーション",
+				"SORTING_FILTERING": "並べ替え & 基本フィルター",
+				"ADVANCED_FILTERING": "高度なフィルター",
+				"SELECTION": "選択",
+				"EXPANDABLE_STICKY": "展開可能 & 固定",
+				"CUSTOM_TEMPLATES": "カスタムテンプレート",
+				"RESPONSIVE_STATES": "レスポンシブ & 状態",
+				"LIST_BASIC": "基本リスト",
+				"CARDS": "カードリスト",
+				"LIST_CSS_VARIABLES": "リストの CSS 変数",
+				"ROW_CLASS": "行クラス",
+				"I18N": "国際化",
+				"BATCH_ACTIONS": "一括アクション",
+				"RTL": "RTL",
+				"SERVER_SIDE_OPERATIONS": "サーバーサイド操作",
+				"BOTTOM_BAR_ORDERING": "ボトムバーの並び順",
+				"LIST_WHOLE_ITEM_DRAG": "アイテム全体",
+				"LIST_NESTED_DRAG": "ネスト",
+				"LIST_DRAG_DROP": "ドラッグ＆ドロップ",
+				"LIST_NESTED": "ネストされたリスト"
+			}
+		},
+		"PANELS": {
+			"FEATURE": {
+				"VISUALIZATIONS": {
+					"TITLE": "表示形式",
+					"DESCRIPTION": "1つのコンポーネントで4つのビューを利用できます：クラシックな下線付きタブ、角丸のピル、スタック式のアコーディオン開示パネル、常時表示の装飾のないカード。単一の `type` 入力で切り替えられます。"
+				},
+				"STRIP_LAYOUT": {
+					"TITLE": "ストリップレイアウト",
+					"DESCRIPTION": "あらゆるシェルに合わせてヘッダーストリップをレイアウトできます：コンテンツの横に縦に積み重ねる、ヘッダーを幅いっぱいに引き伸ばす、オーバーフローしたストリップをスクロール可能にする、といった配置が可能です。"
+				},
+				"PANEL_MANAGEMENT": {
+					"TITLE": "パネル管理",
+					"DESCRIPTION": "個々のパネルを無効化したり、✕ アフォーダンスと Delete キーを使ってユーザーがその場でパネルを追加・削除したりできます。"
+				},
+				"CUSTOM_TEMPLATES": {
+					"TITLE": "カスタムテンプレート",
+					"DESCRIPTION": "`hubPanelHeading` ディレクティブを介して、プレーンテキストのヘッダーを任意の Angular テンプレート（アイコン、バッジ、インタラクティブなコントロール）に置き換えられます。"
+				},
+				"FORM_INTEGRATION": {
+					"TITLE": "フォーム統合",
+					"DESCRIPTION": "ファーストクラスの ControlValueAccessor サポートにより、アクティブなパネルを Angular のリアクティブフォームおよびテンプレート駆動フォームにバインドできます。"
+				},
+				"MULTIPLE_SELECTION": {
+					"TITLE": "複数選択",
+					"DESCRIPTION": "`multiple` を指定すると、複数のパネルを同時に開けます。アコーディオンビューではすべてが展開され、タブ／ピルビューでは各アクティブなヘッダーが独自の表示パネルを開始し、後続の非アクティブなヘッダーは、次のアクティブなヘッダーが新しいブロックを開始するまで、そのパネルの上にグループ化されたまま残ります。"
+				},
+				"ACCORDION_OPTIONS": {
+					"TITLE": "アコーディオンのオプション",
+					"DESCRIPTION": "アコーディオンビューは、複数のパネルを同時に展開する機能と、外側の装飾のないエッジトゥエッジの `flush` レイアウトをサポートします。"
+				},
+				"ACCESSIBILITY": {
+					"TITLE": "アクセシビリティ",
+					"DESCRIPTION": "完全なキーボードナビゲーション（矢印キー、Home、End、Delete）、roving tabindex、そして tablist とアコーディオンの開示パターンの両方に対する正しい ARIA ロールを備えています。"
+				},
+				"SIDE_PANEL": {
+					"TITLE": "サイドパネル",
+					"DESCRIPTION": "コンテナの一辺にドッキングする非モーダルパネル。コンテンツを狭める（side）か、その端に重ねて表示します（over）。バックドロップ、スクロールロック、フォーカストラップはないため、開いている間もページを操作できます。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"TYPE": {
+						"DESCRIPTION": "コンテナの表示形式: 下線付きタブ、角丸ピル、積み重なったアコーディオンパネル、または常時表示の装飾のないカード。"
+					},
+					"VERTICAL": {
+						"DESCRIPTION": "ヘッダーストリップをコンテンツの横に垂直に積み重ねます（tabs／pills ビュー）。"
+					},
+					"JUSTIFIED": {
+						"DESCRIPTION": "ヘッダーを引き伸ばし、利用可能な幅を均等に分け合います。"
+					},
+					"SCROLLABLE": {
+						"DESCRIPTION": "ヘッダーストリップがあふれたときに、前後へのスクロールボタンを追加します。"
+					},
+					"IS_KEYS_ALLOWED": {
+						"DESCRIPTION": "キーボードナビゲーションを有効にします（矢印 / Home / End / Delete）。"
+					},
+					"MULTIPLE": {
+						"DESCRIPTION": "複数のパネルを同時にアクティブにできます。アコーディオンビューではすべてが展開されます。tabs/pills ビューでは、各アクティブヘッダーが表示パネルブロックを開始し、それに続く非アクティブヘッダーは、次のアクティブヘッダーが新しいブロックを開始するまで、そのブロックの上にグループ化されたまま残ります。フォーム値は配列になります。"
+					},
+					"FLUSH": {
+						"DESCRIPTION": "アコーディオンビュー: 外側のボーダーや角丸のない端から端までのパネル。"
+					},
+					"TOGGLE_POSITION": {
+						"DESCRIPTION": "<hub-panels>（アコーディオン表示）で、開閉シェブロンをヘッダー行のどちら側に置くか。\"end\"（既定）は見出しの後ろ、\"start\" は前に置きます。変わるのは視覚的な順序だけで DOM はそのまま、オフセットは論理プロパティなので \"start\" は LTR では左端、RTL では右端になります。アプリ全体の既定値は HubPanelsConfig.togglePosition で設定します。"
+					},
+					"PANELS_VARIANT": {
+						"DESCRIPTION": "hub-panels: ナビゲーションストリップのセマンティックアクセント。アクティブ／ホバー中のタブ、アクティブなピル、アクティブなアコーディオンヘッダーがこれに従います。組み込み値（'primary' | 'success' | 'danger' | 'warning' | 'info'）はデザインシステムの色調を使いますが、任意の文字列も指定できます。ストリップはアプリケーションの --hub-sys-color-<variant> を読み取ります。既定は primary です。"
+					},
+					"FILL": {
+						"DESCRIPTION": "card パネル専用：親の高さいっぱいに広がり本文をスクロールさせるため、内側の flex:1/min-height:0 領域（例：タブストリップ + スクロールペイン）が制約されます。親は flex の縦方向カラムである必要があります。"
+					},
+					"STANDALONE": {
+						"DESCRIPTION": "card パネル専用の静的属性：同じテンプレート内の祖先 tabs/pills/accordion グループから独立した <hub-panel> を除外し、隠れたタブとして取り込まれずに通常の card として描画されるようにします。"
+					},
+					"BIND_VALUE": {
+						"DESCRIPTION": "発行されるフォーム値を取得するために各パネルの値に適用されるドット記法のパス（例: 'meta.key'）。"
+					},
+					"COMPARE_WITH": {
+						"DESCRIPTION": "フォーム値とパネル値を照合するために使用される等価判定。"
+					},
+					"HEADING": {
+						"DESCRIPTION": "hub-panel: プレーンテキストのヘッダー。hubPanelHeading テンプレートが指定されている場合は無視されます。"
+					},
+					"ID": {
+						"DESCRIPTION": "hub-panel: タブとそのパネル（またはアコーディオンのヘッダーとその領域）を結ぶ ARIA 対応付けに使う id。hub-panel-<n> として自動生成されます。ディープリンクや独自の aria-controls のために安定した id が必要な場合に指定します。"
+					},
+					"VALUE": {
+						"DESCRIPTION": "hub-panel: コンテナがフォームコントロールとして使用されるときに提供される値。"
+					},
+					"ACTIVE": {
+						"DESCRIPTION": "hub-panel: 双方向バインドされた active／expanded 状態。"
+					},
+					"DISABLED": {
+						"DESCRIPTION": "hub-panel: パネルがアクティブ化されるのを防ぎます。"
+					},
+					"REMOVABLE": {
+						"DESCRIPTION": "hub-panel: ✕ のアフォーダンスを表示し、Delete キーでの削除を有効にします。"
+					},
+					"REMOVE_LABEL": {
+						"DESCRIPTION": "hub-panel: ✕ 削除ボタンに読み上げられるアクセシブルな名前（aria-label）。コントロールをローカライズするには上書きします。"
+					},
+					"ROUTER_LINK": {
+						"DESCRIPTION": "hub-panel: パネルを <router-outlet> に支えられたルーティングパネルに変換します。"
+					},
+					"QUERY_PARAMS": {
+						"DESCRIPTION": "hub-panel: routerLink へのナビゲーション時に付加されるクエリパラメータ。"
+					},
+					"PATH_MATCH": {
+						"DESCRIPTION": "hub-panel: ルーティングパネルをアクティブとしてマークするために使用される URL の比較。"
+					},
+					"CUSTOM_CLASS": {
+						"DESCRIPTION": "hub-panel: nav 項目とペインの両方に適用される追加の CSS クラス。"
+					},
+					"APPEARANCE": {
+						"DESCRIPTION": "hub-panel: 単独パネルの外観 — 'card'（既定）またはセマンティックな 'alert'。tabs/pills/accordion 表示では無視されます。"
+					},
+					"VARIANT": {
+						"DESCRIPTION": "hub-panel: パネルのセマンティックアクセント。alert を色付けし、card 全体を淡く染めます（data-variant として反映）。組み込み値（'primary' | 'success' | 'danger' | 'warning' | 'info'）はデザインシステムの色調を使いますが、任意の文字列も指定できます。パネルはアプリケーションの --hub-sys-color-<variant> を読み取ります。中立的なパネルでは省略します。"
+					},
+					"TAB_NAV_ITEMS": {
+						"DESCRIPTION": "<hub-tab-nav> の選択可能なタブを、レンダリング順に指定します。各項目は軽量な { value, label, disabled?, id? } 記述子です — ストリップ自体はコンテンツを保持しないため、value はタブが選択されたときに発行される値になります。"
+					},
+					"TAB_NAV_ACTIVE": {
+						"DESCRIPTION": "<hub-tab-nav> の双方向バインドされた選択値です。タブを事前選択するために設定し、activeChange を通じて読み戻します。対応する項目は、その value がこれと等しい項目です。"
+					},
+					"TAB_NAV_APPEARANCE": {
+						"DESCRIPTION": "<hub-tab-nav> ストリップの見た目：従来のアンダーライン付き 'tabs'（デフォルト）または角丸の 'pills'。"
+					},
+					"TAB_NAV_JUSTIFIED": {
+						"DESCRIPTION": "true の場合、<hub-tab-nav> のタブが引き伸ばされ、利用可能な幅を均等に分け合います。"
+					},
+					"TAB_NAV_VERTICAL": {
+						"DESCRIPTION": "true の場合、<hub-tab-nav> ストリップはタブを横一列に並べる代わりに縦方向に積み重ねます。"
+					},
+					"SIDE_PANEL_MODE": {
+						"DESCRIPTION": "<hub-side-panel>：'side' はパネルをドッキングし、場所を空けるためにコンテンツを狭めます。'over' はバックドロップ、スクロールロック、フォーカストラップなしでコンテンツの端に重ねて表示します。"
+					},
+					"SIDE_PANEL_POSITION": {
+						"DESCRIPTION": "<hub-side-panel>：パネルを配置するコンテナの論理的なインライン方向の端。'end' は LTR では右端、dir=\"rtl\" では左端です。"
+					},
+					"SIDE_PANEL_OPEN": {
+						"DESCRIPTION": "<hub-side-panel>：双方向の開閉状態。閉じても投影されたコンテンツは破棄されずに非表示になるだけなので、中のチャットやフォームは状態を保持します。"
+					},
+					"SIDE_PANEL_CLOSE_ON_ESCAPE": {
+						"DESCRIPTION": "<hub-side-panel>：パネル内で Escape を押したときに閉じるかどうか。ページ上で押された Escape は奪わず、すでにキーを処理したコントロールがある場合はパネルを開いたままにします。"
+					},
+					"SIDE_PANEL_BREAKPOINT": {
+						"DESCRIPTION": "<hub-side-panel>：コンテナのインラインサイズ（px）がこの値未満のとき、side パネルを over として描画します。狭い画面でドッキングするとコンテンツを押しつぶすためです。0 にするとどの幅でもドッキングしたままです。"
+					},
+					"SIDE_PANEL_AUTO_FOCUS": {
+						"DESCRIPTION": "<hub-side-panel>：開いたときにフォーカスをパネル内へ移すかどうか。最初の [autofocus] 要素、なければ最初のフォーカス可能要素、なければパネル自体に移します。既定はオフです。"
+					},
+					"SIDE_PANEL_ROLE": {
+						"DESCRIPTION": "<hub-side-panel>：ランドマークロール。ページのメインコンテンツの横では 'complementary'、その内部に置く場合は 'region' を使います。"
+					},
+					"SIDE_PANEL_ARIA_LABEL": {
+						"DESCRIPTION": "<hub-side-panel>：ランドマークのアクセシブルな名前。これか ariaLabelledBy を指定してください。"
+					},
+					"SIDE_PANEL_ARIA_LABELLED_BY": {
+						"DESCRIPTION": "<hub-side-panel>：ランドマークに名前を付ける要素の id。通常はヘッダースロット内の見出しです。"
+					}
+				},
+				"OUTPUT": {
+					"PANEL_CHANGE": {
+						"DESCRIPTION": "hub-panels: ユーザーが別のパネルをアクティブ化（オープン）したときに発行されます。{ current, prev } を提供します。"
+					},
+					"SELECT_PANEL": {
+						"DESCRIPTION": "hub-panel: パネルがアクティブになったときに発行されます。"
+					},
+					"DESELECT_PANEL": {
+						"DESCRIPTION": "hub-panel: パネルがアクティブでなくなったときに発行されます。"
+					},
+					"REMOVED": {
+						"DESCRIPTION": "hub-panel: パネルが ✕ ボタンまたは Delete キーで削除されたときに発行されます。"
+					},
+					"ACTIVE_CHANGE": {
+						"DESCRIPTION": "hub-panel: 双方向 active モデルの change 側。パネルの新しい active／expanded 状態とともに発行されます。"
+					},
+					"TAB_NAV_ACTIVE_CHANGE": {
+						"DESCRIPTION": "選択値が変化するたびに <hub-tab-nav> から発行され（双方向 active モデルの change 側）、新たに選択された項目の value を伴います。"
+					},
+					"SIDE_PANEL_OPEN_CHANGE": {
+						"DESCRIPTION": "<hub-side-panel>：双方向 open モデルの変更側。誰が変更したか（バインディング、Escape、toggle()、close()）に関係なく新しい状態で発行されます。"
+					}
+				},
+				"METHOD": {
+					"SELECT_PANEL": {
+						"DESCRIPTION": "ユーザーのクリックと同じようにパネルを有効化します。アクティブにし、ルーティングされたパネルなら遷移し、panelChange を発行します。無効なパネルでは何もしません。"
+					},
+					"TOGGLE_PANEL": {
+						"DESCRIPTION": "アコーディオン表示でパネルを開閉します。multiple を尊重し、multiple が無効なら1つ開くと他は閉じます。"
+					},
+					"REMOVE_PANEL": {
+						"DESCRIPTION": "グループからパネルを削除します。reselect は別のパネルが代わりに選択されるか、emit は削除を panelChange で通知するかを決めます。"
+					},
+					"REMOVE_PANEL_AND_REFOCUS": {
+						"DESCRIPTION": "パネルを削除し、残っている最も近いヘッダーへキーボードフォーカスを渡します。削除でフォーカスが body に落ちることはありません。✕ ボタンと Delete キーが呼び出すのはこのメソッドです。"
+					},
+					"SIDE_PANEL_TOGGLE": {
+						"DESCRIPTION": "パネルを開閉します。true または false を渡すと、反転ではなくその状態に強制します。"
+					},
+					"SIDE_PANEL_CLOSE": {
+						"DESCRIPTION": "パネルを閉じます。フォーカスが内部にあった場合は、パネルを開いたときにフォーカスを持っていた要素に戻ります。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "hubPanelHeading",
+						"DESCRIPTION": "hub-panel 内の <ng-template> を、そのパネルのカスタムヘッダー（tabs/pills ではストリップリンク、アコーディオンでは開閉ボタン）として指定し、プレーンテキストの heading 入力を置き換えます。"
+					},
+					"1": {
+						"NAME": "hubPanelHeader / hubPanelFooter",
+						"DESCRIPTION": "hub-panel 内の要素をパネルコンテンツのヘッダー/フッター帯として指定します。すべてのビュー（tabs、pills、accordion、card）で表示され、hubPanelHeading とは異なります。"
+					},
+					"2": {
+						"NAME": "type=\"card\"",
+						"DESCRIPTION": "装飾のないカード表示：ナビゲーション帯がなく、すべてのパネルが常に表示されます。hub-panel は hub-panels の外で単独でも使用でき、その場合はカードとして表示されます。"
+					}
+				},
+				"CSS_VAR": {
+					"FLEX_DIRECTION": {
+						"DESCRIPTION": "コンテンツに対するヘッダーストリップの方向。"
+					},
+					"BORDER_WIDTH": {
+						"DESCRIPTION": "タブストリップとアクティブタブで使用される境界線の幅。"
+					},
+					"BORDER_COLOR": {
+						"DESCRIPTION": "タブストリップとコンテンツの境界線の色。"
+					},
+					"BORDER_RADIUS": {
+						"DESCRIPTION": "タブヘッダーとコンテンツの角の半径。"
+					},
+					"CONTENT_BG": {
+						"DESCRIPTION": "コンテンツ領域の背景。"
+					},
+					"HEADER_BG": {
+						"DESCRIPTION": "非アクティブなヘッダーとスペーサーゾーンの背後にあるタブ/ピルストリップ領域の背景。"
+					},
+					"CONTENT_BOX_SHADOW": {
+						"DESCRIPTION": "コンテンツ領域のラッパーに適用されるボックスシャドウ。"
+					},
+					"CONTENT_PADDING_X": {
+						"DESCRIPTION": "コンテンツ領域の水平パディング。"
+					},
+					"CONTENT_PADDING_Y": {
+						"DESCRIPTION": "コンテンツ領域の垂直パディング。"
+					},
+					"TAB_FONT_WEIGHT": {
+						"DESCRIPTION": "ヘッダーラベルのフォントウェイト。"
+					},
+					"TAB_PADDING_X": {
+						"DESCRIPTION": "ヘッダー内の水平パディング。"
+					},
+					"TAB_PADDING_Y": {
+						"DESCRIPTION": "ヘッダー内の垂直パディング。"
+					},
+					"TAB_COLOR": {
+						"DESCRIPTION": "非アクティブなヘッダーのテキスト色。"
+					},
+					"TAB_BG": {
+						"DESCRIPTION": "非アクティブなヘッダーの背景。--hub-panels-header-bg を透過させるには透明のままにします。"
+					},
+					"TAB_COLOR_ACTIVE": {
+						"DESCRIPTION": "アクティブなヘッダーのテキスト色。"
+					},
+					"TAB_BG_ACTIVE": {
+						"DESCRIPTION": "アクティブなヘッダーの背景。デフォルトはコンテンツ表面で、アクティブタブがパネルと一体化します。"
+					},
+					"TAB_BG_HOVER": {
+						"DESCRIPTION": "ホバー時のヘッダーの背景。"
+					},
+					"TAB_BORDER_COLOR_ACTIVE": {
+						"DESCRIPTION": "アクティブタブの境界線の色。"
+					},
+					"TAB_ACTIVE_SHADOW": {
+						"DESCRIPTION": "水平ボックスタブビューでアクティブタブが使用する立体シャドウ。"
+					},
+					"TAB_ACTIVE_SHADOW_VERTICAL": {
+						"DESCRIPTION": "垂直ボックスタブビューでアクティブタブが使用する立体シャドウ。"
+					},
+					"TAB_FOCUS_RING_COLOR": {
+						"DESCRIPTION": "キーボードフォーカスのフォーカスリングの色。"
+					},
+					"PILL_BORDER_RADIUS": {
+						"DESCRIPTION": "ピルヘッダーの角の半径。"
+					},
+					"PILL_BG_ACTIVE": {
+						"DESCRIPTION": "アクティブなピルの背景。"
+					},
+					"PILL_COLOR_ACTIVE": {
+						"DESCRIPTION": "アクティブなピルのテキスト色。"
+					},
+					"PILL_GAP": {
+						"DESCRIPTION": "ピルヘッダー間の間隔。"
+					},
+					"PILL_CONTENT_BORDER_WIDTH": {
+						"DESCRIPTION": "ピルコンテンツカードの境界線の幅。境界線付きのペインに戻すには共有境界線の幅に設定します。"
+					},
+					"NAV_CONTENT_GAP": {
+						"DESCRIPTION": "ピルストリップとコンテンツカードの間隔（垂直時はインライン間隔）。"
+					},
+					"PANE_MIN_WIDTH": {
+						"DESCRIPTION": "コンテンツ領域が水平スクロールする前の、開いている各ペインの最小幅。"
+					},
+					"PANE_MIN_HEIGHT": {
+						"DESCRIPTION": "垂直レイアウトにおける開いている各ペインの最小高さ。"
+					},
+					"PANE_GAP": {
+						"DESCRIPTION": "複数のパネルブロック間の間隔。"
+					},
+					"ACCORDION_ACTIVE_COLOR": {
+						"DESCRIPTION": "展開された accordion ヘッダーのテキスト色。"
+					},
+					"ACCORDION_ACTIVE_BG": {
+						"DESCRIPTION": "展開された accordion ヘッダーの背景。"
+					},
+					"ACCORDION_BTN_PADDING_X": {
+						"DESCRIPTION": "開示ボタンの水平パディング。"
+					},
+					"ACCORDION_BTN_PADDING_Y": {
+						"DESCRIPTION": "開示ボタンの垂直パディング。"
+					},
+					"ACCORDION_BTN_ICON_TRANSFORM": {
+						"DESCRIPTION": "展開時にシェブロンへ適用される transform。"
+					},
+					"ACCORDION_COLLAPSE_TRANSITION_DURATION": {
+						"DESCRIPTION": "展開/折りたたみアニメーションの継続時間。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"BASIC": {
+					"TITLE": "基本的なタブ"
+				},
+				"PILLS": {
+					"TITLE": "ピル"
+				},
+				"ACCORDION": {
+					"TITLE": "accordion ビュー"
+				},
+				"VERTICAL": {
+					"TITLE": "垂直タブ"
+				},
+				"JUSTIFIED": {
+					"TITLE": "均等配置タブ"
+				},
+				"SCROLLABLE": {
+					"TITLE": "スクロール可能なタブ"
+				},
+				"DISABLED": {
+					"TITLE": "無効なパネル"
+				},
+				"REMOVABLE": {
+					"TITLE": "削除可能 & 動的なパネル"
+				},
+				"CUSTOM_HEADING": {
+					"TITLE": "カスタム見出しテンプレート"
+				},
+				"HEADING_ACTIONS": {
+					"TITLE": "アコーディオンの行アクション"
+				},
+				"REACTIVE_FORMS": {
+					"TITLE": "リアクティブフォーム統合"
+				},
+				"MULTIPLE": {
+					"TITLE": "複数選択"
+				},
+				"MULTIPLE_VERTICAL": {
+					"TITLE": "複数の垂直ヘッダー"
+				},
+				"MULTIPLE_FLUSH": {
+					"TITLE": "アコーディオンの複数表示 & フラッシュ"
+				},
+				"KEYBOARD": {
+					"TITLE": "キーボードナビゲーション"
+				},
+				"CARD": {
+					"TITLE": "カードとコンテンツスロット"
+				},
+				"ALERT": {
+					"TITLE": "セマンティックアラート"
+				},
+				"VARIANT": {
+					"TITLE": "セマンティックストリップアクセント"
+				},
+				"TAB_NAV": {
+					"TITLE": "タブナビゲーション（コンテンツを持たないストリップ）"
+				},
+				"CARD_SLOTS": {
+					"TITLE": "カードスロット（variant / flush / fill）"
+				},
+				"MIXIN": {
+					"TITLE": "hub-panels-theme ミックスインによるテーマ設定"
+				},
+				"SIDE_PANEL": {
+					"TITLE": "サイドパネル（非モーダルのコンパニオン）"
+				}
+			},
+			"NAV": {
+				"BASIC": "基本的なタブ",
+				"PILLS": "ピル",
+				"ACCORDION": "accordion ビュー",
+				"VERTICAL": "垂直タブ",
+				"JUSTIFIED": "均等配置タブ",
+				"SCROLLABLE": "スクロール可能なタブ",
+				"DISABLED": "無効なパネル",
+				"REMOVABLE": "削除可能 & 動的なパネル",
+				"CUSTOM_HEADING": "カスタム見出しテンプレート",
+				"REACTIVE_FORMS": "リアクティブフォーム統合",
+				"MULTIPLE": "複数選択",
+				"MULTIPLE_FLUSH": "アコーディオンの複数表示 & フラッシュ",
+				"KEYBOARD": "キーボードナビゲーション",
+				"CARD": "カードとコンテンツスロット",
+				"ALERT": "アラート"
+			}
+		},
+		"PORTAL": {
+			"FEATURE": {
+				"CONTENT_RENDERING": {
+					"TITLE": "コンテンツのレンダリング",
+					"DESCRIPTION": "データ注入と投影機能を備え、さまざまなコンテンツタイプ（Component、TemplateRef、String）のレンダリングをサポートします。"
+				},
+				"OPENING_STRATEGIES": {
+					"TITLE": "開く戦略",
+					"DESCRIPTION": "ポータルの開き方を制御します：プログレッシブ（スタック）モードまたは排他的（トグル）モード。"
+				},
+				"CONTAINER_TARGETING": {
+					"TITLE": "コンテナの指定",
+					"DESCRIPTION": "ポータルのウィンドウを追加する先を選べます。既定ではドキュメントの body、あるいは CSS セレクターで指定した要素や HTMLElement として渡した要素です。"
+				},
+				"OVERLAY_MANAGEMENT": {
+					"TITLE": "オーバーレイ管理",
+					"DESCRIPTION": "ポータルが開いている間、背後のページはスクロールしなくなり、フォーカスは最前面のウィンドウに閉じ込められ、その外側にはすべて aria-hidden が付きます。"
+				},
+				"INTERACTION": {
+					"TITLE": "インタラクション",
+					"DESCRIPTION": "結果を伴うポータルのクローズ／ディスミス、キーボードサポート、カスタムトリガーセレクターに対応します。"
+				},
+				"LIFECYCLE": {
+					"TITLE": "ライフサイクル",
+					"DESCRIPTION": "ポータルの状態管理のためのライフサイクルフックとイベントサブスクリプションです。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"ANIMATION": {
+						"DESCRIPTION": "true の場合、ポータルの開閉がアニメーションされます。デフォルト: true"
+					},
+					"ARIA_LABELLED_BY": {
+						"DESCRIPTION": "ポータルウィンドウに設定する `aria-labelledby` 属性の値"
+					},
+					"ARIA_DESCRIBED_BY": {
+						"DESCRIPTION": "ポータルウィンドウに設定する `aria-describedby` 属性の値"
+					},
+					"BEFORE_DISMISS": {
+						"DESCRIPTION": "ポータルが dismiss される直前に呼び出されるコールバック。dismiss を防ぐには false を返します。"
+					},
+					"CONTAINER": {
+						"DESCRIPTION": "すべての新しいポータルウィンドウを付加する要素を指定するセレクタ。指定しない場合は `body` になります。"
+					},
+					"INJECTOR": {
+						"DESCRIPTION": "依存性注入を有効にするために、ポータルコンテンツで使用する `Injector`。"
+					},
+					"KEYBOARD": {
+						"DESCRIPTION": "true の場合、Escape キーが押されるとポータルが閉じます。デフォルト: true"
+					},
+					"SCROLLABLE": {
+						"DESCRIPTION": "スクロール可能なポータルコンテンツ（デフォルトは false）。"
+					},
+					"WINDOW_CLASS": {
+						"DESCRIPTION": "カスタムのスタイルや配置のためにポータルウィンドウに付加するカスタムクラス。"
+					},
+					"PORTAL_DIALOG_CLASS": {
+						"DESCRIPTION": "ポータルダイアログコンテナに付加するカスタムクラス。"
+					},
+					"PORTAL_CONTENT_CLASS": {
+						"DESCRIPTION": "ポータルコンテンツのラッパーに付加するカスタムクラス。"
+					},
+					"HEADER_SELECTOR": {
+						"DESCRIPTION": "ポータルウィンドウのヘッダー要素のカスタムセレクタ。特定のポータルセクションを対象にするのに役立ちます。"
+					},
+					"FOOTER_SELECTOR": {
+						"DESCRIPTION": "ポータルウィンドウのフッター要素のカスタムセレクタ。特定のポータルセクションを対象にするのに役立ちます。"
+					},
+					"DISMISS_SELECTOR": {
+						"DESCRIPTION": "ポータルウィンドウの dismiss をトリガーできる要素のカスタムセレクタ。デフォルト: `[data-dismiss=\"portal\"]`"
+					},
+					"CLOSE_SELECTOR": {
+						"DESCRIPTION": "ポータルウィンドウの close をトリガーできる要素のカスタムセレクタ。デフォルト: `[data-close=\"portal\"]`"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "Portal Template",
+						"DESCRIPTION": "動的レンダリングのために HubPortal サービスに渡せるテンプレート参照"
+					}
+				},
+				"METHOD": {
+					"OPEN": {
+						"DESCRIPTION": "指定されたコンテンツ（コンポーネント型、TemplateRef、または文字列）とオプションで新しいポータルウィンドウを開き、それを制御するための HubPortalRef を返します。コンテンツコンポーネントは HubActivePortal を注入して、内側からポータルを閉じたり dismiss したりできます。"
+					},
+					"TOGGLE": {
+						"DESCRIPTION": "現在開いているすべてのポータルを理由 'toggle' で dismiss し、それらが完全に非表示になるのを待ってから、指定されたコンテンツとオプションで新しいポータルを表示します。新しいポータルへの参照を返します。"
+					},
+					"DISMISS_ALL": {
+						"DESCRIPTION": "現在表示されているすべてのポータルウィンドウを、指定された理由で dismiss します。"
+					},
+					"HAS_OPEN_PORTALS": {
+						"DESCRIPTION": "アプリケーション内に現在開いているポータルウィンドウがあるかどうかを示します。"
+					},
+					"ACTIVE_INSTANCES": {
+						"DESCRIPTION": "ポータルが開かれるか削除されるたびに、現在開いている HubPortalRef インスタンスのリストを発行するイベントエミッター。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"COMPONENT_RENDERING": {
+					"TITLE": "コンポーネントレンダリング",
+					"DESCRIPTION": "コンポーネントクラスでポータルを開き、返された参照からインスタンスにアクセスします。"
+				},
+				"TEMPLATEREF_RENDERING": {
+					"TITLE": "TemplateRef レンダリング",
+					"DESCRIPTION": "ng-template をポータルの内容としてレンダリングし、close と dismiss をテンプレートのコンテキストで受け取ります。"
+				},
+				"STRING_CONTENT": {
+					"TITLE": "文字列コンテンツ",
+					"DESCRIPTION": "伝えることが一つだけのポータルのために、単なる文字列を内容として渡します。"
+				},
+				"DATA_PASSING": {
+					"TITLE": "データの受け渡し",
+					"DESCRIPTION": "独自の Injector で内容コンポーネントにデータを渡し、クローズ時の値から答えを受け取ります。"
+				},
+				"CONTENT_PROJECTION": {
+					"TITLE": "コンテンツプロジェクション",
+					"DESCRIPTION": "headerSelector と footerSelector オプションで、内容をヘッダー・本文・フッターに振り分けます。"
+				},
+				"PROGRESSIVE_OPEN": {
+					"TITLE": "段階的に開く（スタック）",
+					"DESCRIPTION": "open() でポータルを積み重ね、いくつ開いたままかをサービスに問い合わせます。"
+				},
+				"TOGGLE": {
+					"TITLE": "切り替え（排他的）",
+					"DESCRIPTION": "toggle() は開いているものを閉じ、非表示になるまで待ってから、新しいポータルを表示します。"
+				},
+				"BASIC": {
+					"TITLE": "基本的な使い方（旧）",
+					"DESCRIPTION": "サービスのふだんの使い方。ポータルを開き、result を待ち、値を添えて閉じます。"
+				},
+				"POSITIONING": {
+					"TITLE": "カスタムコンテナ（旧）",
+					"DESCRIPTION": "ウィンドウを別のコンテナへ送り、windowClass で装います。配置はこのデモ自身の CSS によるもので、ライブラリは追加するだけで配置はしません。"
+				},
+				"SERVICE": {
+					"TITLE": "サービス & インジェクション（旧）",
+					"DESCRIPTION": "サービスから操るポータル。トースト、ダイアログ、ドロワーに加えて dismissAll、hasOpenPortals、activeInstances も扱います。"
+				}
+			},
+			"NAV": {
+				"COMPONENT_RENDERING": "コンポーネントレンダリング",
+				"TEMPLATEREF_RENDERING": "TemplateRef レンダリング",
+				"STRING_CONTENT": "文字列コンテンツ",
+				"DATA_PASSING": "データの受け渡し",
+				"CONTENT_PROJECTION": "コンテンツプロジェクション",
+				"PROGRESSIVE_OPEN": "段階的に開く",
+				"TOGGLE": "切り替え",
+				"BASIC": "基本",
+				"POSITIONING": "カスタムコンテナ",
+				"SERVICE": "サービスの使用"
+			}
+		},
+		"SKELETON": {
+			"NAV": {
+				"PRESET_CATALOGUE": "プリセットカタログギャラリー",
+				"CARD_PRESET": "付属の card プリセット",
+				"COMPACT_DSL": "コンパクトな DSL パターン",
+				"INLINE_TEMPLATE": "インラインの Emmet ライクなテンプレート",
+				"CUSTOM_PRESET": "プログラムによるカスタムプリセット",
+				"RESPONSIVE_TABLE": "レスポンシブなテーブルレイアウト",
+				"COMPACT_VARIANT": "コンパクトなバリアント",
+				"DASHBOARD_COMPOSITION": "ダッシュボードの構成"
+			},
+			"FEATURE": {
+				"PRESET_CATALOGUE": {
+					"TITLE": "プリセットカタログ",
+					"DESCRIPTION": "ローディング状態は通常、孤立したプレースホルダーではなく繰り返し現れる業務 UI であるため、付属のカタログは意図的に幅広く作られています。card、list-item、table-row、detail-view、form-section、dashboard-widget、stat-card、chart-panel、profile-summary、master-detail、kanban-card、feed-item、search-result、table-toolbar、filter-bar、empty-state-skeleton が含まれます。その狙いは、機能ごとに同じ shimmer ブロックを作り直すのではなく、チームが本番志向のローディング語彙から始められるようにすることです。実際には、テーブル中心の画面は `table-toolbar` と繰り返しの `table-row` から始められ、ダッシュボード画面は `stat-card`、`chart-panel`、`dashboard-widget` を組み合わせられ、コンテンツ主導のフローは新しいレイアウトマークアップをゼロから書くことなく `card`、`feed-item`、`search-result` を利用できます。"
+				},
+				"COMPACT_DSL_AUTHORING": {
+					"TITLE": "コンパクトな DSL によるオーサリング",
+					"DESCRIPTION": "このライブラリは Angular コードベース内での高速なイテレーションに最適化されているため、インラインテンプレートはコンパクトな Emmet ライクの構文を使用します。兄弟の合成には `+`、ネストには `>` を使い、修飾子は括弧の中に置き、繰り返しには `*N` を使用し、パラメータは `{{param}}` で補間されます。これにより、チームはプルリクエストでも読みやすいコンパクトなオーサリング面を得られ、オブジェクトツリー全体を書き直すことなく小さな変更が可能になります。重要なのは構文の巧妙さではなく、レイアウトの意図がコンポーネントの利用箇所に近いまま保たれ、差分・リファクタリング・レビューが容易であることです。"
+				},
+				"VARIANTS_AND_RESPONSIVE_LAYOUTS": {
+					"TITLE": "バリアントとレスポンシブレイアウト",
+					"DESCRIPTION": "スケルトンが実際の UI と無関係であるとユーザーは気づくため、ローディング状態はレイアウトの密度やブレークポイントを無視すべきではありません。プリセットは `compact` などのバリアントを公開でき、個々の修飾子の値はコンパクトなレスポンシブトークンを使ってブレークポイントごとに切り替えられます。これにより、1つのセマンティックなスケルトン定義を保ちつつ、モバイル・タブレット・デスクトップのコンテキストにわたって幅・列数・余白・サイズを適応させることが可能になります。実際の結果として、テンプレートの重複が減り、プレースホルダーの段階と実際にレンダリングされたインターフェースとの整合性が大幅に向上します。"
+				},
+				"PROGRAMMATIC_REGISTRATION_AND_THEMING": {
+					"TITLE": "プログラムによる登録とテーマ設定",
+					"DESCRIPTION": "付属のプリセットは出発点であり、上限ではありません。チームは Angular の依存性注入を通じてプロジェクト固有のプリセットを登録し、組み込みカタログとまったく同じように名前で利用できます。これは、製品が独自の繰り返されるスケルトン言語を持つ場合に極めて重要です。視覚的な調整は CSS 変数に保たれるため、shimmer の強度・ベースカラー・ハイライトカラー・余白・角丸は、ハードコードされた値を機能コンポーネントに漏らすことなくデザインシステムと整合させられます。この分離は重要です。構造はプリセットと DSL に属し、視覚的なポリシーはテーマ設定に属します。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"PRESET": {
+						"DESCRIPTION": "バンドル済みまたは登録済みのプリセットの名前。指定すると、コンポーネントはプリセットレジストリからデフォルト、バリアント、エイリアス合成を解決します。"
+					},
+					"TEMPLATE": {
+						"DESCRIPTION": "インラインの Emmet 風 DSL 文字列、または任意のレスポンシブブレークポイント上書きを伴うテンプレート定義オブジェクト。"
+					},
+					"PARAMS": {
+						"DESCRIPTION": "解析およびプリセット展開の前に `{{param}}` プレースホルダーに補間される、シリアライズ可能なパラメータ。"
+					},
+					"VARIANT": {
+						"DESCRIPTION": "`compact` などの任意のプリセットバリアント名。テンプレートのデフォルトを切り替えたり、ベースプリセットテンプレートを上書きしたりするために使用します。"
+					},
+					"ANIMATED": {
+						"DESCRIPTION": "同じプレースホルダーレイアウトを保ちながら、シマーアニメーションを有効または無効にします。"
+					},
+					"APPEARANCE": {
+						"DESCRIPTION": "解決済みのレイアウトを変えずに、スケルトン表面の視覚的な強度を変更します。"
+					},
+					"ARIALABEL": {
+						"DESCRIPTION": "支援技術のためにコンテナ要素に適用されるアクセシブルなラベル。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "Bundled Presets",
+						"DESCRIPTION": "初期カタログで利用可能なプリセット名: card、list-item、table-row、detail-view、form-section、dashboard-widget、stat-card、chart-panel、profile-summary、master-detail、kanban-card、feed-item、search-result、table-toolbar、filter-bar、empty-state-skeleton。"
+					},
+					"1": {
+						"NAME": "Preset DSL",
+						"DESCRIPTION": "ノード名、修飾子、`+` による兄弟合成、`>` による子のネスト、`*N` による繰り返しをサポートするコンパクトな文字列構文。"
+					},
+					"2": {
+						"DESCRIPTION": "任意のコンポーネントが名前でレンダリングできるよう、Angular の依存性注入にカスタムプリセットを登録します。"
+					}
+				},
+				"CSS_VAR": {
+					"SKELETON_BG": {
+						"DESCRIPTION": "表示されるスケルトン表面に使用されるベースのプレースホルダー色。"
+					},
+					"SKELETON_HIGHLIGHT": {
+						"DESCRIPTION": "シマーグラデーションで使用されるハイライト色。"
+					},
+					"SKELETON_RADIUS": {
+						"DESCRIPTION": "block ノードおよび line ノードのデフォルトの角丸半径。"
+					},
+					"SKELETON_GAP": {
+						"DESCRIPTION": "修飾子で上書きされない場合に stack ノードおよび grid ノードで使用されるデフォルトのギャップ。"
+					},
+					"SKELETON_ANIMATION_DURATION": {
+						"DESCRIPTION": "シマーアニメーションサイクルの長さ。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"CARD_PRESET": {
+					"TITLE": "付属の card プリセット",
+					"DESCRIPTION": "付属の card スケルトンを既定の shimmer で描画します。"
+				},
+				"PRESET_CATALOGUE": {
+					"TITLE": "プリセットカタログギャラリー",
+					"DESCRIPTION": "付属のプリセットをまとめて表示し、独自テンプレートを書く前に最も近い出発点を選べるようにします。"
+				},
+				"INLINE_TEMPLATE": {
+					"TITLE": "インラインの Emmet ライクなテンプレート",
+					"DESCRIPTION": "params の補間を使い、独自のスケルトン形状をインラインで定義します。"
+				},
+				"COMPACT_DSL": {
+					"TITLE": "コンパクトな DSL パターン",
+					"DESCRIPTION": "構造、params、レスポンシブトークンの視覚的な出力とともに、DSL の基本構成要素を解説します。"
+				},
+				"CUSTOM_PRESET": {
+					"TITLE": "プログラムによるカスタムプリセット",
+					"DESCRIPTION": "ローカルのプリセットを登録し、付属カタログと同じように名前で利用します。"
+				},
+				"RESPONSIVE_TABLE": {
+					"TITLE": "レスポンシブなテーブルレイアウト",
+					"DESCRIPTION": "付属プリセット内でレスポンシブな値を使い、コンパクトなレイアウトから広いレイアウトへ適応させます。"
+				},
+				"COMPACT_VARIANT": {
+					"TITLE": "コンパクトなバリアント",
+					"DESCRIPTION": "既定の card プリセットとコンパクトなバリアントを比較し、より密なインターフェースに備えます。"
+				},
+				"DASHBOARD_COMPOSITION": {
+					"TITLE": "ダッシュボードの構成",
+					"DESCRIPTION": "複数のプリセットを組み合わせ、読み込み中の分析ダッシュボードを再現します。"
+				}
+			},
+			"MIXIN": {
+				"DEMO": {
+					"THEMING": {
+						"TITLE": "hub-skeleton-theme によるテーマ設定"
+					}
+				}
+			}
+		},
+		"SORTABLE": {
+			"NAV": {
+				"ARRAY": "シンプルな配列",
+				"FORM_ARRAY": "FormArray との統合",
+				"OPTIONS": "カスタムオプション",
+				"MULTIPLE_LISTS": "複数のリスト",
+				"LAYOUT_BUILDER": "レイアウトビルダー",
+				"SIGNAL": "Signals",
+				"MANUAL": "手動モード"
+			},
+			"FEATURE": {
+				"CORE_USAGE": {
+					"TITLE": "基本的な利用",
+					"DESCRIPTION": "sortable リストの基本的な利用シナリオです。",
+					"EXAMPLE": {
+						"ARRAY": {
+							"DESCRIPTION": "シンプルな配列を並べ替えます。"
+						},
+						"SIGNAL": {
+							"DESCRIPTION": "sortable データを Angular の書き込み可能な signal にバインドします。"
+						}
+					}
+				},
+				"FORMS_INTEGRATION": {
+					"TITLE": "フォームとの統合",
+					"DESCRIPTION": "Angular のリアクティブフォームで sortable を使用します。",
+					"EXAMPLE": {
+						"FORM_ARRAY": {
+							"DESCRIPTION": "drag and drop で FormArray コントロールを並べ替えます。"
+						}
+					}
+				},
+				"ADVANCED_CONFIGURATION": {
+					"TITLE": "高度な設定",
+					"DESCRIPTION": "SortableJS の動作と操作をカスタマイズします。",
+					"EXAMPLE": {
+						"OPTIONS": {
+							"DESCRIPTION": "ハンドル、フィルター、アニメーション、イベントを設定します。"
+						},
+						"MULTIPLE_LISTS": {
+							"DESCRIPTION": "リストを接続し、アイテムを複製し、転送ルールを制御します。"
+						},
+						"LAYOUT_BUILDER": {
+							"DESCRIPTION": "タブとウィジェットを備えたネストされた sortable コンテナです。"
+						},
+						"MANUAL": {
+							"DESCRIPTION": "`autoUpdateArray=false` で自動更新を無効にし、`moveItemInArray`、`transferArrayItem`、`copyArrayItem` ヘルパーを使って自分で変更を適用します。"
+						}
+					}
+				}
+			},
+			"API": {
+				"INPUT": {
+					"HUB_SORTABLE": {
+						"DESCRIPTION": "ソート対象のコンテナーにバインドするデータ。配列、リアクティブフォームの `FormArray`、書き込み可能なシグナルのいずれかです。ドラッグ＆ドロップの操作と同期し続けます。省略可能で、`hubSortable` 属性だけでもディレクティブは動作し、その場合は何も変更せずに出力がすべての移動を報告します。"
+					},
+					"OPTIONS": {
+						"DESCRIPTION": "SortableJS のオプションオブジェクト全体。各 SortableJS オプションは個別の input として直接バインドすることもできます（例: `handle`、`animation`、`group`）。"
+					},
+					"AUTO_UPDATE_ARRAY": {
+						"DESCRIPTION": "`true`（既定）の場合、ディレクティブはドラッグごとにバインドされた配列を自動的に更新します。手動制御するには `false` に設定し、自分で配列を更新します。"
+					},
+					"CLONE_FUNCTION": {
+						"DESCRIPTION": "グループが `pull: 'clone'` モードのときに項目を複製するために使用する関数です。"
+					},
+					"CONTAINER": {
+						"DESCRIPTION": "ホストが実際のリストをラップしている場合に、ソート可能にすべきネストされた要素の CSS セレクターです。"
+					},
+					"GROUP": {
+						"DESCRIPTION": "複数のリストを接続し、どのリストが項目を渡せる・受け取れるかを制御するためのグループ名または設定オブジェクトです。"
+					},
+					"SORT": {
+						"DESCRIPTION": "リスト内での項目の並べ替えを有効または無効にします。"
+					},
+					"DELAY": {
+						"DESCRIPTION": "ドラッグを開始できるようになるまでポインターを押し続けるミリ秒数。既定値は `0`。タッチ環境では値を上げて、短い押下ではドラッグではなくスクロールさせます。"
+					},
+					"DISABLED": {
+						"DESCRIPTION": "ディレクティブを削除せずにソート動作を無効にします。"
+					},
+					"DRAGGABLE": {
+						"DESCRIPTION": "ドラッグ可能な子要素を限定する CSS セレクターです。"
+					},
+					"HANDLE": {
+						"DESCRIPTION": "各項目内でドラッグを開始する要素の CSS セレクター。残りの部分は操作可能なままです。"
+					},
+					"ANIMATION": {
+						"DESCRIPTION": "並べ替えアニメーションの長さ（ミリ秒）です。"
+					},
+					"GHOST_CLASS": {
+						"DESCRIPTION": "ドラッグ中に表示されるプレースホルダーに適用される CSS クラスです。"
+					},
+					"CHOSEN_CLASS": {
+						"DESCRIPTION": "選択された瞬間からドラッグ終了までアイテムに付与される CSS クラス。既定値は `sortable-chosen`。"
+					},
+					"DRAG_CLASS": {
+						"DESCRIPTION": "ドラッグ中にポインターへ追従する要素に付与される CSS クラス。既定値は `sortable-drag`。"
+					},
+					"FALLBACK_ON_BODY": {
+						"DESCRIPTION": "ドラッグ中のプレビューをリストではなく `document.body` に追加し、`overflow: hidden` の祖先要素に切り取られないようにします。"
+					},
+					"FALLBACK_TOLERANCE": {
+						"DESCRIPTION": "フォールバックのドラッグが始まるまでにポインターが移動すべきピクセル数。既定値は `0`。値を上げるとタップがドラッグとして扱われません。"
+					},
+					"FALLBACK_CLASS": {
+						"DESCRIPTION": "ネイティブの HTML5 ドラッグ＆ドロップを迂回するときに使われる複製プレビュー要素の CSS クラス。"
+					},
+					"FALLBACK_OFFSET": {
+						"DESCRIPTION": "フォールバックのドラッグプレビューをポインターからずらすピクセル量。"
+					},
+					"FORCE_FALLBACK": {
+						"DESCRIPTION": "ブラウザーネイティブの HTML5 ドラッグ＆ドロップを使わず、常にクローンをドラッグします。どのブラウザーでも見た目が揃います。"
+					},
+					"FILTER": {
+						"DESCRIPTION": "ドラッグできない要素を示す CSS セレクター（または述語）です。"
+					},
+					"PREVENT_ON_FILTER": {
+						"DESCRIPTION": "`filter` を発火させたイベントで `preventDefault()` を呼びます。既定値は `true`。フィルターした要素が自身のクリックを必要とするコントロールなら無効にします。"
+					},
+					"DIRECTION": {
+						"DESCRIPTION": "リストが並ぶ軸。未指定なら自動判定されます。判定を誤りやすいグリッドや折り返しのあるリストでは明示してください。"
+					},
+					"SWAP_THRESHOLD": {
+						"DESCRIPTION": "入れ替えが起きるまでにポインターが対象アイテムを覆うべき割合（0〜1）。既定値は `1`。小さいほど早く入れ替わります。"
+					},
+					"INVERT_SWAP": {
+						"DESCRIPTION": "常に反転した入れ替え領域を使い、ポインターがアイテムに入ったときではなく出たときに入れ替えます。"
+					},
+					"INVERTED_SWAP_THRESHOLD": {
+						"DESCRIPTION": "入れ替え領域が反転している間に使われるしきい値。未指定なら `swapThreshold` の値が使われます。"
+					},
+					"REMOVE_CLONE_ON_HIDE": {
+						"DESCRIPTION": "クローンを隠すのではなく、隠れている間 DOM から取り除きます。既定値は `true`。"
+					},
+					"IGNORE": {
+						"DESCRIPTION": "アイテム内でドラッグを開始してはならない要素の CSS セレクター。入力欄やリンクなどです。"
+					},
+					"TOUCH_START_THRESHOLD": {
+						"DESCRIPTION": "遅延ドラッグがキャンセルされるまでに指が動いてよいピクセル数。ドラッグとスクロールの境目です。"
+					},
+					"EMPTY_INSERT_THRESHOLD": {
+						"DESCRIPTION": "空のリストに対して、ドラッグ中のアイテムが挿入される距離（ピクセル）。既定値は `5`。`0` ならポインターがリスト内にある必要があります。"
+					},
+					"DROP_BUBBLE": {
+						"DESCRIPTION": "drop イベントを祖先要素へ伝播させ続けます。"
+					},
+					"DRAGOVER_BUBBLE": {
+						"DESCRIPTION": "dragover イベントを祖先要素へ伝播させ続けます。"
+					},
+					"DATA_ID_ATTR": {
+						"DESCRIPTION": "`Sortable.toArray()` と `store` が各アイテムの id として読む HTML 属性。既定値は `data-id`。"
+					},
+					"DELAY_ON_TOUCH_ONLY": {
+						"DESCRIPTION": "`delay` をタッチ入力にだけ適用します。マウスでのドラッグはこれまでどおり即座に始まります。"
+					},
+					"EASING": {
+						"DESCRIPTION": "並べ替えアニメーションの CSS イージング関数。たとえば `cubic-bezier(1, 0, 0, 1)`。"
+					},
+					"SET_DATA": {
+						"DESCRIPTION": "ドラッグ開始時に呼ばれ、ネイティブの `DataTransfer` に書き込みます。ページ外へドラッグするためのフックです。"
+					},
+					"STORE": {
+						"DESCRIPTION": "並び順を保存し、次回の読み込み時に復元するための `get`/`set` コールバックの組。キーは `dataIdAttr` です。"
+					},
+					"KEYBOARD_SORTING": {
+						"DESCRIPTION": "キーボードによる並べ替え。既定で有効です。各項目がタブストップになり、`Enter` または `Space` でつかみ、矢印キーで動かし、`Home` と `End` で両端へ送り、`Escape` で元に戻します。アプリケーションが独自のキーボード操作を用意している場合は `false` にします。"
+					},
+					"KEYBOARD_MESSAGES": {
+						"DESCRIPTION": "キーボード並べ替えがライブリージョンで読み上げる文言を差し替えます。指定しなかったものは既定の英語のままです。"
+					}
+				},
+				"OUTPUT": {
+					"INIT": {
+						"DESCRIPTION": "基盤となる SortableJS インスタンスが作成されたときに発行されます。"
+					},
+					"START": {
+						"DESCRIPTION": "ドラッグ操作の開始時に発行されます。"
+					},
+					"END": {
+						"DESCRIPTION": "結果に関わらず、ドラッグ操作の終了時に発行されます。"
+					},
+					"ADD": {
+						"DESCRIPTION": "別のリストからこのリストに項目がドロップされたときに発行されます。"
+					},
+					"UPDATE": {
+						"DESCRIPTION": "同じリスト内で項目の位置が変わったときに発行されます。"
+					},
+					"SORT_EVENT": {
+						"DESCRIPTION": "リストの順序が変わるたびに発行されます（`add` または `update` の後）。"
+					},
+					"REMOVE": {
+						"DESCRIPTION": "項目がこのリストから別のリストへ移動したときに発行されます。"
+					},
+					"FILTER_EVENT": {
+						"DESCRIPTION": "フィルターされた（ドラッグ不可の）項目をドラッグしようとしたときに発行されます。"
+					},
+					"CHANGE": {
+						"DESCRIPTION": "追加または削除によってリストが変化したときに発行されます。"
+					},
+					"CHOOSE": {
+						"DESCRIPTION": "項目が選択された（ポインターを押した）ときに発行されます。"
+					},
+					"UNCHOOSE": {
+						"DESCRIPTION": "ドラッグせずに項目が離されたときに発行されます。"
+					},
+					"CLONE": {
+						"DESCRIPTION": "クローンモードで項目が複製されたときに発行されます。"
+					},
+					"MOVE": {
+						"DESCRIPTION": "ドラッグ中に継続的に発行され、その戻り値で移動を許可するかどうかを制御できます。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"ARRAY": {
+					"TITLE": "シンプルな配列"
+				},
+				"FORM_ARRAY": {
+					"TITLE": "FormArray との統合"
+				},
+				"OPTIONS": {
+					"TITLE": "カスタムオプション"
+				},
+				"MULTIPLE_LISTS": {
+					"TITLE": "複数のリスト"
+				},
+				"LAYOUT_BUILDER": {
+					"TITLE": "レイアウトビルダー"
+				},
+				"SIGNAL": {
+					"TITLE": "Signals"
+				},
+				"MANUAL": {
+					"TITLE": "手動モード"
+				}
+			}
+		},
+		"STEPPER": {
+			"NAV": {
+				"BASIC": "基本的な使い方",
+				"VALIDATION": "バリデーション",
+				"PROGRAMMATIC": "プログラムによる制御",
+				"ORIENTATION": "向き",
+				"THEMING": "テーマ設定",
+				"CUSTOM_NAV": "カスタムナビゲーション",
+				"CUSTOM_CONTROLS": "カスタムコントロール",
+				"ANIMATIONS": "アニメーション",
+				"I18N": "国際化",
+				"RTL": "RTL"
+			},
+			"FEATURE": {
+				"CORE_USAGE": {
+					"TITLE": "基本的な利用",
+					"DESCRIPTION": "基本的なセットアップと向きの動作。"
+				},
+				"ADVANCED_FLOWS": {
+					"TITLE": "高度なフロー",
+					"DESCRIPTION": "バリデーション、i18n、RTL、API 駆動のナビゲーション、カスタムコントロール、カスタムステップヘッダー。"
+				},
+				"STYLING": {
+					"TITLE": "スタイリング",
+					"DESCRIPTION": "テーマサービスによるランタイムのテーマカスタマイズ。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"OPTIONS": {
+						"DESCRIPTION": "Stepper の設定オブジェクト: `layout`（`vertical` | `sidebar`）と `rtl`（boolean）。"
+					},
+					"VARIANT": {
+						"DESCRIPTION": "アクティブなステップのピルと「次へ / 送信」コントロールに適用されるセマンティックアクセント。組み込み値は `primary`、`secondary`、`success`、`danger`、`warning`、`info`、`neutral`、`light`、`dark`。それ以外の文字列は `--hub-sys-color-<variant>` を通じて解決されます。"
+					},
+					"BACK_LABEL": {
+						"DESCRIPTION": "\"Back\" コントロールのラベルを上書きします。null の場合は組み込みの i18n ラベルにフォールバックします。"
+					},
+					"CONTINUE_LABEL": {
+						"DESCRIPTION": "\"Continue\" コントロールのラベルを上書きします。"
+					},
+					"SUBMIT_LABEL": {
+						"DESCRIPTION": "最終ステップの \"Submit\" コントロールのラベルを上書きします。"
+					},
+					"TRUNCATE_TITLES": {
+						"DESCRIPTION": "レールの各ステップタイトルを `--hub-stepper-nav-title-max-width`（既定値 `12rem`）で切り詰め、あふれた場合は全文をツールチップで表示します。"
+					},
+					"RAIL_LABEL": {
+						"DESCRIPTION": "ステップレールの tablist のアクセシブルな名前。"
+					},
+					"TITLE": {
+						"DESCRIPTION": "stepper ナビゲーションに表示されるステップのタイトル。"
+					},
+					"DISABLED": {
+						"DESCRIPTION": "このステップへのナビゲーションを無効にします。"
+					}
+				},
+				"OUTPUT": {
+					"COMPLETED": {
+						"DESCRIPTION": "ユーザーが最終ステップを送信したときに発行されます。"
+					},
+					"NEXT_STEP": {
+						"DESCRIPTION": "ステップに進むときに、新しいステップのインデックスとともに発行されます。"
+					},
+					"PREVIOUS_STEP": {
+						"DESCRIPTION": "ステップに戻るときに、新しいステップのインデックスとともに発行されます。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "stepperNav / hubStepperNav",
+						"DESCRIPTION": "既定のステップレール全体を置き換えます。テンプレートコンテキストは steps（投影された StepComponent インスタンス）と currentIndex を公開するため、let-steps=\"steps\" と let-currentIndex=\"currentIndex\" でバインドします。"
+					},
+					"1": {
+						"DESCRIPTION": "同梱の 10 個の辞書 (en, es, ca, eu, gl, ast, an, de, zh, ar) と、組み込みの Back / Continue / Submit コントロールがテキストを解決する HubTranslationService を登録します。23.0.0 で削除される StepperModule.forRoot() の代替です。"
+					},
+					"2": {
+						"DESCRIPTION": "同梱の辞書をそのままのオブジェクトとして公開したもの。出荷する言語だけを登録したり、独自の辞書と統合したりできます。キーは BACK・CONTINUE・SUBMIT のフラット形式で、コンポーネントが HUBUI.STEPPER 名前空間で見つからなかったときに参照する形と一致します。"
+					},
+					"3": {
+						"NAME": "stepTrigger / hubStepTrigger",
+						"DESCRIPTION": "既定のレールが各項目の中に描くコントロールを差し替えます。レール自体（リスト、role=\"tablist\"、向き、ラベル）はそのままです。コンテキストにはステップが $implicit と step の両方で入り、title、index、isCurrent、isCompleted、disabled も渡されます。ステップの切り替えはホストのテンプレート参照を通じて呼び出し側が行います。hubStepperNav のテンプレートがある場合は無視されます。"
+					}
+				},
+				"CSS_VAR": {
+					"PRIMARY_COLOR": {
+						"DESCRIPTION": "プライマリアクセント（アクティブ状態、進捗）。"
+					},
+					"BACKGROUND_COLOR": {
+						"DESCRIPTION": "戻るボタン／セカンダリ表面の背景。"
+					},
+					"TEXT_COLOR": {
+						"DESCRIPTION": "ベースのテキスト色。"
+					},
+					"BORDER_COLOR": {
+						"DESCRIPTION": "stepper 表面のボーダー色。"
+					},
+					"SURFACE_COLOR": {
+						"DESCRIPTION": "ステップコンテンツの背景。"
+					},
+					"NAV_LINK_COLOR": {
+						"DESCRIPTION": "ナビゲーションのステップラベル色。"
+					},
+					"NAV_LINK_ACTIVE_BG": {
+						"DESCRIPTION": "アクティブステップインジケーターの背景。"
+					},
+					"NAV_LINK_ACTIVE_COLOR": {
+						"DESCRIPTION": "アクティブステップインジケーターのテキスト色。"
+					},
+					"NAV_LINK_DISABLED_COLOR": {
+						"DESCRIPTION": "無効なステップのラベル色。"
+					},
+					"GAP": {
+						"DESCRIPTION": "stepper レイアウト領域間のギャップ。"
+					},
+					"CONTROLS_GAP": {
+						"DESCRIPTION": "ナビゲーションコントロール間のギャップ。"
+					},
+					"DISABLED_OPACITY": {
+						"DESCRIPTION": "無効なステップに適用される不透明度。"
+					},
+					"SIDEBAR_WIDTH": {
+						"DESCRIPTION": "`sidebar` レイアウトでのサイドバーの幅。"
+					},
+					"ANIMATION_DURATION": {
+						"DESCRIPTION": "ステップの遷移時間。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"BASIC": {
+					"TITLE": "基本的な使い方"
+				},
+				"VALIDATION": {
+					"TITLE": "バリデーション"
+				},
+				"PROGRAMMATIC": {
+					"TITLE": "プログラムによる制御"
+				},
+				"ORIENTATION": {
+					"TITLE": "向き"
+				},
+				"THEMING": {
+					"TITLE": "テーマ設定"
+				},
+				"CUSTOM_NAV": {
+					"TITLE": "カスタムナビゲーション"
+				},
+				"CUSTOM_CONTROLS": {
+					"TITLE": "カスタムコントロール"
+				},
+				"ANIMATIONS": {
+					"TITLE": "アニメーション"
+				},
+				"I18N": {
+					"TITLE": "国際化（i18n）"
+				},
+				"RTL": {
+					"TITLE": "右から左（RTL）"
+				},
+				"TRUNCATED_TITLES": {
+					"TITLE": "省略タイトルとツールチップ"
+				},
+				"MODAL": {
+					"TITLE": "モーダル内で"
+				}
+			}
+		},
+		"UTILS": {
+			"NAV": {
+				"PIPES": "ユーティリティパイプ",
+				"TRANSLATION": "翻訳",
+				"EXTERNAL_ADAPTER": "外部 i18n アダプター",
+				"FUNCTIONS": "ユーティリティ関数",
+				"FOCUS_TRAP": "フォーカストラップ",
+				"SCROLLBAR": "スクロールバーのユーティリティ",
+				"OVERLAY": "オーバーレイシステム",
+				"TOOLTIP": "ツールチップディレクティブ",
+				"COLOR_PARSING": "カラー解析",
+				"COLOR_CONTRAST": "読みやすい文字色",
+				"COLOR_GAMUT": "sRGB ガマット"
+			},
+			"FEATURE": {
+				"FOCUS_MANAGEMENT": {
+					"TITLE": "フォーカス管理",
+					"DESCRIPTION": "要素内でキーボードフォーカスをトラップして管理します"
+				},
+				"FOCUS_TRAP": {
+					"TITLE": "フォーカストラップ",
+					"DESCRIPTION": "hubFocusTrap() を使用して、モーダルまたはダイアログ内にフォーカスを留めます。"
+				},
+				"FOCUSABLE_ELEMENTS": {
+					"TITLE": "フォーカス可能な要素",
+					"DESCRIPTION": "getFocusableBoundaryElements() で境界のフォーカス可能な要素を取得します。"
+				},
+				"INTERNATIONALIZATION_I18N": {
+					"TITLE": "国際化（i18n）",
+					"DESCRIPTION": "多言語サポートのための翻訳サービスとパイプ"
+				},
+				"TRANSLATION_SERVICE": {
+					"TITLE": "翻訳サービス",
+					"DESCRIPTION": "翻訳を管理する HubTranslationService"
+				},
+				"TRANSLATE_PIPE": {
+					"TITLE": "Translate パイプ",
+					"DESCRIPTION": "テンプレートベースの翻訳のための TranslatePipe"
+				},
+				"TRANSLATION_PROVIDER": {
+					"TITLE": "翻訳プロバイダー",
+					"DESCRIPTION": "アプリ設定のための provideHubTranslations()"
+				},
+				"OVERLAY_SYSTEM": {
+					"TITLE": "オーバーレイシステム",
+					"DESCRIPTION": "配置されたオーバーレイとフローティング要素を作成します"
+				},
+				"OVERLAY_SERVICE": {
+					"TITLE": "オーバーレイサービス",
+					"DESCRIPTION": "プログラムによるオーバーレイ作成のための HubOverlayService"
+				},
+				"OVERLAY_REFERENCE": {
+					"TITLE": "オーバーレイ参照",
+					"DESCRIPTION": "オーバーレイのライフサイクルを管理する OverlayRef"
+				},
+				"POSITIONING": {
+					"TITLE": "配置",
+					"DESCRIPTION": "柔軟な配置のための ConnectionPositionPair"
+				},
+				"POPUP_SERVICE": {
+					"TITLE": "ポップアップサービス",
+					"DESCRIPTION": "簡素化されたポップアップ管理"
+				},
+				"POPUP_CREATION": {
+					"TITLE": "ポップアップの作成",
+					"DESCRIPTION": "素早くポップアップを作成するための HubPopupService"
+				},
+				"PIPES": {
+					"TITLE": "パイプ",
+					"DESCRIPTION": "テンプレート向けのユーティリティパイプ"
+				},
+				"TYPE_CHECKING_PIPES": {
+					"TITLE": "型チェックのパイプ",
+					"DESCRIPTION": "IsStringPipe、IsObjectPipe、IsObservablePipe"
+				},
+				"GETPIPE": {
+					"TITLE": "GetPipe",
+					"DESCRIPTION": "ドット記法でネストされたオブジェクトのプロパティにアクセスします"
+				},
+				"UCFIRSTPIPE": {
+					"TITLE": "UcfirstPipe",
+					"DESCRIPTION": "文字列の最初の文字を大文字にします"
+				},
+				"UNWRAPASYNCPIPE": {
+					"TITLE": "UnwrapAsyncPipe",
+					"DESCRIPTION": "テンプレート内で observable と promise をアンラップします"
+				},
+				"UTILITY_FUNCTIONS": {
+					"TITLE": "ユーティリティ関数",
+					"DESCRIPTION": "汎用のヘルパー関数"
+				},
+				"TYPE_GUARDS": {
+					"TITLE": "型ガード",
+					"DESCRIPTION": "isString()、isNumber()、isDefined()、isPromise()"
+				},
+				"STRING_UTILITIES": {
+					"TITLE": "文字列ユーティリティ",
+					"DESCRIPTION": "removeAccents()、interpolateString()、regExpEscape()"
+				},
+				"OBJECT_UTILITIES": {
+					"TITLE": "オブジェクトユーティリティ",
+					"DESCRIPTION": "深い比較のための equals()、ドット記法のための getValue()"
+				},
+				"DOM_UTILITIES": {
+					"TITLE": "DOM ユーティリティ",
+					"DESCRIPTION": "closest()、reflow()、getActiveElement()"
+				},
+				"RXJS_UTILITIES": {
+					"TITLE": "RxJS ユーティリティ",
+					"DESCRIPTION": "NgZone 統合のための runInZone() オペレーター"
+				},
+				"SCROLLBAR_UTILITIES": {
+					"TITLE": "スクロールバーのユーティリティ",
+					"DESCRIPTION": "スクロールバーの幅を測定して補正します"
+				},
+				"SCROLLBAR_WIDTH": {
+					"TITLE": "スクロールバーの幅",
+					"DESCRIPTION": "scrollbarWidth() および scrollbarPadding() 関数"
+				},
+				"TRANSITIONS": {
+					"TITLE": "トランジション",
+					"DESCRIPTION": "CSS トランジションのヘルパー"
+				},
+				"RUN_TRANSITION": {
+					"TITLE": "トランジションの実行",
+					"DESCRIPTION": "プログラムによる CSS トランジションのための hubRunTransition()"
+				},
+				"TOOLTIP": {
+					"TITLE": "ツールチップ",
+					"DESCRIPTION": "[hubTooltip] ディレクティブにより、任意の要素に軽量でテーマ設定可能なツールチップを表示します。"
+				},
+				"TOOLTIP_DIRECTIVE": {
+					"TITLE": "ツールチップディレクティブ",
+					"DESCRIPTION": "[hubTooltip] を hubTooltipPlacement とともに適用すると、ホバーまたはフォーカス時に位置指定されたラベルを表示します。--hub-tooltip-* 変数でテーマ設定できます。従来の [tooltip] も動作しますが非推奨です。接頭辞のない入力名が同じ要素上の他のディレクティブと衝突するためです。"
+				},
+				"COLOR": {
+					"TITLE": "カラー",
+					"DESCRIPTION": "DOM を使わずに CSS カラーを解析・計測・変換します"
+				},
+				"COLOR_PARSING": {
+					"TITLE": "カラー解析",
+					"DESCRIPTION": "parseColor()、toHex()、isValidColor() が hex、rgb()、hsl()、oklch()、oklab()、および 148 の名前付きカラーを解決します。サーバーサイドレンダリングにも対応します"
+				},
+				"COLOR_CONTRAST": {
+					"TITLE": "コントラストと可読性",
+					"DESCRIPTION": "contrastRatio()（WCAG 2）、contrastAPCA()、および --hub-sys-color-*-on トークンと一致する文字色を選ぶ readableOn()"
+				},
+				"COLOR_OKLCH": {
+					"TITLE": "OKLCh 変換",
+					"DESCRIPTION": "rgbToOklch()、oklchToRgb()、maxSrgbChroma()、clampToSrgbGamut() により、デザインシステムが混色する色空間でパレットを扱えます"
+				},
+				"COLOR_PALETTE": {
+					"TITLE": "パレットの導出",
+					"DESCRIPTION": "harmoniseSemantics() は success・warning・danger・info を最大 15° までブランドの色相へ回転させ、tintNeutrals() は彩度を 0.015 に抑えたままグレーのランプを同じ方向へ傾けます。明度は変わらないため、各ロールが選ばれた理由であるコントラストは保たれます。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"HUBTRANSLATIONSERVICE": {
+						"DESCRIPTION": "翻訳を管理するための注入可能なサービス。メソッド: getTranslation()、setTranslations()"
+					},
+					"HUBOVERLAYSERVICE": {
+						"DESCRIPTION": "オーバーレイをプログラム的に作成・管理するためのサービス"
+					},
+					"HUBPOPUPSERVICE": {
+						"DESCRIPTION": "ポップアップ要素を作成するための簡易サービス"
+					},
+					"HUBTOOLTIPDIRECTIVE": {
+						"DESCRIPTION": "ホバーまたはフォーカス時に、配置可能でテーマ設定可能なツールチップを表示するディレクティブ（[hubTooltip]）。入力: hubTooltip（テキスト）、hubTooltipPlacement、hubTooltipDelay、hubTooltipOffset。接頭辞付きの名前により、[hubDropdown] のように独自の placement を宣言するディレクティブと同じ要素に共存できます。"
+					}
+				},
+				"OUTPUT": {
+					"TRANSLATEPIPE": {
+						"DESCRIPTION": "HubTranslationService を使用してキーを翻訳します。使い方: {{ \"key\" | translate }}"
+					},
+					"GETPIPE": {
+						"DESCRIPTION": "ネストされたプロパティ値を取得します。使い方: {{ object | get:\"path.to.property\" }}"
+					},
+					"ISSTRINGPIPE": {
+						"DESCRIPTION": "値が文字列かどうかを判定します。使い方: {{ value | isString }}"
+					},
+					"ISOBJECTPIPE": {
+						"DESCRIPTION": "値がオブジェクトかどうかを判定します。使い方: {{ value | isObject }}"
+					},
+					"ISOBSERVABLEPIPE": {
+						"DESCRIPTION": "値が Observable かどうかを判定します。使い方: {{ value | isObservable }}"
+					},
+					"UCFIRSTPIPE": {
+						"DESCRIPTION": "先頭の文字を大文字にします。使い方: {{ \"hello\" | ucfirst }} → \"Hello\""
+					},
+					"UNWRAPASYNCPIPE": {
+						"DESCRIPTION": "テンプレート内で Observable または Promise の値をアンラップします"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "hubFocusTrap()",
+						"DESCRIPTION": "要素内にキーボードフォーカスを閉じ込めます。モーダルやダイアログに役立ちます。"
+					},
+					"1": {
+						"NAME": "interpolateString()",
+						"DESCRIPTION": "{{ placeholders }} をオブジェクトの値で置き換えます"
+					},
+					"2": {
+						"NAME": "getValue()",
+						"DESCRIPTION": "ドット記法を使用してネストされたプロパティを取得します"
+					},
+					"3": {
+						"NAME": "equals()",
+						"DESCRIPTION": "オブジェクトおよび配列の深い等価比較"
+					}
+				},
+				"CSS_VAR": {
+					"BG": {
+						"DESCRIPTION": "ツールチップの背景色。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "ツールチップのテキスト色。"
+					},
+					"OPACITY": {
+						"DESCRIPTION": "表示中のツールチップの不透明度。"
+					},
+					"PADDING_X": {
+						"DESCRIPTION": "ツールチップ内の水平パディング。"
+					},
+					"PADDING_Y": {
+						"DESCRIPTION": "ツールチップ内の垂直パディング。"
+					},
+					"BORDER_RADIUS": {
+						"DESCRIPTION": "ツールチップの角丸半径。"
+					},
+					"FONT_SIZE": {
+						"DESCRIPTION": "ツールチップテキストのフォントサイズ。"
+					},
+					"MAX_WIDTH": {
+						"DESCRIPTION": "テキストが折り返されるまでの最大幅。"
+					},
+					"Z_INDEX": {
+						"DESCRIPTION": "ツールチップ要素の重なり順。"
+					},
+					"TRANSITION_DURATION": {
+						"DESCRIPTION": "フェードイン/アウトの時間。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"PIPES": {
+					"TITLE": "ユーティリティパイプ"
+				},
+				"TRANSLATION": {
+					"TITLE": "翻訳サービスとパイプ"
+				},
+				"EXTERNAL_ADAPTER": {
+					"TITLE": "外部 i18n アダプター",
+					"DESCRIPTION": "すべての Hub UI ライブラリ用に app.config.ts でリアクティブな翻訳ブリッジを設定します。"
+				},
+				"FUNCTIONS": {
+					"TITLE": "ユーティリティ関数"
+				},
+				"FOCUS_TRAP": {
+					"TITLE": "フォーカストラップ"
+				},
+				"SCROLLBAR": {
+					"TITLE": "スクロールバーのユーティリティ"
+				},
+				"OVERLAY": {
+					"TITLE": "オーバーレイシステム"
+				},
+				"TOOLTIP": {
+					"TITLE": "ツールチップディレクティブ"
+				},
+				"POPUP": {
+					"TITLE": "TypeScript から開くポップアップ"
+				},
+				"TRANSITIONS": {
+					"TITLE": "CSS トランジションの完了を待つ"
+				},
+				"DOM": {
+					"TITLE": "DOM と RxJS のヘルパー"
+				},
+				"COLOR_PARSING": {
+					"TITLE": "任意の CSS カラーを解析する"
+				},
+				"COLOR_CONTRAST": {
+					"TITLE": "読みやすい文字色を選ぶ"
+				},
+				"COLOR_GAMUT": {
+					"TITLE": "sRGB のガマットは円柱ではない"
+				},
+				"COLOR_PALETTE": {
+					"TITLE": "1 つのブランドカラーからパレットを導く"
+				}
+			}
+		},
+		"TOAST": {
+			"NAV": {
+				"BASIC": "基本タイプ",
+				"CONFIG": "設定オプション",
+				"POSITION": "配置",
+				"PREVENT_DUPLICATES": "重複の防止",
+				"MAX_OPENED": "最大表示数",
+				"LIFECYCLE": "ライフサイクルイベント",
+				"CSS_VARIABLES": "CSS 変数"
+			},
+			"FEATURE": {
+				"BASIC_TYPES": {
+					"TITLE": "基本的なトーストタイプ",
+					"DESCRIPTION": "4 つのセマンティックタイプ — success、error、warning、info — があり、それぞれ対応するデザインシステムのカラートークンにマッピングされています。"
+				},
+				"CONFIGURATION": {
+					"TITLE": "設定オプション",
+					"DESCRIPTION": "autoDismiss のタイムアウト、プログレスバー、閉じるボタン、tap-to-dismiss の動作を、呼び出しごとに、または provideToast() でグローバルに制御します。"
+				},
+				"POSITIONING": {
+					"TITLE": "配置",
+					"DESCRIPTION": "画面上の 6 つの固定位置: top/bottom を right、left、center と組み合わせます。"
+				},
+				"DEDUPLICATION": {
+					"TITLE": "重複排除",
+					"DESCRIPTION": "preventDuplicates は、すでに表示中のメッセージおよびタイプと一致する新しい通知を、何も表示せずに破棄します。"
+				},
+				"CAPACITY": {
+					"TITLE": "容量の制御",
+					"DESCRIPTION": "maxOpened は表示中のスタックの上限を設定します。autoDismiss は、上限に達したときに最も古いものを削除するか、新しいものを何も表示せずに破棄するかを決定します。"
+				},
+				"LIFECYCLE": {
+					"TITLE": "ライフサイクル Observable",
+					"DESCRIPTION": "すべての HubToastRef は、onShown、onHidden、onTap の Observable に加え、命令的な制御のための manualClose() と resetTimeout() を公開します。"
+				},
+				"THEMING": {
+					"TITLE": "CSS 変数によるテーマ設定",
+					"DESCRIPTION": "背景、角丸、シャドウ、パディング、プログレスバーなど、あらゆる視覚的な詳細は --hub-toast-* カスタムプロパティであり、任意の祖先要素やスタイルシートから上書きできます。"
+				}
+			},
+			"EXAMPLE": {
+				"BASIC": {
+					"TITLE": "基本タイプ"
+				},
+				"CONFIG": {
+					"TITLE": "設定オプション"
+				},
+				"POSITION": {
+					"TITLE": "配置"
+				},
+				"PREVENT_DUPLICATES": {
+					"TITLE": "重複の防止"
+				},
+				"MAX_OPENED": {
+					"TITLE": "最大表示数と autoDismiss"
+				},
+				"LIFECYCLE": {
+					"TITLE": "ライフサイクル Observable"
+				},
+				"CSS_VARIABLES": {
+					"TITLE": "CSS 変数によるテーマ設定"
+				}
+			},
+			"API": {
+				"CSS_VAR": {
+					"WIDTH": {
+						"DESCRIPTION": "各トーストカードの最大幅。"
+					},
+					"BORDER_RADIUS": {
+						"DESCRIPTION": "トーストカードの角丸半径。"
+					},
+					"PADDING_X": {
+						"DESCRIPTION": "トースト本文内の水平パディング。"
+					},
+					"PADDING_Y": {
+						"DESCRIPTION": "トースト本文内の垂直パディング。"
+					},
+					"GAP": {
+						"DESCRIPTION": "コンテナ内で積み重なったトースト間の間隔。"
+					},
+					"SHADOW": {
+						"DESCRIPTION": "トーストカードが落とすボックスシャドウ。"
+					},
+					"BG": {
+						"DESCRIPTION": "トーストカードの背景色。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "トースト本文のテキスト色。"
+					},
+					"TITLE_FONT_SIZE": {
+						"DESCRIPTION": "トーストタイトルのフォントサイズ。"
+					},
+					"TITLE_FONT_WEIGHT": {
+						"DESCRIPTION": "トーストタイトルのフォントウェイト。"
+					},
+					"ACCENT": {
+						"DESCRIPTION": "左ボーダーまたはハイライトの色。組み込みタイプでは DS トークンファミリーから自動的に設定されます。"
+					},
+					"PROGRESS_HEIGHT": {
+						"DESCRIPTION": "プログレスバーのストリップの高さ。"
+					},
+					"PROGRESS_BG": {
+						"DESCRIPTION": "プログレスバーの塗りつぶしの背景色。"
+					},
+					"CONTAINER_GAP": {
+						"DESCRIPTION": "コンテナ内で連続するトースト間の垂直方向の間隔。"
+					},
+					"CONTAINER_OFFSET": {
+						"DESCRIPTION": "画面の端からコンテナまでの距離。"
+					},
+					"Z_INDEX": {
+						"DESCRIPTION": "他のオーバーレイに対するトーストコンテナの重なり順。"
+					}
+				},
+				"INPUT": {
+					"DATA": {
+						"DESCRIPTION": "レンダリングするトースト：id、type、message、省略可能な title、解決済みの設定、およびライフサイクルの Subject を含みます。ToastContainerComponent によって内部的に提供されるため、通常は自分でバインドすることはありません。"
+					},
+					"POSITION": {
+						"DESCRIPTION": "このコンテナが受け持つ表示位置です。positionClass が一致するトーストだけを描画するため、新しい通知が表示中のトーストを動かすことはありません。ToastService がコンテナのマウント時に設定します。"
+					},
+					"TIME_OUT": {
+						"DESCRIPTION": "timeOut は自動で閉じるまでの時間（ミリ秒、0 = 常時表示）です。extendedTimeOut は、ユーザーがトーストのホバーをやめた後に追加で与えられる時間です。"
+					},
+					"CLOSE_BUTTON": {
+						"DESCRIPTION": "closeButton はトーストに閉じるボタンを表示し、progressBar は自動で閉じるまでのカウントダウンバーを表示します。"
+					},
+					"CLOSE_BUTTON_ARIA_LABEL": {
+						"DESCRIPTION": "閉じるボタンに読み上げられるアクセシブル名。× の字形は装飾のため、スクリーンリーダーが持つ名前はこれだけです。英語以外のアプリケーションでは翻訳してください。"
+					},
+					"TAP_TO_DISMISS": {
+						"DESCRIPTION": "ユーザーがトースト上のどこかをクリックするとトーストを閉じます。"
+					},
+					"DISABLE_TIME_OUT": {
+						"DESCRIPTION": "自動で閉じる動作を無効にします：true または 'timeOut' は最初のタイマーを無効にし、'extendedTimeOut' はホバーによる延長のみを無効にします。"
+					},
+					"NEWEST_ON_TOP": {
+						"DESCRIPTION": "true の場合、最新のトーストがスタックの下ではなく上に挿入されます。"
+					},
+					"POSITION_CLASS": {
+						"DESCRIPTION": "このトーストを表示する位置です。組み込みの 6 クラス toast-top/bottom-left/center/right のいずれか、または独自のクラス文字列を指定します。位置ごとに専用のコンテナが用意されます。"
+					},
+					"MAX_OPENED": {
+						"DESCRIPTION": "同時に表示できるトーストの最大数です。角ごとではなく全表示位置の合計で数えます。0 は無制限です。"
+					},
+					"AUTO_DISMISS": {
+						"DESCRIPTION": "maxOpened に達すると、場所を空けるために画面上でもっとも古いトーストを自動的に削除します。上限は全体で数えるため、別の角に表示されているものが対象になることもあります。オフの場合は呼び出し自体が破棄され、その HubToastRef は dropped: true を報告します。"
+					},
+					"PREVENT_DUPLICATES": {
+						"DESCRIPTION": "メッセージとタイプがすでに表示中のトーストと一致する新しいトーストを無視し、代わりに既存のトーストのハンドルを返します。"
+					}
+				},
+				"OUTPUT": {
+					"CLOSED": {
+						"DESCRIPTION": "トーストを閉じるべきときにトースト id を発行します — 自動で閉じるタイマーの満了後、tapToDismiss によるタップ、または閉じるボタンが契機になります。"
+					}
+				},
+				"METHOD": {
+					"SUCCESS": {
+						"DESCRIPTION": "指定されたメッセージ、省略可能なタイトル、および呼び出し単位の設定上書きで成功トーストを表示します。"
+					},
+					"ERROR": {
+						"DESCRIPTION": "指定されたメッセージ、省略可能なタイトル、および呼び出し単位の設定上書きでエラートーストを表示します。"
+					},
+					"WARNING": {
+						"DESCRIPTION": "指定されたメッセージ、省略可能なタイトル、および呼び出し単位の設定上書きで警告トーストを表示します。"
+					},
+					"INFO": {
+						"DESCRIPTION": "指定されたメッセージ、省略可能なタイトル、および呼び出し単位の設定上書きで情報トーストを表示します。"
+					},
+					"SHOW": {
+						"DESCRIPTION": "組み込みまたはカスタムのタイプ文字列でトーストを表示します。タイプはトーストのホストに data-type として適用され、アクセントのスタイリングを決定します。"
+					},
+					"REMOVE": {
+						"DESCRIPTION": "表示系メソッドから返された id を使って、特定のトーストを削除します。"
+					},
+					"CLEAR": {
+						"DESCRIPTION": "アクティブなすべてのトーストを直ちに削除し、各トーストの onHidden の Observable を完了させます。"
+					}
+				}
+			}
+		},
+		"BUTTONS": {
+			"NAV": {
+				"BTN_VARIANTS": "Button Variants",
+				"FAB": "Floating Action Button",
+				"SPEED_DIAL": "Speed Dial",
+				"DROPDOWN": "Dropdown",
+				"CSS_VARIABLES": "CSS Variables"
+			},
+			"FEATURE": {
+				"BTN_VARIANTS": {
+					"TITLE": "Button Variants",
+					"DESCRIPTION": "Five visual styles (solid, outline, soft, ghost, link) × nine built-in semantic colours with size scale sm–xl."
+				},
+				"FAB": {
+					"TITLE": "Floating Action Button",
+					"DESCRIPTION": "Fixed-position circular button with nine placement presets and optional scroll-collapse behaviour."
+				},
+				"SPEED_DIAL": {
+					"TITLE": "Speed Dial",
+					"DESCRIPTION": "Expandable FAB that reveals a stack of action items. Closes on Escape or backdrop click."
+				},
+				"DROPDOWN": {
+					"TITLE": "Overlay Dropdown",
+					"DESCRIPTION": "Directive-driven dropdown that attaches a template-ref panel to any trigger element via the overlay service."
+				},
+				"THEMING": {
+					"TITLE": "CSS Variable Theming",
+					"DESCRIPTION": "Every visual detail — size, radius, shadow, colour — is a --hub-btn-* or --hub-dropdown-* custom property."
+				},
+				"LOADING": {
+					"TITLE": "ローディング / ビジー状態",
+					"DESCRIPTION": "ローディング中のボタンはアニメーション化された差し替え可能な SVG スピナーを表示し、完全に不活性になります — aria-busy、ネイティブ disabled、タブ順序から除外、二重送信なし。"
+				},
+				"CUSTOM_COLOR": {
+					"TITLE": "カスタムカラーとバリアント",
+					"DESCRIPTION": "color 入力はオープンセットです。hub-btn-color-rules() ミックスインで任意のアクセントを登録するか、hub-btn-variant-rules() で新しい外観を作成できます。"
+				},
+				"SINGLE_OPEN": {
+					"TITLE": "ドロップダウンは一度に一つ",
+					"DESCRIPTION": "どのように開かれたかによらず、ドロップダウンを開くと既に開いていたものが閉じます。外側クリックでの閉じ方はクリックが存在する場合しか働かず、コードから開いたメニューでは両方が開いたままでした。"
+				}
+			},
+			"EXAMPLE": {
+				"BTN_VARIANTS": {
+					"TITLE": "Button Variants"
+				},
+				"FAB": {
+					"TITLE": "Floating Action Button"
+				},
+				"SPEED_DIAL": {
+					"TITLE": "Speed Dial"
+				},
+				"DROPDOWN": {
+					"TITLE": "Overlay Dropdown"
+				},
+				"CSS_VARIABLES": {
+					"TITLE": "CSS Variable Theming"
+				},
+				"LOADING": {
+					"TITLE": "ローディング / ビジー状態"
+				},
+				"CUSTOM_COLOR": {
+					"TITLE": "カスタムカラーとバリアント"
+				},
+				"SINGLE_OPEN": {
+					"TITLE": "ドロップダウンは一度に一つ"
+				}
+			},
+			"API": {
+				"CSS_GROUP": {
+					"BTN_COLORS": {
+						"DESCRIPTION": "Background, text and border tokens for each variant. Semantic colours resolve from --hub-sys-color-<variant>-*."
+					},
+					"FAB": {
+						"DESCRIPTION": "Tokens for the floating action button size, shadow, offset and z-index."
+					},
+					"DROPDOWN": {
+						"DESCRIPTION": "Background, border, radius, shadow, hover and item-level tokens for the dropdown overlay."
+					}
+				},
+				"INPUT": {
+					"VARIANT": {
+						"DESCRIPTION": "ボタンの視覚スタイル：solid、outline、soft、ghost、または link。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "ボタンのセマンティックアクセント。オープンセット：9 つの組み込みアクセントのいずれか、hub-btn-color-rules() で登録したカスタムアクセント、CSS の名前付きカラー、またはリテラル（#hex、rgb()、oklch()、var(...)）。すべてのロールカラーの導出元である --hub-btn-accent スロットに供給されます。"
+					},
+					"SIZE": {
+						"DESCRIPTION": "ボタンのサイズトークン：sm、md、lg、または xl。"
+					},
+					"LOADING": {
+						"DESCRIPTION": "アニメーションするスピナーを表示し、ボタンをビジーかつ無効の状態にします：aria-busy=\"true\" とネイティブの disabled 属性を反映し、タブ順序から除外して、ポインター／キーボードによるアクティベーションをブロックするため、処理中の送信が二度発火することはありません。"
+					},
+					"DISABLED": {
+						"DESCRIPTION": "ボタンを無効化し、ホスト要素にネイティブの disabled 属性を反映します。"
+					},
+					"FAB_COLOR": {
+						"DESCRIPTION": "FAB の背景のセマンティックアクセント。組み込みのアクセント、または --hub-fab-accent スロットを通じた任意のカスタム／リテラルカラーを受け付けます。"
+					},
+					"FAB_SIZE": {
+						"DESCRIPTION": "円形 FAB の直径：mini、standard、または large。"
+					},
+					"FAB_EXTENDED": {
+						"DESCRIPTION": "FAB を拡張ピルとしてレンダリングし、アイコンの隣に投影された [slot=label] コンテンツを表示します。"
+					},
+					"FAB_POSITION": {
+						"DESCRIPTION": "9 スロットのグリッド上での FAB の固定ビューポート位置。RTL サポートのために CSS 論理プロパティで実装されています。"
+					},
+					"FAB_COLLAPSE_ON_SCROLL": {
+						"DESCRIPTION": "true の場合、ページが 50px を超えてスクロールされると、拡張 FAB はアイコンのみの表示に折りたたまれます。"
+					},
+					"FAB_DISABLED": {
+						"DESCRIPTION": "FAB を無効化し、hub-fab-disabled の外観を適用します。"
+					},
+					"SPEED_DIAL_COLOR": {
+						"DESCRIPTION": "スピードダイヤルのトリガー FAB に塗られるセマンティックアクセント。組み込みのアクセント、または任意のカスタム／リテラルカラーを受け付けます。"
+					},
+					"SPEED_DIAL_SIZE": {
+						"DESCRIPTION": "トリガー FAB のサイズ：mini、standard、または large。"
+					},
+					"SPEED_DIAL_POSITION": {
+						"DESCRIPTION": "9 スロットの FAB グリッド上でのスピードダイヤルの固定ビューポート位置。"
+					},
+					"SPEED_DIAL_DIRECTION": {
+						"DESCRIPTION": "アクション項目がトリガーから展開する方向：up、down、left、または right。"
+					},
+					"SPEED_DIAL_TRIGGER": {
+						"DESCRIPTION": "スピードダイヤルを開くインタラクション：click はトグルし、hover は mouseenter で開いて mouseleave で閉じます。"
+					},
+					"SPEED_DIAL_IS_OPEN": {
+						"DESCRIPTION": "スピードダイヤルの双方向バインド可能な開閉状態（model シグナル）。Escape キーを押すと自動的に閉じます。"
+					},
+					"SPEED_DIAL_ITEM_ICON": {
+						"DESCRIPTION": "アクションアイコン用の CSS クラス文字列。項目ボタンの内部で <i [class]=\"icon()\"> としてレンダリングされます。label が設定されていない場合は aria-label のフォールバックとしても使用されます。"
+					},
+					"SPEED_DIAL_ITEM_LABEL": {
+						"DESCRIPTION": "アクションボタンの隣に表示されるツールチップラベル。アクセシブルな aria-label としても使用されます。"
+					},
+					"SPEED_DIAL_ITEM_COLOR": {
+						"DESCRIPTION": "アクションボタンのセマンティックアクセント。'default' は中立的な外観を維持します。カスタム／リテラルカラーは --hub-speed-dial-item-accent スロットを通じて塗られます。"
+					},
+					"SPEED_DIAL_ITEM_DISABLED": {
+						"DESCRIPTION": "アクション項目ボタンを無効化します。無効な間は itemClick は発行されません。"
+					},
+					"DROPDOWN_TPL": {
+						"DESCRIPTION": "body レベルのオーバーレイパネル内にレンダリングされる ng-template。[hubDropdown]=\"tpl\" としてバインドします。"
+					},
+					"DROPDOWN_PLACEMENT": {
+						"DESCRIPTION": "トリガー要素に対するパネルの配置。オーバーレイはマッピングされた位置を試し、ビューポートに収まるまでフォールバックします。"
+					},
+					"DROPDOWN_TRIGGER": {
+						"DESCRIPTION": "ドロップダウンを開くインタラクション：click はトグルし、hover は mouseenter で開いて mouseleave で閉じます。"
+					},
+					"DROPDOWN_CLOSE_ON_SELECT": {
+						"DESCRIPTION": "true の場合、パネルコンテンツ内のどこかをクリックすると、ドロップダウンが自動的に閉じます。"
+					},
+					"DROPDOWN_DISABLED": {
+						"DESCRIPTION": "ドロップダウンが開かないようにします。"
+					},
+					"DROPDOWN_OFFSET_Y": {
+						"DESCRIPTION": "配置軸に沿ったトリガーとパネルの間のオフセット（ピクセル単位）。"
+					},
+					"DROPDOWN_PANEL_CLASS": {
+						"DESCRIPTION": "デフォルトの hub-dropdown-overlay クラスに加えて、オーバーレイパネルに追加される CSS クラス。"
+					},
+					"DROPDOWN_IS_OPEN": {
+						"DESCRIPTION": "ドロップダウンの双方向バインド可能な開閉状態（model シグナル）。Escape、外側のクリック、ページスクロールで自動的に閉じます。"
+					},
+					"DROPDOWN_PANEL_COLOR": {
+						"DESCRIPTION": "パネル上端のボーダーのセマンティックアクセント。'default' は中立的なボーダーを維持します。"
+					},
+					"DROPDOWN_ITEM_COLOR": {
+						"DESCRIPTION": "項目ラベルの色のセマンティックアクセント。'default' はパネルの色を継承します。"
+					},
+					"DROPDOWN_ITEM_ICON": {
+						"DESCRIPTION": "ラベルの前に <i [class]=\"icon()\"> としてレンダリングされるアイコン用の、省略可能な CSS クラス文字列。"
+					},
+					"DROPDOWN_ITEM_DISABLED": {
+						"DESCRIPTION": "メニュー項目を無効化します。クリックは無視され、itemClick は発行されません。"
+					},
+					"DROPDOWN_ITEM_SELECTED": {
+						"DESCRIPTION": "項目が選択されていることを示すチェックマークインジケーターを表示します。"
+					},
+					"ACTIONS_CELL_CONFIG": {
+						"DESCRIPTION": "行が提供するものを中立的な用語で表したもの。アイコン、ラベル、ツールチップ、disabled 状態を持つボタンとメニューが、その行に合わせて解決済みの形で入ります。手書きではなく、ホストライブラリが hubActionsAdapter を通じて書き込みます。"
+					}
+				},
+				"OUTPUT": {
+					"FAB_CLICK": {
+						"DESCRIPTION": "FAB がポインタまたは Enter/Space キーでアクティベートされたときに発行されます。disabled のあいだは何も発行されません。"
+					},
+					"SPEED_DIAL_IS_OPEN_CHANGE": {
+						"DESCRIPTION": "isOpen モデルが変化するたびに新しい開閉状態を発行します（双方向バインディングの change 側）。"
+					},
+					"SPEED_DIAL_OPENED": {
+						"DESCRIPTION": "スピードダイヤルが開いた後に発行されます。"
+					},
+					"SPEED_DIAL_CLOSED": {
+						"DESCRIPTION": "スピードダイヤルが閉じた後に発行されます。Escape キーによって閉じた場合も含みます。"
+					},
+					"SPEED_DIAL_ITEM_CLICK": {
+						"DESCRIPTION": "アクション項目ボタンがアクティベートされたときに発行されます。"
+					},
+					"DROPDOWN_IS_OPEN_CHANGE": {
+						"DESCRIPTION": "isOpen モデルが変化するたびに新しい開閉状態を発行します（双方向バインディングの change 側）。"
+					},
+					"DROPDOWN_OPENED": {
+						"DESCRIPTION": "オーバーレイパネルがアタッチされ、ドロップダウンが開いた後に発行されます。"
+					},
+					"DROPDOWN_CLOSED": {
+						"DESCRIPTION": "ドロップダウンが閉じてオーバーレイが破棄された後に発行されます（Escape、外側のクリック、スクロール、または closeOnSelect）。"
+					},
+					"DROPDOWN_ITEM_CLICK": {
+						"DESCRIPTION": "メニュー項目がアクティベートされたときに発行されます。項目が無効な間は抑制されます。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"DESCRIPTION": "FAB のアイコンとして投影されるコンテンツ。円形と拡張形のどちらでもレンダリングされます。"
+					},
+					"1": {
+						"DESCRIPTION": "アイコンの隣に投影されるラベル。FAB が拡張状態で、スクロールによって折りたたまれていないあいだだけレンダリングされます。"
+					},
+					"2": {
+						"DESCRIPTION": "スピードダイヤルのトリガーボタンに投影されるコンテンツ。アクション項目はその外側、デフォルトスロットに置きます。"
+					}
+				}
+			}
+		},
+		"BADGES": {
+			"NAV": {
+				"MATRIX": "セマンティックマトリクス",
+				"SCALE_SHAPE": "サイズと形状",
+				"STATUS_COUNTERS": "ステータスとカウンター",
+				"REMOVABLE": "削除可能なフィルター",
+				"THEMING": "オープンなセマンティックテーマ設定",
+				"CHIP": "フィルターチップ",
+				"CHIP_COLORS": "チップの色"
+			},
+			"FEATURE": {
+				"MATRIX": {
+					"TITLE": "セマンティックマトリクス",
+					"DESCRIPTION": "バッジの中核となる表現。solid、soft、outline、ghost、subtle、surface の各バリアントでセマンティックカラーを提供します。"
+				},
+				"SCALE_SHAPE": {
+					"TITLE": "サイズと形状",
+					"DESCRIPTION": "コンパクトな XS タグ、ゆとりのある LG ピル、3 種類のシェル形状で、密度の高いテーブルにも余裕のあるダッシュボードにも対応します。"
+				},
+				"STATUS_COUNTERS": {
+					"TITLE": "ステータスとカウンター",
+					"DESCRIPTION": "ステータスドット、アラート件数、アイコンバッジ、軽量なメタデータピルを同じプリミティブから作成できます。"
+				},
+				"REMOVABLE": {
+					"TITLE": "削除可能なフィルター",
+					"DESCRIPTION": "アクティブなフィルター、スコープ付き検索ピル、軽量なトークン UI のための削除可能なタグ。"
+				},
+				"THEMING": {
+					"TITLE": "オープンなセマンティックテーマ設定",
+					"DESCRIPTION": "組み込みの色は共有デザインシステムトークンを参照し、カスタムアクセントは公開 SCSS ミックスインを通じて組み込めます。"
+				},
+				"TRUNCATION": {
+					"TITLE": "省略とツールチップ",
+					"DESCRIPTION": "長いラベルは省略記号で切り詰められ、ホバーで全文を表示します（ネイティブの title、または接続時は hub-ui ツールチップ）。"
+				},
+				"CHIP": {
+					"TITLE": "フィルターチップ",
+					"DESCRIPTION": "単一または複数選択のために hub-chip-set によって連携される、トグル可能な hub-chip タグ。バッジのアクセントテーマを再利用します。"
+				},
+				"CHIP_COLORS": {
+					"TITLE": "チップの色",
+					"DESCRIPTION": "チップ上の 9 つの組み込みアクセントに加え、単独の双方向トグル、削除可能なタグ、無効化されたチップ — いずれも chip-set の外側で。"
+				}
+			},
+			"EXAMPLE": {
+				"MATRIX": {
+					"TITLE": "セマンティックマトリクス"
+				},
+				"SCALE_SHAPE": {
+					"TITLE": "サイズと形状"
+				},
+				"STATUS_COUNTERS": {
+					"TITLE": "ステータスとカウンター"
+				},
+				"REMOVABLE": {
+					"TITLE": "削除可能なフィルター"
+				},
+				"THEMING": {
+					"TITLE": "オープンなセマンティックテーマ設定"
+				},
+				"TRUNCATION": {
+					"TITLE": "省略とツールチップ"
+				},
+				"CHIP": {
+					"TITLE": "インタラクティブなフィルターチップ"
+				},
+				"CHIP_COLORS": {
+					"TITLE": "チップの色"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"VARIANT": {
+						"DESCRIPTION": "バッジシェルの視覚的なスタイル。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "セマンティックカラーファミリー。組み込み値はデザインシステムのトークンファミリーに対応し、カスタム名もサポートします。"
+					},
+					"SIZE": {
+						"DESCRIPTION": "バッジのサイズスケール。"
+					},
+					"SHAPE": {
+						"DESCRIPTION": "バッジシェルの角の形状。"
+					},
+					"DOT": {
+						"DESCRIPTION": "ラベルの前にステータスドットを表示します。"
+					},
+					"REMOVABLE": {
+						"DESCRIPTION": "削除操作を有効にし、バッジを削除可能なフィルター/タグにします。"
+					},
+					"REMOVE_LABEL": {
+						"DESCRIPTION": "削除ボタンに適用されるアクセシブルなラベル。"
+					},
+					"DISABLED": {
+						"DESCRIPTION": "バッジの操作を無効化します — 削除操作と、interactive なバッジではトグル。内容は表示されたまま読めます。"
+					},
+					"TOOLTIP": {
+						"DESCRIPTION": "明示的なツールチップテキスト。省略した場合、内容が切り詰められているときのみバッジ自身の内容をツールチップとして表示します。"
+					},
+					"INTERACTIVE": {
+						"DESCRIPTION": "バッジをインタラクティブなトグルに変えます：コンテンツ要素が role=\"button\"、キーボードのタブストップ、aria-pressed を持ち、有効化時に selected 出力を発行します。閉じるボタンは兄弟のコントロールのままです。"
+					},
+					"ACTIVE": {
+						"DESCRIPTION": "インタラクティブなバッジの押下／選択状態を反映し、.hub-badge--active と aria-pressed 属性を切り替えます。"
+					},
+					"DOT_OVERLAY": {
+						"DESCRIPTION": "ステータスドットを、インラインの先頭ドットの代わりに、バッジシェルに固定された角のオーバーレイとしてレンダリングします。"
+					},
+					"DOT_PLACEMENT": {
+						"DESCRIPTION": "dotOverlay が有効なときにオーバーレイドットが固定される角（例：top-end、top-start、bottom-end、bottom-start）。"
+					}
+				},
+				"OUTPUT": {
+					"REMOVED": {
+						"DESCRIPTION": "削除可能なバッジの削除アクションが実行されたときに発行されます。"
+					},
+					"SELECTED": {
+						"DESCRIPTION": "インタラクティブなバッジがクリック、Enter、または Space によって有効化されたときに発行されます。"
+					}
+				},
+				"CSS_VAR": {
+					"FONT_SIZE": {
+						"DESCRIPTION": "バッジの基本フォントサイズ。"
+					},
+					"PADDING_X": {
+						"DESCRIPTION": "バッジ内の水平パディング。"
+					},
+					"PADDING_Y": {
+						"DESCRIPTION": "バッジ内の垂直パディング。"
+					},
+					"BORDER_RADIUS": {
+						"DESCRIPTION": "バッジの角丸半径。"
+					},
+					"GAP": {
+						"DESCRIPTION": "ドット、アイコン、ラベル、削除ボタン間の間隔。"
+					},
+					"ACCENT": {
+						"DESCRIPTION": "バッジの外観の基になるルートのセマンティックアクセント。"
+					},
+					"ACCENT_SUBTLE": {
+						"DESCRIPTION": "soft と subtle バリアントで使用される淡色のサーフェス。"
+					},
+					"ACCENT_EMPHASIS": {
+						"DESCRIPTION": "outline、ghost、soft バリアントで使用される強調の前景色。"
+					},
+					"ACCENT_BORDER": {
+						"DESCRIPTION": "subtle と surface バリアントで使用されるボーダーロール。"
+					},
+					"DOT_SIZE": {
+						"DESCRIPTION": "オプションのステータスドットの直径。"
+					},
+					"REMOVE_SIZE": {
+						"DESCRIPTION": "削除ボタンのヒット領域のサイズ。"
+					},
+					"REMOVE_HOVER_BG": {
+						"DESCRIPTION": "削除ボタンのホバー時のサーフェス。"
+					},
+					"DIRECTION": {
+						"DESCRIPTION": "バッジ内容（投影されたアイコン、ラベル、削除ボタン）の flex 方向。"
+					},
+					"ALIGN": {
+						"DESCRIPTION": "バッジ内容の交差軸方向の配置。"
+					},
+					"MAX_WIDTH": {
+						"DESCRIPTION": "ラベルが省略記号で切り詰められるまでのバッジの最大幅。"
+					}
+				},
+				"CHIP": {
+					"INPUT": {
+						"SELECTED": {
+							"DESCRIPTION": "hub-chip：チップの双方向の selected（押下）状態です。"
+						},
+						"VALUE": {
+							"DESCRIPTION": "hub-chip：内包する hub-chip-set 内でチップを識別する不透明な値です。"
+						},
+						"COLOR": {
+							"DESCRIPTION": "hub-chip：チップの色を決めるセマンティックなアクセントで、hub-badge と共有されます。"
+						},
+						"DISABLED": {
+							"DESCRIPTION": "hub-chip：チップを無効化します — トグルも削除も行えず、タブ順序から除外されます。"
+						},
+						"REMOVABLE": {
+							"DESCRIPTION": "hub-chip：バッジの削除パターンを踏襲した、破棄アフォーダンスを有効にします。"
+						},
+						"REMOVE_LABEL": {
+							"DESCRIPTION": "hub-chip：破棄ボタンのアクセシブルなラベルです。"
+						}
+					},
+					"OUTPUT": {
+						"SELECTED_CHANGE": {
+							"DESCRIPTION": "hub-chip：双方向の selected 状態が変化するたびに発行されます。"
+						},
+						"REMOVED": {
+							"DESCRIPTION": "hub-chip：破棄ボタンが有効化されたときに発行されます。"
+						},
+						"CHIP_CLICK": {
+							"DESCRIPTION": "hub-chip：有効化のたびに（クリック／Enter／Space）、トグルが適用される前に発行されます。"
+						}
+					},
+					"TEMPLATE": {
+						"LEADING": {
+							"DESCRIPTION": "先頭アイコンまたはアバターをチップに投影し、チップコンテンツの前にレンダリングします。"
+						}
+					}
+				},
+				"CHIPSET": {
+					"INPUT": {
+						"SELECTION_MODE": {
+							"DESCRIPTION": "hub-chip-set：一度に 1 つ（single）または複数（multiple）のチップを選択できるかどうか。"
+						},
+						"VALUE": {
+							"DESCRIPTION": "hub-chip-set：双方向の選択値 — single モードでは選択されたチップの値、multiple モードでは選択された値の配列です。"
+						}
+					},
+					"OUTPUT": {
+						"VALUE_CHANGE": {
+							"DESCRIPTION": "hub-chip-set：双方向の選択値が変化するたびに発行されます。"
+						}
+					}
+				}
+			}
+		},
+		"ICONS": {
+			"FEATURE": {
+				"RENDERING": {
+					"TITLE": "アイコンのレンダリング",
+					"DESCRIPTION": "1つのAPIで任意のアイコンセットを描画 — パック、バリアント、[hubIcon] ディレクティブ。"
+				},
+				"THEMING_INTEGRATION": {
+					"TITLE": "テーマと連携",
+					"DESCRIPTION": "--hub-icon-* トークンで全パックをテーマ化し、他の ng-hub-ui コンポーネント内にアイコンを描画。"
+				}
+			},
+			"EXAMPLE": {
+				"SETUP": {
+					"TITLE": "セットアップ"
+				},
+				"FONT_AWESOME": {
+					"TITLE": "Font Awesome"
+				},
+				"BOOTSTRAP": {
+					"TITLE": "Bootstrap Icons"
+				},
+				"MATERIAL": {
+					"TITLE": "Material Symbols"
+				},
+				"SOLAR": {
+					"TITLE": "Solar"
+				},
+				"SVG": {
+					"TITLE": "カスタム SVG"
+				},
+				"SPRITE": {
+					"TITLE": "SVG スプライト"
+				},
+				"IMG": {
+					"TITLE": "画像"
+				},
+				"VARIANTS": {
+					"TITLE": "バリアント"
+				},
+				"DIRECTIVE": {
+					"TITLE": "ディレクティブ"
+				},
+				"THEMING": {
+					"TITLE": "テーマ"
+				},
+				"BUTTONS": {
+					"TITLE": "ボタン連携"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"NAME": {
+						"DESCRIPTION": "アイコン名。pack:variant:name の短縮形に対応。"
+					},
+					"NAME_DIRECTIVE": {
+						"DESCRIPTION": "[hubIcon] ディレクティブでのアイコン名。省略可能で、省略時はディレクティブ自体にバインドした値を使用。"
+					},
+					"HUB_ICON": {
+						"DESCRIPTION": "ディレクティブ属性 [hubIcon]=\"'house'\" でバインドするアイコン名。両方指定した場合は name が優先。"
+					},
+					"PACK": {
+						"DESCRIPTION": "パックのキー。短縮形のパックと設定済みの defaultPack より優先。"
+					},
+					"VARIANT": {
+						"DESCRIPTION": "バリアント。短縮形のバリアントとパック既定値より優先。"
+					},
+					"SIZE": {
+						"DESCRIPTION": "インスタンスごとのサイズ。--hub-icon-size に設定（hub-icon のみ）。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "インスタンスごとの色。--hub-icon-color に設定（hub-icon のみ）。"
+					},
+					"LABEL": {
+						"DESCRIPTION": "アクセシブルなラベル：role=\"img\" + aria-label を設定。無い場合は装飾的。hub-icon と [hubIcon] の両方で使えます。"
+					},
+					"SPIN": {
+						"DESCRIPTION": "アイコンを連続回転（ローダーなど）（hub-icon のみ）。"
+					}
+				},
+				"CSS_VAR": {
+					"SIZE": {
+						"DESCRIPTION": "アイコンサイズ（グリフは font-size、SVG は幅/高さ）。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "アイコンの色（グリフは color、SVG は fill）。"
+					},
+					"FILL": {
+						"DESCRIPTION": "Material Symbols の FILL 軸。"
+					},
+					"WEIGHT": {
+						"DESCRIPTION": "Material Symbols の wght 軸。"
+					},
+					"GRADE": {
+						"DESCRIPTION": "Material Symbols の GRAD 軸。"
+					},
+					"OPTICAL_SIZE": {
+						"DESCRIPTION": "Material Symbols の opsz 軸。"
+					}
+				}
+			}
+		},
+		"SIGNATURE": {
+			"EXAMPLE": {
+				"LABEL": "署名",
+				"HELP": "マウス、タッチスクリーン、またはペンで描画します。",
+				"I18N": {
+					"TITLE": "Transloco と ngx-translate",
+					"DESCRIPTION": "リアクティブな翻訳ストリームをバインドして、言語変更時に操作を更新します。"
+				},
+				"DRAW_EVENTS": {
+					"TITLE": "描画イベントとストロークデータ",
+					"DESCRIPTION": "(drawStart) と (drawEnd) で描画のライフサイクルに反応し、isEmpty() でフィールドを確認し、toStrokes() と fromStrokes() でジオメトリそのものをフィールド間で移動します。",
+					"SOURCE_LABEL": "ここに署名",
+					"REPLAY_LABEL": "ストロークから再現",
+					"COPY": "ストロークをもう一方へコピー",
+					"DRAWING": "描画中",
+					"EMPTY": "空",
+					"SIGNED": "署名済み、ストローク"
+				},
+				"KEYBOARD": {
+					"TITLE": "キーボードで署名する",
+					"DESCRIPTION": "ポインターなしでも操作できます。矢印キーでペンを動かし、Space または Enter でペンを下ろして上げ、Escape で描画中のストロークを破棄します。生成されるストロークは通常のものと同じであり、そのため (drawStart) は PointerEvent | KeyboardEvent を渡します。違いが残るのはイベントのペイロードだけです。",
+					"LABEL": "署名",
+					"HELP": "Tab キーで枠内に移動し、下のキーを使ってください。",
+					"MOVE": "ペンを動かす",
+					"COARSE": "さらに大きく動かす",
+					"TOGGLE": "ペンを下ろし、もう一度押すと上げてストロークを確定する",
+					"DISCARD": "描画中のストロークを破棄する",
+					"UNSIGNED": "未署名",
+					"BY_KEYBOARD": "キーボードで署名しました",
+					"BY_POINTER": "ポインターで署名しました"
+				},
+				"FORM": {
+					"TITLE": "フォームコントロールとしての署名",
+					"DESCRIPTION": "このフィールドは ControlValueAccessor であり、その値は自身がシリアライズした SVG です。必須マークとエラーメッセージはコントロールのバリデーターに由来し、成功メッセージには [showValid] と [validFeedback] の両方が必要です。",
+					"LABEL": "署名",
+					"HELP": "ポインターまたはキーボードで枠内に署名してください。",
+					"VALID": "署名を記録しました。",
+					"SUBMIT": "送信",
+					"SUBMITTED": "送信済み · SVG {bytes} 文字"
+				},
+				"SURFACE": {
+					"TITLE": "描画領域とペンのサイズ",
+					"DESCRIPTION": "フィールドが空のうちにスライダーを動かしてください。[height] は再計測して描き直すため、toSvg() が出力する viewBox は画面上の枠を表し続けます。[strokeWidth] と [strokeColor] はストロークの開始時に読み取られてそのストロークに保存されるので、すでに描かれたストロークは描いたときのペンを保ちます。(valueChange) はユーザー操作による変更のたびに SVG を通知します。",
+					"LABEL": "署名",
+					"HEIGHT": "描画領域の高さ",
+					"STROKE_WIDTH": "線の太さ",
+					"INK": "インク",
+					"VALUE": "SVG · {chars} 文字",
+					"EMPTY": "まだ署名されていません"
+				},
+				"LABEL_TYPE": {
+					"TITLE": "ラベルの配置",
+					"DESCRIPTION": "[labelType] は ng-hub-ui-forms 共通のラベル語彙を使うため、署名フィールドは周囲のフィールドと揃います。'horizontal' はラベルを第 1 列に置き、アクション・補助テキスト・検証メッセージを第 2 列に積み上げます。'floating' は受け付けられますが積み上げ表示にフォールバックします。枠の内側に置かれたラベルは、署名した瞬間にインクの上に重なってしまうからです。",
+					"STACKED": "積み上げラベル",
+					"HORIZONTAL": "横並びラベル"
+				},
+				"NAMING": {
+					"TITLE": "フィールドを個別に名付ける",
+					"DESCRIPTION": "[ariaLabel] は可視ラベルのない描画領域に名前を与えます。[label] を持つフィールドではまったく参照されません。ラベル自体がアクセシブルな名前だからです。[labels] はアプリケーションの辞書に触れずに、1 つのフィールドだけ組み込みアクションの文言を書き換えます。テンプレート内のオブジェクトリテラルではなく、シグナルまたは computed に保持してください。",
+					"CAPTION": "署名権限者",
+					"ARIA_LABEL": "署名権限者の署名",
+					"LABELLED": "署名",
+					"CLEAR": "最初からやり直す",
+					"UNDO": "直前のストロークを取り消す",
+					"REDO": "直前のストロークをやり直す"
+				},
+				"THEMING": {
+					"LABEL": "署名",
+					"HELP": "テーマ用ミックスインで色を変えた同じフィールドです。"
+				},
+				"INHERITED": {
+					"TITLE": "フォームのテーマを継承する",
+					"DESCRIPTION": "フォームを一度整えれば署名フィールドも追随します。描画面は --hub-input-*、ラベルは --hub-label-* を既定値としてたどるため、--hub-signature-* のルールは一つも要りません。非対称な点に注意してください。これらのトークンは var() で継承値から読まれるためラッパーからでも効きますが、--hub-signature-* はフィールド要素自体に宣言されています。",
+					"INPUT_LABEL": "氏名",
+					"INPUT_PLACEHOLDER": "契約書の表記どおりに",
+					"SIGNATURE_LABEL": "署名",
+					"HELP": "ポインターまたはキーボードで署名してください。"
+				},
+				"PROJECTED": {
+					"TITLE": "補助テキストとエラーをマークアップで",
+					"DESCRIPTION": "hubFormText と hubValidationError は ng-hub-ui-forms のエクスポートで、このフィールドは両方を描画します。実際のキーキャップを使ったキーボードのヒントと、製品自身の言葉で書いた必須エラーです。各エラーキーは既定のメッセージ生成に進む前に自分のテンプレートを解決するため、ひとつを上書きしても残りはそのままです。",
+					"LABEL": "署名",
+					"HELP": "ポインターで署名するか、矢印キーでペンを動かし、Space で下ろします。",
+					"REQUIRED": "署名がなければ契約書は保存できません。",
+					"SUBMIT": "契約書を保存",
+					"FILED": "保存しました。"
+				}
+			},
+			"ACTION": {
+				"CLEAR": "署名を消去",
+				"UNDO": "線を元に戻す",
+				"REDO": "線をやり直す"
+			}
+		},
+		"METRICS": {
+			"NAV": {
+				"PROGRESS": "プログレス",
+				"METER": "メーター",
+				"RING": "リング"
+			},
+			"FEATURE": {
+				"PROGRESS": {
+					"TITLE": "リニアプログレス",
+					"DESCRIPTION": "サイズスケール、セマンティックカラー、任意の値ラベルを備えた、確定または不確定のプログレスバー。"
+				},
+				"METER": {
+					"TITLE": "段階付きメーター",
+					"DESCRIPTION": "HTML の <meter> セマンティクスに従うゲージで、low/high のプラトーと最適点を基準にバンドごとに色を変えます。"
+				},
+				"RING": {
+					"TITLE": "円形リングゲージ",
+					"DESCRIPTION": "正規化されたスコアを描画する SVG リングで、カラーしきい値と、<ng-content> を通して投影されるキャプションを備えています。"
+				},
+				"THEMING": {
+					"TITLE": "テーマ設定",
+					"DESCRIPTION": "セマンティックな `color` 入力（ds の `--hub-sys-color-*` ファミリーに対応）で 1 つのプリミティブを色付けするか、1 回の呼び出しで済む SCSS mixin `hub-metrics-theme()` と `--hub-*` カスタムプロパティで 3 つすべてを一度に色付けし直します。"
+				}
+			},
+			"EXAMPLE": {
+				"PROGRESS": {
+					"TITLE": "プログレスバー"
+				},
+				"METER": {
+					"TITLE": "段階付きメーター"
+				},
+				"RING": {
+					"TITLE": "リングゲージ"
+				},
+				"THEMING": {
+					"TITLE": "mixin とセマンティックカラーによるテーマ設定"
+				}
+			},
+			"API": {
+				"PROGRESS": {
+					"INPUT": {
+						"VALUE": {
+							"DESCRIPTION": "現在の進捗値。[0, max] のスケールで表されます。"
+						},
+						"MAX": {
+							"DESCRIPTION": "プログレススケールの上限。"
+						},
+						"INDETERMINATE": {
+							"DESCRIPTION": "所要時間が不明な作業のためにループするバーを描画します。aria-valuenow を外します。"
+						},
+						"COLOR": {
+							"DESCRIPTION": "インジケーターの色を決める任意のアクセント。単語（セマンティック名、登録済みアクセント、CSS 名前付き色）は単語自体をフォールバックとして --hub-sys-color-<name> にマッピングされ、リテラル（#hex、rgb()、oklch()、var()…）はそのまま使われます。指定するとインラインで適用され、省略すると --hub-progress-accent トークンがアクセントを決めます。"
+						},
+						"SIZE": {
+							"DESCRIPTION": "バーの太さを制御するサイズトークン（sm、md、または lg）。"
+						},
+						"SHOW_VALUE": {
+							"DESCRIPTION": "丸めたパーセンテージをバーの隣に描画するかどうか。"
+						},
+						"LABEL": {
+							"DESCRIPTION": "プログレスバーが何を測定しているかを説明するアクセシブルなラベル。"
+						}
+					}
+				},
+				"METER": {
+					"INPUT": {
+						"VALUE": {
+							"DESCRIPTION": "現在の測定値。[min, max] のスケールで表されます。"
+						},
+						"MIN": {
+							"DESCRIPTION": "スケールの下限。"
+						},
+						"MAX": {
+							"DESCRIPTION": "スケールの上限。"
+						},
+						"LOW": {
+							"DESCRIPTION": "「low」領域の上限。省略された場合は min がデフォルトになります。"
+						},
+						"HIGH": {
+							"DESCRIPTION": "「high」領域の下限。省略された場合は max がデフォルトになります。"
+						},
+						"OPTIMUM": {
+							"DESCRIPTION": "範囲内の推奨点。省略された場合は中間点がデフォルトになります。"
+						},
+						"LABEL": {
+							"DESCRIPTION": "ゲージが何を測定しているかを示すアクセシブルなラベル。role=meter の名前は作者だけが与えられるため、これがないと名前のないゲージになります。"
+						}
+					}
+				},
+				"RING": {
+					"INPUT": {
+						"VALUE": {
+							"DESCRIPTION": "スコア値。0..1 の比率または 0..max の数値で表されます。"
+						},
+						"MAX": {
+							"DESCRIPTION": "値を正規化する基準となる上限。"
+						},
+						"SIZE": {
+							"DESCRIPTION": "リングの外径（数値は px として扱われるか、任意の CSS 長さ文字列）。指定するとインラインで適用されます。省略すると --hub-ring-size トークンが外径を決めます。"
+						},
+						"THICKNESS": {
+							"DESCRIPTION": "リングのストローク幅（数値は px として扱われるか、任意の CSS 長さ文字列）。指定するとインラインで適用されます。省略すると --hub-ring-thickness トークンが幅を決めます。"
+						},
+						"THRESHOLDS": {
+							"DESCRIPTION": "インジケーターをバンド（low/high）ごとに色付けし直す任意のカラーしきい値。"
+						},
+						"SHOW_VALUE": {
+							"DESCRIPTION": "丸めたパーセンテージを中央に描画するかどうか。"
+						},
+						"LABEL": {
+							"DESCRIPTION": "リングが何を評価しているかを示すアクセシブルなラベル。投影されたキャプションも中央のパーセンテージも role=meter の名前にはなりません。"
+						}
+					},
+					"TEMPLATE": {
+						"CAPTION": {
+							"DESCRIPTION": "リングの中央にキャプションとして投影されるコンテンツ。組み込みのパーセンテージと並べて（またはその代わりに）表示されます。これは装飾であって名前ではありません。role=\"meter\" の要素に名前を与えられるのは作者だけなので、`label` 入力を渡してください。"
+						}
+					}
+				}
+			}
+		},
+		"TABLE": {
+			"GROUP": {
+				"GETTING_STARTED": {
+					"TITLE": "はじめに"
+				},
+				"PAGING_SORTING_FILTERING": {
+					"TITLE": "ページング・並べ替え・絞り込み"
+				},
+				"SELECTION_ROW_ACTIONS": {
+					"TITLE": "選択と行アクション"
+				},
+				"COLUMNS_LAYOUT": {
+					"TITLE": "列・固定・レスポンシブ"
+				},
+				"TEMPLATES_STATES": {
+					"TITLE": "テンプレートと状態"
+				},
+				"LISTS_DRAG": {
+					"TITLE": "リストとドラッグ＆ドロップ"
+				},
+				"THEMING_ICONS": {
+					"TITLE": "テーマとアイコン"
+				},
+				"INTERNATIONALIZATION": {
+					"TITLE": "国際化"
+				}
+			}
+		},
+		"LOADING": {
+			"NAV": {
+				"BASIC_USAGE": "基本的な使い方",
+				"INDICATOR_VARIANTS": "インジケーターのバリアント",
+				"CONTAINER_OVERLAY": "コンテナオーバーレイ",
+				"FULLSCREEN_SERVICE": "フルスクリーンサービス",
+				"BRANDED_IMAGE": "ブランド画像",
+				"CSS_VARIABLES": "CSS 変数",
+				"PAGE_PROGRESS": "ページ進捗バー",
+				"DETERMINATE_BAR": "既知の進捗と未知の進捗",
+				"ROUTER_HTTP_BAR": "ルーターと HTTP の連携",
+				"RTL_SWEEP": "右から左へのスイープ"
+			},
+			"FEATURE": {
+				"INLINE_BLOCK": {
+					"TITLE": "インラインブロック",
+					"DESCRIPTION": "`inline` が既定のモードなのは、まだ空の領域こそ、これから入る内容が占める場所をあらかじめ確保しておくべきだからです。ブロックは通常のドキュメントフローに参加するため、実際の内容が届いてもレイアウトが飛び跳ねません。`message` はインジケーターの下に描画され、タグの間に投影されたものはさらにその下に描画されます。キャンセル操作や「通常より時間がかかっています」といった注記を置く場所です。ホストは `role=\"status\"`、`aria-live=\"polite\"`、`aria-busy=\"true\"` を備えているため、スクリーンリーダーは読み上げ中の内容を中断することなく、表示された時点でメッセージを拾います。",
+					"HIGHLIGHT": "通常フローに参加し、待機中の内容が占める場所を確保するブロック。インジケーターの下にメッセージと投影コンテンツを並べられます。"
+				},
+				"INDICATORS_AND_ACCENTS": {
+					"TITLE": "インジケーターとアクセント",
+					"DESCRIPTION": "ライブラリには純粋な CSS だけで描かれる 5 種類のインジケーター — `spinner`、`dots`、`bars`、`pulse`、`ring` — が同梱されており、画像アセットもアイコンフォントも一切引き込みません。3 段階のサイズが `--hub-loading-size` をプリセットしますが、その 3 段階で足りないレイアウトのために、トークン自体は個別に上書きできるままです。`color` は通常の CSS カラーではありません。値は `resolveHubAccent()` を通り、`primary` のような裸の名前はテーマに追随するデザインシステムのトークンとして解釈され、hex、`oklch()` リテラル、`var(...)` 参照はそのまま使われます。",
+					"HIGHLIGHT": "3 段階のサイズをもつ 5 種類の純 CSS インジケーター。アクセントはセマンティックな名前をテーマトークンに解決し、CSS のカラーリテラルはそのまま通します。"
+				},
+				"OVERLAY_AND_FULLSCREEN": {
+					"TITLE": "オーバーレイとフルスクリーン",
+					"DESCRIPTION": "`overlay` はページ全体ではなく一つの領域を覆います。絶対配置されるため、何が覆われるかを決めるのは最も近い配置済みの祖先です。そのコンテナに `position: relative` を与えてください。さもなければオーバーレイは上方向へ抜け出し、たまたま配置されていた祖先まで届いてしまいます。範囲を限ることで、画面の残りはスクロールでき、操作可能なままになります。`fullscreen` はビューポートに固定され、`HubLoadingService` が `document.body` にマウントするのがこれです。あらゆるコンポーネントのサブツリーの外側なので、祖先の `overflow` やスタッキングコンテキストに切り取られることがありません。どちらのモードも、`backdrop` を切らない限り半透明のスクリムを描きます。",
+					"HIGHLIGHT": "配置済みのコンテナ一つを覆ってページの残りを使えるままにするか、コンポーネントのサブツリー外にオーバーレイをマウントするサービスでビューポート全体を占有します。"
+				},
+				"BRANDING_AND_THEMING": {
+					"TITLE": "ブランディングとテーマ設定",
+					"DESCRIPTION": "`image` は組み込みのインジケーターを自前のマークに差し替え、`none`、`spin`、`pulse` で動かします。`spin` が自然に見えるのは放射対称なマークだけで、ワードマークを立てたまま読みやすく保つなら `pulse` です。見た目に関わるものはすべて `--hub-loading-*` トークンにあり、`:where(.hub-loading)` に宣言されているのでどの祖先からでも設定できます — アクセント、サイズ、速度、線の太さ、間隔、画像サイズ、テキスト色、そして backdrop の濃さとぼかしです。Sass ミックスイン `hub-loading-theme()` はこのトークン群を一度の呼び出しでまとめて設定し、`provideHubLoading()` はテンプレートに触れずにアプリケーション全体の既定値を置き換えます。",
+					"HIGHLIGHT": "インジケーターをブランドマークに置き換え、アクセント・サイズ・速度・backdrop を `--hub-loading-*` トークンか、一度の呼び出しで済む Sass ミックスイン `hub-loading-theme()` で再テーマ化します。"
+				},
+				"PAGE_PROGRESS_BAR": {
+					"TITLE": "ページ進捗バー",
+					"DESCRIPTION": "`hub-loading-bar` は、ページそのものが読み込み中であることを伝える細い帯 — ナビゲーションバーの下に置くあれです。信頼できるものにしている判断が三つあります。呼び出し元を数えるので、1 回のナビゲーションとページが投げる 3 本のリクエストは 4 つの参照になり、バーは最初ではなく最後の 1 つで終わります。何かを描く前に待ちます。猶予時間のうちに終わった処理はバーをまったく表示しません。40 ms のルートで進捗バーが一瞬光るのは、速さではなく不具合に見えるからです。そして進み方は満ちるにつれて減速し、終端の手前で止まります。ここでは誰も本当の百分率を知らないので、100 % を出せるのは `complete()` だけです。それが真実だと知っているのが `complete()` だけだからです。配置は、位置指定したナビゲーションバーの中に `mode=\"overlay\"` で、ナビゲーションバー自体が固定なら `mode=\"fixed\"` と `--hub-loading-bar-offset` で行います。",
+					"HIGHLIGHT": "ナビゲーションバーの下の帯。ルーターと HttpClient に接続され、現れる前に待ち、本当に終わるまで終わったとは言いません。"
+				}
+			},
+			"API": {
+				"INPUT": {
+					"MODE": {
+						"DESCRIPTION": "ブロックの置かれ方。`inline` は通常のドキュメントフローに参加して自らの領域を確保し、`overlay` は絶対配置されて最も近い配置済みの祖先を覆い、`fullscreen` はビューポートに固定されます。"
+					},
+					"VARIANT": {
+						"DESCRIPTION": "どの純 CSS インジケーターを描画するか。`image` が設定されている間は、画像が組み込みインジケーターを置き換えるため無視されます。"
+					},
+					"IMAGE": {
+						"DESCRIPTION": "組み込みインジケーターの代わりに描画される URL または data URI で、通常はブランドマークです。そのボックスのサイズは `--hub-loading-image-size` で決まります。"
+					},
+					"IMAGE_ANIMATION": {
+						"DESCRIPTION": "`image` に適用される動き。画像が設定されていない間は効果がありません。`spin` は放射対称なマーク向き、`pulse` はワードマークを立てたまま読みやすく保ち、`none` は静止させます。"
+					},
+					"MESSAGE": {
+						"DESCRIPTION": "インジケーターの下に描画されるテキストで、ブロックが現れたときにライブリージョンが読み上げる内容でもあります。`null` ではメッセージを描画しません。"
+					},
+					"SIZE": {
+						"DESCRIPTION": "`--hub-loading-size` に渡されるサイズ段階。3 段階で足りないサイズがレイアウトに必要な場合に備え、トークン自体は個別に上書きできるままです。"
+					},
+					"COLOR": {
+						"DESCRIPTION": "インジケーターのアクセント。`resolveHubAccent()` によって唯一のスロット `--hub-loading-accent` へ正規化されます。`primary` のような裸の名前は `--hub-sys-color-*` トークンに解決されテーマに追随し、hex、`oklch()` リテラル、`var(...)` 参照はそのまま使われます。`null` ならトークン自身のカスケード既定値が残ります。"
+					},
+					"BACKDROP": {
+						"DESCRIPTION": "覆われた内容の上に半透明のスクリムを描きます。何も覆わない `inline` モードでは無視されます。"
+					},
+					"ARIA_LABEL": {
+						"DESCRIPTION": "ホストの `role=\"status\"` ライブリージョンが読み上げるアクセシブルな名前。"
+					},
+					"BAR_MODE": {
+						"DESCRIPTION": "帯の置かれ方。`inline` は通常のフローに参加して自らの行を確保するので、現れてもレイアウトが動きません。`overlay` は絶対配置され、最も近い配置済みの祖先 — `position: relative` を与えたナビゲーションバー — に対して配置されます。`fixed` は `--hub-loading-bar-offset` の位置でビューポートに固定します。"
+					},
+					"BAR_PLACEMENT": {
+						"DESCRIPTION": "`overlay` と `fixed` がどちらの端に付くか。`bottom` がナビゲーションバーの下端にバーを吊るします。`inline` はこの値を無視します。"
+					},
+					"BAR_PROGRESS": {
+						"DESCRIPTION": "バーの制御を引き受けます。バインドしなければ `HubLoadingBarService` に従い、0〜100 の数値は直接バーを動かして `aria-valuenow` として公開され、`null` は非表示にします。"
+					},
+					"BAR_INDETERMINATE": {
+						"DESCRIPTION": "満ちる代わりに断片を往復させます。測れる進捗のない処理向けです。読み上げる値は伏せられますが、これは位置が不明な progressbar を ARIA が示す方法そのものです。"
+					},
+					"BAR_GLOW": {
+						"DESCRIPTION": "先端の後ろに残る柔らかい光。刻みと刻みのあいだでも動きとして読み取れる要素です。"
+					},
+					"BAR_COLOR": {
+						"DESCRIPTION": "塗りのアクセント。名前だけなら `--hub-sys-color-*` トークンとして解決されテーマに従い、16 進数・`oklch()`・`var(...)` はそのまま使われます。"
+					},
+					"BAR_ARIA_LABEL": {
+						"DESCRIPTION": "ホストの `role=\"progressbar\"` に与えるアクセシブル名。"
+					}
+				},
+				"METHOD": {
+					"SHOW": {
+						"DESCRIPTION": "呼び出し元を 1 件登録し、フルスクリーンオーバーレイがまだ出ていなければマウントします。実際に渡されたキーだけがアプリケーション既定値の上に適用されるため、入れ子の呼び出しは互いをリセットせず積み重なります。"
+					},
+					"HIDE": {
+						"DESCRIPTION": "呼び出し元を 1 件解放し、誰も残っていなければオーバーレイを取り外します。カウンターは 0 で止まるため、はぐれた `hide()` が後続の `show()` を無効化することはありません。"
+					},
+					"HIDE_ALL": {
+						"DESCRIPTION": "保留中の呼び出し元をすべて一度に破棄し、オーバーレイを直ちに取り除きます。エラーハンドラーやルート遷移のための非常口であり、`show()` と `hide()` を対で呼ぶことの代わりにはなりません。"
+					},
+					"UPDATE": {
+						"DESCRIPTION": "参照カウンターに触れずに、表示中のオーバーレイを整え直します — 処理の途中で変わる進捗メッセージや、バリアントの差し替えなど。"
+					},
+					"IS_LOADING": {
+						"DESCRIPTION": "少なくとも 1 件の呼び出し元が待機している間 true になる signal。カウンターだけが動きオーバーレイはマウントされないサーバーサイドレンダリング中でも安全に読み取れます。"
+					},
+					"BAR_START": {
+						"DESCRIPTION": "呼び出し元を 1 つ登録します。最初の 1 つがサイクルを始め — 即座にではなく猶予時間のあとで — 残りは数に加わるだけです。"
+					},
+					"BAR_COMPLETE": {
+						"DESCRIPTION": "呼び出し元を 1 つ取り下げます。ひとつも残らなければバーは 100 % まで進んで消え、猶予時間が処理全体を飲み込んでいれば見られないまま消えます。"
+					},
+					"BAR_COMPLETE_ALL": {
+						"DESCRIPTION": "保留中の呼び出し元をすべて捨て、バーを一度に完了させます。エラーハンドラ用、あるいは `start()` を釣り合わせ損ねた呼び出し元のために。"
+					},
+					"BAR_SET": {
+						"DESCRIPTION": "猶予時間を待たずにバーを正確な値へ動かして表示します。百分率が実在する処理向けです。値は 0〜100 に丸められますが、自動進行の上限には縛られません。"
+					},
+					"BAR_INC": {
+						"DESCRIPTION": "バーを進めて表示します。量を渡さなければ設定された進行カーブが決めます。これが、終わりの見えない待ち時間を到達させずに動かし続ける仕組みです。"
+					},
+					"BAR_RESET": {
+						"DESCRIPTION": "すべてを一度に取り消します。完了アニメーションも、保留中の呼び出し元も、画面上のものも残りません。"
+					},
+					"BAR_PROGRESS": {
+						"DESCRIPTION": "現在の塗り、0〜100。サーバーサイドレンダリング中でも安全に読めます。"
+					},
+					"BAR_IS_ACTIVE": {
+						"DESCRIPTION": "まだ待っている呼び出し元があるか。バーが姿を見せると決めたかどうかとは関係のない、「ページは読み込み中か」という正直な問いです。"
+					},
+					"BAR_IS_VISIBLE": {
+						"DESCRIPTION": "バーが実際に描かれているか。猶予時間の間は false、完了の余韻の間はまだ true です。"
+					}
+				},
+				"TEMPLATE": {
+					"0": {
+						"NAME": "既定のコンテンツスロット",
+						"DESCRIPTION": "タグの間に投影されたものはメッセージの下に描画されます — キャンセル操作、進捗の注記、通常より時間がかかっている旨のヒントなど。"
+					},
+					"1": {
+						"DESCRIPTION": "`HUB_LOADING_CONFIG` トークンを通じてアプリケーション全体の既定値 — ブランド画像、好みのバリアント、翻訳済みラベル — を登録します。`<hub-loading>` と `HubLoadingService` の双方がそこから始まるため、個々の呼び出し箇所は簡潔なままです。"
+					},
+					"2": {
+						"NAME": "ナビゲーションバーの下のバー",
+						"DESCRIPTION": "このバーの名前の由来となる配置。ナビゲーションバーの `position: relative` がオーバーレイをその中に閉じ込め、`placement=\"bottom\"` が下端に吊るします。"
+					},
+					"3": {
+						"DESCRIPTION": "ナビゲーションが続くあいだだけバーを動かします。ガードが拒否した場合やエラーで終わった場合も含みます — 手配線のバーが取り残されるのは、たいていこの二つです。"
+					},
+					"4": {
+						"DESCRIPTION": "すべての HTTP リクエストの生存期間だけバーを保ちます。`finalize` は成功でもエラーでもキャンセルでも等しく釣り合いを取ります。"
+					},
+					"5": {
+						"DESCRIPTION": "リクエストを 1 本、数から外します。タイマーによるポーリングは放っておけばバーを永久に開いたままにしますし、終わらない進捗バーは無いより悪いものです。"
+					},
+					"6": {
+						"DESCRIPTION": "`HUB_LOADING_BAR_CONFIG` トークンを通じて、アプリ全体のバーの既定値 — アクセント、テンポ、猶予時間、進行カーブ、翻訳されたラベル — を登録します。"
+					}
+				}
+			},
+			"EXAMPLE": {
+				"BASIC_USAGE": {
+					"TITLE": "インラインブロックの基本",
+					"DESCRIPTION": "インラインブロックの有用な 3 形態: インジケーターのみ、メッセージ付き、そしてメッセージの下にキャンセル操作を投影したもの。"
+				},
+				"INDICATOR_VARIANTS": {
+					"TITLE": "バリアント・サイズ・アクセント",
+					"DESCRIPTION": "同梱の 5 種類のインジケーター、3 段階のサイズ、そしてアクセントが取りうる 3 つの形 — セマンティックな名前、CSS のカラーリテラル、`var(...)` 参照。"
+				},
+				"CONTAINER_OVERLAY": {
+					"TITLE": "コンテナオーバーレイ",
+					"DESCRIPTION": "カード自身の `position: relative` によって 1 枚のカードに閉じ込められたオーバーレイ。ページの残りはスクロールできます。`backdrop` を切り替えると、バックグラウンド更新と、画面上の表示を無効にする処理との違いが分かります。"
+				},
+				"FULLSCREEN_SERVICE": {
+					"TITLE": "フルスクリーンサービス",
+					"DESCRIPTION": "TypeScript から操作する `HubLoadingService`。重なり合う 2 つのリクエストが参照カウンターの意味を示します。2 番目の呼び出し元がまだ参照を保持しているため最初の `hide()` ではオーバーレイは残り、`update()` は処理中にメッセージを書き換えます。"
+				},
+				"BRANDED_IMAGE": {
+					"TITLE": "ブランド画像",
+					"DESCRIPTION": "組み込みインジケーターを置き換えるブランドマークを、3 種類の画像アニメーションそれぞれで表示し、`spin`・`pulse`・`none` の使い分けが見えるようにしています。"
+				},
+				"CSS_VARIABLES": {
+					"TITLE": "CSS 変数によるテーマ設定",
+					"DESCRIPTION": "ラッパー要素に置いた `--hub-loading-*` トークンによるライブなテーマ設定。`overlay` と `fullscreen` モードでしか効かない backdrop の濃さとぼかしも含みます。"
+				},
+				"PAGE_PROGRESS": {
+					"TITLE": "ページ進捗バー",
+					"DESCRIPTION": "模擬ナビゲーションバーに吊るしたバー。三つのルートが三つの挙動を示します。ふつうのものは進み、遅いものは進行の減速が見え、40 ms のものはバーをまったく描きません。"
+				},
+				"DETERMINATE_BAR": {
+					"TITLE": "既知の進捗と未知の進捗",
+					"DESCRIPTION": "`progress` をバインドするとバーは呼び出し元のものになり、`aria-valuenow` を公開します。`indeterminate` は代わりに往復し、値を伏せます。三つめの状態 `null` はバーを片付けます。"
+				},
+				"ROUTER_HTTP_BAR": {
+					"TITLE": "ルーターと HTTP の連携",
+					"DESCRIPTION": "バーが呼び出し元を数える理由。ナビゲーション 1 回と 3 本のリクエストで参照は 4 つになり、バーは最後の 1 つで終わります。コードは `provideHubLoadingBarRouter()`、インターセプター、除外の指定を示します。"
+				},
+				"RTL_SWEEP": {
+					"TITLE": "右から左へのスイープ",
+					"DESCRIPTION": "同じ `indeterminate` のバーを `dir=\"ltr\"` の下と `dir=\"rtl\"` の下に並べています。スイープは `--hub-loading-bar-sweep-direction` に従って文字の流れと同じ向きに反転するので、ロケールごとに何かをバインドしたり複製したりする必要はありません。"
+				}
+			}
+		},
+		"INSTALLER": {
+			"NAV": {
+				"INTERACTIVE": "対話的インストール",
+				"NON_INTERACTIVE": "オプションとスクリプト",
+				"RESOLVED_DEPENDENCIES": "解決された依存関係"
+			},
+			"FEATURE": {
+				"ONE_COMMAND": {
+					"TITLE": "コマンドひとつ",
+					"DESCRIPTION": "`ng add ng-hub-ui` がインストールのすべてです。Angular CLI がパッケージを取得して `ng-add` スキーマティック を実行し、カタログにある 25 のライブラリのうちどれが必要かを尋ねます。スペースで選択、`a` で全選択の切り替え、`i` で反転。確定すると選択が npm パッケージへ解決され、`dependencies` に書き込まれ、インストールは CLI が検出したパッケージマネージャーに引き渡されます。",
+					"HIGHLIGHT": "`ng add` ひとつと 25 ライブラリの複数選択で、パッケージがマニフェストに入ります。"
+				},
+				"SCRIPTABLE": {
+					"TITLE": "オプションとスクリプト",
+					"DESCRIPTION": "プロンプトは省略できます。これが CI やプロジェクト自身のセットアップスクリプトからインストーラーを使える理由です。`--libraries` はカンマ区切りのリストでも、同じオプションの繰り返しでも受け付け、どちらも同じように正規化されます（前後の空白を除去し、重複を取り除き、渡された順序を保つ）。`--skip-install` はマニフェストだけ書いて止まります。プロンプトに表示されるラベルではなく、カタログの識別子を渡してください。両者は別の文字列で、未知の識別子は `package.json` に触れる前にスキーマティック を止めます。",
+					"HIGHLIGHT": "2 通りの `--libraries` と `--skip-install`。ワークスペースを手作業ではなくスクリプトで用意できます。"
+				},
+				"RESOLVED_DEPENDENCIES": {
+					"TITLE": "解決された依存関係",
+					"DESCRIPTION": "選んだものと書き込まれるものは同じではありません。カタログの各ライブラリは必要なピアを宣言しています。ファミリーの大半には `ng-hub-ui-utils`、panels には `ng-hub-ui-ds`、signature には `ng-hub-ui-forms`、そして当方のものですらない `sortablejs`。解決は推移的なので、一緒に入るライブラリがさらに自分のピアを持ち込みます。どの範囲も、ファミリーがそれに要求する最も高いピア以上を下限にしています。これが npm の解決できない組み合わせを書かないための担保です。すでにあるキーは決して書き換えないので、固定したバージョンは残ります。スキーマティック は依存関係の配線で止まります。`angular.json` も、プロバイダーも、コンポーネント登録も、スタイルシートの追加も行いません。",
+					"HIGHLIGHT": "ピアは自動で、しかも推移的に。範囲はファミリーの要求より上、固定したバージョンはそのまま。"
+				}
+			},
+			"EXAMPLE": {
+				"INTERACTIVE": {
+					"TITLE": "対話的インストール",
+					"DESCRIPTION": "コマンドと、それが開くプロンプト。ターミナルで見えるとおりに。"
+				},
+				"NON_INTERACTIVE": {
+					"TITLE": "プロンプトの代わりにオプション",
+					"DESCRIPTION": "3 つの非対話的な書き方と、誤った選択が拒否される 2 つの経路。"
+				},
+				"RESOLVED_DEPENDENCIES": {
+					"TITLE": "その選択が書き込むもの",
+					"DESCRIPTION": "2 つ頼んで 5 つ書き込まれる。同時インストールを具体的に。"
+				}
+			}
+		}
+	},
+	"I18N_GUIDE": {
+		"TITLE": "国際化",
+		"INTRO": "グローバルアダプターを一度設定すれば、すべての Hub UI ライブラリが言語変更に反応します。",
+		"SETUP": "グローバル設定",
+		"RESERVED": "アプリケーションのキーとの衝突を避けるため、HUBUI を予約してください。",
+		"DICTIONARY": "ライブラリごとの辞書",
+		"BRANCHES": "現在の名前空間: HUBUI.SIGNATURE.*、HUBUI.PAGINABLE.*、HUBUI.STEPPER.*、HUBUI.CALENDAR.*。",
+		"OVERRIDE": "明示的なカスタマイズ",
+		"OVERRIDE_TEXT": "リアクティブな上書きは、共有辞書を維持したまま一つのキーを置き換えます。",
+		"PRIORITY": "優先順位と互換性",
+		"PRIORITY_TEXT": "優先順位: 明示的な上書き → HUBUI.<ライブラリ>.* → 組み込みフォールバック。Paginable、Stepper、Calendar は移行中も旧キーを維持します。"
+	}
+}

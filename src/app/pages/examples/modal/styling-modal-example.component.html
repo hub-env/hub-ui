@@ -1,0 +1,18 @@
+<div class="d-flex flex-column gap-2 align-items-start">
+	<p class="mb-0">Open a modal themed with <code>--hub-modal-*</code> variables.</p>
+	<button hubButton variant="outline" color="dark" (click)="openStyledModal(styledTpl)">Open Styled Modal</button>
+</div>
+
+<ng-template #styledTpl let-d="dismiss">
+	<div class="modal-header">
+		<h5 class="modal-title">Styled Modal</h5>
+	</div>
+	<div class="modal-body">
+		<p class="mb-2">This modal uses runtime CSS variables.</p>
+		<p class="mb-0">The backdrop is also customized with a different tone.</p>
+	</div>
+	<div class="modal-footer">
+		<button hubButton variant="outline" color="secondary" (click)="d('close')">Close</button>
+		<button hubButton color="dark" (click)="d('confirm')">Confirm</button>
+	</div>
+</ng-template>

@@ -1,0 +1,479 @@
+// ============================================================
+// App Shell — Hub UI documentation site
+// Layout: sidebar (full-height) + main content
+// ============================================================
+
+:host.app-shell {
+	display: block;
+	height: 100vh;
+	min-height: 0;
+	overflow: hidden;
+}
+
+// ---- Body row (sidebar + main) ----
+
+.app-shell__body {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	height: 100%;
+	min-height: 0;
+}
+
+// ---- Page-progress bar ----
+
+.app-shell__loading-bar {
+	// The sticky sidebar sits at --hub-sys-zindex-sticky, and the bar is declared before
+	// it in the DOM: at equal z-index the sidebar would paint over the bar for the width
+	// of the rail. Derive the value from the surface that can cover it rather than
+	// picking a number.
+	--hub-loading-bar-z-index: calc(var(--hub-sys-zindex-sticky, 1020) + 1);
+	--hub-loading-bar-height: 3px;
+}
+
+// ---- Sidebar host ----
+
+.app-shell__sidebar {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	background-color: var(--hub-sys-surface-elevated);
+	// Subtle theme-aware wash at the top of the sidebar for depth
+	background-image: linear-gradient(180deg, color-mix(in srgb, var(--hub-sys-gradient-1) 6%, transparent), transparent 220px);
+	border-right: 1px solid var(--hub-sys-border-color-default);
+	overflow: visible;
+	transition:
+		background-color 0.2s ease,
+		border-color 0.2s ease;
+}
+
+:host.app-shell--sticky-sidebar .app-shell__sidebar {
+	position: sticky;
+	top: 0;
+	align-self: flex-start;
+	width: fit-content;
+	max-width: 100%;
+	z-index: var(--hub-sys-zindex-sticky, 1020);
+}
+
+.app-shell__nav {
+	flex: 1;
+	min-height: 0;
+	overflow: visible;
+	--hub-nav-padding-x: 0;
+	--hub-nav-padding-y: 0;
+	--hub-nav-gap: 0;
+	--hub-nav-border-width: 0;
+	// Wide enough for the footer control rows (globe + "Language" + locale
+	// select, "Horizontal layout", etc.) to read in full without truncating,
+	// while staying a compact sidebar. The footer's min-width:0 below still
+	// guards against overflow if a longer localized label appears.
+	--hub-nav-panel-width: 208px;
+	--hub-nav-bg: var(--hub-sys-surface-elevated);
+	--hub-nav-panel-bg: var(--hub-sys-surface-elevated);
+	--hub-nav-vertical-panel-padding-block: 0.5rem;
+	--hub-nav-mobile-zindex: 1060;
+	--hub-nav-header-font-size: 0.72rem;
+	--hub-nav-header-font-weight: 600;
+	--hub-nav-header-color: var(--hub-sys-text-muted);
+	--hub-nav-header-padding-x: 1rem;
+	--hub-nav-header-padding-y: 0.2rem;
+	--hub-nav-header-margin-top: 1rem;
+
+	// Compact badge for nav items that carry a status marker
+	--hub-nav-badge-font-size: 0.55rem;
+	--hub-nav-badge-padding-x: 0.4em;
+	--hub-nav-badge-padding-y: 0.15em;
+
+	// Gradient-aware item states: soft tint + accent text instead of
+	// the solid primary pill, re-colored automatically per theme.
+	--hub-nav-item-border-radius: 10px;
+	--hub-nav-item-hover-bg: color-mix(in srgb, var(--hub-sys-gradient-1) 9%, transparent);
+	--hub-nav-item-hover-color: var(--hub-sys-text-primary);
+	--hub-nav-item-active-bg: color-mix(in srgb, var(--hub-sys-gradient-1) 14%, transparent);
+	--hub-nav-item-active-color: var(--hub-sys-gradient-1);
+	--hub-nav-item-active-font-weight: 600;
+}
+
+// ---- Brand (start slot) ----
+
+.app-shell__nav-brand {
+	display: flex;
+	align-items: center;
+	padding: 0.75rem 1rem;
+	margin-bottom: 0.25rem;
+}
+
+// Vertical sidebar (desktop): center the brand within the narrow column.
+// The brand is a flex item inside hub-nav's start slot, so it must fill the
+// slot width before justify-content can center the logo. Horizontal nav and
+// the mobile top bar keep it left-aligned.
+@media (min-width: 992px) {
+	:host.app-shell--sticky-sidebar .app-shell__nav-brand {
+		width: 100%;
+		justify-content: center;
+	}
+}
+
+.app-shell__brand-link {
+	display: inline-flex;
+	align-items: center;
+	text-decoration: none;
+}
+
+.app-shell__brand-wrap {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+}
+
+// Inline SVG logo — colors driven by the expressive gradient tokens
+.app-shell__brand-logo-svg {
+	--hub-logo-from: var(--hub-sys-gradient-1, #191b86);
+	--hub-logo-to: var(--hub-sys-gradient-2, #64cee7);
+}
+
+.app-shell__brand-version {
+	position: absolute;
+	bottom: -5px;
+	right: -6px;
+	display: inline-flex;
+	align-items: center;
+	padding: 0.1rem 0.35rem;
+	font-size: 0.6rem;
+	font-weight: 700;
+	line-height: 1;
+	background: linear-gradient(135deg, var(--hub-sys-gradient-1), var(--hub-sys-gradient-2));
+	color: #fff;
+	border-radius: var(--hub-ref-radius-pill);
+	letter-spacing: 0.02em;
+	pointer-events: none;
+}
+
+// ---- Footer (end slot) ----
+
+// Build stamp (version · commit) — muted, verifies the deployed build at a glance.
+.app-shell__version {
+	flex: 0 0 auto;
+	margin-inline-start: auto;
+	padding-inline: 0.375rem;
+	font-size: 0.7rem;
+	font-variant-numeric: tabular-nums;
+	color: var(--hub-sys-text-muted, #6c757d);
+	opacity: 0.7;
+	white-space: nowrap;
+	user-select: text;
+}
+
+.app-shell__nav-footer--vertical .app-shell__version {
+	margin-inline-start: 0;
+	padding-block-start: 0.5rem;
+	text-align: center;
+}
+
+.app-shell__nav-footer {
+	// Horizontal (default): compact inline row
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	gap: 0.125rem;
+	padding: 0.25rem 0.375rem;
+
+	// Icon rail: the 4rem column only fits icon-sized affordances, so the
+	// footer stacks icon-only buttons and drops the selects, the text labels
+	// and the build stamp. Declared after the horizontal defaults so it wins
+	// the source-order tie at equal specificity.
+	&--rail {
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+		min-width: 0;
+		gap: 0.25rem;
+		padding: 0.5rem 0.25rem;
+		border-top: 1px solid var(--hub-sys-border-color-default);
+		margin-top: 0.25rem;
+
+		.app-shell__footer-select-row,
+		.app-shell__footer-btn-label,
+		.app-shell__version {
+			display: none;
+		}
+
+		.app-shell__footer-btn {
+			justify-content: center;
+		}
+	}
+
+	// Vertical: stacked column, full-width rows
+	&--vertical {
+		flex-direction: column;
+		// Stay within the (narrow, fixed-width) nav column. Without min-width:0
+		// the footer rows keep their nowrap min-content width and spill past the
+		// sidebar into the main content.
+		width: 100%;
+		min-width: 0;
+		max-width: 100%;
+		padding: 0.5rem 0.5rem;
+		border-top: 1px solid var(--hub-sys-border-color-default);
+		margin-top: 0.25rem;
+
+		.app-shell__footer-btn {
+			width: 100%;
+			// Flex items default to min-width:auto and refuse to shrink below
+			// their content; reset it so each row fits the column width instead
+			// of overflowing it.
+			min-width: 0;
+			max-width: 100%;
+			gap: 0.5rem;
+			padding: 0 0.5rem;
+			justify-content: flex-start;
+			color: var(--hub-sys-text-muted);
+
+			i {
+				color: var(--hub-sys-text-muted);
+			}
+
+			&:hover i {
+				color: var(--hub-sys-gradient-1);
+			}
+		}
+
+		.app-shell__footer-btn-label {
+			display: inline;
+			// Size to content (don't grow): this keeps every row's content —
+			// icon + label + any trailing badge — grouped on the left. With
+			// `flex: 1` the label stretched and pushed trailing badges (e.g. the
+			// theme value) to the right edge, so rows looked inconsistently
+			// "justified". The button itself stays full-width and clickable.
+			flex: 0 1 auto;
+			// Still allow shrink + ellipsis if a localized label is very long.
+			min-width: 0;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		// Vertical-only: the hub-select fills the column width in the stacked
+		// footer (its visual theming is orientation-agnostic — see below).
+		.app-shell__footer-select-row .app-shell__footer-select {
+			flex: 1 1 auto;
+			min-width: 0;
+		}
+	}
+}
+
+// ---- Footer hub-selects: language + theme (both orientations) ----
+// hub-selects themed to blend into the footer — borderless and transparent like
+// the sibling rows, but real dropdowns. The leading icon gives context; the
+// select shows the current value and opens a themed menu. Kept outside the
+// orientation blocks so the vertical sidebar AND the horizontal top bar share one
+// compact, chromeless look instead of the default bordered select box.
+// `--hub-select-*` tokens cascade into the .ng-select DOM (ViewEncapsulation.None
+// in the library).
+.app-shell__footer-select-row {
+	position: relative;
+
+	// No chevron of our own here. This row used to draw one, because the vendored
+	// ng-select arrow shipped without a border-width and rendered invisibly. The
+	// library styles `.ng-arrow` itself now (`--hub-select-arrow-size` / `-color`),
+	// so the workaround had quietly become a second caret next to the real one —
+	// the failure mode of a workaround whose premise stopped being true: nothing
+	// breaks, it just draws twice.
+}
+
+.app-shell__footer-select {
+	// Trigger: compact, borderless, inherits the footer row colours.
+	--hub-select-bg: transparent;
+	--hub-select-border-width: 0;
+	--hub-select-border-color: transparent;
+	--hub-select-color: var(--hub-sys-text-muted);
+	--hub-select-placeholder-color: var(--hub-sys-text-muted);
+	--hub-select-arrow-color: var(--hub-sys-text-muted);
+	--hub-select-clear-color: var(--hub-sys-text-muted);
+	--hub-select-min-height: 30px;
+	--hub-select-font-size: 0.8125rem;
+	--hub-select-padding-x: 0.25rem;
+	--hub-select-focus-box-shadow: none;
+	--hub-select-focus-border-color: transparent;
+
+	// Dropdown menu: themed surface so it reads in light/dark/custom themes.
+	--hub-select-dropdown-bg: var(--hub-sys-surface-elevated);
+	--hub-select-dropdown-border-color: var(--hub-sys-border-color-default);
+	--hub-select-dropdown-border-radius: var(--hub-ref-radius-md);
+	--hub-select-option-color: var(--hub-sys-text-muted);
+	--hub-select-option-padding-y: 0.4rem;
+	--hub-select-option-marked-bg: var(--hub-sys-state-hover-bg);
+	--hub-select-option-selected-bg: color-mix(in srgb, var(--hub-sys-gradient-1) 12%, transparent);
+	--hub-select-option-selected-color: var(--hub-sys-gradient-1);
+}
+
+.app-shell__footer-btn {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	height: 34px;
+	padding: 0 0.5rem;
+	font-size: 0.875rem;
+	color: var(--hub-sys-text-muted);
+	background: transparent;
+	border: none;
+	border-radius: var(--hub-ref-radius-md);
+	cursor: pointer;
+	text-decoration: none;
+	white-space: nowrap;
+	transition:
+		color 0.15s ease,
+		background-color 0.15s ease;
+
+	i {
+		font-size: 0.875rem;
+		flex-shrink: 0;
+		transition: color 0.15s ease;
+	}
+
+	&:hover {
+		color: var(--hub-sys-text-primary);
+		background-color: var(--hub-sys-state-hover-bg);
+	}
+
+	&:focus-visible {
+		outline: none;
+		box-shadow: 0 0 0 var(--hub-sys-focus-ring-width) var(--hub-sys-focus-ring-color);
+	}
+}
+
+// ---- Tooltips (horizontal mode only) ----
+// Uses the native `title` attribute as content — no extra markup needed.
+
+.app-shell__nav-footer:not(.app-shell__nav-footer--vertical) {
+	.app-shell__footer-btn[title] {
+		&::after {
+			content: attr(title);
+			position: absolute;
+			top: calc(100% + 6px);
+			left: 50%;
+			transform: translateX(-50%) scale(0.95);
+			background: var(--hub-sys-color-ink, #1a1a1a);
+			color: var(--hub-sys-surface-page, #fff);
+			font-size: 0.72rem;
+			font-weight: 500;
+			white-space: nowrap;
+			padding: 0.3rem 0.6rem;
+			border-radius: var(--hub-ref-radius-sm);
+			pointer-events: none;
+			opacity: 0;
+			transition:
+				opacity 0.15s ease,
+				transform 0.15s ease;
+			z-index: 1100;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+		}
+
+		&:hover::after {
+			opacity: 1;
+			transform: translateX(-50%) scale(1);
+		}
+	}
+}
+
+// Hidden in horizontal; shown in vertical via the --vertical modifier
+.app-shell__footer-btn-label {
+	display: none;
+	font-size: 0.8125rem;
+	font-weight: 500;
+	color: inherit;
+}
+
+// ---- Main content ----
+
+.app-shell__main {
+	flex: 1;
+	min-width: 0;
+	// This is the scroll container (the shell root is `height:100vh; overflow:hidden`).
+	// `position: relative` makes it the containing block for absolutely-positioned
+	// descendants, so an orphan `position:absolute` element with no closer positioned
+	// ancestor — e.g. the 1px screen-reader announcers some libraries render
+	// (`.hub-list__sr-only`), or a `.visually-hidden` / `.ratio` demo box — resolves
+	// to THIS box instead of escaping to the document root. Without it those elements
+	// stretch `<html>` to their static offset (thousands of px down) and create a
+	// phantom document-level scroll below the fold. Must stay for the scroll to be
+	// owned solely by this container. See the responsive block for the mobile mode.
+	// INVARIANT: do NOT add `z-index`, `transform`, `filter`, `opacity < 1` or
+	// `contain` here — any of those turns this into a stacking context and would
+	// trap in-content z-indexed UI (sticky topbars, non-portaled overlays) below
+	// the sidebar. `position: relative` alone forms the containing block without a
+	// stacking context, which is exactly what this fix needs.
+	position: relative;
+	overflow-y: auto;
+	background-color: var(--hub-sys-surface-page);
+	transition: background-color 0.2s ease;
+}
+
+// ---- Horizontal shell mode ----
+
+:host.app-shell--horizontal-nav {
+	.app-shell__body {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		min-height: 0;
+	}
+
+	.app-shell__sidebar {
+		flex: 0 0 auto;
+		width: 100%;
+		border-right: none;
+		border-bottom: 1px solid var(--hub-sys-border-color-default);
+		overflow: visible;
+	}
+
+	.app-shell__nav {
+		flex: 0 0 auto;
+		height: auto;
+		min-height: 0;
+		overflow: visible;
+		--hub-nav-panel-width: 220px;
+	}
+
+	.app-shell__nav-footer {
+		border-top: none;
+		margin-top: 0;
+	}
+
+	.app-shell__main {
+		flex: 1 1 auto;
+		min-height: 0;
+		overflow: auto;
+	}
+}
+
+// ---- Responsive ----
+
+@media (max-width: 991.98px) {
+	:host.app-shell {
+		height: auto;
+		min-height: 100vh;
+		overflow: visible;
+	}
+
+	.app-shell__body {
+		display: flex;
+		flex-direction: column;
+		overflow: visible;
+	}
+
+	.app-shell__sidebar {
+		width: 100%;
+		border-right: none;
+		border-bottom: 1px solid var(--hub-sys-border-color-default);
+	}
+
+	.app-shell__nav {
+		--hub-nav-panel-width: 100vw;
+	}
+
+	.app-shell__main {
+		overflow: visible;
+	}
+}

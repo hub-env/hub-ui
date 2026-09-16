@@ -1,0 +1,63 @@
+name: CI
+
+on:
+    push:
+        branches: [main, develop]
+    pull_request:
+        branches: [main, develop]
+
+# One CI run per ref: a newer push supersedes the still-running one.
+concurrency:
+    group: ci-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v7
+              with:
+                  submodules: recursive
+
+            - name: Use Node.js 22
+              uses: actions/setup-node@v7
+              with:
+                  node-version: '22'
+                  cache: 'npm'
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Lint (src only — libraries are submodules with their own lifecycles)
+              run: npm run lint
+
+            # Formatting was declared in .prettierrc and checked nowhere: the script globbed
+            # `src/**` only, so 260 files across the 25 libraries had drifted from a config they
+            # were nominally held to. Normalised and gated together — a rule nothing enforces is
+            # a rule that comes back.
+            - name: Formatting (src and every library)
+              run: npm run format:check
+
+            - name: Verify design tokens are compiled (hub-tokens.css == compile(scss))
+              run: (cd projects/ds && npm run build:tokens && git diff --exit-code styles/tokens/hub-tokens.css)
+
+            - name: Design-token parity (MD ⇄ ds ⇄ libraries)
+              run: npm run tokens:parity
+
+            - name: Docs CSS-variable tables (generated from the MD)
+              run: npm run docs:cssvars -- --check
+
+            - name: Docs mixin catalogs (generated from the theme SCSS)
+              run: npm run docs:mixins -- --check
+
+            # Type-checks the docs app AND every library (they compile from source through the
+            # tsconfig path aliases), so a broken lib surfaces here even without a spec for it.
+            - name: Build (development)
+              run: npm run build -- --configuration development
+
+            # Every library with specs, discovered automatically by scripts/test-libs.mjs: a project
+            # runs when it declares a `test` target AND ships at least one spec file (the builder
+            # errors out on spec-less projects rather than reporting zero tests, so those are skipped).
+            - name: Test libraries
+              run: npm run test:libs

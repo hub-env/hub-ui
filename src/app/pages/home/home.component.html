@@ -1,0 +1,327 @@
+<!-- =====================================================
+     Hub UI — Home page
+     ===================================================== -->
+
+<!-- Pointer-reactive background — one signature effect per theme -->
+<hub-background-fx />
+
+<!-- HERO -->
+<section class="hero">
+	<div class="hero__inner">
+		<div class="hero__copy">
+			<div class="hero__badge">
+				<span class="hero__badge-dot"></span>
+				{{ 'UI.HOME.HERO.BADGE' | translate }}
+			</div>
+
+			<h1 class="hero__title">{{ 'UI.HOME.HERO.TITLE' | translate }}</h1>
+			<p class="hero__subtitle">{{ 'UI.HOME.HERO.SUBTITLE' | translate }}</p>
+
+			<div class="hero__actions">
+				<a [routerLink]="localizeRoute('/modal/overview')" class="hero__btn hero__btn--primary">
+					<i class="fa-solid fa-rocket" aria-hidden="true"></i>
+					{{ 'UI.HOME.HERO.CTA_PRIMARY' | translate }}
+				</a>
+				<a [href]="repositoryUrl" target="_blank" rel="noopener noreferrer" class="hero__btn hero__btn--secondary">
+					<i class="fa-brands fa-github" aria-hidden="true"></i>
+					{{ 'UI.HOME.HERO.CTA_SECONDARY' | translate }}
+				</a>
+			</div>
+
+			<div class="hero__install">
+				<code class="hero__install-code">
+					<span class="hero__install-prefix">npm install&nbsp;</span
+					><span class="hero__install-pkg" [@pkgSlide]="pkgAnimKey()">{{ currentPackage() }}</span>
+				</code>
+				<button
+					type="button"
+					class="hero__install-copy"
+					[title]="'UI.HOME.HERO.COPY_INSTALL' | translate"
+					[attr.aria-label]="'UI.HOME.HERO.COPY_INSTALL' | translate"
+					(click)="copyInstall()"
+				>
+					<i class="fa-regular fa-copy" aria-hidden="true"></i>
+				</button>
+			</div>
+		</div>
+
+		<!-- Live component collage — these are real hub-ui components -->
+		<div class="hero__collage">
+			<div class="collage-card collage-card--panels">
+				<hub-panels>
+					<hub-panel [heading]="'UI.HOME.COLLAGE.TAB_ONE_HEADING' | translate">{{
+						'UI.HOME.COLLAGE.TAB_ONE_BODY' | translate
+					}}</hub-panel>
+					<hub-panel [heading]="'UI.HOME.COLLAGE.TAB_TWO_HEADING' | translate">{{
+						'UI.HOME.COLLAGE.TAB_TWO_BODY' | translate
+					}}</hub-panel>
+				</hub-panels>
+				<code class="collage-card__tag">&lt;hub-panels /&gt;</code>
+			</div>
+
+			<div class="collage-card collage-card--avatars">
+				<div class="collage-card__avatars">
+					@for (avatar of heroAvatars; track avatar.name) {
+						<hub-avatar [name]="avatar.name" [size]="44" [bgColor]="avatar.color" fgColor="#fff"></hub-avatar>
+					}
+				</div>
+				<code class="collage-card__tag">&lt;hub-avatar /&gt;</code>
+			</div>
+
+			<div class="collage-card collage-card--skeleton">
+				<div class="collage-card__skeleton-clip" aria-hidden="true">
+					<hub-skeleton preset="card"></hub-skeleton>
+				</div>
+				<code class="collage-card__tag">&lt;hub-skeleton /&gt;</code>
+			</div>
+
+			<code class="collage-chip collage-chip--vars">--hub-sys-color-primary</code>
+			<code class="collage-chip collage-chip--npm">npm i ng-hub-ui-*</code>
+		</div>
+	</div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+	@for (stat of stats; track stat.key) {
+		<div class="stats__item">
+			<span
+				class="stats__value"
+				[attr.data-count]="stat.numeric"
+				[attr.data-prefix]="stat.prefix"
+				[attr.data-suffix]="stat.suffix"
+				>{{ stat.value }}</span
+			>
+			<span class="stats__label">{{ homeKey('STATS', stat.key) | translate }}</span>
+		</div>
+	}
+</div>
+
+<!-- LIVE THEME DEMO -->
+<section class="themes-demo">
+	<div class="section-inner">
+		<div class="section-head">
+			<h2 class="section-title">{{ 'UI.HOME.THEMES_DEMO.SECTION_TITLE' | translate }}</h2>
+			<p class="section-subtitle">{{ 'UI.HOME.THEMES_DEMO.SECTION_SUBTITLE' | translate }}</p>
+		</div>
+
+		<div class="themes-demo__chips" data-stagger-grid role="group" [attr.aria-label]="'UI.TOPBAR.THEME_LABEL' | translate">
+			@for (theme of themeService.themes(); track theme.id) {
+				<button
+					type="button"
+					class="theme-chip"
+					[attr.data-theme]="theme.id"
+					[class.theme-chip--active]="theme.id === themeService.selectedTheme()"
+					[attr.aria-pressed]="theme.id === themeService.selectedTheme()"
+					(click)="themeService.applyTheme(theme.id)"
+				>
+					<span class="theme-chip__swatch" aria-hidden="true"></span>
+					{{ theme.label }}
+				</button>
+			}
+		</div>
+
+		<p class="themes-demo__hint">
+			<i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+			{{ 'UI.HOME.THEMES_DEMO.HINT' | translate }}
+		</p>
+
+		<div class="themes-demo__stage">
+			<div class="themes-demo__stage-row">
+				<div class="themes-demo__stage-avatars">
+					@for (avatar of heroAvatars; track avatar.name) {
+						<hub-avatar [name]="avatar.name" [size]="36" [bgColor]="avatar.color" fgColor="#fff"></hub-avatar>
+					}
+				</div>
+				<span class="themes-demo__stage-badge">{{ 'UI.HOME.STATS.CSS_VARS' | translate }}</span>
+			</div>
+			<hub-panels>
+				<hub-panel heading="Buttons">
+					<div class="themes-demo__stage-buttons">
+						<button type="button" hubButton color="primary">Primary</button>
+						<button type="button" hubButton variant="outline" color="secondary">Secondary</button>
+					</div>
+				</hub-panel>
+				<hub-panel heading="Skeleton">
+					<hub-skeleton preset="table-row" [params]="{ columns: 2 }"></hub-skeleton>
+				</hub-panel>
+			</hub-panels>
+		</div>
+	</div>
+</section>
+
+<!-- USE CASES -->
+<section class="features">
+	<div class="section-inner">
+		<div class="section-head">
+			<h2 class="section-title">{{ 'UI.HOME.USE_CASES.SECTION_TITLE' | translate }}</h2>
+			<p class="section-subtitle">{{ 'UI.HOME.USE_CASES.SECTION_SUBTITLE' | translate }}</p>
+		</div>
+
+		<div class="features__grid" data-stagger-grid>
+			@for (item of useCases; track item.key) {
+				<a [routerLink]="localizeRoute(item.route)" class="feature-card">
+					<div class="feature-card__icon-wrap">
+						<i [class]="item.icon + ' feature-card__icon'" aria-hidden="true"></i>
+					</div>
+					<h3 class="feature-card__title">{{ homeKey('USE_CASES', item.key, 'TITLE') | translate }}</h3>
+					<p class="feature-card__desc">{{ homeKey('USE_CASES', item.key, 'DESCRIPTION') | translate }}</p>
+				</a>
+			}
+		</div>
+	</div>
+</section>
+
+<!-- FEATURES -->
+<section class="features features--alt">
+	<div class="section-inner">
+		<div class="section-head">
+			<h2 class="section-title">{{ 'UI.HOME.FEATURES.SECTION_TITLE' | translate }}</h2>
+		</div>
+
+		<div class="features__grid" data-stagger-grid>
+			@for (feature of features; track feature.key) {
+				<div class="feature-card">
+					<div class="feature-card__icon-wrap">
+						<i [class]="feature.icon + ' feature-card__icon'" aria-hidden="true"></i>
+					</div>
+					<h3 class="feature-card__title">{{ homeKey('FEATURES', feature.key, 'TITLE') | translate }}</h3>
+					<p class="feature-card__desc">{{ homeKey('FEATURES', feature.key, 'DESCRIPTION') | translate }}</p>
+				</div>
+			}
+		</div>
+	</div>
+</section>
+
+<!-- CODE → RESULT -->
+<section class="code-demo">
+	<div class="section-inner">
+		<div class="section-head">
+			<h2 class="section-title">{{ 'UI.HOME.CODE_DEMO.SECTION_TITLE' | translate }}</h2>
+			<p class="section-subtitle">{{ 'UI.HOME.CODE_DEMO.SECTION_SUBTITLE' | translate }}</p>
+		</div>
+
+		<div class="code-demo__split">
+			<div class="code-demo__pane code-demo__pane--code">
+				<span class="code-demo__pane-label">
+					<i class="fa-solid fa-code" aria-hidden="true"></i>
+					{{ 'UI.HOME.CODE_DEMO.CODE_LABEL' | translate }}
+				</span>
+				<pre class="code-demo__pre"><code [highlight]="codeSnippet" language="xml"></code></pre>
+			</div>
+
+			<div class="code-demo__pane code-demo__pane--result">
+				<span class="code-demo__pane-label">
+					<span class="code-demo__live-dot" aria-hidden="true"></span>
+					{{ 'UI.HOME.CODE_DEMO.RESULT_LABEL' | translate }}
+				</span>
+				<div class="code-demo__result">
+					<hub-panels>
+						<hub-panel heading="Overview">The first enabled panel is activated automatically.</hub-panel>
+						<hub-panel heading="Details">Switch panels with a click or the arrow keys.</hub-panel>
+						<hub-panel heading="Settings">Each panel projects its own content.</hub-panel>
+					</hub-panels>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- COMPONENTS CATALOGUE -->
+<section class="catalogue">
+	<div class="section-inner">
+		<div class="section-head">
+			<h2 class="section-title">{{ 'UI.HOME.COMPONENTS.SECTION_TITLE' | translate }}</h2>
+			<p class="section-subtitle">{{ 'UI.HOME.COMPONENTS.SECTION_SUBTITLE' | translate }}</p>
+		</div>
+
+		<div class="catalogue__grid" data-stagger-grid>
+			@for (comp of components; track comp.id) {
+				<a [routerLink]="localizeRoute('/' + comp.id + '/overview')" class="catalogue-card">
+					<div class="catalogue-card__icon-wrap">
+						<i [class]="comp.icon + ' catalogue-card__icon'" aria-hidden="true"></i>
+					</div>
+					<div class="catalogue-card__content">
+						<h3 class="catalogue-card__name">{{ getName(comp.id) }}</h3>
+						<p class="catalogue-card__desc">{{ homeKey('COMPONENTS.DESCRIPTIONS', comp.id) | translate }}</p>
+					</div>
+					<i class="fa-solid fa-chevron-right catalogue-card__arrow" aria-hidden="true"></i>
+				</a>
+			}
+		</div>
+	</div>
+</section>
+
+<!-- INSTALL GUIDE -->
+<section class="install-guide">
+	<div class="section-inner">
+		<div class="section-head">
+			<h2 class="section-title">{{ 'UI.HOME.INSTALL.SECTION_TITLE' | translate }}</h2>
+		</div>
+
+		<div class="install-guide__steps">
+			<div class="install-guide__line" aria-hidden="true">
+				<span class="install-guide__line-fill"></span>
+			</div>
+
+			<div class="install-step">
+				<span class="install-step__num">1</span>
+				<div class="install-step__body">
+					<p class="install-step__label">{{ 'UI.HOME.INSTALL.STEP1' | translate }}</p>
+					<div class="code-block">
+						<code>npm install ng-hub-ui-modal</code>
+					</div>
+				</div>
+			</div>
+
+			<div class="install-step">
+				<span class="install-step__num">2</span>
+				<div class="install-step__body">
+					<p class="install-step__label">{{ 'UI.HOME.INSTALL.STEP2' | translate }}</p>
+					<div class="code-block">
+						<code>import &#123; HubModal &#125; from 'ng-hub-ui-modal';</code>
+					</div>
+				</div>
+			</div>
+
+			<div class="install-step">
+				<span class="install-step__num">3</span>
+				<div class="install-step__body">
+					<p class="install-step__label">{{ 'UI.HOME.INSTALL.STEP3' | translate }}</p>
+					<div class="code-block">
+						<code>--hub-modal-border-radius: 1rem;</code>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<a [routerLink]="localizeRoute('/modal/overview')" class="install-guide__cta">
+			{{ 'UI.HOME.INSTALL.READ_DOCS' | translate }}
+			<i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+		</a>
+	</div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+	<div class="section-inner">
+		<div class="final-cta__panel">
+			<span class="final-cta__blob final-cta__blob--1" aria-hidden="true"></span>
+			<span class="final-cta__blob final-cta__blob--2" aria-hidden="true"></span>
+
+			<h2 class="final-cta__title">{{ 'UI.HOME.FINAL_CTA.TITLE' | translate }}</h2>
+			<p class="final-cta__subtitle">{{ 'UI.HOME.FINAL_CTA.SUBTITLE' | translate }}</p>
+
+			<div class="final-cta__actions">
+				<a [href]="repositoryUrl" target="_blank" rel="noopener noreferrer" class="hero__btn hero__btn--primary">
+					<i class="fa-brands fa-github" aria-hidden="true"></i>
+					{{ 'UI.HOME.FINAL_CTA.GITHUB' | translate }}
+				</a>
+				<a [routerLink]="localizeRoute('/modal/overview')" class="hero__btn hero__btn--ghost">
+					{{ 'UI.HOME.FINAL_CTA.START' | translate }}
+					<i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+</section>

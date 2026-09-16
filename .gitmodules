@@ -1,0 +1,78 @@
+[submodule "projects/avatar"]
+	path = projects/avatar
+	url = https://github.com/hub-env/ng-hub-ui-avatar
+[submodule "projects/board"]
+	path = projects/board
+	url = https://github.com/hub-env/ng-hub-ui-board
+[submodule "projects/utils"]
+	path = projects/utils
+	url = https://github.com/hub-env/ng-hub-ui-utils
+[submodule "projects/breadcrumbs"]
+	path = projects/breadcrumbs
+	url = https://github.com/hub-env/ng-hub-ui-breadcrumbs
+[submodule "projects/modal"]
+	path = projects/modal
+	url = https://github.com/hub-env/ng-hub-ui-modal
+[submodule "projects/portal"]
+	path = projects/portal
+	url = https://github.com/hub-env/ng-hub-ui-portal
+[submodule "projects/stepper"]
+	path = projects/stepper
+	url = https://github.com/hub-env/ng-hub-ui-stepper
+[submodule "projects/paginable"]
+	path = projects/paginable
+	url = https://github.com/hub-env/ng-hub-ui-paginable
+[submodule "projects/calendar"]
+	path = projects/calendar
+	url = https://github.com/hub-env/ng-hub-ui-calendar
+[submodule "projects/sortable"]
+	path = projects/sortable
+	url = https://github.com/hub-env/ng-hub-ui-sortable.git
+[submodule "projects/nav"]
+	path = projects/nav
+	url = https://github.com/hub-env/ng-hub-ui-nav
+[submodule "projects/skeleton"]
+	path = projects/skeleton
+	url = https://github.com/hub-env/ng-hub-ui-skeleton
+[submodule "projects/panels"]
+	path = projects/panels
+	url = https://github.com/hub-env/ng-hub-ui-panels.git
+[submodule "projects/forms"]
+	path = projects/forms
+	url = https://github.com/hub-env/ng-hub-ui-forms.git
+[submodule "projects/action-sheet"]
+	path = projects/action-sheet
+	url = https://github.com/hub-env/ng-hub-ui-action-sheet
+[submodule "projects/ds"]
+	path = projects/ds
+	url = https://github.com/hub-env/ng-hub-ui-ds
+[submodule "projects/installer"]
+	path = projects/installer
+	url = https://github.com/hub-env/ng-hub-ui-installer
+[submodule "projects/milestones"]
+	path = projects/milestones
+	url = https://github.com/hub-env/ng-hub-ui-milestones
+[submodule "projects/history"]
+	path = projects/history
+	url = https://github.com/hub-env/ng-hub-ui-history
+[submodule "projects/toast"]
+	path = projects/toast
+	url = https://github.com/hub-env/ng-hub-ui-toast
+[submodule "projects/buttons"]
+	path = projects/buttons
+	url = https://github.com/hub-env/ng-hub-ui-buttons.git
+[submodule "projects/badges"]
+	path = projects/badges
+	url = https://github.com/hub-env/ng-hub-ui-badges.git
+[submodule "projects/icons"]
+	path = projects/icons
+	url = https://github.com/hub-env/ng-hub-ui-icons.git
+[submodule "projects/metrics"]
+	path = projects/metrics
+	url = https://github.com/hub-env/ng-hub-ui-metrics.git
+[submodule "projects/signature"]
+	path = projects/signature
+	url = https://github.com/hub-env/ng-hub-ui-signature
+[submodule "projects/loading"]
+	path = projects/loading
+	url = https://github.com/hub-env/ng-hub-ui-loading.git

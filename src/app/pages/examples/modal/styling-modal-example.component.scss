@@ -1,0 +1,51 @@
+/*
+ * Applied with `windowClass` in HubModal.open(...).
+ *
+ * One class is enough. The library declares its defaults under `:where(.hub-modal)`, which
+ * matches the same element but contributes no specificity, so a plain class beats them and
+ * the old `hub-modal-window.hub-modal` prefix is no longer needed to out-specify anything.
+ *
+ * Only the shorthands are set. Every leaf that used to be spelled out here — the header, body
+ * and footer padding, the title colour — now derives from them on this element. What remains
+ * below a shorthand is what genuinely differs from it.
+ */
+.modal-theme-sunset {
+	--hub-modal-margin-y: 3rem;
+	--hub-modal-bg: #1f1714;
+	--hub-modal-color: #f8efe7;
+	--hub-modal-border-color: #6f4a33;
+	--hub-modal-border-radius: 1rem;
+	--hub-modal-box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.45);
+	--hub-modal-padding-x: 1.25rem;
+	--hub-modal-padding-y: 0.875rem;
+
+	// The body breathes a little more than the two bars that frame it.
+	--hub-modal-body-padding-y: 1rem;
+
+	// The inner rules are their own tokens rather than derivations of the outer border colour,
+	// and this theme wants them a step lighter than the edge of the dialog.
+	--hub-modal-header-border-color: #8b5e41;
+	--hub-modal-footer-border-color: #8b5e41;
+
+	// The footer deliberately sits above the dialog surface instead of following `--hub-modal-bg`.
+	--hub-modal-footer-bg: #2a1f1b;
+
+	--hub-modal-title-font-size: 1.35rem;
+	--hub-modal-footer-gap: 0.625rem;
+	--hub-modal-close-opacity: 0.85;
+	--hub-modal-close-hover-opacity: 1;
+	--hub-modal-fade-transform: translate(0, -24px) scale(0.98);
+	--hub-modal-transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/*
+ * Applied with `backdropClass`.
+ *
+ * The backdrop is a SIBLING of the dialog, not a descendant, so it cannot inherit anything from
+ * `.hub-modal`. Its tokens are the ones the library still keeps on `:root`, and they are themed
+ * here on the backdrop element itself.
+ */
+.modal-backdrop-sunset {
+	--hub-modal-backdrop-bg: #1a0f08;
+	--hub-modal-backdrop-opacity: 0.78;
+}

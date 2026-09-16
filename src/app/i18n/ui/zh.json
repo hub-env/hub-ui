@@ -1,0 +1,346 @@
+{
+	"UI": {
+		"TOKENS": {
+			"TITLE": "设计令牌",
+			"INTRO": "ng-hub-ui 基于三层令牌系统构建：引用令牌（--hub-ref-*）保存原始基础值，系统令牌（--hub-sys-*）赋予其语义含义，组件令牌则按组件限定样式范围。每个令牌都是一个 CSS 变量，因此你可以在运行时通过在 :root 或包装元素上覆盖取值来重新设定整个库的主题。",
+			"SEARCH_PLACEHOLDER": "搜索令牌……",
+			"REF_TITLE": "引用 (--hub-ref-*)",
+			"SYS_TITLE": "系统 (--hub-sys-*)",
+			"COMPONENT_TITLE": "组件令牌",
+			"LIBRARIES_TITLE": "包含令牌的库",
+			"LIBRARIES_INTRO": "每个库都声明自己的组件令牌（--hub-{前缀}-*）。打开任意一个查看其文档。",
+			"LIBRARIES_TOKENS": "令牌",
+			"COL_SWATCH": "颜色",
+			"COL_TOKEN": "Token",
+			"COL_VALUE": "取值",
+			"COL_RESOLVED": "解析值",
+			"COPY_HINT": "点击复制",
+			"NO_RESULTS": "没有与你的搜索匹配的令牌。"
+		},
+		"TOPBAR": {
+			"SEARCH": "搜索组件……",
+			"GITHUB": "GitHub",
+			"CONSULTING": "咨询服务",
+			"LANG_LABEL": "ZH",
+			"LANGUAGE": "语言",
+			"DARK_MODE": "深色模式",
+			"LIGHT_MODE": "浅色模式",
+			"THEME_LABEL": "主题",
+			"ORIENTATION_VERTICAL": "垂直布局",
+			"ORIENTATION_HORIZONTAL": "水平布局",
+			"PAGE_LOADING": "页面加载中"
+		},
+		"NAV": {
+			"HOME": "首页",
+			"ABOUT": "关于",
+			"COMPONENTS": "组件"
+		},
+		"CONSENT": {
+			"TITLE": "分析 Cookie",
+			"BODY": "我们使用 Google Analytics 来衡量访问量并了解文档中哪些部分效果最好。仅在您接受后才会加载。",
+			"REJECT": "拒绝",
+			"ACCEPT": "接受",
+			"POLICY_LINK": "Cookie政策"
+		},
+		"HOME": {
+			"HERO": {
+				"BADGE": "Angular 22 · Standalone · 独立软件包",
+				"TITLE": "面向 Standalone 应用的 Angular 组件库",
+				"SUBTITLE": "可复用的 Angular UI 组件，适用于 standalone 应用、Angular Signals 工作流、无障碍访问、CSS 变量，并提供覆盖模态框、数据表格、导航、日历等内容的生产级文档。",
+				"CTA_PRIMARY": "查看模态框文档",
+				"CTA_SECONDARY": "在 GitHub 上点星",
+				"INSTALL": "npm install ng-hub-ui-modal",
+				"COPY_INSTALL": "复制安装命令"
+			},
+			"STATS": {
+				"COMPONENTS": "组件",
+				"CSS_VARS": "CSS 变量",
+				"THEMES": "主题",
+				"ANGULAR_VERSION": "Angular"
+			},
+			"FEATURES": {
+				"SECTION_TITLE": "为什么选择 Hub UI？",
+				"ACCESSIBLE": {
+					"TITLE": "完全无障碍",
+					"DESCRIPTION": "所有组件均遵循 WCAG 2.1 准则，支持完整的键盘导航和屏幕阅读器。"
+				},
+				"CUSTOMIZABLE": {
+					"TITLE": "由 CSS 变量驱动",
+					"DESCRIPTION": "每个组件都暴露 CSS 自定义属性。覆盖任意令牌即可匹配你的品牌——更改会即时层叠应用到所有主题。"
+				},
+				"TYPESCRIPT": {
+					"TITLE": "TypeScript 优先",
+					"DESCRIPTION": "全程严格类型。享受完整的自动补全、编译期安全和一流的开发者体验。"
+				},
+				"STANDALONE": {
+					"TITLE": "Standalone 架构",
+					"DESCRIPTION": "基于 Angular 现代的 standalone 组件模型构建。只导入你需要的部分，保持打包体积精简。"
+				}
+			},
+			"COMPONENTS": {
+				"SECTION_TITLE": "全部组件",
+				"SECTION_SUBTITLE": "探索为真实产品团队、可复用设计系统和易维护的 standalone 应用打造的 Angular 组件。",
+				"DESCRIPTIONS": {
+					"AVATAR": "Angular 头像组件，支持首字母、图片回退和状态指示。",
+					"BOARD": "带拖放功能的 Angular 看板组件，适用于工作流界面。",
+					"BREADCRUMBS": "集成路由和自定义模板的 Angular 面包屑导航。",
+					"CALENDAR": "Angular 日历组件，适用于排期、事件和规划界面。",
+					"HISTORY": "Angular 撤销与重做存储，适用于编辑器、表单和低代码构建器。",
+					"MODAL": "无障碍的 Angular 模态框组件，支持堆叠、全屏模式和模板。",
+					"NAV": "Angular 导航菜单，适用于侧边栏、下拉菜单、逐级面板和响应式布局。",
+					"PAGINABLE": "Angular 数据表格与分页列表，支持筛选、排序和服务端操作。",
+					"PORTAL": "Angular 传送门与浮层渲染，适用于抽屉、浮动面板和动态容器。",
+					"SKELETON": "Angular 骨架占位符，支持预设、内联 DSL 模板和响应式微光布局。",
+					"SORTABLE": "Angular 可排序列表工具，适用于数组、FormArray 控件和拖放构建器。",
+					"STEPPER": "Angular 步进器组件，适用于向导表单、引导流程和多步校验流程。",
+					"UTILS": "Angular 工具库，包含浮层、焦点管理、管道和翻译辅助函数。",
+					"TOAST": "支持定位、堆叠与自动关闭的 Angular toast 通知组件。",
+					"BUTTONS": "面向多操作界面的 Angular 按钮、FAB、快速拨号与下拉指令。",
+					"BADGES": "用于标签、计数与状态指示的 Angular 徽章组件，可完全定制主题。",
+					"PANELS": "支持单个或多个展开及完整主题的 Angular 面板与手风琴组件。",
+					"FORMS": "具备丰富输入、下拉选择、校验与动态渲染的 Angular 表单库。",
+					"MILESTONES": "支持垂直、水平与动画布局的 Angular 时间线与进度步骤组件。",
+					"ICONS": "与图标集无关的 Angular 图标组件，支持 Font Awesome、Bootstrap、Material 与自定义 SVG 包。",
+					"METRICS": "具备完整 ARIA 语义与 token 主题化的 Angular 进度、meter 与 gauge 组件。"
+				}
+			},
+			"INSTALL": {
+				"SECTION_TITLE": "几秒钟即可上手",
+				"STEP1": "安装一个组件",
+				"STEP2": "以 standalone 方式导入",
+				"STEP3": "使用 CSS 变量自定义",
+				"READ_DOCS": "阅读文档"
+			},
+			"THEMES_DEMO": {
+				"SECTION_TITLE": "一个库，适配每个品牌",
+				"SECTION_SUBTITLE": "每个组件都由 CSS 变量驱动。选择一个主题，看着整个站点重新上色——无需重新构建，也无需额外 CSS。",
+				"HINT": "试试看——这会切换整个站点的实时主题。"
+			},
+			"CODE_DEMO": {
+				"SECTION_TITLE": "真实的代码，真实的组件",
+				"SECTION_SUBTITLE": "只需几行模板即可。左侧的代码片段会在右侧渲染出实时组件。",
+				"CODE_LABEL": "模板",
+				"RESULT_LABEL": "实时效果"
+			},
+			"FINAL_CTA": {
+				"TITLE": "使用 Hub UI 构建你的下一个 Angular UI",
+				"SUBTITLE": "开源、模块化且生产就绪。今天就安装你的第一个组件。",
+				"GITHUB": "在 GitHub 上点星",
+				"START": "开始使用"
+			},
+			"COLLAGE": {
+				"TAB_ONE_HEADING": "标签页",
+				"TAB_ONE_BODY": "真实、实时的组件。",
+				"TAB_TWO_HEADING": "实时",
+				"TAB_TWO_BODY": "这不是截图。"
+			},
+			"USE_CASES": {
+				"SECTION_TITLE": "为生产级 Angular 工作而打造",
+				"SECTION_SUBTITLE": "从通常最难做好的组件类别入手。",
+				"MODAL": {
+					"TITLE": "模态框与浮层流程",
+					"DESCRIPTION": "适用于需要无障碍模态行为的 Angular 应用的对话框、全屏流程、投影和服务驱动的浮层。"
+				},
+				"PAGINABLE": {
+					"TITLE": "数据表格与列表",
+					"DESCRIPTION": "适用于管理面板、后台和管理仪表盘的服务端分页、排序、筛选和选择功能。"
+				},
+				"SORTABLE": {
+					"TITLE": "排序与拖放",
+					"DESCRIPTION": "使用 Angular 友好的拖放工具，对数组、FormArray 控件和关联列表进行重新排序。"
+				},
+				"CALENDAR": {
+					"TITLE": "排期与日历视图",
+					"DESCRIPTION": "为规划工作流提供带事件、模板、拖放和主题钩子的日历界面。"
+				}
+			}
+		},
+		"PRIVACY": {
+			"TITLE": "隐私政策",
+			"UPDATED": "最后更新：2025年1月1日",
+			"INTRO": "本隐私政策说明Carlos Morcillo Fernández（“我们”）在您访问本文档网站时如何收集、使用和保护个人数据。",
+			"S1_HEADING": "1. 数据控制者",
+			"S1_P1": "Carlos Morcillo Fernández",
+			"S1_P2": "电子邮件：carlos.morcillo@me.com",
+			"S1_P3": "本网站是个人开源文档项目，不由任何公司运营。",
+			"S2_HEADING": "2. 收集的数据",
+			"S2_P1": "我们通过Google Analytics 4收集匿名浏览数据，包括访问的页面、页面停留时间、来源国家、设备类型和浏览器。IP地址在处理前会被匿名化。我们不收集姓名、电子邮件地址或任何可直接识别的个人数据。",
+			"S3_HEADING": "3. 处理目的",
+			"S3_P1": "分析数据仅用于了解访问者如何与文档互动、哪些部分最有用以及如何提高内容的整体质量。",
+			"S4_HEADING": "4. 法律依据",
+			"S4_P1": "数据处理基于您自由、具体且知情的同意（GDPR第6(1)(a)条）。您可以随时通过点击Cookie横幅中的“拒绝”或管理浏览器Cookie来撤回同意。",
+			"S5_HEADING": "5. 接收方和处理者",
+			"S5_P1": "匿名分析数据将传输给Google LLC，后者依据数据处理协议作为数据处理者。Google可能在欧洲经济区以外的服务器上处理数据。",
+			"S6_HEADING": "6. 国际数据传输",
+			"S6_P1": "Google Analytics处理的数据可能传输至美国。Google LLC参与欧盟-美国数据隐私框架，并依赖标准合同条款（SCC）确保在EEA以外传输的个人数据得到适当保护。",
+			"S7_HEADING": "7. 保留期限",
+			"S7_P1": "分析数据保留14个月，这是Google Analytics 4的默认数据保留设置。超过此期限后，个人事件数据将自动删除。",
+			"S8_HEADING": "8. 您的权利",
+			"S8_P1": "根据GDPR，您有权：访问您的个人数据；更正不准确的数据；请求删除；反对处理；请求限制处理；以及数据可携带性。",
+			"S8_P2": "如需行使上述任何权利，请联系我们：carlos.morcillo@me.com。我们将在30天内回复。",
+			"S9_HEADING": "9. Cookie",
+			"S9_P1": "有关我们使用的Cookie的详细信息，请阅读我们的Cookie政策。",
+			"S10_HEADING": "10. 本政策的变更",
+			"S10_P1": "我们可能会不时更新本隐私政策。页面顶部的日期将始终反映最新修订。变更后继续使用本网站即表示接受更新后的政策。",
+			"S11_HEADING": "11. 投诉权利",
+			"S11_P1": "您有权向您居住地或工作地负责数据保护的监管机构提出投诉。",
+			"LINK_COOKIES": "Cookie政策"
+		},
+		"COOKIES": {
+			"TITLE": "Cookie政策",
+			"UPDATED": "最后更新：2025年1月1日",
+			"INTRO": "本Cookie政策说明什么是Cookie、本网站使用哪些Cookie以及如何管理它们。",
+			"WHAT_HEADING": "什么是Cookie？",
+			"WHAT_P1": "Cookie是您访问网站时，网站在您设备上放置的小型文本文件。它们被广泛用于使网站正常运行或更高效地运行，并为网站所有者提供报告信息。",
+			"WHAT_P2": "Cookie可以是“第一方”（由本网站设置）或“第三方”（由与您访问的域名不同的域名设置）。它们也可以是基于会话的（关闭浏览器时删除）或持久性的（存储特定时间段）。",
+			"USED_HEADING": "我们使用的Cookie",
+			"USED_INTRO": "本网站仅使用来自Google Analytics 4的分析Cookie。不设置其他Cookie。不使用营销、定向或社交媒体Cookie。",
+			"TABLE_COL_NAME": "Cookie名称",
+			"TABLE_COL_PROVIDER": "提供商",
+			"TABLE_COL_PURPOSE": "用途",
+			"TABLE_COL_DURATION": "持续时间",
+			"TABLE_COL_TYPE": "类型",
+			"ROW_GA_PURPOSE": "通过分配随机生成的数字作为客户端标识符来区分唯一用户。",
+			"ROW_GA_DURATION": "2年",
+			"ROW_GA_TYPE": "分析 / 第三方",
+			"ROW_GA_STAR_PURPOSE": "维持特定GA4测量ID的会话状态。",
+			"ROW_GA_STAR_DURATION": "2年",
+			"ROW_GA_STAR_TYPE": "分析 / 第三方",
+			"ROW_GID_PURPOSE": "区分用户。用于限制请求速率。",
+			"ROW_GID_DURATION": "24小时",
+			"ROW_GID_TYPE": "分析 / 第三方",
+			"NECESSARY_HEADING": "严格必要的Cookie",
+			"NECESSARY_P1": "本网站不使用会话管理、身份验证或任何服务器端状态。因此，本域名不设置严格必要的Cookie。上述分析Cookie仅在您明确接受后才会加载。",
+			"MANAGE_HEADING": "如何管理Cookie",
+			"MANAGE_P1": "您可以通过以下方式控制分析Cookie：",
+			"MANAGE_P2": "1. 点击页面底部同意横幅中的“拒绝”。Google Analytics将不会加载，也不会设置Cookie。",
+			"MANAGE_P3": "2. 删除浏览器中已存储的Cookie。具体操作因浏览器而异：打开浏览器设置，找到隐私或Cookie部分。",
+			"MANAGE_P4": "3. 安装可在 https://tools.google.com/dlpage/gaoptout 获取的Google Analytics退出浏览器插件，防止Google Analytics在所有网站上收集您的访问数据。",
+			"MANAGE_P5": "请注意，阻止或删除Cookie可能会影响您访问的其他网站的功能。",
+			"CHANGES_HEADING": "本Cookie政策的变更",
+			"CHANGES_P1": "我们可能会不时更新本Cookie政策。页面顶部的日期将始终反映最新修订。我们建议您定期查看本页面。",
+			"LINK_PRIVACY": "隐私政策"
+		},
+		"LIBRARY": {
+			"EXAMPLE_VIEWER": {
+				"COPY_SNIPPET": "复制代码片段",
+				"COPY_SOURCE": "复制示例源代码",
+				"COPY_TO_CLIPBOARD": "将源代码复制到剪贴板",
+				"VIEW_FULL": "查看完整示例",
+				"COPY_LINK": "复制示例链接",
+				"VIEW_SNIPPET_ONLY": "仅查看代码片段",
+				"VIEW_LESS": "收起",
+				"VIEW_CODE": "查看代码",
+				"HIDE_CODE": "隐藏代码",
+				"VIEW_SOURCE": "查看源代码",
+				"HARNESS_NOTICE": "此示例包含测试。请在开发环境中打开以运行它们。",
+				"CODE_COPIED": "代码已复制",
+				"COPY_ERROR": "复制失败。请重试！",
+				"LINK_COPIED": "链接已复制",
+				"LINK_COPY_ERROR": "复制链接失败。请重试！",
+				"DEMO": "演示",
+				"CODE": "代码"
+			},
+			"TABS": {
+				"OVERVIEW": "概览",
+				"API": "API",
+				"STYLES": "样式",
+				"EXAMPLES": "示例",
+				"PLAYGROUND": "演练场"
+			},
+			"API": {
+				"METHODS_TITLE": "方法"
+			},
+			"PAGE": {
+				"WHY_SEARCH": "团队为何搜索这个库",
+				"FAQ": "常见问题",
+				"INSTALL": "安装",
+				"JUMP_TO": "跳转到",
+				"IDEAL_FOR": "适用于",
+				"ABOUT_PREFIX": "关于",
+				"KEY_FEATURES": "核心特性",
+				"FEATURE_GUIDES": "功能指南",
+				"FEATURE_GUIDES_EMPTY": "该库尚未记录任何功能指南。",
+				"RECENT_CHANGES": "最近更改",
+				"RELATED_LIBRARIES": "相关库",
+				"NO_CHANGELOG": "暂无变更日志条目。",
+				"API_REFERENCE": "API 参考",
+				"API_INTRO": "这里是 {name} 的完整契约：你可以绑定、监听、投影和设置主题的一切，都集中在一处。接入你需要的部分，自定义你想要的样式——它是 standalone 的，且对 signal 友好。",
+				"API_INPUTS_LEDE": "通过 {count} 个输入项精细调校 {name}。像绑定任意 Angular @Input 一样绑定它们。",
+				"API_OUTPUTS_LEDE": "响应 {name} 的行为——有 {count} 个事件可供你挂接逻辑。",
+				"API_METHODS_LEDE": "通过代码驱动 {name}——其编程接口提供 {count} 个方法。",
+				"API_TEMPLATES_LEDE": "打造你自己的样式——{count} 个模板插槽让你可以投影自定义标记。",
+				"API_CSS_VARS_LEDE": "用 {count} 个 CSS 变量为每一个像素设置主题。在 :root 处覆盖它们，或将其限定到某个容器范围内。",
+				"INPUTS": "输入",
+				"OUTPUTS": "输出",
+				"TEMPLATES": "模板",
+				"CSS_VARIABLES": "CSS 变量",
+				"NAME": "名称",
+				"VARIABLE": "变量",
+				"DESCRIPTION_COLUMN": "描述",
+				"TYPE": "类型",
+				"DEFAULT": "默认值",
+				"SIGNATURE": "签名",
+				"RETURNS": "返回值",
+				"EXAMPLES": "示例",
+				"EXAMPLE": "示例",
+				"REQUIRED": "必填",
+				"NO_INPUTS": "尚未记录任何输入项。",
+				"NO_OUTPUTS": "尚未记录任何输出项。",
+				"NO_TEMPLATES": "尚未记录任何模板。",
+				"NO_CSS_VARIABLES": "尚未记录任何 CSS 变量。",
+				"STYLING_GUIDE": "样式与主题",
+				"STYLING_EMPTY": "尚未记录任何样式示例。本节将包含自定义方案和主题示例。",
+				"MIXINS": "混入与样式",
+				"MIXIN": "混入",
+				"PARAMETERS": "参数",
+				"INTERACTIVE_EXAMPLES": "交互式示例",
+				"INTERACTIVE_EXAMPLES_INTRO": "探索实时示例，了解该库在常见 Angular 用例中的表现。",
+				"INTERACTIVE_EXAMPLES_EMPTY": "尚未注册任何交互式示例。可用时它们将显示在此处。",
+				"PLAYGROUND_TITLE": "交互式演练场",
+				"PLAYGROUND_INTRO": "配置每个输入项，实时观察组件更新。生成的模板会随着你的调整保持同步。",
+				"PLAYGROUND_EMPTY": "该库尚未配置任何演练场。",
+				"LIVE_PREVIEW_UNAVAILABLE": "该示例暂不支持实时预览。",
+				"CODE": "代码",
+				"IMPORT": "导入",
+				"TEMPLATE": "模板",
+				"COMPONENT": "组件"
+			},
+			"LAST_UPDATED": "最后更新"
+		},
+		"NOT_FOUND": {
+			"TITLE": "页面未找到",
+			"MESSAGE": "您要找的页面不存在或已被移动。",
+			"CTA": "返回首页"
+		},
+		"THEMES": {
+			"BASE": "基础",
+			"BOOTSTRAP": "Bootstrap",
+			"DARK": "深色",
+			"SUNSET": "日落",
+			"FOREST": "森林",
+			"MONO": "单色",
+			"TERMINAL": "终端"
+		},
+		"DESIGN_SYSTEM": {
+			"QUE_ES": "这是什么",
+			"INSTALACION": "快速开始",
+			"ARQUITECTURA": "架构",
+			"COLORES": "颜色与主题",
+			"CREA_TU_TEMA": "创建你的主题",
+			"FAMILIA": "产品家族",
+			"MODIFICAR": "如何修改",
+			"FUNCIONES": "SCSS 函数",
+			"ESTRUCTURA": "结构层",
+			"MIXINS": "混入与样式",
+			"UTILIDADES": "工具类",
+			"FLEXBOX": "Flexbox",
+			"COLUMNAS": "栅格与间距",
+			"TEXTO": "文本",
+			"SUPERFICIES": "表面",
+			"HELPERS": "定位与辅助类",
+			"PUENTES": "与其他系统的桥接",
+			"REFERENCIA": "参考"
+		}
+	}
+}

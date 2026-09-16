@@ -1,0 +1,4 @@
+# Generated files. Their writers own the formatting, so running Prettier over them just
+# loses the next time the generator runs — and makes `format:check` fail on a clean tree.
+src/app/pages/tokens/tokens.generated.ts
+src/app/generated/

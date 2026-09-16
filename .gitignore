@@ -1,0 +1,89 @@
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+
+# System files
+.DS_Store
+Thumbs.db
+.claude/
+.gemini/
+.agent/
+.agents/
+_agent/
+_agents/
+.cline/
+.cursor/
+.cursorrules
+.roo/
+.cursorignore
+.codex/
+
+# Git worktrees
+.worktrees/
+
+# AI agent working files
+.superpowers/
+docs/superpowers/
+
+# AI agent instruction files — local only, never committed
+CLAUDE.md
+AGENTS.md
+GEMINI.md
+AGENT.md
+.clauderules
+.windsurfrules
+.github/copilot-instructions.md
+
+# Local environment / secrets (Figma token, etc.)
+.env
+.env.local
+
+# Build stamp — regenerated on prestart/prebuild (version + commit SHA)
+src/app/version.generated.ts
+src/app/seo/library-versions.generated.ts
+src/app/seo/library-symbols.generated.ts
+
+# Claude Design sync: staged scripts, regenerated output and machine state
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules
+
+# Internal working notes (plans, SEO reports, lessons) — local only, never published
+/tasks/

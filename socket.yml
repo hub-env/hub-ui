@@ -1,0 +1,80 @@
+version: 2
+
+# Socket configuration for the ng-hub-ui monorepo.
+#
+# Only one rule is turned off here, and it is turned off because it is provably a false
+# positive rather than because it is inconvenient. Everything else Socket reports is left
+# on, including the alerts that are unflattering.
+
+issueRules:
+    # "URL strings" — Socket reports that the package "contains fragments of URLs or external
+    # IP addresses, which the package may be accessing at runtime".
+    #
+    # What it actually finds in these packages are XML namespace identifiers:
+    #
+    #   http://www.w3.org/2000/svg     the SVG namespace
+    #   http://www.w3.org/1999/xlink   the XLink namespace (removed — see below)
+    #
+    # A namespace URI names a vocabulary. It is an identifier, not an endpoint: nothing
+    # dereferences it, at runtime or ever. No library here performs a network request at all —
+    # there is no fetch, no XMLHttpRequest, no WebSocket and no install script in any published
+    # tarball, which is verifiable by unpacking one.
+    #
+    # The scanner also lists `this.id` among the "URLs" it found, which is a property access.
+    # That is a fair measure of how literal the heuristic is.
+    #
+    # Why the strings cannot simply be removed:
+    #
+    #   - `xmlns:xlink` COULD be, and was, in ng-hub-ui-paginable@22.12.2: it was declared on
+    #     an inline <svg> and `xlink:href` was used nowhere in the monorepo. Dead markup.
+    #   - `xmlns="http://www.w3.org/2000/svg"` cannot. It survives ~50 times in the bundle, not
+    #     from templates but from the table's icons, which are `data:image/svg+xml` URLs in
+    #     SCSS — sort, search, filter, the carets. A `data:` URI is parsed as XML rather than
+    #     as HTML, so without the namespace declaration the icon simply does not render.
+    #     Dropping it would break every icon in the table to silence an alert that points at
+    #     nothing.
+    #
+    # So the alert is accepted rather than fixed. Revisit if Socket ever narrows the heuristic
+    # to exclude well-known namespace URIs, or if a real URL is ever introduced — in which case
+    # this rule would hide it, and it must come back on.
+    urlStrings: false
+    #
+    # ── Swept across all 23 buildable libraries on 2026-08-18 ──────────────────────────
+    #
+    # Nothing dangerous anywhere: zero `fetch`/`XMLHttpRequest`/`WebSocket`/`sendBeacon`,
+    # zero `eval`/`new Function`, zero install scripts, in every built bundle. What the
+    # scanner finds is three kinds of string, and each was checked rather than assumed:
+    #
+    #   1. SVG namespaces — paginable (56), nav (6), panels (6), buttons (2), signature (1).
+    #      All from `data:image/svg+xml` icons in SCSS, plus signature's exported standalone
+    #      SVG document. A `data:` URI and a `.svg` file are XML; without the declaration
+    #      they do not render. Not removable.
+    #
+    #   2. Comment URLs — board (a StackOverflow answer credited for a luminance formula),
+    #      sortable (the SortableJS options docs, an issue thread, a contributor credit).
+    #      Deliberately KEPT. They are provenance and documentation a reader benefits from,
+    #      and stripping them to quiet an informational report is how a security posture
+    #      becomes decoration.
+    #
+    #   3. ng-hub-ui-avatar — `secure.gravatar.com`, `api.github.com`, `graph.facebook.com`.
+    #      Here the alert is CORRECT and must not be read as noise: the component really does
+    #      build those URLs, and `AvatarService` really does `HttpClient.get` against the API
+    #      ones. That is the feature — avatars resolved from third-party sources — and the
+    #      privacy consequence is documented in that package's README rather than hidden.
+    #      A consumer who cannot send a visitor's IP (or an email hash) to a third party
+    #      should use the initials or custom-image sources.
+    #
+    # Dependency-tab alerts are not ours and cannot be fixed by republishing: "Network
+    # access" is `@angular/platform-browser` calling `globalThis["fetch"]`, and the AI
+    # anomaly is `rxjs`'s `concat` operator — whose own Socket analysis concludes "no
+    # malicious behavior… security risk is low". Every Angular app already ships both.
+# Deliberately NOT disabled:
+#
+#   unpopularPackage — it is true. These libraries have modest adoption, and a consumer
+#   weighing that is doing exactly what a supply-chain tool is for. Silencing a fact because
+#   it is unflattering is how a security posture becomes decoration.
+#
+# Note on scope: this file governs Socket's behaviour for THIS repository (its GitHub app and
+# our own scans). It does not remove the alert from the public package page — a consumer
+# scanning ng-hub-ui-* still sees it. The point of writing it down is that anyone who asks why
+# now finds the reasoning in the repo rather than having to re-derive it.

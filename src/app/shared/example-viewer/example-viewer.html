@@ -1,0 +1,162 @@
+@let exampleData = this.exampleData();
+@let fileUrl = this.fileUrl();
+
+<div class="example-viewer-wrapper">
+	@if (view() === 'snippet') {
+		<div class="example-viewer-source-compact">
+			<div class="button-bar">
+				<button
+					type="button"
+					(click)="copySource(snippet())"
+					hubButton
+					variant="outline"
+					color="secondary"
+					size="sm"
+					[hubTooltip]="'UI.LIBRARY.EXAMPLE_VIEWER.COPY_SNIPPET' | translate"
+					hubTooltipPlacement="top"
+					[title]="'UI.LIBRARY.EXAMPLE_VIEWER.COPY_SOURCE' | translate"
+					[attr.aria-label]="'UI.LIBRARY.EXAMPLE_VIEWER.COPY_TO_CLIPBOARD' | translate"
+				>
+					<i class="fa-regular fa-copy"></i>
+				</button>
+				<button
+					type="button"
+					(click)="toggleCompactView()"
+					hubButton
+					variant="outline"
+					color="secondary"
+					size="sm"
+					[hubTooltip]="'UI.LIBRARY.EXAMPLE_VIEWER.VIEW_FULL' | translate"
+					hubTooltipPlacement="top"
+					[attr.aria-label]="'UI.LIBRARY.EXAMPLE_VIEWER.VIEW_FULL' | translate"
+				>
+					<i class="fa-solid fa-expand"></i>
+				</button>
+			</div>
+
+			@if (fileUrl) {
+				<code-snippet [code]="fileUrl" />
+			}
+		</div>
+	} @else {
+		<div class="example-viewer-title">
+			<p class="mb-0">{{ translateExampleText(exampleData?.title) }}</p>
+
+			<div class="example-viewer-actions">
+				<button
+					type="button"
+					hubButton
+					variant="outline"
+					color="secondary"
+					size="sm"
+					[attr.aria-label]="'UI.LIBRARY.EXAMPLE_VIEWER.COPY_LINK' | translate"
+					[hubTooltip]="'UI.LIBRARY.EXAMPLE_VIEWER.COPY_LINK' | translate"
+					hubTooltipPlacement="top"
+					(click)="_copyLink()"
+				>
+					<i class="fa-solid fa-link"></i>
+				</button>
+
+				@if (showCompactToggle()) {
+					<button
+						type="button"
+						hubButton
+						variant="outline"
+						color="secondary"
+						size="sm"
+						(click)="toggleCompactView()"
+						[hubTooltip]="'UI.LIBRARY.EXAMPLE_VIEWER.VIEW_SNIPPET_ONLY' | translate"
+						hubTooltipPlacement="top"
+						[attr.aria-label]="'UI.LIBRARY.EXAMPLE_VIEWER.VIEW_LESS' | translate"
+					>
+						<i class="fa-solid fa-compress"></i>
+					</button>
+				}
+
+				<button
+					type="button"
+					hubButton
+					variant="outline"
+					color="secondary"
+					size="sm"
+					(click)="toggleSourceView()"
+					[hubTooltip]="
+						(view() === 'demo' ? 'UI.LIBRARY.EXAMPLE_VIEWER.VIEW_CODE' : 'UI.LIBRARY.EXAMPLE_VIEWER.HIDE_CODE')
+							| translate
+					"
+					hubTooltipPlacement="top"
+					[attr.aria-label]="'UI.LIBRARY.EXAMPLE_VIEWER.VIEW_SOURCE' | translate"
+				>
+					<i [class]="view() === 'demo' ? 'fa-solid fa-code' : 'fa-solid fa-eye'"></i>
+				</button>
+			</div>
+		</div>
+
+		@if (view() === 'full') {
+			<div class="example-viewer-source">
+				<!-- Bootstrap Nav Tabs -->
+				<ul class="nav nav-tabs" role="tablist">
+					@for (tabName of _exampleTabNames(); track tabName; let i = $index) {
+						<li class="nav-item" role="presentation">
+							<button
+								class="nav-link"
+								[class.active]="selectedTab() === i"
+								type="button"
+								role="tab"
+								(click)="selectTab(i)"
+								[attr.aria-selected]="selectedTab() === i"
+							>
+								{{ tabName }}
+							</button>
+						</li>
+					}
+				</ul>
+
+				<!-- Tab Content -->
+				<div class="tab-content">
+					@for (tabName of _exampleTabNames(); track tabName; let i = $index) {
+						<div
+							class="tab-pane"
+							[class.active]="selectedTab() === i"
+							[class.show]="selectedTab() === i"
+							role="tabpanel"
+						>
+							<div class="button-bar">
+								<button
+									type="button"
+									(click)="copySource(snippet(), selectedTab())"
+									hubButton
+									variant="outline"
+									color="secondary"
+									size="sm"
+									[hubTooltip]="'UI.LIBRARY.EXAMPLE_VIEWER.COPY_SOURCE' | translate"
+									hubTooltipPlacement="top"
+									[title]="'UI.LIBRARY.EXAMPLE_VIEWER.COPY_SOURCE' | translate"
+									[attr.aria-label]="'UI.LIBRARY.EXAMPLE_VIEWER.COPY_TO_CLIPBOARD' | translate"
+								>
+									<i class="fa-regular fa-copy"></i>
+								</button>
+							</div>
+							<code-snippet [code]="exampleTabs()[tabName]" [language]="getLanguageForTab(tabName)" />
+						</div>
+					}
+				</div>
+			</div>
+		}
+	}
+
+	@if (view() !== 'snippet') {
+		<div class="example-viewer-body">
+			@let componentType = _exampleComponentType();
+
+			@if (componentType && !example?.includes('harness')) {
+				<ng-template [ngComponentOutlet]="componentType" />
+			} @else {
+				<div class="alert alert-info">
+					<i class="fa-solid fa-circle-info me-2"></i>
+					{{ 'UI.LIBRARY.EXAMPLE_VIEWER.HARNESS_NOTICE' | translate }}
+				</div>
+			}
+		</div>
+	}
+</div>

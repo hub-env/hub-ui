@@ -1,0 +1,41 @@
+# Dependabot configuration for the ng-hub-ui monorepo.
+# The libraries under projects/** are git submodules with their own repositories,
+# so only the root workspace manifest and the workflows are covered here.
+version: 2
+updates:
+    - package-ecosystem: npm
+      directory: '/'
+      schedule:
+          interval: weekly
+          day: monday
+      open-pull-requests-limit: 5
+      # Angular majors are released in lockstep with the workspace version and
+      # migrated by hand (ng update), never by a bot PR.
+      ignore:
+          # Types must track the CI runtime (Node 22), not race ahead of it.
+          - dependency-name: '@types/node'
+            update-types: ['version-update:semver-major']
+          - dependency-name: '@angular/*'
+            update-types: ['version-update:semver-major']
+          - dependency-name: 'typescript'
+            update-types: ['version-update:semver-major']
+      groups:
+          angular:
+              patterns:
+                  - '@angular/*'
+                  - 'ng-packagr'
+                  - 'zone.js'
+          lint-and-format:
+              patterns:
+                  - 'eslint'
+                  - '@eslint/*'
+                  - 'angular-eslint'
+                  - 'typescript-eslint'
+                  - 'prettier'
+
+    - package-ecosystem: github-actions
+      directory: '/'
+      schedule:
+          interval: weekly
+          day: monday
+      open-pull-requests-limit: 3

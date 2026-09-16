@@ -1,0 +1,869 @@
+/**
+ * Global styles for library pages
+ * Shared across all library documentation pages (panels, avatar, modal, …).
+ *
+ * Every color comes from the --hub-sys-* tokens (including the expressive
+ * --hub-sys-gradient-* family), so the chrome re-paints itself with the
+ * active theme exactly like the home page does.
+ */
+
+.library-page {
+	display: flex;
+	flex-direction: column;
+}
+
+// ─── Header ──────────────────────────────────────────────────────────────────
+
+.library-page__header {
+	position: relative;
+	background-color: var(--hub-sys-surface-page);
+	// Faint theme-aware wash, echoing the home hero mesh
+	background-image:
+		radial-gradient(60% 120% at 15% 0%, color-mix(in srgb, var(--hub-sys-gradient-1) 8%, transparent), transparent 70%),
+		radial-gradient(50% 120% at 85% 0%, color-mix(in srgb, var(--hub-sys-gradient-3) 7%, transparent), transparent 70%);
+	border-bottom: 1px solid var(--hub-sys-border-color-default);
+	z-index: 100;
+}
+
+.library-page__header-content {
+	padding: 2.5rem 2rem 2rem;
+	text-align: center;
+}
+
+.library-page__title {
+	margin: 0 0 1rem 0;
+	font-family: var(--hub-ref-font-family-display, inherit);
+	font-size: clamp(1.9rem, 4vw, 2.5rem);
+	font-weight: 800;
+	letter-spacing: -0.02em;
+	background: var(--hub-sys-gradient-accent);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: var(--hub-sys-text-primary); // fallback when clip is unsupported
+}
+
+.library-page__description {
+	margin: 0 auto;
+	max-width: 760px;
+	font-size: 1.08rem;
+	color: var(--hub-sys-text-muted);
+	line-height: 1.7;
+}
+
+// ─── Tabs nav ────────────────────────────────────────────────────────────────
+
+.library-page__nav {
+	display: flex;
+	justify-content: center;
+	gap: 0.25rem;
+	border-top: 1px solid var(--hub-sys-border-color-default);
+}
+
+.library-page__nav-button {
+	position: relative;
+	background: none;
+	border: none;
+	padding: 1rem 2rem;
+	cursor: pointer;
+	font-size: 0.95rem;
+	font-weight: 500;
+	color: var(--hub-sys-text-muted);
+	transition:
+		color 0.2s ease,
+		background-color 0.2s ease;
+
+	// Gradient underline indicator
+	&::after {
+		content: '';
+		position: absolute;
+		left: 1rem;
+		right: 1rem;
+		bottom: 0;
+		height: 3px;
+		border-radius: var(--hub-ref-radius-pill);
+		background: var(--hub-sys-gradient-accent);
+		opacity: 0;
+		transform: scaleX(0.5);
+		transition:
+			opacity 0.2s ease,
+			transform 0.2s ease;
+	}
+
+	&:hover {
+		color: var(--hub-sys-text-primary);
+		background-color: var(--hub-sys-state-hover-bg);
+	}
+
+	&:focus-visible {
+		outline: none;
+		box-shadow: inset 0 0 0 var(--hub-sys-focus-ring-width) var(--hub-sys-focus-ring-color);
+	}
+}
+
+.library-page__nav-button--active {
+	color: var(--hub-sys-text-primary);
+	font-weight: 600;
+
+	&::after {
+		opacity: 1;
+		transform: scaleX(1);
+	}
+}
+
+// ─── Content shell ───────────────────────────────────────────────────────────
+
+.library-page__content {
+	padding: 2rem;
+	flex: 1;
+	background-color: var(--hub-sys-surface-page);
+}
+
+.library-page__section {
+	max-width: 1200px;
+	margin: 0 auto;
+
+	// Separation between stacked sections (guide pages like /design-system and
+	// /theming). Tabbed library pages render a single section per tab, so the
+	// adjacent-sibling selector never fires there and adds no unwanted space.
+	& + & {
+		margin-top: 3rem;
+	}
+}
+
+.library-page__section-title {
+	font-family: var(--hub-ref-font-family-display, inherit);
+	font-size: 1.9rem;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	margin: 0 0 2rem 0;
+	color: var(--hub-sys-text-primary);
+
+	&::after {
+		content: '';
+		display: block;
+		width: 48px;
+		height: 4px;
+		margin-top: 0.7rem;
+		border-radius: var(--hub-ref-radius-pill);
+		background: var(--hub-sys-gradient-accent);
+	}
+}
+
+.library-page__section-group {
+	margin-bottom: 2.5rem;
+}
+
+.library-page__section-subtitle {
+	font-size: 1.35rem;
+	font-weight: 700;
+	margin: 0 0 1rem 0;
+	color: var(--hub-sys-text-primary);
+}
+
+.library-page__text {
+	line-height: 1.7;
+	margin: 0 0 1rem 0;
+	color: var(--hub-sys-text-muted);
+}
+
+// ─── Example section headings ────────────────────────────────────────────────
+// A run of thirty examples reads as one undifferentiated list; these split it by feature.
+// Deliberately quieter than `__section-title`, which names the whole tab — a heading that
+// competed with it would make the page look like several pages stacked.
+
+.library-page__example-group-title {
+	font-family: var(--hub-ref-font-family-display, inherit);
+	font-size: 1.25rem;
+	font-weight: 700;
+	letter-spacing: -0.01em;
+	// The rule is the divider: it separates this group from the previous example without
+	// needing a element of its own.
+	padding-top: 1.5rem;
+	margin: 1rem 0 0.35rem 0;
+	border-top: 1px solid var(--hub-sys-border-color-default, #dee2e6);
+	color: var(--hub-sys-text-primary);
+
+	// The first heading opens the run, so it has nothing above it to be separated from.
+	&:first-of-type {
+		padding-top: 0;
+		margin-top: 0;
+		border-top: 0;
+	}
+}
+
+.library-page__example-group-description {
+	line-height: 1.7;
+	margin: 0 0 1.5rem 0;
+	color: var(--hub-sys-text-muted);
+}
+
+// ─── Quickstart cards ────────────────────────────────────────────────────────
+
+.library-page__quickstart {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+}
+
+.library-page__quickstart-card {
+	padding: 1.4rem;
+	border: 1px solid transparent;
+	border-radius: 16px;
+	background:
+		linear-gradient(var(--hub-sys-surface-elevated), var(--hub-sys-surface-elevated)) padding-box,
+		linear-gradient(
+				135deg,
+				color-mix(in srgb, var(--hub-sys-gradient-1) 45%, var(--hub-sys-border-color-default)),
+				color-mix(in srgb, var(--hub-sys-gradient-3) 45%, var(--hub-sys-border-color-default))
+			)
+			border-box;
+}
+
+.library-page__quick-links,
+.library-page__related-links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+}
+
+.library-page__quick-link,
+.library-page__related-link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 2.5rem;
+	padding: 0.625rem 1rem;
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: var(--hub-ref-radius-pill);
+	background: var(--hub-sys-surface-page);
+	color: var(--hub-sys-gradient-1);
+	text-decoration: none;
+	font-weight: 600;
+	transition:
+		border-color 0.2s ease,
+		background-color 0.2s ease,
+		color 0.2s ease,
+		transform 0.2s ease;
+}
+
+.library-page__quick-link:hover,
+.library-page__related-link:hover {
+	border-color: var(--hub-sys-gradient-1);
+	background: color-mix(in srgb, var(--hub-sys-gradient-1) 8%, transparent);
+	transform: translateY(-1px);
+}
+
+.library-page__quick-link {
+	cursor: pointer;
+}
+
+.library-page__use-cases {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.library-page__use-case {
+	padding: 0.5rem 0.95rem;
+	border-radius: var(--hub-ref-radius-pill);
+	background: color-mix(in srgb, var(--hub-sys-gradient-2) 10%, transparent);
+	border: 1px solid color-mix(in srgb, var(--hub-sys-gradient-2) 22%, transparent);
+	color: var(--hub-sys-text-primary);
+	font-weight: 600;
+	font-size: 0.9rem;
+}
+
+// ─── Changelog ───────────────────────────────────────────────────────────────
+
+.library-page__changelog-entry {
+	margin-bottom: 1.5rem;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid var(--hub-sys-border-color-default);
+}
+
+.library-page__changelog-version {
+	font-size: 1.15rem;
+	font-weight: 700;
+	margin: 0 0 0.5rem 0;
+	color: var(--hub-sys-text-primary);
+}
+
+.library-page__changelog-change {
+	margin: 0.3rem 0;
+	color: var(--hub-sys-text-muted);
+	line-height: 1.6;
+}
+
+.library-page__changelog-type {
+	display: inline-block;
+	font-weight: 600;
+	font-size: 0.78rem;
+	text-transform: capitalize;
+	padding: 0.1rem 0.55rem;
+	margin-right: 0.35rem;
+	border-radius: var(--hub-ref-radius-pill);
+	background: color-mix(in srgb, var(--hub-sys-gradient-1) 12%, transparent);
+	color: var(--hub-sys-gradient-1);
+}
+
+// ─── Feature guides ──────────────────────────────────────────────────────────
+
+.library-page__feature {
+	margin-bottom: 2rem;
+	padding-bottom: 1.5rem;
+	border-bottom: 1px solid var(--hub-sys-border-color-default);
+}
+
+.library-page__feature-title {
+	font-size: 1.4rem;
+	font-weight: 700;
+	margin: 0 0 1rem 0;
+	color: var(--hub-sys-text-primary);
+}
+
+.library-page__feature-description {
+	margin: 0 0 1rem 0;
+	line-height: 1.7;
+	color: var(--hub-sys-text-muted);
+}
+
+.library-page__feature-examples-title {
+	font-size: 1.2rem;
+	margin: 1rem 0 0.5rem 0;
+	color: var(--hub-sys-text-primary);
+}
+
+.library-page__example {
+	margin: 1rem 0 1rem 1rem;
+}
+
+.library-page__example-title {
+	font-size: 1.1rem;
+	font-weight: 700;
+	margin: 0 0 0.5rem 0;
+	color: var(--hub-sys-text-primary);
+}
+
+.library-page__example-description {
+	margin: 0;
+	color: var(--hub-sys-text-muted);
+}
+
+// ─── API reference ───────────────────────────────────────────────────────────
+
+.library-page__api-group {
+	margin-bottom: 2.5rem;
+}
+
+.library-page__api-group-title {
+	position: relative;
+	font-size: 1.4rem;
+	font-weight: 700;
+	margin: 0 0 1.25rem 0;
+	color: var(--hub-sys-text-primary);
+	padding-bottom: 0.5rem;
+
+	&::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		height: 2px;
+		background: linear-gradient(
+			90deg,
+			var(--hub-sys-gradient-1),
+			color-mix(in srgb, var(--hub-sys-gradient-3) 35%, transparent) 60%,
+			transparent
+		);
+	}
+}
+
+.library-page__api-item {
+	margin-bottom: 1.25rem;
+	padding: 1.1rem 1.25rem;
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: 12px;
+	background-color: var(--hub-sys-surface-page);
+	transition:
+		border-color 0.2s ease,
+		box-shadow 0.2s ease;
+
+	&:hover {
+		border-color: color-mix(in srgb, var(--hub-sys-gradient-1) 40%, var(--hub-sys-border-color-default));
+		box-shadow: 0 10px 28px -18px color-mix(in srgb, var(--hub-sys-gradient-1) 45%, transparent);
+	}
+}
+
+.library-page__api-item-name {
+	font-size: 1.1rem;
+	font-weight: 700;
+	margin: 0 0 0.5rem 0;
+	color: var(--hub-sys-text-primary);
+	font-family: var(--hub-ref-font-family-mono);
+}
+
+.library-page__api-item-type,
+.library-page__api-item-default {
+	margin: 0.25rem 0;
+	color: var(--hub-sys-text-muted);
+}
+
+.library-page__api-label {
+	font-weight: 600;
+	color: var(--hub-sys-text-primary);
+}
+
+.library-page__api-item-description {
+	margin: 0.5rem 0 0 0;
+	line-height: 1.6;
+	color: var(--hub-sys-text-muted);
+}
+
+// ─── API narrative + tables ──────────────────────────────────────────────────
+
+.library-page__section-lede {
+	max-width: 70ch;
+	margin: 0 0 2rem 0;
+	font-size: 1.05rem;
+	line-height: 1.65;
+	color: var(--hub-sys-text-muted);
+}
+
+.library-page__api-lede {
+	max-width: 70ch;
+	margin: 0 0 1rem 0;
+	line-height: 1.6;
+	color: var(--hub-sys-text-muted);
+}
+
+.library-page__table-wrap {
+	margin-bottom: 0.5rem;
+	overflow-x: auto;
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: 12px;
+}
+
+.library-page__api-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.92rem;
+
+	thead th {
+		position: sticky;
+		top: 0;
+		text-align: left;
+		font-weight: 600;
+		white-space: nowrap;
+		padding: 0.7rem 1rem;
+		color: var(--hub-sys-text-primary);
+		background: color-mix(in srgb, var(--hub-sys-gradient-1) 8%, var(--hub-sys-surface-elevated));
+		border-bottom: 1px solid var(--hub-sys-border-color-default);
+	}
+
+	tbody td {
+		padding: 0.7rem 1rem;
+		vertical-align: top;
+		line-height: 1.55;
+		color: var(--hub-sys-text-muted);
+		border-bottom: 1px solid color-mix(in srgb, var(--hub-sys-border-color-default) 55%, transparent);
+	}
+
+	tbody tr:last-child td {
+		border-bottom: 0;
+	}
+
+	tbody tr:hover td {
+		background: color-mix(in srgb, var(--hub-sys-gradient-1) 4%, transparent);
+	}
+
+	code {
+		font-family: var(--hub-ref-font-family-mono);
+		font-size: 0.85rem;
+	}
+}
+
+.library-page__api-cell-name {
+	white-space: nowrap;
+
+	> code {
+		font-weight: 600;
+		color: var(--hub-sys-text-primary);
+	}
+}
+
+.library-page__api-type {
+	color: color-mix(in srgb, var(--hub-sys-gradient-1) 70%, var(--hub-sys-text-primary));
+}
+
+.library-page__api-badge {
+	display: inline-block;
+	margin-left: 0.4rem;
+	padding: 0.05rem 0.4rem;
+	font-size: 0.68rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	border-radius: 999px;
+	color: var(--hub-sys-color-danger, #dc3545);
+	background: color-mix(in srgb, var(--hub-sys-color-danger, #dc3545) 12%, transparent);
+}
+
+.library-page__api-empty {
+	color: var(--hub-sys-text-muted);
+	opacity: 0.6;
+}
+
+.library-page__api-inline-code {
+	display: inline-block;
+	max-width: 26rem;
+	white-space: pre-wrap;
+	word-break: break-word;
+	color: var(--hub-sys-text-primary);
+}
+
+.library-page__api-examples {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+	margin-top: 0.4rem;
+
+	code {
+		padding: 0.05rem 0.4rem;
+		border-radius: 6px;
+		background: color-mix(in srgb, var(--hub-sys-gradient-1) 8%, var(--hub-sys-surface-elevated));
+	}
+}
+
+// ─── Mixin catalog: parameter → CSS variable mapping ─────────────────────────
+
+.library-page__mixin-param {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.3rem 0.4rem;
+
+	& + & {
+		margin-top: 0.35rem;
+	}
+}
+
+.library-page__mixin-param-arrow {
+	color: var(--hub-sys-text-muted);
+	opacity: 0.7;
+}
+
+// ─── Code blocks ─────────────────────────────────────────────────────────────
+
+.library-page__code-title {
+	font-size: 1.1rem;
+	margin: 1rem 0 0.5rem 0;
+	color: var(--hub-sys-text-primary);
+}
+
+.library-page__code-subtitle {
+	font-size: 0.95rem;
+	margin: 0.75rem 0 0.25rem 0;
+	color: var(--hub-sys-text-muted);
+	font-weight: 600;
+}
+
+.library-page__code {
+	background-color: var(--hub-sys-surface-elevated);
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: 10px;
+	padding: 1rem;
+	overflow-x: auto;
+	margin: 0;
+	font-family: var(--hub-ref-font-family-mono);
+	font-size: 0.875rem;
+	line-height: 1.5;
+	color: var(--hub-sys-text-primary);
+}
+
+.library-page__code--styling {
+	white-space: pre-wrap;
+}
+
+// ─── Live example frame ──────────────────────────────────────────────────────
+
+.library-page__example-demo {
+	margin: 1rem 0;
+	padding: 1.5rem;
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: 14px;
+	background-color: var(--hub-sys-surface-elevated);
+	position: relative;
+
+	&::before {
+		content: 'Live Example';
+		position: absolute;
+		top: -11px;
+		left: 16px;
+		background: linear-gradient(135deg, var(--hub-sys-gradient-1), var(--hub-sys-gradient-2));
+		color: #fff;
+		font-size: 0.72rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		padding: 0.15rem 0.6rem;
+		border-radius: var(--hub-ref-radius-pill);
+	}
+}
+
+.library-page__example-placeholder {
+	margin: 1rem 0;
+	padding: 1.5rem;
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: 14px;
+	background-color: var(--hub-sys-surface-elevated);
+}
+
+.library-page__example-placeholder-header {
+	width: min(12rem, 45%);
+	height: 1.25rem;
+	border-radius: var(--hub-ref-radius-pill);
+	background-color: var(--hub-sys-state-hover-bg);
+	margin-bottom: 1rem;
+}
+
+.library-page__example-placeholder-body {
+	min-height: 20rem;
+	border-radius: 10px;
+	background: linear-gradient(
+		90deg,
+		var(--hub-sys-surface-elevated) 0%,
+		var(--hub-sys-state-hover-bg) 50%,
+		var(--hub-sys-surface-elevated) 100%
+	);
+	background-size: 200% 100%;
+	animation: library-page-placeholder-shimmer 1.4s ease-in-out infinite;
+}
+
+// ─── Responsive ──────────────────────────────────────────────────────────────
+
+@media (max-width: 768px) {
+	.library-page__header-content {
+		padding: 1.25rem 1rem 1rem;
+	}
+
+	.library-page__title {
+		font-size: 1.9rem;
+	}
+
+	.library-page__nav {
+		flex-wrap: wrap;
+	}
+
+	.library-page__nav-button {
+		padding: 0.75rem 1rem;
+		font-size: 0.875rem;
+	}
+
+	.library-page__content {
+		padding: 1rem;
+	}
+
+	.library-page__section-title {
+		font-size: 1.5rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.library-page__nav-button {
+		flex: 1;
+		min-width: 0;
+	}
+}
+
+// ─── CSS variables section ───────────────────────────────────────────────────
+
+.library-page__css-variable-group {
+	margin-bottom: 2rem;
+	padding: 1.5rem;
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: 14px;
+	background-color: var(--hub-sys-surface-elevated);
+
+	&-title {
+		margin: 0 0 0.5rem 0;
+		font-size: 1.2rem;
+		font-weight: 600;
+		color: var(--hub-sys-text-primary);
+	}
+
+	&-description {
+		margin: 0 0 1rem 0;
+		color: var(--hub-sys-text-muted);
+		font-size: 0.95rem;
+	}
+}
+
+.library-page__css-variable {
+	margin-bottom: 1.25rem;
+	padding: 1rem;
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: 10px;
+	background-color: var(--hub-sys-surface-page);
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	.library-page__api-item-name {
+		margin: 0 0 0.75rem 0;
+		font-size: 1rem;
+		font-weight: 600;
+
+		code {
+			color: var(--hub-sys-gradient-2);
+			background-color: color-mix(in srgb, var(--hub-sys-gradient-2) 8%, transparent);
+			padding: 0.25rem 0.5rem;
+			border-radius: 6px;
+			font-family: var(--hub-ref-font-family-mono);
+		}
+	}
+}
+
+.library-page__css-variable-details {
+	.library-page__api-item-type,
+	.library-page__api-item-default {
+		margin: 0.5rem 0;
+		font-size: 0.9rem;
+
+		code {
+			color: var(--hub-sys-text-primary);
+			background-color: var(--hub-sys-state-hover-bg);
+			padding: 0.2rem 0.4rem;
+			border-radius: 4px;
+			font-family: var(--hub-ref-font-family-mono);
+		}
+	}
+
+	.library-page__api-item-description {
+		margin: 0.5rem 0;
+		color: var(--hub-sys-text-muted);
+		font-size: 0.9rem;
+	}
+}
+
+.library-page__css-variable-examples {
+	margin-top: 0.75rem;
+
+	.library-page__api-label {
+		display: block;
+		margin-bottom: 0.5rem;
+		font-weight: 600;
+		font-size: 0.85rem;
+		color: var(--hub-sys-text-primary);
+	}
+}
+
+.library-page__css-variable-example-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.library-page__css-variable-example {
+	display: inline-block;
+	padding: 0.25rem 0.5rem;
+	background-color: var(--hub-sys-state-hover-bg);
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: 6px;
+	font-family: var(--hub-ref-font-family-mono);
+	font-size: 0.8rem;
+	color: var(--hub-sys-text-primary);
+	white-space: nowrap;
+
+	&:hover {
+		border-color: color-mix(in srgb, var(--hub-sys-gradient-1) 45%, var(--hub-sys-border-color-default));
+	}
+}
+
+// ─── Overview highlights grid ────────────────────────────────────────────────
+
+.library-page__highlights {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 1rem;
+	margin-top: 1rem;
+}
+
+.library-page__highlight-card {
+	display: block;
+	width: 100%;
+	padding: 1.5rem;
+	background-color: var(--hub-sys-surface-page);
+	border: 1px solid var(--hub-sys-border-color-default);
+	border-radius: 16px;
+	transition:
+		border-color 0.25s ease,
+		box-shadow 0.25s ease,
+		transform 0.25s ease;
+	text-align: left;
+	appearance: none;
+	cursor: default;
+
+	&:hover {
+		border-color: color-mix(in srgb, var(--hub-sys-gradient-1) 50%, var(--hub-sys-border-color-default));
+		box-shadow: 0 18px 40px -24px color-mix(in srgb, var(--hub-sys-gradient-1) 50%, transparent);
+		transform: translateY(-3px);
+	}
+
+	&:disabled {
+		opacity: 1;
+	}
+}
+
+.library-page__highlight-card--clickable {
+	cursor: pointer;
+}
+
+.library-page__highlight-icon-wrap {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 42px;
+	height: 42px;
+	border-radius: 12px;
+	background: linear-gradient(
+		135deg,
+		color-mix(in srgb, var(--hub-sys-gradient-1) 15%, transparent),
+		color-mix(in srgb, var(--hub-sys-gradient-2) 15%, transparent)
+	);
+	margin-bottom: 0.85rem;
+}
+
+.library-page__highlight-icon {
+	font-size: 1rem;
+	color: var(--hub-sys-gradient-1);
+}
+
+.library-page__highlight-title {
+	font-size: 0.95rem;
+	font-weight: 700;
+	color: var(--hub-sys-text-primary);
+	margin: 0 0 0.4rem;
+}
+
+.library-page__highlight-desc {
+	font-size: 0.875rem;
+	color: var(--hub-sys-text-muted);
+	line-height: 1.6;
+	margin: 0;
+}
+
+@keyframes library-page-placeholder-shimmer {
+	0% {
+		background-position: 200% 0;
+	}
+
+	100% {
+		background-position: -200% 0;
+	}
+}

@@ -1,0 +1,134 @@
+<!-- =====================================================
+     About the author page
+     ===================================================== -->
+
+<!-- ── HERO ──────────────────────────────────────────── -->
+<section class="about-hero">
+	<div class="about-hero__inner">
+		<span class="about-hero__badge">{{ c().hero.badge }}</span>
+
+		<h1 class="about-hero__name">{{ c().hero.name }}</h1>
+		<p class="about-hero__tagline">{{ c().hero.tagline }}</p>
+
+		<div class="about-hero__links">
+			@for (link of c().contact.links; track link.label) {
+				<a [href]="link.url" target="_blank" rel="noopener noreferrer" class="about-hero__link" [title]="link.label">
+					<i [class]="link.icon" aria-hidden="true"></i>
+				</a>
+			}
+		</div>
+
+		<a href="#about-story" class="about-hero__scroll">
+			<i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+			{{ c().hero.scrollCta }}
+		</a>
+	</div>
+</section>
+
+<!-- ── STORY ─────────────────────────────────────────── -->
+<section id="about-story" class="about-section about-story">
+	<div class="about-container">
+		<div class="about-story__grid">
+			<div class="about-story__text">
+				<h2 class="about-section__title">{{ c().story.heading }}</h2>
+				@for (p of c().story.paragraphs; track $index) {
+					<p class="about-story__para">{{ p }}</p>
+				}
+			</div>
+
+			<!-- 📸 PLACEHOLDER — reemplazar con <img> cuando tengas la foto -->
+			<div class="about-story__media">
+				<div class="about-img-placeholder">
+					<i class="fa-solid fa-camera about-img-placeholder__icon" aria-hidden="true"></i>
+					<span class="about-img-placeholder__caption">{{ c().story.imgCaption }}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ── MISSION (Hub-UI) ───────────────────────────────── -->
+<section class="about-section about-mission">
+	<div class="about-container">
+		<div class="about-mission__grid">
+			<!-- 📸 PLACEHOLDER — reemplazar con screenshot de Hub-UI / npm stats -->
+			<div class="about-mission__media">
+				<div class="about-img-placeholder about-img-placeholder--wide">
+					<i class="fa-solid fa-box-open about-img-placeholder__icon" aria-hidden="true"></i>
+					<span class="about-img-placeholder__caption">{{ c().mission.imgCaption }}</span>
+				</div>
+			</div>
+
+			<div class="about-mission__text">
+				<h2 class="about-section__title">{{ c().mission.heading }}</h2>
+				@for (p of c().mission.paragraphs; track $index) {
+					<p class="about-mission__para">{{ p }}</p>
+				}
+				<a
+					href="https://github.com/carlos-morcillo"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="about-mission__cta"
+				>
+					<i class="fa-brands fa-github" aria-hidden="true"></i>
+					{{ c().mission.githubCta }}
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ── TIMELINE ──────────────────────────────────────── -->
+<section class="about-section about-timeline-section">
+	<div class="about-container">
+		<h2 class="about-section__title about-section__title--center">{{ c().timeline.heading }}</h2>
+
+		<ol class="about-timeline" [attr.aria-label]="c().timeline.ariaLabel">
+			@for (item of c().timeline.items; track item.year) {
+				<li class="about-timeline__item">
+					<span class="about-timeline__year">{{ item.year }}</span>
+					<span class="about-timeline__text">{{ item.text }}</span>
+				</li>
+			}
+		</ol>
+	</div>
+</section>
+
+<!-- ── STACK ─────────────────────────────────────────── -->
+<section class="about-section about-stack-section">
+	<div class="about-container">
+		<h2 class="about-section__title about-section__title--center">{{ c().stack.heading }}</h2>
+
+		<div class="about-stack">
+			@for (cat of c().stack.categories; track cat.label) {
+				<div class="about-stack__group">
+					<h3 class="about-stack__label">{{ cat.label }}</h3>
+					<div class="about-stack__tags">
+						@for (item of cat.items; track item) {
+							<span class="about-stack__tag">{{ item }}</span>
+						}
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</section>
+
+<!-- ── CONTACT ───────────────────────────────────────── -->
+<section id="about-contact" class="about-section about-contact">
+	<div class="about-container">
+		<div class="about-contact__card">
+			<h2 class="about-section__title about-section__title--center">{{ c().contact.heading }}</h2>
+			<p class="about-contact__text">{{ c().contact.paragraph }}</p>
+
+			<div class="about-contact__links">
+				@for (link of c().contact.links; track link.label) {
+					<a [href]="link.url" target="_blank" rel="noopener noreferrer" class="about-contact__link">
+						<i [class]="link.icon" aria-hidden="true"></i>
+						<span>{{ link.label }}</span>
+					</a>
+				}
+			</div>
+		</div>
+	</div>
+</section>

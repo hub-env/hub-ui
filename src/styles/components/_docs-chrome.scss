@@ -1,0 +1,642 @@
+// ============================================================
+// Documentation chrome
+// ============================================================
+// Callouts and plain lists used by the documentation's own prose — the
+// "how to test this" notes above a demo, the bullet lists inside them.
+//
+// They are NOT component demos, so they get no library of their own: inventing
+// `ng-hub-ui-alert` to justify a note box would be the tail wagging the dog.
+// They live here, in the app that uses them, built on the design-system tokens
+// so they follow every theme without a per-theme value.
+//
+// The class names are the ones the templates already carry. Keeping them is
+// what makes this sheet a replacement rather than a rewrite of 33 files.
+// ============================================================
+
+.alert {
+	--hub-docs-alert-accent: var(--hub-sys-color-info, #0dcaf0);
+
+	position: relative;
+	padding: 1rem 1.25rem;
+	margin-bottom: 1rem;
+	border: 1px solid color-mix(in oklch, var(--hub-docs-alert-accent) 35%, transparent);
+	border-inline-start: 3px solid var(--hub-docs-alert-accent);
+	border-radius: var(--hub-sys-radius-md, 0.5rem);
+	background: color-mix(in oklch, var(--hub-docs-alert-accent) 10%, var(--hub-sys-surface-page, #fff));
+	color: var(--hub-sys-text-primary, #212529);
+}
+
+.alert-info {
+	--hub-docs-alert-accent: var(--hub-sys-color-info, #0dcaf0);
+}
+
+.alert-primary {
+	--hub-docs-alert-accent: var(--hub-sys-color-primary, #0d6efd);
+}
+
+.alert-secondary {
+	--hub-docs-alert-accent: var(--hub-sys-color-secondary, #6c757d);
+}
+
+.alert-warning {
+	--hub-docs-alert-accent: var(--hub-sys-color-warning, #ffc107);
+}
+
+.alert-danger {
+	--hub-docs-alert-accent: var(--hub-sys-color-danger, #dc3545);
+}
+
+.alert-success {
+	--hub-docs-alert-accent: var(--hub-sys-color-success, #198754);
+}
+
+.alert-dark {
+	--hub-docs-alert-accent: var(--hub-sys-color-dark, #212529);
+}
+
+.alert-heading {
+	margin-bottom: 0.5rem;
+	font-weight: 600;
+	color: inherit;
+}
+
+.list-group {
+	display: flex;
+	flex-direction: column;
+	padding-inline-start: 0;
+	margin-bottom: 0;
+	border-radius: var(--hub-sys-radius-md, 0.5rem);
+}
+
+.list-group-item {
+	position: relative;
+	display: block;
+	padding: 0.6rem 1rem;
+	border: 1px solid var(--hub-sys-border-color-default, #dee2e6);
+	background: var(--hub-sys-surface-page, #fff);
+	color: var(--hub-sys-text-primary, #212529);
+
+	// The seam between adjacent items is one border, not two.
+	& + & {
+		border-top-width: 0;
+	}
+
+	&:first-child {
+		border-start-start-radius: inherit;
+		border-start-end-radius: inherit;
+	}
+
+	&:last-child {
+		border-end-start-radius: inherit;
+		border-end-end-radius: inherit;
+	}
+}
+
+// `flush` drops the outer frame so the list can sit inside a card that already has one.
+.list-group-flush {
+	border-radius: 0;
+
+	> .list-group-item {
+		border-inline-width: 0;
+
+		&:first-child {
+			border-top-width: 0;
+		}
+
+		&:last-child {
+			border-bottom-width: 0;
+		}
+	}
+}
+
+// ------------------------------------------------------------
+// Card typography
+// ------------------------------------------------------------
+// The card CONTAINER migrated to <hub-panel>. What is left are the typographic
+// helpers that used to live inside one — a title, a lead paragraph, a header
+// band. They are not components and no library should grow one for them, so
+// they stay here on the same tokens as everything else above.
+
+.card-header {
+	padding: 0.75rem 1rem;
+	margin: -1rem -1rem 1rem;
+	border-bottom: 1px solid var(--hub-sys-border-color-default, #dee2e6);
+	background: color-mix(in oklch, var(--hub-sys-text-primary, #212529) 4%, transparent);
+	font-weight: 600;
+}
+
+.card-title {
+	margin-bottom: 0.5rem;
+	font-weight: 600;
+	color: var(--hub-sys-text-primary, #212529);
+}
+
+.card-subtitle {
+	margin-top: -0.25rem;
+	margin-bottom: 0.5rem;
+	color: var(--hub-sys-text-muted, #6c757d);
+}
+
+.card-text {
+	margin-bottom: 0;
+	color: var(--hub-sys-text-secondary, #495057);
+
+	& + & {
+		margin-top: 0.5rem;
+	}
+}
+
+// A few survive outside a panel, where the panel's own padding is not there to help.
+.card-body {
+	padding: 1rem;
+}
+
+// ------------------------------------------------------------
+// Modal content chrome
+// ------------------------------------------------------------
+// `ng-hub-ui-modal` styles its own shell (`hub-modal__dialog`, `__content`,
+// `__body`) but deliberately leaves the CONTENT to the author, so it ships no
+// header/footer class for one to use. These are the bands the examples build
+// inside that content.
+
+.modal-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 1rem 1.25rem;
+	border-bottom: 1px solid var(--hub-sys-border-color-default, #dee2e6);
+}
+
+.modal-title {
+	margin: 0;
+	font-size: 1.125rem;
+	font-weight: 600;
+	line-height: 1.4;
+}
+
+.modal-body {
+	padding: 1.25rem;
+}
+
+.modal-footer {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 0.5rem;
+	padding: 1rem 1.25rem;
+	border-top: 1px solid var(--hub-sys-border-color-default, #dee2e6);
+}
+
+.modal-content {
+	display: flex;
+	flex-direction: column;
+	border-radius: var(--hub-sys-radius-md, 0.5rem);
+	background: var(--hub-sys-surface-page, #fff);
+	color: var(--hub-sys-text-primary, #212529);
+}
+
+.btn-close {
+	width: 1.75rem;
+	height: 1.75rem;
+	padding: 0;
+	border: 0;
+	border-radius: var(--hub-sys-radius-sm, 0.25rem);
+	background: transparent;
+	color: var(--hub-sys-text-muted, #6c757d);
+	font-size: 1.25rem;
+	line-height: 1;
+	cursor: pointer;
+
+	&::before {
+		content: '\00d7';
+	}
+
+	&:hover {
+		background: var(--hub-sys-state-hover-bg, rgb(0 0 0 / 7.5%));
+		color: var(--hub-sys-text-primary, #212529);
+	}
+}
+
+// ------------------------------------------------------------
+// Native form controls
+// ------------------------------------------------------------
+// NOT a substitute for `ng-hub-ui-forms`. Every one of these sits on a bare
+// <input> inside a demo of some OTHER library — a board's filter box, the
+// focus-trap's two tab stops, a colour picker beside a token slider. Those
+// demos need a plain control precisely because the control is not the subject;
+// swapping in <hub-input> would change what they demonstrate.
+
+.form-control,
+.form-select {
+	display: block;
+	width: 100%;
+	padding: 0.4rem 0.75rem;
+	border: 1px solid var(--hub-sys-border-color-default, #dee2e6);
+	border-radius: var(--hub-sys-radius-sm, 0.375rem);
+	background: var(--hub-sys-surface-page, #fff);
+	color: var(--hub-sys-text-primary, #212529);
+	font: inherit;
+	line-height: 1.5;
+
+	&:focus-visible {
+		outline: 2px solid var(--hub-sys-color-primary, #0d6efd);
+		outline-offset: 1px;
+	}
+
+	&::placeholder {
+		color: var(--hub-sys-text-muted, #6c757d);
+	}
+}
+
+.form-control-sm,
+.form-select-sm {
+	padding: 0.25rem 0.5rem;
+	font-size: 0.875rem;
+}
+
+.form-control-color {
+	width: 3rem;
+	padding: 0.25rem;
+	cursor: pointer;
+}
+
+.form-label {
+	display: inline-block;
+	margin-bottom: 0.35rem;
+	font-weight: 500;
+}
+
+.form-text {
+	font-size: 0.875rem;
+	color: var(--hub-sys-text-muted, #6c757d);
+}
+
+.invalid-feedback {
+	font-size: 0.875rem;
+	color: var(--hub-sys-color-danger, #dc3545);
+}
+
+.form-check {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	min-height: 1.5rem;
+}
+
+.form-check-input {
+	flex: 0 0 auto;
+	width: 1rem;
+	height: 1rem;
+	margin: 0;
+	accent-color: var(--hub-sys-color-primary, #0d6efd);
+	cursor: pointer;
+}
+
+.form-check-label {
+	cursor: pointer;
+}
+
+// The switch is the checkbox at pill proportions; `accent-color` colours it in
+// every engine that matters, so no bespoke track and thumb are needed.
+.form-switch > .form-check-input[type='checkbox'] {
+	width: 2rem;
+	border-radius: 1rem;
+}
+
+.form-range {
+	width: 100%;
+	accent-color: var(--hub-sys-color-primary, #0d6efd);
+}
+
+// ------------------------------------------------------------
+// Layout and typography leftovers
+// ------------------------------------------------------------
+// Names the `ds` utilities sheet does not carry: Bootstrap's row gutters, its
+// auto column, and a few typographic helpers the prose uses.
+
+.col-auto {
+	flex: 0 0 auto;
+	width: auto;
+	max-width: 100%;
+}
+
+.col {
+	flex: 1 0 0%;
+}
+
+@each $step, $size in (0: 0, 1: 0.25rem, 2: 0.5rem, 3: 1rem, 4: 1.5rem, 5: 3rem) {
+	.g-#{$step} {
+		gap: $size;
+	}
+}
+
+.container,
+.container-fluid {
+	width: 100%;
+	margin-inline: auto;
+	padding-inline: 1rem;
+}
+
+.container {
+	max-width: 1140px;
+}
+
+.lead {
+	font-size: 1.125rem;
+	font-weight: 400;
+	color: var(--hub-sys-text-secondary, #495057);
+}
+
+.display-4 {
+	font-size: 2.5rem;
+	font-weight: 300;
+	line-height: 1.2;
+}
+
+.display-5 {
+	font-size: 2rem;
+	font-weight: 300;
+	line-height: 1.2;
+}
+
+.list-unstyled {
+	padding-inline-start: 0;
+	list-style: none;
+}
+
+// ------------------------------------------------------------
+// Small chrome: spinner, progress, plain tables
+// ------------------------------------------------------------
+
+.spinner-border {
+	display: inline-block;
+	width: 2rem;
+	height: 2rem;
+	border: 0.25em solid currentColor;
+	border-right-color: transparent;
+	border-radius: 50%;
+	animation: docs-spinner 0.75s linear infinite;
+}
+
+.spinner-border-sm {
+	width: 1rem;
+	height: 1rem;
+	border-width: 0.2em;
+}
+
+@keyframes docs-spinner {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.spinner-border {
+		animation-duration: 2.4s;
+	}
+}
+
+.progress {
+	overflow: hidden;
+	height: 1rem;
+	border-radius: var(--hub-sys-radius-sm, 0.375rem);
+	background: color-mix(in oklch, var(--hub-sys-text-primary, #212529) 10%, transparent);
+}
+
+.progress-bar {
+	height: 100%;
+	background: var(--hub-sys-color-primary, #0d6efd);
+	color: var(--hub-sys-color-primary-on, #fff);
+	font-size: 0.75rem;
+	line-height: 1rem;
+	text-align: center;
+}
+
+.table {
+	width: 100%;
+	margin-bottom: 1rem;
+	border-collapse: collapse;
+	color: var(--hub-sys-text-primary, #212529);
+
+	> :not(caption) > * > * {
+		padding: 0.5rem;
+		border-bottom: 1px solid var(--hub-sys-border-color-default, #dee2e6);
+	}
+}
+
+.table-sm > :not(caption) > * > * {
+	padding: 0.25rem;
+}
+
+.table-bordered > :not(caption) > * > * {
+	border: 1px solid var(--hub-sys-border-color-default, #dee2e6);
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+	background: var(--hub-sys-state-striped-bg, rgb(0 0 0 / 5%));
+}
+
+.table-light > * > * > * {
+	background: var(--hub-sys-surface-elevated, #f8f9fa);
+}
+
+.table-dark {
+	background: var(--hub-sys-color-dark, #212529);
+	color: var(--hub-sys-color-light, #f8f9fa);
+}
+
+.table-responsive {
+	overflow-x: auto;
+}
+
+// ------------------------------------------------------------
+// Dropdown, pagination, tabs
+// ------------------------------------------------------------
+// The dropdowns here are INERT and always were: they are driven by
+// `data-bs-toggle="dropdown"`, and Bootstrap's JavaScript has never been loaded
+// (`angular.json` lists its stylesheet and no script). These rules keep the
+// trigger and the closed menu looking as they do today. Making them work means
+// porting them to `[hubDropdown]`.
+
+.dropdown {
+	position: relative;
+}
+
+.dropdown-menu {
+	position: absolute;
+	z-index: 1000;
+	display: none;
+	min-width: 10rem;
+	padding: 0.35rem 0;
+	margin: 0.25rem 0 0;
+	border: 1px solid var(--hub-sys-border-color-default, #dee2e6);
+	border-radius: var(--hub-sys-radius-md, 0.5rem);
+	background: var(--hub-sys-surface-page, #fff);
+	box-shadow: var(--hub-sys-shadow, 0 0.5rem 1rem rgb(0 0 0 / 15%));
+	list-style: none;
+
+	&.show {
+		display: block;
+	}
+}
+
+.dropdown-menu-end {
+	inset-inline-end: 0;
+}
+
+.dropdown-item {
+	display: block;
+	width: 100%;
+	padding: 0.4rem 1rem;
+	border: 0;
+	background: transparent;
+	color: var(--hub-sys-text-primary, #212529);
+	text-align: start;
+	text-decoration: none;
+	cursor: pointer;
+
+	&:hover {
+		background: var(--hub-sys-state-hover-bg, rgb(0 0 0 / 7.5%));
+	}
+}
+
+.dropdown-divider {
+	height: 0;
+	margin: 0.35rem 0;
+	border-top: 1px solid var(--hub-sys-border-color-default, #dee2e6);
+}
+
+.pagination {
+	display: flex;
+	padding-inline-start: 0;
+	list-style: none;
+}
+
+.page-link {
+	display: block;
+	padding: 0.375rem 0.75rem;
+	border: 1px solid var(--hub-sys-border-color-default, #dee2e6);
+	background: var(--hub-sys-surface-page, #fff);
+	color: var(--hub-sys-color-primary, #0d6efd);
+	text-decoration: none;
+}
+
+.page-item {
+	& + & > .page-link {
+		margin-inline-start: -1px;
+	}
+
+	&:first-child > .page-link {
+		border-start-start-radius: var(--hub-sys-radius-sm, 0.375rem);
+		border-end-start-radius: var(--hub-sys-radius-sm, 0.375rem);
+	}
+
+	&:last-child > .page-link {
+		border-start-end-radius: var(--hub-sys-radius-sm, 0.375rem);
+		border-end-end-radius: var(--hub-sys-radius-sm, 0.375rem);
+	}
+
+	&.active > .page-link {
+		border-color: var(--hub-sys-color-primary, #0d6efd);
+		background: var(--hub-sys-color-primary, #0d6efd);
+		color: var(--hub-sys-color-primary-on, #fff);
+	}
+
+	&.disabled > .page-link {
+		color: var(--hub-sys-text-muted, #6c757d);
+		pointer-events: none;
+	}
+}
+
+.pagination-sm > .page-item > .page-link {
+	padding: 0.25rem 0.5rem;
+	font-size: 0.875rem;
+}
+
+.nav {
+	display: flex;
+	flex-wrap: wrap;
+	padding-inline-start: 0;
+	margin-bottom: 0;
+	list-style: none;
+}
+
+.nav-link {
+	display: block;
+	padding: 0.5rem 1rem;
+	border: 0;
+	background: transparent;
+	color: var(--hub-sys-link-color, #0d6efd);
+	text-decoration: none;
+	cursor: pointer;
+
+	&.active {
+		color: var(--hub-sys-text-primary, #212529);
+	}
+}
+
+.nav-tabs {
+	border-bottom: 1px solid var(--hub-sys-border-color-default, #dee2e6);
+
+	> .nav-item > .nav-link,
+	> .nav-link {
+		margin-bottom: -1px;
+		border: 1px solid transparent;
+		border-start-start-radius: var(--hub-sys-radius-sm, 0.375rem);
+		border-start-end-radius: var(--hub-sys-radius-sm, 0.375rem);
+
+		&.active {
+			border-color: var(--hub-sys-border-color-default, #dee2e6);
+			border-bottom-color: var(--hub-sys-surface-page, #fff);
+			background: var(--hub-sys-surface-page, #fff);
+		}
+	}
+}
+
+.nav-pills > .nav-item > .nav-link.active,
+.nav-pills > .nav-link.active {
+	border-radius: var(--hub-sys-radius-sm, 0.375rem);
+	background: var(--hub-sys-color-primary, #0d6efd);
+	color: var(--hub-sys-color-primary-on, #fff);
+}
+
+.tab-content > .tab-pane {
+	display: none;
+
+	&.active {
+		display: block;
+	}
+}
+
+.navbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.5rem 1rem;
+}
+
+.navbar-expand-lg {
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+}
+
+.navbar-brand {
+	margin-inline-end: 1rem;
+	font-size: 1.25rem;
+	text-decoration: none;
+	white-space: nowrap;
+	color: inherit;
+}
+
+.card-footer {
+	padding: 0.75rem 1rem;
+	margin: 1rem -1rem -1rem;
+	border-top: 1px solid var(--hub-sys-border-color-default, #dee2e6);
+}
+
+.toast-body {
+	padding: 0.75rem;
+}

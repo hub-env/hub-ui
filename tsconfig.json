@@ -1,0 +1,194 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+	"compileOnSave": false,
+	"compilerOptions": {
+		"paths": {
+			"ng-hub-ui-milestones": ["./projects/milestones/src/public-api.ts"],
+			"ng-hub-ui-nav": ["./projects/nav/src/public-api.ts"],
+			"ng-hub-ui-panels": ["./projects/panels/src/public-api.ts"],
+			"ng-hub-ui-forms": ["./projects/forms/src/public-api.ts"],
+			"ng-hub-ui-forms/signals": ["./projects/forms/signals/src/public-api.ts"],
+			"ng-hub-ui-action-sheet": ["./projects/action-sheet/src/public-api.ts"],
+			"ng-hub-ui-avatar": ["./projects/avatar/src/public_api.ts"],
+			"ng-hub-ui-board": ["./projects/board/src/public-api.ts"],
+			"ng-hub-ui-breadcrumbs": ["./projects/breadcrumbs/src/public-api.ts"],
+			"ng-hub-ui-calendar": ["./projects/calendar/src/public-api.ts"],
+			"ng-hub-ui-modal": ["./projects/modal/src/public-api.ts"],
+			"ng-hub-ui-portal": ["./projects/portal/src/public-api.ts"],
+			"ng-hub-ui-stepper": ["./projects/stepper/src/public-api.ts"],
+			"ng-hub-ui-paginable": ["./projects/paginable/src/public-api.ts"],
+			"ng-hub-ui-utils": ["./projects/utils/src/public-api.ts"],
+			"ng-hub-ui-history": ["./projects/history/src/public-api.ts"],
+			"ng-hub-ui-sortable": ["./projects/sortable/src/public-api.ts"],
+			"ng-hub-ui-metrics": ["./projects/metrics/src/public-api.ts"],
+			"ng-hub-ui-signature": ["./projects/signature/src/public-api.ts"],
+			"ng-hub-ui-skeleton": ["./projects/skeleton/src/public-api.ts"],
+			"ng-hub-ui-toast": ["./projects/toast/src/public-api.ts"],
+			"ng-hub-ui-buttons": ["./projects/buttons/src/public-api.ts"],
+			"ng-hub-ui-badges": ["./projects/badges/src/public-api.ts"],
+			"ng-hub-ui-icons": ["./projects/icons/src/public-api.ts"],
+			"ng-hub-ui-loading": ["./projects/loading/src/public-api.ts"]
+		},
+		"strict": true,
+		"noImplicitOverride": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"experimentalDecorators": true,
+		"importHelpers": true,
+		"target": "ES2022",
+		"module": "preserve"
+	},
+	"angularCompilerOptions": {
+		"enableI18nLegacyMessageIdFormat": false,
+		"strictInjectionParameters": true,
+		"strictInputAccessModifiers": true,
+		"typeCheckHostBindings": true,
+		"strictTemplates": true
+	},
+	"files": [],
+	"references": [
+		{
+			"path": "./tsconfig.app.json"
+		},
+		{
+			"path": "./tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/panels/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/panels/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/avatar/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/avatar/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/board/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/board/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/breadcrumbs/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/breadcrumbs/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/modal/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/modal/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/portal/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/portal/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/paginable/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/paginable/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/utils/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/utils/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/stepper/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/stepper/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/action-sheet/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/action-sheet/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/calendar/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/calendar/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/history/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/history/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/nav/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/nav/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/skeleton/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/skeleton/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/milestones/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/milestones/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/toast/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/toast/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/buttons/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/buttons/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/badges/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/badges/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/icons/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/icons/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/metrics/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/metrics/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/signature/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/signature/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/loading/tsconfig.lib.json"
+		},
+		{
+			"path": "./projects/loading/tsconfig.spec.json"
+		}
+	]
+}

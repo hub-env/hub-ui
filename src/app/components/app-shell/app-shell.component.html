@@ -1,0 +1,148 @@
+<div class="app-shell__body">
+	<!-- Page-progress bar. Fixed to the viewport rather than placed inside
+	     `.app-shell__main`, which is the scroll container: an overlay bar there would
+	     scroll away with the content instead of staying at the top edge. -->
+	<hub-loading-bar
+		class="app-shell__loading-bar"
+		mode="fixed"
+		placement="top"
+		[ariaLabel]="'UI.TOPBAR.PAGE_LOADING' | translate"
+	/>
+
+	<hub-nav
+		ngSkipHydration
+		class="app-shell__sidebar app-shell__nav"
+		[items]="hubNavItems()"
+		[config]="hubNavConfig()"
+		[autoOpenFromRoute]="true"
+	>
+		<!-- Start slot: brand logo at the top of the sidebar -->
+		<ng-template hubNavStart let-collapsed="collapsed" let-rail="rail">
+			<div class="app-shell__nav-brand">
+				<a [routerLink]="homeRoute()" class="app-shell__brand-link" aria-label="Hub UI — home">
+					<span class="app-shell__brand-wrap">
+						<app-brand-logo [collapsed]="collapsed || rail" class="app-shell__brand-logo-svg"></app-brand-logo>
+						@if (!rail) {
+							<span class="app-shell__brand-version">v22</span>
+						}
+					</span>
+				</a>
+			</div>
+		</ng-template>
+
+		<!--
+			End slot: actions + orientation toggle at the bottom of the sidebar. Below the breakpoint the
+			top bar keeps only the brand and the hamburger; the controls move into the drawer, stacked.
+		-->
+		<ng-template hubNavEnd let-collapsed="collapsed" let-rail="rail" let-inDrawer="inDrawer">
+			@if (!collapsed || inDrawer) {
+				<div
+					class="app-shell__nav-footer"
+					[class.app-shell__nav-footer--vertical]="
+						inDrawer || (navOrientation() === 'vertical' && !collapsed && !rail)
+					"
+					[class.app-shell__nav-footer--rail]="rail"
+				>
+					<!-- Language selector (hub-select, themed to blend into the footer) -->
+					<div class="app-shell__footer-btn app-shell__footer-select-row">
+						<i class="fa-solid fa-globe" aria-hidden="true"></i>
+						<hub-select
+							class="app-shell__footer-select"
+							[items]="languageOptions"
+							bindValue="code"
+							bindLabel="nativeLabel"
+							[ngModel]="i18nService.lang()"
+							(ngModelChange)="selectLanguage($event)"
+							[clearable]="false"
+							[searchable]="false"
+							[attr.aria-label]="'UI.TOPBAR.LANGUAGE' | translate"
+						/>
+					</div>
+
+					<!-- Theme selector (hub-select, same compact styling as the language picker) -->
+					<div class="app-shell__footer-btn app-shell__footer-select-row">
+						<i class="fa-solid fa-palette" aria-hidden="true"></i>
+						<hub-select
+							class="app-shell__footer-select"
+							[items]="themeService.themes()"
+							bindValue="id"
+							bindLabel="label"
+							[ngModel]="themeService.selectedTheme()"
+							(ngModelChange)="themeService.applyTheme($event)"
+							[clearable]="false"
+							[searchable]="false"
+							[attr.aria-label]="'UI.TOPBAR.THEME_LABEL' | translate"
+						/>
+					</div>
+
+					<!-- Orientation toggle: desktop only, the drawer is the same whatever the orientation -->
+					@if (!inDrawer) {
+						<button
+							type="button"
+							class="app-shell__footer-btn"
+							(click)="toggleOrientation()"
+							[attr.aria-label]="
+								navOrientation() === 'vertical'
+									? ('UI.TOPBAR.ORIENTATION_HORIZONTAL' | translate)
+									: ('UI.TOPBAR.ORIENTATION_VERTICAL' | translate)
+							"
+							[title]="
+								navOrientation() === 'vertical'
+									? ('UI.TOPBAR.ORIENTATION_HORIZONTAL' | translate)
+									: ('UI.TOPBAR.ORIENTATION_VERTICAL' | translate)
+							"
+						>
+							@if (navOrientation() === 'vertical') {
+								<i class="fa-solid fa-left-right" aria-hidden="true"></i>
+							} @else {
+								<i class="fa-solid fa-up-down" aria-hidden="true"></i>
+							}
+							<span class="app-shell__footer-btn-label">
+								{{
+									navOrientation() === 'vertical'
+										? ('UI.TOPBAR.ORIENTATION_HORIZONTAL' | translate)
+										: ('UI.TOPBAR.ORIENTATION_VERTICAL' | translate)
+								}}
+							</span>
+						</button>
+					}
+
+					<!-- GitHub link -->
+					<a
+						[href]="repositoryUrl"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="app-shell__footer-btn"
+						[attr.aria-label]="'UI.TOPBAR.GITHUB' | translate"
+						[title]="'UI.TOPBAR.GITHUB' | translate"
+					>
+						<i class="fa-brands fa-github" aria-hidden="true"></i>
+						<span class="app-shell__footer-btn-label">{{ 'UI.TOPBAR.GITHUB' | translate }}</span>
+					</a>
+
+					<!-- Author consulting page, in the visitor's language -->
+					<a
+						[href]="consultingUrl()"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="app-shell__footer-btn"
+						[attr.aria-label]="'UI.TOPBAR.CONSULTING' | translate"
+						[title]="'UI.TOPBAR.CONSULTING' | translate"
+					>
+						<i class="fa-solid fa-handshake" aria-hidden="true"></i>
+						<span class="app-shell__footer-btn-label">{{ 'UI.TOPBAR.CONSULTING' | translate }}</span>
+					</a>
+
+					<!-- Build stamp — verify the deployed version at a glance -->
+					<span class="app-shell__version" [title]="'Built ' + appVersion.builtAt">
+						v{{ appVersion.version }} · {{ appVersion.commit }}
+					</span>
+				</div>
+			}
+		</ng-template>
+	</hub-nav>
+
+	<main class="app-shell__main">
+		<router-outlet></router-outlet>
+	</main>
+</div>

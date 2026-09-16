@@ -1,0 +1,821 @@
+{
+	"SEO": {
+		"LIBRARY": {
+			"FORMS": {
+				"HEADLINE": "Bibliothèque de Formulaires Angular | ng-hub-ui-forms",
+				"DESCRIPTION": "Champs de formulaire Angular accessibles (input, textarea, slider, select, datepicker) avec affichage automatique des erreurs de contrôle/groupe/formulaire, formulaires réactifs et variables CSS.",
+				"INTRO": "Utilisez cette bibliothèque de formulaires Angular lorsque vous avez besoin de champs accessibles avec affichage automatique des erreurs de validation, d'un ng-select forké, d'un datepicker reconstruit et d'un theming runtime via variables CSS — sans Bootstrap.",
+				"OVERVIEW": "ng-hub-ui-forms unifie chaque champ de formulaire derrière un seul contrat : liez-le avec les formulaires réactifs et les erreurs correspondantes apparaissent automatiquement au niveau du contrôle, du groupe et du formulaire. Les champs sont standalone, OnPush et signal-native ; le select est un fork maintenu de ng-select thématisé avec les tokens hub ; le datepicker est construit sur Date natif et l'overlay du CDK Angular. Tout est thématisé via des variables CSS canoniques --hub-*, avec un mode sombre en runtime.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Affichage automatique des erreurs",
+						"DESCRIPTION": "Les erreurs de contrôle, de groupe et de formulaire (cross-field) s'affichent automatiquement — sans chaînes manuelles de *ngIf."
+					},
+					"1": {
+						"TITLE": "Sélection riche",
+						"DESCRIPTION": "ng-select forké (dropdown, recherche, tags) ainsi que des formats bouton, radio et checkbox pour la même valeur."
+					},
+					"2": {
+						"TITLE": "Sélecteur de date et de plage",
+						"DESCRIPTION": "Datepicker reconstruit : simple / plage, min/max, navigation au clavier et i18n complète — sans dépendance de date."
+					}
+				},
+				"USE_CASE": {
+					"0": "formulaires d'inscription et de paiement",
+					"1": "pages de paramètres",
+					"2": "filtres et recherche",
+					"3": "tableaux de bord d'administration"
+				}
+			},
+			"PANELS": {
+				"HEADLINE": "Tabs, Pills et Accordion Angular | ng-hub-ui-panels",
+				"DESCRIPTION": "Composant de panneaux de contenu Angular qui se rend sous forme de tabs, pills ou accordion, avec routing, formulaires réactifs, navigation au clavier et variables CSS.",
+				"INTRO": "Utilisez ce composant de panneaux Angular lorsque vous avez besoin de schémas tabs, pills et accordion à partir d'une seule API, avec des panneaux routés, le binding aux formulaires réactifs, la navigation au clavier et un theming via variables CSS.",
+				"OVERVIEW": "ng-hub-ui-panels unifie tabs, pills et accordion en un seul composant Angular standalone construit sur les Signals. Il prend en charge les panneaux routés, le binding de formulaires via ControlValueAccessor, les bandes scrollables et verticales, ainsi qu'un theming complet via --hub-panels-*. Il remplace ng-hub-ui-accordion, dont il reprend la vue accordion tout en conservant le contrat de tokens --hub-accordion-*.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Tabs, pills et accordion",
+						"DESCRIPTION": "Changez tout le schéma de commutation de contenu avec un seul input type — sans modifier le balisage."
+					},
+					"1": {
+						"TITLE": "Panneaux routés",
+						"DESCRIPTION": "Attribuez un routerLink à un panneau et la zone de contenu devient un router-outlet qui suit l'URL."
+					},
+					"2": {
+						"TITLE": "Accessible par défaut",
+						"DESCRIPTION": "Tabindex mobile, touches flèches/Home/End/Delete et rôles ARIA corrects pour tablist et accordion."
+					}
+				},
+				"USE_CASE": {
+					"0": "pages de paramètres",
+					"1": "tabs de détail produit",
+					"2": "accordions de FAQ",
+					"3": "sections de tableau de bord"
+				}
+			},
+			"MILESTONES": {
+				"HEADLINE": "Timeline et Étapes de Progression Angular | ng-hub-ui-milestones",
+				"DESCRIPTION": "Composant timeline et étapes de progression Angular : vertical ou horizontal, nœuds entièrement personnalisables, contenu à l'intérieur et à côté de chaque étape, thématisé via variables CSS.",
+				"FAQ": {
+					"0": {
+						"Q": "Comment construire un composant de chronologie en Angular ?",
+						"A": "Installez ng-hub-ui-milestones et donnez à HubMilestonesComponent une liste d'étapes. Il dessine le rail et les nœuds et marque l'état de chaque étape, ce qui convient au suivi de commande, aux parcours d'inscription et aux feuilles de route de projet, où la chronologie est présentationnelle plutôt qu'interactive."
+					},
+					"1": {
+						"Q": "La chronologie peut-elle être horizontale plutôt que verticale ?",
+						"A": "Oui. HubMilestonesOrientation bascule toute la disposition entre vertical et horizontal avec une seule entrée, et le même contenu d'étape fonctionne dans les deux — pratique quand la chronologie est une barre latérale sur bureau et une bande horizontale sur écran étroit."
+					},
+					"2": {
+						"Q": "Comment placer un contenu personnalisé dans chaque nœud de la chronologie ?",
+						"A": "HubMilestoneNodeDirective remplace le cercle de chaque étape : un nœud peut donc être un numéro, une icône, un avatar ou le balisage de votre choix. Un contenu riche peut aussi se placer à côté du nœud, ce qui permet d'attacher des dates, des descriptions ou des actions à une étape."
+					},
+					"3": {
+						"Q": "Quelle est la différence entre une chronologie et un stepper en Angular ?",
+						"A": "Une chronologie montre une progression déjà survenue ou prévue, et l'utilisateur ne la pilote pas. Un stepper guide quelqu'un à travers un formulaire ou un assistant en validant chaque étape. Utilisez ng-hub-ui-milestones pour afficher une séquence et ng-hub-ui-stepper quand l'utilisateur doit y avancer."
+					}
+				},
+				"INTRO": "Choisissez ce composant timeline Angular lorsque vous avez besoin d'un indicateur de progression présentationnel — parcours d'onboarding, suivi de commande, roadmaps — avec des nœuds personnalisés et des dispositions verticale et horizontale.",
+				"OVERVIEW": "ng-hub-ui-milestones dispose une série d'étapes reliées par une ligne, verticalement ou horizontalement. Chaque nœud est entièrement personnalisable — numéro, icône, avatar ou tout balisage à l'intérieur du cercle, plus un contenu riche à côté — et chaque couleur, taille et connecteur est une variable CSS, de sorte qu'il se re-thématise au runtime.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Vertical et horizontal",
+						"DESCRIPTION": "Un composant, deux orientations — empilez les étapes ou disposez-les en ligne avec un seul input."
+					},
+					"1": {
+						"TITLE": "Nœuds entièrement personnalisables",
+						"DESCRIPTION": "Placez un numéro, une icône, un avatar ou n'importe quel template dans le cercle, changez sa couleur et ajoutez du contenu à côté."
+					},
+					"2": {
+						"TITLE": "Theming via variables CSS",
+						"DESCRIPTION": "Les couleurs des nœuds, le dégradé du connecteur, les tailles et les espacements sont tous des tokens `--hub-milestone-*`."
+					}
+				},
+				"USE_CASE": {
+					"0": "parcours d'onboarding",
+					"1": "suivi de commande",
+					"2": "roadmaps",
+					"3": "étapes d'un processus"
+				}
+			},
+			"AVATAR": {
+				"HEADLINE": "Composant Avatar Angular | ng-hub-ui-avatar",
+				"DESCRIPTION": "Composant avatar Angular avec initiales, images de repli, badges de présence et variables CSS pour des interfaces réutilisables d'identité utilisateur.",
+				"INTRO": "Choisissez ce composant avatar Angular lorsque vous avez besoin d'une interface robuste d'identité utilisateur avec replis, initiales, plusieurs fournisseurs d'image et des points d'accroche de style adaptés aux design systems.",
+				"OVERVIEW": "ng-hub-ui-avatar aide les applications Angular à afficher les utilisateurs de manière cohérente dans les menus, les cartes de profil et les interfaces collaboratives. Il couvre les cas limites courants tels que les images manquantes, la génération d'initiales, les indicateurs de statut et les règles de taille partagées.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Système de repli fiable",
+						"DESCRIPTION": "Basculez entre sources d'image, initiales et placeholders sans laisser d'états d'avatar cassés en production."
+					},
+					"1": {
+						"TITLE": "Badges de présence et de statut",
+						"DESCRIPTION": "Affichez les états en ligne, occupé ou hors ligne dans les interfaces de chat, d'administration et de gestion d'équipe."
+					},
+					"2": {
+						"TITLE": "Utile dans les interfaces groupées",
+						"DESCRIPTION": "Construisez des groupes d'avatars, des piles d'utilisateurs et des schémas d'identité compacts avec un espacement et une taille cohérents."
+					}
+				},
+				"USE_CASE": {
+					"0": "menus utilisateur",
+					"1": "listes d'équipe",
+					"2": "fils d'activité",
+					"3": "cartes de profil"
+				}
+			},
+			"BOARD": {
+				"HEADLINE": "Composant Kanban Board Angular | ng-hub-ui-board",
+				"DESCRIPTION": "Composant Kanban Angular avec drag and drop, templates de carte, flux par colonnes et variables CSS pour les tableaux de bord métier.",
+				"FAQ": {
+					"0": {
+						"Q": "Comment construire un tableau Kanban avec glisser-déposer en Angular ?",
+						"A": "Installez ng-hub-ui-board et liez un objet Board décrivant ses colonnes et ses cartes. Déplacer des cartes entre colonnes et réordonner les colonnes fonctionne sans câblage supplémentaire ; les événements de glissement renvoient la BoardCard déplacée ainsi que ses BoardColumn d'origine et de destination, à vous de persister le changement dans votre store ou votre API."
+					},
+					"1": {
+						"Q": "Peut-on personnaliser l'apparence de chaque carte du Kanban ?",
+						"A": "Oui. ng-hub-ui-board rend les cartes via des templates que vous fournissez : une carte peut donc contenir n'importe quel balisage — avatars, étiquettes, progression, actions. HubBoardColumnHeaderDirective et HubBoardColumnFooterDirective font de même pour le haut et le bas de chaque colonne, sans toucher au comportement de glisser-déposer."
+					},
+					"2": {
+						"Q": "Comment savoir dans quelle colonne une carte a été déplacée ?",
+						"A": "Le tableau émet un BoardDragDropEvent à chaque dépôt. Il porte l'élément déplacé, la colonne d'où il vient et celle où il atterrit, ainsi que le nouvel index. C'est la charge utile que vous envoyez à votre backend ; le tableau ne persiste rien de lui-même."
+					},
+					"3": {
+						"Q": "Le tableau Kanban Angular fonctionne-t-il sur les appareils tactiles ?",
+						"A": "Oui. Le glissement repose sur les primitives de glisser-déposer du CDK Angular, qui gèrent la souris, le tactile et le stylet : le tableau se comporte donc de la même façon sur tablette et téléphone que sur bureau."
+					}
+				},
+				"INTRO": "Ce composant board Angular vous aide à livrer des flux de type Kanban avec drag and drop, des templates flexibles et des schémas d'interaction évolutifs pour de véritables outils métier.",
+				"OVERVIEW": "ng-hub-ui-board est conçu pour les produits Angular qui ont besoin de plus qu'une liste statique : suivi de tâches, pipelines CRM, flux de support ou tableaux de bord d'opérations internes. Il garde le rendu des cartes flexible tout en préservant un modèle d'interaction de board cohérent.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Flux avec drag and drop",
+						"DESCRIPTION": "Déplacez naturellement cartes et colonnes dans des interfaces Angular utilisées pour la planification, les opérations ou les processus CRM."
+					},
+					"1": {
+						"TITLE": "Templates de carte personnalisés",
+						"DESCRIPTION": "Affichez des cartes riches avec actions, badges, métadonnées et mises en page spécifiques au domaine."
+					},
+					"2": {
+						"TITLE": "Pensé pour les outils internes",
+						"DESCRIPTION": "Utile pour les tableaux d'équipe, les pipelines de livraison et les expériences de back-office opérationnel."
+					}
+				},
+				"USE_CASE": {
+					"0": "tableaux de tâches",
+					"1": "suivi de pipelines",
+					"2": "flux CRM",
+					"3": "tableaux de bord d'opérations"
+				}
+			},
+			"BREADCRUMBS": {
+				"HEADLINE": "Composant Breadcrumbs Angular | ng-hub-ui-breadcrumbs",
+				"DESCRIPTION": "Composant breadcrumbs Angular avec intégration au Router, templates personnalisés, support RTL et tokens de style flexibles.",
+				"INTRO": "Utilisez ces breadcrumbs Angular lorsque le contexte de route compte et que vous avez besoin d'une aide à la navigation qui fonctionne avec le Router Angular, les templates et des chemins de navigation structurés.",
+				"OVERVIEW": "ng-hub-ui-breadcrumbs offre aux applications Angular un composant breadcrumb sensible à la route pour les panneaux d'administration, les sites de documentation et les produits multi-niveaux. Il est utile lorsque la profondeur de navigation augmente et que les utilisateurs ont besoin de plus d'orientation qu'un simple bouton retour.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Intégré au Router Angular",
+						"DESCRIPTION": "Générez des fils de breadcrumb à partir de la structure des routes sans maintenir des libellés manuels sur chaque page."
+					},
+					"1": {
+						"TITLE": "Rendu personnalisable",
+						"DESCRIPTION": "Remplacez les séparateurs et les templates d'item pour correspondre aux schémas de navigation du produit et au style de la marque."
+					},
+					"2": {
+						"TITLE": "Fonctionne dans les mises en page complexes",
+						"DESCRIPTION": "Utile pour les back-offices, les bases de connaissances et les shells d'application imbriqués."
+					}
+				},
+				"USE_CASE": {
+					"0": "sites de documentation",
+					"1": "panneaux d'administration",
+					"2": "applications multi-niveaux",
+					"3": "navigation sensible à la route"
+				}
+			},
+			"CALENDAR": {
+				"HEADLINE": "Composant Calendar Angular | ng-hub-ui-calendar",
+				"DESCRIPTION": "Composant calendrier Angular avec vues d'événements, drag and drop, templates, internationalisation et variables CSS pour les interfaces de planification.",
+				"FAQ": {
+					"0": {
+						"Q": "Comment ajouter un calendrier d'événements à une application Angular ?",
+						"A": "Installez ng-hub-ui-calendar et passez-lui un tableau d'objets CalendarEvent avec leurs dates de début et de fin. HubCalendarComponent les affiche dans la vue choisie et prend en charge la grille du mois, la disposition de la semaine et le positionnement des événements : vous ne fournissez que les données et décidez de ce que fait un clic."
+					},
+					"1": {
+						"Q": "Le calendrier Angular propose-t-il une vue jour ?",
+						"A": "Oui. CalendarViewType couvre le mois, la semaine et le jour, et passer de l'une à l'autre tient en une seule entrée : les mêmes données d'événements s'affichent en vue mensuelle ou en agenda quotidien détaillé sans rien recharger ni transformer."
+					},
+					"2": {
+						"Q": "Les utilisateurs peuvent-ils déplacer les événements pour les reprogrammer ?",
+						"A": "Oui. Les événements peuvent être glissés vers un autre jour ou un autre créneau, et le composant émet le changement avec l'événement et ses nouvelles dates. La persistance vous revient : le calendrier reflète le déplacement à l'écran mais n'écrit jamais dans votre backend de lui-même."
+					},
+					"3": {
+						"Q": "Comment traduire un calendrier Angular dans une autre langue ?",
+						"A": "ng-hub-ui-calendar est internationalisé : les noms de mois, les libellés de jours et le premier jour de la semaine suivent la locale configurée, si bien que le même calendrier s'affiche correctement en espagnol, en allemand ou en japonais sans que vous fournissiez de chaînes traduites."
+					}
+				},
+				"INTRO": "Ce composant calendrier Angular est conçu pour les interfaces de planification qui ont besoin de vues configurables, de rendu d'événements, de drag and drop et d'un theming prêt pour la production.",
+				"OVERVIEW": "ng-hub-ui-calendar aide les équipes Angular à construire des outils de réservation, des agendas d'équipe et des écrans de planification avec une surface de calendrier réutilisable. Il prend en charge le type de rendu et d'interaction avec les événements attendu dans de véritables produits de planification.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Plusieurs vues de calendrier",
+						"DESCRIPTION": "Affichez des mises en page quotidiennes, hebdomadaires ou orientées planification sans construire une grille de calendrier de zéro."
+					},
+					"1": {
+						"TITLE": "Planification orientée événements",
+						"DESCRIPTION": "Utile pour les réservations, la planification d'équipe, l'allocation de ressources et les interfaces de gestion d'événements."
+					},
+					"2": {
+						"TITLE": "Interaction drag and drop",
+						"DESCRIPTION": "Déplacez et mettez à jour les événements directement dans le calendrier lorsque les flux nécessitent une manipulation rapide."
+					}
+				},
+				"USE_CASE": {
+					"0": "outils de réservation",
+					"1": "calendriers d'équipe",
+					"2": "planification de ressources",
+					"3": "gestion d'événements"
+				}
+			},
+			"HISTORY": {
+				"HEADLINE": "Store Undo Redo Angular | ng-hub-ui-history",
+				"DESCRIPTION": "Store undo et redo Angular avec des API compatibles Signals, des transactions, des limites et la prise en charge des formulaires réactifs.",
+				"INTRO": "Utilisez ce store history Angular lorsque vous avez besoin de undo et redo sur un état complexe sans introduire une bibliothèque de gestion d'état externe complète.",
+				"OVERVIEW": "ng-hub-ui-history est particulièrement utile dans les éditeurs Angular, les constructeurs de formulaires et les écrans de configuration où l'utilisateur s'attend à pouvoir revenir en arrière en toute sécurité. Il apporte les schémas undo et redo aux flux avec état sans imposer un choix d'architecture lourd.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Flux de undo et redo",
+						"DESCRIPTION": "Restaurez des snapshots d'état précédents dans les outils Angular où les modifications se produisent en continu."
+					},
+					"1": {
+						"TITLE": "Idéal pour les builders et éditeurs",
+						"DESCRIPTION": "Parfaitement adapté aux produits low-code, aux formulaires dynamiques et aux expériences riches en configuration."
+					},
+					"2": {
+						"TITLE": "Mises à jour d'état compatibles Signals",
+						"DESCRIPTION": "Gardez la réactivité d'Angular prévisible tout en offrant un historique des révisions aux utilisateurs."
+					}
+				},
+				"USE_CASE": {
+					"0": "éditeurs",
+					"1": "constructeurs de formulaires",
+					"2": "outils low-code",
+					"3": "interfaces de configuration"
+				}
+			},
+			"MODAL": {
+				"HEADLINE": "Composant Modal Angular | ng-hub-ui-modal",
+				"DESCRIPTION": "Composant modal Angular accessible avec empilement, mode plein écran, templates, gestion du clavier et variables CSS pour les applications standalone.",
+				"INTRO": "Ce composant modal Angular est conçu pour les équipes qui ont besoin de dialogues accessibles, de contenu composable, d'un contrôle piloté par service et d'un style adapté aux design systems dans les applications Angular standalone.",
+				"OVERVIEW": "ng-hub-ui-modal résout l'un des besoins UI les plus courants dans les produits Angular : ouvrir des dialogues qui restent robustes en production. Il couvre les modals empilés, les flux plein écran, la gestion du clavier, les projections et l'usage piloté par service sans transformer la logique modale en un problème propre à chaque projet.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Flux avec modals empilés",
+						"DESCRIPTION": "Ouvrez et gérez plusieurs dialogues en toute sécurité lorsque les produits nécessitent des décisions imbriquées ou des flux enchaînés."
+					},
+					"1": {
+						"TITLE": "Comportement de dialogue accessible",
+						"DESCRIPTION": "Inclut la gestion du focus, le support de la touche échap, le contrôle du backdrop et une sémantique de dialogue compatible ARIA."
+					},
+					"2": {
+						"TITLE": "Templates et contrôle par service",
+						"DESCRIPTION": "Fonctionne avec des templates et des composants dynamiques pour composer des flux de confirmation, de formulaire et de détail."
+					}
+				},
+				"USE_CASE": {
+					"0": "dialogues de confirmation",
+					"1": "formulaires en overlay",
+					"2": "panneaux de détail",
+					"3": "flux empilés"
+				}
+			},
+			"NAV": {
+				"HEADLINE": "Composant Menu de Navigation Angular | ng-hub-ui-nav",
+				"DESCRIPTION": "Composant de navigation Angular avec dropdowns, panneaux drill-down, repli responsive, intégration au Router et theming via variables CSS.",
+				"INTRO": "Optez pour ce composant de navigation Angular lorsque vous avez besoin de menus horizontaux, verticaux ou drill-down avec connaissance du Router et des schémas UX réutilisables.",
+				"OVERVIEW": "ng-hub-ui-nav est utile lorsqu'une application Angular dépasse un simple menu supérieur. Il couvre les barres latérales verticales, les arbres dropdown, la navigation imbriquée et les schémas de repli responsive que l'on retrouve dans les sites de documentation, les tableaux de bord et les shells d'entreprise.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Navigation horizontale et verticale",
+						"DESCRIPTION": "Gérez les barres supérieures, les barres latérales et les surfaces de navigation mixtes avec une seule bibliothèque Angular."
+					},
+					"1": {
+						"TITLE": "Menus imbriqués et drill-down",
+						"DESCRIPTION": "Utile pour les produits d'administration et les expériences de documentation où la profondeur d'information augmente vite."
+					},
+					"2": {
+						"TITLE": "Shells d'application responsive",
+						"DESCRIPTION": "Adaptez le comportement de navigation entre les barres latérales de bureau et les états de repli mobiles."
+					}
+				},
+				"USE_CASE": {
+					"0": "app shells",
+					"1": "tableaux de bord d'administration",
+					"2": "menus de documentation",
+					"3": "navigation responsive"
+				}
+			},
+			"PAGINABLE": {
+				"HEADLINE": "Tableau de Données et Listes Angular | ng-hub-ui-paginable",
+				"DESCRIPTION": "Tableau de données et liste paginée Angular avec pagination côté serveur, tri, filtrage, sélection, templates et variables CSS.",
+				"FAQ": {
+					"0": {
+						"Q": "Comment ajouter une pagination côté serveur à un tableau Angular ?",
+						"A": "ng-hub-ui-paginable est conçu pour les données côté serveur : au lieu d'un tableau, vous lui donnez une fonction qui reçoit la page courante, la taille de page, le tri et les filtres, et renvoie les lignes correspondantes ainsi que le total. Le composant garde le paginateur, l'état de tri et les filtres alignés sur ce que renvoie votre API."
+					},
+					"1": {
+						"Q": "Comment rendre l'en-tête d'un tableau fixe en Angular ?",
+						"A": "Marquez les colonnes à épingler et l'en-tête reste visible pendant que le corps défile. ng-hub-ui-paginable fournit aussi HubStickyColumnsDirective pour épingler des colonnes au début ou à la fin du tableau, ce qu'il faut pour les tableaux larges où la première colonne identifie la ligne."
+					},
+					"2": {
+						"Q": "Peut-on afficher un contenu personnalisé dans une cellule de tableau ?",
+						"A": "Oui. PaginableTableCellDirective vous laisse reprendre le rendu de n'importe quelle colonne : une cellule peut donc contenir des badges, des boutons, des liens ou un composant entier au lieu de texte brut. La colonne conserve son tri et son filtrage tandis que vous ne pilotez que ce qui est dessiné."
+					},
+					"3": {
+						"Q": "Comment ajouter des filtres par colonne à un tableau de données Angular ?",
+						"A": "Déclarez le filtre dans la définition de la colonne : PaginableTableHeader accepte des filtres texte, liste déroulante, booléen et intervalle par colonne. Les filtres actifs voyagent vers votre source de données avec la page et le tri, si bien que le filtrage fonctionne pareil que les données soient locales ou servies par une API."
+					}
+				},
+				"INTRO": "Utilisez cette bibliothèque de tableau de données et de liste paginée Angular lorsque vous avez besoin d'opérations côté serveur, de sélection, de filtrage et d'un rendu de liste réutilisable sans reconstruire la logique de tableau dans chaque projet.",
+				"OVERVIEW": "ng-hub-ui-paginable s'adresse aux équipes Angular qui construisent des panneaux d'administration, des résultats de recherche, des écrans CRM et des back-offices de gestion. Elle combine une couche réutilisable de tableau et de liste avec les opérations qui comptent le plus en production : pagination, filtrage, tri, sélection et templates personnalisés.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Prêt pour le côté serveur",
+						"DESCRIPTION": "Connectez pagination, tri et filtres aux API sans câblage personnalisé pour chaque vue de tableau."
+					},
+					"1": {
+						"TITLE": "Filtrage, tri et sélection",
+						"DESCRIPTION": "Couvre les interactions attendues dans de véritables produits d'administration et de back-office."
+					},
+					"2": {
+						"TITLE": "Tableau et liste dans un même noyau",
+						"DESCRIPTION": "Réutilisez la même base de gestion de données aussi bien dans des tableaux denses que dans des présentations de liste personnalisées."
+					}
+				},
+				"USE_CASE": {
+					"0": "tableaux d'administration",
+					"1": "datasets CRM",
+					"2": "résultats de recherche",
+					"3": "back-offices de gestion"
+				}
+			},
+			"PORTAL": {
+				"HEADLINE": "Portal et Rendu Overlay Angular | ng-hub-ui-portal",
+				"DESCRIPTION": "Bibliothèque portal pour Angular permettant le rendu dynamique de composants, templates et overlays en dehors de l'arbre DOM actuel avec contrôle du positionnement.",
+				"INTRO": "Cette bibliothèque portal Angular vous aide à rendre du contenu dans des overlays ou des conteneurs personnalisés tout en gardant le flux de données et l'intégration Angular prévisibles.",
+				"OVERVIEW": "ng-hub-ui-portal est utile lorsque les interfaces Angular ont besoin de détacher le rendu de l'arbre DOM actuel : drawers, panneaux flottants, conteneurs dynamiques ou UI basée sur des overlays. Elle offre aux équipes une base plus propre pour le contenu projeté et le rendu positionné.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Rendu en dehors du flux DOM",
+						"DESCRIPTION": "Utile lorsque le placement normal des composants ne suffit pas pour les overlays, les drawers ou l'UI flottante."
+					},
+					"1": {
+						"TITLE": "Templates et composants dynamiques",
+						"DESCRIPTION": "Projetez des chaînes, des templates ou des composants dans des conteneurs personnalisés avec un flux de données compatible Angular."
+					},
+					"2": {
+						"TITLE": "Base solide pour les overlays",
+						"DESCRIPTION": "Une base pratique pour les panneaux contextuels, les actions flottantes et les schémas de rendu détaché."
+					}
+				},
+				"USE_CASE": {
+					"0": "drawers",
+					"1": "panneaux flottants",
+					"2": "interfaces overlay",
+					"3": "conteneurs dynamiques"
+				}
+			},
+			"SKELETON": {
+				"HEADLINE": "Composant Skeleton Loader Angular | ng-hub-ui-skeleton",
+				"DESCRIPTION": "Placeholders de chargement skeleton Angular avec presets réutilisables, templates DSL inline, valeurs responsive et variables CSS pour les états shimmer.",
+				"FAQ": {
+					"0": {
+						"Q": "Comment afficher des squelettes de chargement en Angular ?",
+						"A": "Installez ng-hub-ui-skeleton et affichez HubSkeletonComponent pendant que vos données arrivent. Vous décrivez la forme de l'espace réservé — lignes, blocs, cercles — et il anime un miroitement jusqu'à ce que le contenu réel le remplace, ce qui empêche la mise en page de sauter à l'arrivée des données."
+					},
+					"1": {
+						"Q": "Peut-on réutiliser la même forme de squelette dans plusieurs composants ?",
+						"A": "Oui. HubSkeletonPreset enregistre une forme nommée une fois et la réutilise partout où cette disposition apparaît : l'espace réservé d'une carte est défini à un seul endroit au lieu d'être recopié dans chaque liste et chaque vue de détail qui affiche une carte."
+					},
+					"2": {
+						"Q": "Comment changer la couleur ou la vitesse du miroitement d'un squelette ?",
+						"A": "Chaque couleur, rayon et animation de ng-hub-ui-skeleton est une propriété personnalisée CSS : vous le restylez depuis votre propre feuille de style à l'exécution et il suit le mode sombre sans recompilation. HubSkeletonAppearance bascule entre le miroitement intégré et un espace réservé statique."
+					},
+					"3": {
+						"Q": "Faut-il utiliser un squelette ou un spinner pendant le chargement ?",
+						"A": "Utilisez un squelette quand vous connaissez la forme du contenu à venir, car il réserve la place et évite le décalage de mise en page que laisse un spinner. Le spinner convient mieux aux attentes courtes et indéterminées, quand la disposition finale est inconnue."
+					}
+				},
+				"INTRO": "Choisissez cette bibliothèque skeleton Angular lorsque les états de chargement doivent rester systématiques, réutilisables et prêts pour le produit, plutôt que de dégénérer en balisage shimmer ponctuel.",
+				"OVERVIEW": "ng-hub-ui-skeleton offre aux équipes Angular une manière structurée de concevoir des placeholders de chargement : des presets fournis pour les schémas d'UI courants, une DSL compacte pour les formes personnalisées et des valeurs responsive qui adaptent le même skeleton à plusieurs mises en page.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Catalogue de presets",
+						"DESCRIPTION": "Réutilisez des schémas skeleton tels que cards, lignes de tableau, tableaux de bord ou vues détail sans répéter le balisage de chargement."
+					},
+					"1": {
+						"TITLE": "DSL compacte",
+						"DESCRIPTION": "Décrivez des arbres skeleton imbriqués avec une syntaxe concise pensée pour les équipes produit qui itèrent vite."
+					},
+					"2": {
+						"TITLE": "États de chargement responsive",
+						"DESCRIPTION": "Ajustez colonnes, espacements et autres valeurs de mise en page par breakpoint sans dupliquer le template."
+					}
+				},
+				"USE_CASE": {
+					"0": "cards et feeds",
+					"1": "tableaux de données",
+					"2": "formulaires",
+					"3": "tableaux de bord"
+				}
+			},
+			"SORTABLE": {
+				"HEADLINE": "Liste Sortable et Drag & Drop Angular | ng-hub-ui-sortable",
+				"DESCRIPTION": "Utilitaires sortable et drag-and-drop Angular pour les tableaux, l'intégration FormArray, les flux avec Signals et les listes connectées.",
+				"INTRO": "Choisissez cette bibliothèque sortable Angular lorsque vous avez besoin d'un tri par drag and drop qui fonctionne avec les tableaux, les formulaires réactifs, les Signals et les builders d'interface complexes.",
+				"OVERVIEW": "ng-hub-ui-sortable aide les équipes Angular à réorganiser naturellement les données dans les produits où l'ordre compte : tâches, priorités, builders de mise en page ou blocs de formulaire dynamiques. Elle est particulièrement utile lorsque vous avez besoin de drag and drop sans perdre le contrôle des mises à jour de l'état.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Tri de tableaux et de listes",
+						"DESCRIPTION": "Réorganisez les données de domaine dans Angular sans réinventer le comportement de drag and drop."
+					},
+					"1": {
+						"TITLE": "Fonctionne avec FormArray",
+						"DESCRIPTION": "Parfaitement adapté aux formulaires dynamiques et aux interfaces configurables où les contrôles doivent se déplacer avec le modèle."
+					},
+					"2": {
+						"TITLE": "Flux drag-and-drop connectés",
+						"DESCRIPTION": "Gérez plusieurs listes, transferts et expériences de type builder avec une gestion d'état adaptée à Angular."
+					}
+				},
+				"USE_CASE": {
+					"0": "tri de tâches",
+					"1": "éditeurs avec FormArray",
+					"2": "builders de mise en page",
+					"3": "gestion des priorités"
+				}
+			},
+			"STEPPER": {
+				"HEADLINE": "Composant Stepper Angular | ng-hub-ui-stepper",
+				"DESCRIPTION": "Composant stepper Angular avec validation, modes d'orientation, contrôles personnalisés, i18n et theming via variables CSS.",
+				"INTRO": "Ce composant stepper Angular est utile pour les flux guidés en plusieurs étapes où la validation, les règles de progression et la marque doivent rester sous votre contrôle.",
+				"OVERVIEW": "ng-hub-ui-stepper aide les applications Angular à structurer l'onboarding, le paiement et les formulaires de type wizard. Il offre aux équipes une manière réutilisable de contrôler la progression entre les étapes, la validation et la logique de navigation sans intégrer ces règles à la main dans chaque flux.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Flux guidés en plusieurs étapes",
+						"DESCRIPTION": "Utile pour les wizards, l'onboarding et les processus séquentiels qui nécessitent de guider l'utilisateur."
+					},
+					"1": {
+						"TITLE": "Progression avec validation",
+						"DESCRIPTION": "Contrôlez quand l'utilisateur peut avancer et reflétez clairement les changements d'état à travers les étapes."
+					},
+					"2": {
+						"TITLE": "Adapté aux flux de produit personnalisés",
+						"DESCRIPTION": "Adaptez les contrôles, les libellés et les visuels à votre propre langage de design au lieu d'accepter une UI de wizard par défaut."
+					}
+				},
+				"USE_CASE": {
+					"0": "flux de paiement",
+					"1": "formulaires wizard",
+					"2": "onboarding",
+					"3": "étapes de configuration"
+				}
+			},
+			"UTILS": {
+				"HEADLINE": "Bibliothèque Utilitaire Angular | ng-hub-ui-utils",
+				"DESCRIPTION": "Bibliothèque utilitaire Angular avec pipes, gestion du focus, overlays, transitions et helpers de traduction partagés entre les composants UI réutilisables.",
+				"INTRO": "Utilisez cette bibliothèque utilitaire Angular pour éviter de réécrire les briques de bas niveau derrière les overlays, les focus traps, les helpers de traduction et les utilitaires de template courants.",
+				"OVERVIEW": "ng-hub-ui-utils est la base partagée derrière de nombreux schémas d'UI réutilisables. Elle est utile lorsque les équipes Angular veulent centraliser les briques de bas niveau qui maintiennent cohérents les systèmes d'overlay, la gestion du focus, les pipes et les helpers de traduction entre les projets.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Primitives d'overlay et de popup",
+						"DESCRIPTION": "Fournit les briques de construction de bas niveau nécessaires aux interfaces flottantes et aux schémas de rendu détaché."
+					},
+					"1": {
+						"TITLE": "Utilitaires de gestion du focus",
+						"DESCRIPTION": "Gérez les focus traps et les schémas d'interaction sûrs au clavier dans les dialogues et les overlays."
+					},
+					"2": {
+						"TITLE": "Pipes et helpers de traduction",
+						"DESCRIPTION": "Centralisez les helpers de template, le formatage et les utilitaires légers de traduction utilisés par les composants Angular."
+					}
+				},
+				"USE_CASE": {
+					"0": "infrastructure UI partagée",
+					"1": "systèmes d'overlay",
+					"2": "gestion du focus",
+					"3": "helpers de template"
+				}
+			},
+			"TOAST": {
+				"HEADLINE": "Service de Notifications Toast Angular | ng-hub-ui-toast",
+				"DESCRIPTION": "Service de notifications toast Angular standalone avec Signals, observables de cycle de vie, barre de progression, six positions et thématisation complète par variables CSS.",
+				"INTRO": "Utilisez ng-hub-ui-toast lorsque vous avez besoin d'une couche de notifications impérative sans configuration qui coexiste avec l'architecture standalone d'Angular et vous offre par défaut des hooks de cycle de vie basés sur des Observables.",
+				"OVERVIEW": "ng-hub-ui-toast est un service toast piloté par signals pour les applications standalone Angular 22+. Appelez success(), error(), warning() ou info() depuis n'importe quel composant ou service ; le conteneur d'overlay est monté de façon différée la première fois qu'une notification est déclenchée. Chaque appel renvoie un HubToastRef avec les observables onShown, onHidden et onTap ainsi que les méthodes manualClose() / resetTimeout(). Configurez les valeurs par défaut globalement avec provideToast() et surchargez n'importe quelle option par appel.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Pile pilotée par signals",
+						"DESCRIPTION": "La liste des toasts actifs est un signal<HubToastData[]>, offrant un rendu compatible OnPush sans aucun appel manuel à la détection de changements."
+					},
+					"1": {
+						"TITLE": "Observables de cycle de vie",
+						"DESCRIPTION": "HubToastRef expose les observables RxJS onShown, onHidden et onTap pour un contrôle réactif complet."
+					},
+					"2": {
+						"TITLE": "Thématisation par variables CSS",
+						"DESCRIPTION": "Chaque couleur, rayon, ombre et dimension est une propriété personnalisée --hub-toast-* héritant du système de design."
+					}
+				},
+				"USE_CASE": {
+					"0": "retour sur la soumission de formulaires",
+					"1": "notifications de synchronisation en arrière-plan",
+					"2": "alertes d'erreur",
+					"3": "avertissements d'expiration de session"
+				}
+			},
+			"BUTTONS": {
+				"HEADLINE": "Bibliothèque de boutons Angular | ng-hub-ui-buttons",
+				"DESCRIPTION": "Système de boutons complet pour Angular 22 avec API à base de signals — boutons standard, FAB, speed dial et dropdown en overlay. Zéro dépendance au-delà de ng-hub-ui-utils.",
+				"INTRO": "Utilisez ng-hub-ui-buttons lorsque vous avez besoin d'un écosystème de boutons unifié et thémable couvrant tous les patterns d'interaction — du CTA en ligne aux overlays d'action flottants — avec une seule API cohérente basée sur Angular Signals.",
+				"OVERVIEW": "ng-hub-ui-buttons est une bibliothèque de boutons sans dépendance pour les applications Angular 22+ standalone. Elle fournit HubButtonComponent — utilisable comme <hub-button> ou comme attribut sur un hôte natif (<button hubButton>) (cinq variantes × six couleurs × quatre tailles) — HubFabComponent (neuf positions fixes), HubSpeedDialComponent et HubDropdownDirective (basée sur overlay, propulsée par l'OverlayService de ng-hub-ui-utils). Chaque propriété visuelle est une propriété personnalisée CSS : tout le système se thème avec une seule surcharge de feuille de style.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "API basée sur les signals",
+						"DESCRIPTION": "Tous les inputs utilisent Angular Signals (input(), model()) — pas de décorateurs @Input, entièrement compatible OnPush."
+					},
+					"1": {
+						"TITLE": "Cinq variantes de bouton",
+						"DESCRIPTION": "solid, outline, soft, ghost et link — chacune disponible en six couleurs sémantiques et quatre tailles."
+					},
+					"2": {
+						"TITLE": "Dropdown en overlay",
+						"DESCRIPTION": "HubDropdownDirective attache n'importe quel ng-template à n'importe quel élément déclencheur via l'OverlayService — sans CDK."
+					}
+				},
+				"USE_CASE": {
+					"0": "boutons d'appel à l'action principaux",
+					"1": "menus d'action flottants",
+					"2": "dropdowns de menu contextuel",
+					"3": "actions icône seule en barre d'outils"
+				}
+			},
+			"BADGES": {
+				"HEADLINE": "Bibliothèque de badges Angular | ng-hub-ui-badges",
+				"DESCRIPTION": "Badges Angular sémantiques pour statuts, compteurs et tags de filtre supprimables, avec variables CSS et mixins SCSS publics pour des familles de couleurs personnalisées.",
+				"INTRO": "Utilisez ng-hub-ui-badges lorsque votre application Angular a besoin d'étiquettes de statut sémantiques compactes, de compteurs et de filtres révocables sans retomber sur des spans ponctuels ou les classes badge de Bootstrap.",
+				"OVERVIEW": "ng-hub-ui-badges offre aux équipes Angular un système de badges petit mais complet : couleurs sémantiques, plusieurs surfaces visuelles, échelles de taille et de forme, points de statut, icônes optionnelles et tags supprimables. Tout est piloté par les familles de tokens partagées `--hub-sys-color-*` et les propriétés personnalisées exposées `--hub-badge-*`, si bien que la famille de composants s'intègre naturellement dans une base de code orientée design system.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Une primitive, de nombreux patterns de badge",
+						"DESCRIPTION": "Utilisez le même composant pour les statuts, les compteurs, les pills de métadonnées et les tags de filtres actifs."
+					},
+					"1": {
+						"TITLE": "Tags de filtre supprimables",
+						"DESCRIPTION": "Ajoutez une action de fermeture accessible au clavier lorsque le badge représente un filtre actif ou un token de portée limitée."
+					},
+					"2": {
+						"TITLE": "Thématisation sémantique ouverte",
+						"DESCRIPTION": "Les couleurs intégrées utilisent les tokens du design system et les noms sémantiques personnalisés se branchent via les mixins SCSS publics."
+					}
+				},
+				"USE_CASE": {
+					"0": "statuts de workflow",
+					"1": "métadonnées de tableaux et de cartes",
+					"2": "barres de filtres actifs",
+					"3": "compteurs de notifications"
+				}
+			},
+			"ICONS": {
+				"HEADLINE": "Bibliothèque d'icônes Angular (agnostique) | ng-hub-ui-icons",
+				"DESCRIPTION": "Icônes Angular indépendantes du jeu : affichez Font Awesome, Bootstrap Icons, Material Symbols, Solar ou vos propres SVG via une seule API <hub-icon> / [hubIcon], thématisées par variables CSS.",
+				"INTRO": "Utilisez cette bibliothèque d'icônes Angular pour disposer d'une seule API pour tout jeu d'icônes — sans dépendance forte à un pack précis, en mélangeant les jeux et en les thématisant via les variables CSS --hub-icon-*.",
+				"OVERVIEW": "ng-hub-ui-icons dissocie la façon de référencer une icône du jeu qui la dessine. Un pack est un résolveur pur du nom vers une spec de rendu ; la bibliothèque fournit des fabriques et des presets pour Font Awesome, Bootstrap Icons, Material Symbols et Solar, sans en empaqueter aucun. Le composant et la directive affichent des icônes par classe, ligature, sprite, SVG en ligne ou image, toutes thématisées uniformément via les tokens --hub-icon-*.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Indépendant du jeu",
+						"DESCRIPTION": "Font Awesome, Bootstrap Icons, Material Symbols, Solar, sprites, SVG en ligne et images derrière une seule API."
+					},
+					"1": {
+						"TITLE": "Aucune dépendance d'icônes",
+						"DESCRIPTION": "Aucune police ni SVG empaqueté — vous chargez le jeu, la bibliothèque le met en forme et le thématise."
+					},
+					"2": {
+						"TITLE": "Thématisation uniforme",
+						"DESCRIPTION": "Un seul jeu de tokens --hub-icon-* thématise chaque pack de façon identique, y compris les axes de police variable de Material Symbols."
+					}
+				},
+				"USE_CASE": {
+					"0": "Utilisez une seule API d'icônes dans une app qui mélange Font Awesome et Material Symbols.",
+					"1": "Thématisez la taille et la couleur de chaque icône via des variables CSS, avec mode sombre à l'exécution.",
+					"2": "Placez un <hub-icon> dans n'importe quel composant — boutons, menus, liens — par projection, sans adaptateur.",
+					"3": "Enregistrez votre propre pack SVG pour livrer des icônes de marque via le même composant."
+				}
+			},
+			"SIGNATURE": {
+				"HEADLINE": "Champ de signature Angular | ng-hub-ui-signature",
+				"DESCRIPTION": "Champ de signature Angular accessible qui stocke les tracés de souris, tactile et stylet comme valeurs SVG évolutives, avec annulation, rétablissement et export PNG.",
+				"INTRO": "Utilisez ng-hub-ui-signature lorsqu'un formulaire a besoin d'une surface de signature réutilisable, accessible et portable.",
+				"OVERVIEW": "ng-hub-ui-signature est un champ Angular standalone basé sur Pointer Events. Il capture les tracés de souris, tactile et stylet comme valeur SVG ControlValueAccessor, restaure les signatures enregistrées et propose effacement, annulation, rétablissement et export PNG.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Valeur SVG évolutive",
+						"DESCRIPTION": "Conservez une signature nette et indépendante de l'appareil."
+					},
+					"1": {
+						"TITLE": "Entrée par pointeur",
+						"DESCRIPTION": "Une surface pour souris, tactile et stylet."
+					}
+				},
+				"USE_CASE": {
+					"0": "acceptation de contrats",
+					"1": "confirmation de livraison",
+					"2": "formulaires de consentement",
+					"3": "flux d'approbation"
+				}
+			},
+			"METRICS": {
+				"HEADLINE": "Angular Progress, Meter et Ring | ng-hub-ui-metrics",
+				"DESCRIPTION": "Primitives de métriques Angular en lecture seule — une barre de progression linéaire, une jauge graduée et une jauge circulaire en anneau — pilotées par les tokens du design-system avec une sémantique ARIA complète.",
+				"INTRO": "Utilisez ng-hub-ui-metrics lorsque votre application Angular a besoin de visualiser une valeur unique — progression d'un envoi, capacité, un score ou une note — sans intégrer une bibliothèque de graphiques complète.",
+				"OVERVIEW": "ng-hub-ui-metrics est une petite famille de primitives de présentation. `hub-progress` affiche une barre linéaire déterminée ou indéterminée ; `hub-meter` gradue un scalaire par rapport à un plateau `[low, high]` en suivant la sémantique HTML `<meter>` ; `hub-ring` dessine un score normalisé sous forme d'arc SVG avec une légende projetée optionnelle. Aucun des composants ne code une couleur en dur — ils lisent les familles partagées `--hub-sys-color-*` et exposent les propriétés personnalisées `--hub-progress-*`, `--hub-meter-*` et `--hub-ring-*` pour la thématisation.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Barre de progression linéaire",
+						"DESCRIPTION": "Progression déterminée ou indéterminée avec une échelle de tailles, des couleurs sémantiques et une étiquette de valeur optionnelle."
+					},
+					"1": {
+						"TITLE": "Jauge graduée",
+						"DESCRIPTION": "Une jauge qui se recolore par plage par rapport au point optimum, en suivant la sémantique HTML <meter>."
+					},
+					"2": {
+						"TITLE": "Jauge circulaire en anneau",
+						"DESCRIPTION": "Un anneau SVG affichant un score normalisé, avec des seuils de couleur et une légende projetée via le contenu."
+					}
+				},
+				"USE_CASE": {
+					"0": "progression des envois et des tâches",
+					"1": "jauges de disque, de mémoire et de capacité",
+					"2": "scores de qualité et notes",
+					"3": "anneaux de KPI pour tableaux de bord"
+				}
+			},
+			"LOADING": {
+				"HEADLINE": "Spinner et overlay de chargement Angular | ng-hub-ui-loading",
+				"DESCRIPTION": "Composant de chargement Angular avec indicateurs spinner, dots, bars, pulse et ring en modes inline, overlay et fullscreen, ainsi qu'un service pour les overlays bloquants à l'échelle de l'application.",
+				"FAQ": {
+					"0": {
+						"Q": "Comment afficher un spinner ou une surcouche de chargement en Angular ?",
+						"A": "Installez ng-hub-ui-loading et affichez `<hub-loading>` pendant le travail. Par défaut, c'est un bloc inline dans le flux du document ; mettez `mode` à `overlay` pour couvrir le conteneur environnant, ou à `fullscreen` pour bloquer la fenêtre. Pour une surcouche à l'échelle de l'application, injectez `HubLoadingService` et appelez `show()` et `hide()` autour de l'opération."
+					},
+					"1": {
+						"Q": "Faut-il un spinner, un squelette ou une barre de progression ?",
+						"A": "Prenez ng-hub-ui-skeleton quand vous connaissez déjà la forme du contenu à venir, car l'espace réservé retient la place et évite le décalage de mise en page. Prenez ng-hub-ui-loading quand l'attente est indéterminée ou que l'écran doit être bloqué — un formulaire soumis, un rapport en cours de génération. Quand vous pouvez annoncer une progression réelle, ng-hub-ui-metrics dessine des barres, des jauges et des anneaux déterminés."
+					},
+					"2": {
+						"Q": "Comment changer la couleur de l'indicateur de chargement Angular ?",
+						"A": "Renseignez l'entrée `color`, qui accepte un nom sémantique, un littéral hexadécimal, une valeur `oklch()` ou une référence `var(...)` à l'un de vos tokens. Pour un changement permanent, chaque couleur, taille et durée est une propriété personnalisée `--hub-loading-*` que vous pouvez redéfinir depuis votre feuille de style, et le mixin Sass `hub-loading-theme()` restyle tout le composant au même endroit. L'entrée `image` remplace l'indicateur par un logo quand l'état de chargement doit porter la marque."
+					},
+					"3": {
+						"Q": "Le composant de chargement Angular est-il accessible et compatible SSR ?",
+						"A": "Oui. L'hôte est une région live — `role=status`, `aria-live=polite` et `aria-busy` — avec une entrée `ariaLabel` pour le texte annoncé, et toutes les animations sont désactivées sous `prefers-reduced-motion`. Sur le serveur, il n'y a pas de DOM où se monter : `HubLoadingService` ne garde que son compteur et le rendu côté serveur reste sûr."
+					},
+					"4": {
+						"Q": "Comment ajouter une barre de chargement de page sous la barre de navigation en Angular ?",
+						"A": "Affichez `<hub-loading-bar mode=\"overlay\" placement=\"bottom\">` dans une barre de navigation en `position: relative`, ou utilisez `mode=\"fixed\"` avec `--hub-loading-bar-offset` quand la barre de navigation est elle aussi fixée. Ajoutez ensuite `provideHubLoadingBarRouter()` pour que la barre dure le temps de chaque navigation, y compris celle qu'un guard rejette, et `hubLoadingBarInterceptor` pour qu'elle couvre aussi les requêtes lancées à l'arrivée de la page. La barre compte les références de ses appelants : les deux se composent sans se connaître, et `withoutHubLoadingBar()` garde les sondages d'arrière-plan hors du compte."
+					}
+				},
+				"INTRO": "Utilisez ng-hub-ui-loading lorsqu'une section, un conteneur ou l'application entière doit signaler un traitement en cours, sans que chaque vue fabrique son propre spinner et son propre voile.",
+				"OVERVIEW": "ng-hub-ui-loading est un composant Angular standalone qui affiche un état de chargement indéterminé selon trois modes : `inline` comme bloc dans le flux du document, `overlay` positionné en absolu au-dessus de son conteneur parent et `fullscreen` fixé au viewport. Il embarque cinq indicateurs en CSS pur — spinner, dots, bars, pulse et ring — en trois tailles, un message optionnel et une image de marque optionnelle animée en `none`, `spin` ou `pulse`. `HubLoadingService` pilote l'overlay plein écran global par programmation et compte les appelants concurrents par référence, de sorte que des requêtes parallèles ne se retirent jamais l'overlay l'une à l'autre. Chaque couleur, taille et durée est une propriété personnalisée `--hub-loading-*`, complétée par le mixin Sass `hub-loading-theme()` pour tout restyler d'un coup ; le composant est accessible par défaut via `role=status`, `aria-live=polite` et `aria-busy`, et respecte `prefers-reduced-motion`. À côté, `hub-loading-bar` signale que la page elle-même est en route — la fine bande sous la barre de navigation, rendue dans le flux du document, accrochée à une barre de navigation positionnée ou fixée au viewport à `--hub-loading-bar-offset`. `HubLoadingBarService` compte ses appelants de la même façon, respecte un délai de grâce pour qu’un travail rapide ne fasse clignoter aucune barre, et avance vers une fin qu’il n’atteint jamais seul : seul `complete()` peut afficher 100 %. `provideHubLoadingBarRouter()` et `hubLoadingBarInterceptor` la branchent à la navigation et à HTTP sans que l’un connaisse l’autre.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Bloc inline",
+						"DESCRIPTION": "Un bloc dans le flux du document qui réserve son propre espace, avec cinq indicateurs en CSS pur — spinner, dots, bars, pulse et ring — en trois tailles."
+					},
+					"1": {
+						"TITLE": "Overlay et fullscreen",
+						"DESCRIPTION": "Couvrez un conteneur positionné avec un backdrop optionnel, ou bloquez tout le viewport depuis HubLoadingService, dont le comptage de références absorbe les appels concurrents."
+					},
+					"2": {
+						"TITLE": "Marque et thématisation",
+						"DESCRIPTION": "Définissez l'accent par un nom sémantique, une valeur hex, oklch() ou var(...), remplacez l'indicateur par un logo ou restylez l'ensemble via les variables --hub-loading-*."
+					},
+					"3": {
+						"TITLE": "Barre de progression de page",
+						"DESCRIPTION": "La fine bande sous la barre de navigation, branchée au router et à HttpClient : elle attend avant d’apparaître, compte ses appelants et ne se déclare jamais terminée avant de l’être."
+					}
+				},
+				"USE_CASE": {
+					"0": "chargement des routes et des données",
+					"1": "overlays de soumission de formulaire",
+					"2": "opérations bloquantes à l'échelle de l'application",
+					"3": "écrans de démarrage aux couleurs de la marque",
+					"4": "barres de progression de page sous la navigation"
+				}
+			},
+			"ACTION_SHEET": {
+				"HEADLINE": "Feuille d'actions Angular | ng-hub-ui-action-sheet",
+				"DESCRIPTION": "Feuille d'actions Angular ouverte depuis un service : actions avec rôles, à plat ou groupées, handlers pouvant refuser la fermeture, et fermeture par l'arrière-plan, le clavier ou un glissement.",
+				"INTRO": "Utilisez ng-hub-ui-action-sheet lorsqu'une ligne ou un bouton de barre d'outils doit proposer quelques actions par-dessus l'écran courant, sans qu'un composant de menu reste dans la page pour une feuille que personne n'a ouverte.",
+				"OVERVIEW": "ng-hub-ui-action-sheet est une bibliothèque Angular standalone qui ouvre une feuille depuis un service et se résout une seule fois avec le choix du lecteur. Les actions portent un rôle : `cancel` est placée à la fin, où qu'elle soit déclarée, et `destructive` prend la couleur de danger. Elles peuvent être listées à plat ou sous des titres de groupe, et un handler peut refuser la fermeture, ce qui laisse passer une confirmation avant que la feuille disparaisse. Il y a trois sorties — le fond, `Escape` et un glissement de la feuille vers le bas —, chacune signale son propre rôle et exécute d'abord le handler de l'action d'annulation. La feuille est un `role=\"dialog\"` avec `aria-modal`, nommée par son en-tête, et le focus y entre à l'ouverture.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Ouverte depuis un service",
+						"DESCRIPTION": "Rien dans la page tant que la feuille est fermée. open() la monte, et l'appel se résout une fois avec l'action choisie ou la manière dont elle a été fermée."
+					},
+					"1": {
+						"TITLE": "Rôles et handlers",
+						"DESCRIPTION": "Annuler reste à part à la fin, l'action destructive se lit en couleur de danger, et un handler qui renvoie false garde la feuille ouverte si le travail a échoué."
+					},
+					"2": {
+						"TITLE": "Accessible et thématisable",
+						"DESCRIPTION": "Une modale au focus piégé puis rendu à son ouvreur, et chaque décision visuelle derrière une variable --hub-action-sheet-*."
+					}
+				}
+			},
+			"INSTALLER": {
+				"HEADLINE": "Installer les bibliothèques Angular avec ng add | ng-hub-ui",
+				"DESCRIPTION": "L'installateur de la famille ng-hub-ui : une commande ng add qui demande quelles bibliothèques vous voulez, résout les paquets dont chacune a besoin et les écrit dans votre manifeste.",
+				"INTRO": "Utilisez ng-hub-ui lorsque vous ajoutez une ou plusieurs bibliothèques de la famille à un espace de travail Angular et préférez ne pas chercher à la main quel paquet pair chacune réclame.",
+				"OVERVIEW": "ng-hub-ui est le paquet parapluie de la famille, et le seul publié qui ne livre aucun composant. Ce qu'il livre, c'est un schéma ng-add. Il propose les 25 bibliothèques du catalogue dans une liste à choix multiple, ou prend leurs identifiants directement dans une option --libraries, et résout la sélection en paquets npm réellement nécessaires — les pairs dont dépend chaque bibliothèque et le seul paquet externe, sortablejs, qui n'est pas de nous. La liste résolue est écrite dans dependencies à la racine de l'espace de travail, sans jamais écraser une clé déjà présente, puis confiée au gestionnaire de paquets détecté par le CLI Angular. Sa portée s'arrête au câblage des dépendances : il ne touche pas angular.json, n'enregistre pas de fournisseurs, n'importe pas de composants et n'ajoute pas de feuilles de style.",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "Une seule commande",
+						"DESCRIPTION": "ng add ng-hub-ui récupère le paquet, ouvre une liste à choix multiple des 25 bibliothèques du catalogue et écrit celles retenues dans votre manifeste."
+					},
+					"1": {
+						"TITLE": "Options et scripts",
+						"DESCRIPTION": "--libraries accepte une liste séparée par des virgules ou l'option répétée, et --skip-install s'arrête au manifeste : une CI peut lancer la même installation."
+					},
+					"2": {
+						"TITLE": "Dépendances résolues",
+						"DESCRIPTION": "Les pairs sont ajoutés automatiquement et en cascade, chaque intervalle part au-dessus de ce que la famille exige, et une version figée n'est jamais réécrite."
+					}
+				},
+				"USE_CASE": {
+					"0": "Ajouter plusieurs bibliothèques ng-hub-ui à un espace de travail Angular en une fois",
+					"1": "Scripter la mise en place initiale d'un projet en CI sans répondre à une invite",
+					"2": "Laisser calculer pour vous les paquets pairs dont chaque bibliothèque a besoin"
+				},
+				"FAQ": {
+					"0": {
+						"Q": "Comment installer ng-hub-ui dans un projet Angular ?",
+						"A": "Lancez ng add ng-hub-ui. Le CLI Angular récupère le paquet d'installation et exécute son schéma ng-add, qui demande lesquelles des 25 bibliothèques du catalogue vous voulez, écrit les paquets résolus dans dependencies et laisse votre gestionnaire de paquets les installer."
+					},
+					"1": {
+						"Q": "Puis-je installer les bibliothèques sans l'invite interactive ?",
+						"A": "Oui. Passez les identifiants à --libraries, séparés par des virgules (--libraries=modal,paginable) ou en répétant l'option (--libraries=modal --libraries=paginable). Ajoutez --skip-install pour mettre à jour package.json et vous laisser l'installation."
+					},
+					"2": {
+						"Q": "Que modifie le schéma ng-hub-ui dans mon projet ?",
+						"A": "Uniquement le bloc dependencies du package.json racine, et uniquement les clés qui n'y sont pas déjà. Il ne touche pas angular.json, n'enregistre pas de fournisseurs, n'importe pas de composants et n'ajoute pas de feuilles de style."
+					}
+				}
+			}
+		},
+		"PAGE": {
+			"HOME": {
+				"TITLE": "Bibliothèque de composants Angular pour applications standalone | Hub UI",
+				"DESCRIPTION": "Composants UI Angular réutilisables : standalone, APIs compatibles Signals, variables CSS et accessibilité. Paquets NPM pour modales, tableaux et navigation."
+			},
+			"ABOUT": {
+				"TITLE": "Carlos Morcillo | Bibliothèques UI Angular et design systems",
+				"DESCRIPTION": "Carlos Morcillo conçoit des bibliothèques de composants Angular, des design systems et des outils pour développeurs, axés sur l’accessibilité, l’architecture réutilisable et une documentation prête pour la production."
+			},
+			"TOKENS": {
+				"TITLE": "Référence des design tokens Angular | Hub UI",
+				"DESCRIPTION": "Référence complète des design tokens --hub-* de ng-hub-ui : variables de couleur, typographie, espacement, rayons et ombres avec valeurs claires et sombres."
+			},
+			"THEMING": {
+				"TITLE": "Thématiser des composants Angular avec variables CSS | Hub UI",
+				"DESCRIPTION": "Thématisez les composants ng-hub-ui avec des variables CSS : couleurs d’accent, mode sombre, tokens par composant et thèmes prêts à l’emploi — sans recompilation Sass."
+			},
+			"DESIGN_SYSTEM": {
+				"TITLE": "Guide du design system pour apps Angular | Hub UI",
+				"DESCRIPTION": "Le design system ng-hub-ui : tokens de référence et de système, reset CSS natif, utilitaires compatibles Bootstrap et une architecture de thématisation pour les apps Angular."
+			},
+			"I18N": {
+				"TITLE": "Traduire les composants Angular | i18n Hub UI",
+				"DESCRIPTION": "Traduisez les composants ng-hub-ui avec votre bibliothèque i18n Angular : transloco, ngx-translate ou la vôtre, via un seul adaptateur et l'espace de noms HUBUI."
+			}
+		},
+		"TAB": {
+			"API": {
+				"TITLE_SUFFIX": "API",
+				"DESCRIPTION": "{symbols} — référence API complète de {name} : inputs, outputs, types et templates.",
+				"DESCRIPTION_PLAIN": "Référence API de {name} : inputs, outputs, types et templates."
+			},
+			"STYLES": {
+				"TITLE_SUFFIX": "Styles",
+				"DESCRIPTION": "{name} styles : mixins de thème SCSS, propriétés CSS personnalisées et recettes de personnalisation."
+			},
+			"EXAMPLES": {
+				"TITLE_SUFFIX": "Exemples",
+				"DESCRIPTION": "{name} : exemples interactifs et démos d’implémentation."
+			},
+			"PLAYGROUND": {
+				"TITLE_SUFFIX": "Playground",
+				"DESCRIPTION": "{name} : playground interactif — configurez chaque input et prévisualisez le composant en direct."
+			}
+		}
+	}
+}

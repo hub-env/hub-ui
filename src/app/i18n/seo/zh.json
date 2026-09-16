@@ -1,0 +1,821 @@
+{
+	"SEO": {
+		"LIBRARY": {
+			"FORMS": {
+				"HEADLINE": "Angular 表单库 | ng-hub-ui-forms",
+				"DESCRIPTION": "无障碍的 Angular 表单字段（input、textarea、滑块、select、日期选择器），在控件、组和表单级别自动显示校验错误，支持响应式表单和 CSS 变量。",
+				"INTRO": "当你需要无障碍的表单字段，并希望自动显示校验错误、使用 fork 版 ng-select、从零构建的日期选择器以及运行时 CSS 变量主题（无需 Bootstrap）时，请使用这个 Angular 表单库。",
+				"OVERVIEW": "ng-hub-ui-forms 将每个表单字段统一在同一套契约之下：用响应式表单绑定它，对应的错误就会在控件、组和表单级别自动显示。所有字段都是 standalone、OnPush 且原生支持 Signals；select 是一个持续维护的 ng-select fork，并采用 hub token 进行主题化；日期选择器基于原生 Date 和 Angular CDK overlay 构建。一切都通过规范的 --hub-* CSS 变量进行主题化，并支持运行时暗色模式。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "自动错误显示",
+						"DESCRIPTION": "控件、组和表单级别（跨字段）的错误会自动渲染，无需手写 *ngIf 链。"
+					},
+					"1": {
+						"TITLE": "丰富的选择能力",
+						"DESCRIPTION": "fork 版 ng-select（下拉、搜索、标签），以及面向同一取值的按钮、单选和复选格式。"
+					},
+					"2": {
+						"TITLE": "日期与区间选择器",
+						"DESCRIPTION": "从零构建的日期选择器：单选 / 区间、min/max、键盘导航和完整 i18n，不依赖任何日期库。"
+					}
+				},
+				"USE_CASE": {
+					"0": "注册和结账表单",
+					"1": "设置页面",
+					"2": "筛选与搜索",
+					"3": "管理后台仪表盘"
+				}
+			},
+			"PANELS": {
+				"HEADLINE": "Angular 标签、Pills 与手风琴组件 | ng-hub-ui-panels",
+				"DESCRIPTION": "Angular 内容面板组件，可渲染为标签、pills 或手风琴，支持路由、响应式表单、键盘导航和 CSS 变量。",
+				"INTRO": "当你需要用同一套 API 实现标签、pills 和手风琴模式，并支持路由面板、响应式表单绑定、键盘导航和 CSS 变量主题时，请使用这个 Angular 面板组件。",
+				"OVERVIEW": "ng-hub-ui-panels 将标签、pills 和手风琴统一到一个基于 Signals 构建的 standalone Angular 组件中。它支持路由面板、ControlValueAccessor 表单绑定、可滚动和垂直条带，以及完整的 --hub-panels-* 主题化。它取代了 ng-hub-ui-accordion，替换了后者的手风琴视图，同时保留 --hub-accordion-* token 契约。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "标签、pills 和手风琴",
+						"DESCRIPTION": "只需一个 type 输入即可切换整套内容切换模式，无需改动标记。"
+					},
+					"1": {
+						"TITLE": "路由面板",
+						"DESCRIPTION": "为面板赋予 routerLink，内容区域就会变成跟随 URL 的 router-outlet。"
+					},
+					"2": {
+						"TITLE": "默认无障碍",
+						"DESCRIPTION": "漫游 tabindex，方向键/Home/End/Delete 键，以及面向 tablist 和手风琴的正确 ARIA 角色。"
+					}
+				},
+				"USE_CASE": {
+					"0": "设置页面",
+					"1": "产品详情标签",
+					"2": "FAQ 手风琴",
+					"3": "仪表盘区块"
+				}
+			},
+			"MILESTONES": {
+				"HEADLINE": "Angular 时间线与进度步骤 | ng-hub-ui-milestones",
+				"DESCRIPTION": "Angular 时间线和进度步骤组件：垂直或水平布局，节点完全可定制，可在每个步骤内部和旁边放置内容，并通过 CSS 变量进行主题化。",
+				"FAQ": {
+					"0": {
+						"Q": "如何在 Angular 中构建时间轴组件？",
+						"A": "安装 ng-hub-ui-milestones，并给 HubMilestonesComponent 一组步骤。它会绘制轴线和节点并标出每个步骤的状态，适合订单跟踪、引导流程和项目路线图这类时间轴只用于展示、不需要交互的场景。"
+					},
+					"1": {
+						"Q": "时间轴可以横向而不是纵向吗？",
+						"A": "可以。HubMilestonesOrientation 用一个输入属性即可在纵向和横向之间切换整体布局，同一份步骤内容在两种方向下都能用——当时间轴在桌面端是侧边栏、在窄屏上是一条横带时尤其方便。"
+					},
+					"2": {
+						"Q": "如何在时间轴的每个节点里放自定义内容？",
+						"A": "HubMilestoneNodeDirective 会替换每个步骤上的圆点，因此节点可以是数字、图标、头像或任意标记。丰富的内容也可以放在节点旁边，用来给步骤附上日期、说明或操作。"
+					},
+					"3": {
+						"Q": "在 Angular 中时间轴和步骤条有什么区别？",
+						"A": "时间轴展示已经发生或计划中的进程，用户并不推动它。步骤条则引导用户走完一个表单或向导，并在每一步做校验。要展示一个序列就用 ng-hub-ui-milestones，需要用户逐步推进时用 ng-hub-ui-stepper。"
+					}
+				},
+				"INTRO": "当你需要一个展示型的进度跟踪器（入门引导、订单跟踪、路线图），并支持自定义节点以及垂直和水平两种布局时，请选择这个 Angular 时间线组件。",
+				"OVERVIEW": "ng-hub-ui-milestones 将一系列由轨道连接的步骤以垂直或水平方式排布。每个节点都完全可定制——可在圆圈内放置数字、图标、头像或任意标记，并在其旁边放置丰富内容——而每一种颜色、尺寸和连接线都是 CSS 变量，因此可在运行时重新主题化。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "垂直与水平",
+						"DESCRIPTION": "一个组件，两种朝向——用一个输入即可将步骤纵向堆叠或横向排成一行。"
+					},
+					"1": {
+						"TITLE": "完全可定制的节点",
+						"DESCRIPTION": "在圆圈内放置数字、图标、头像或任意模板，覆盖其颜色，并在旁边添加内容。"
+					},
+					"2": {
+						"TITLE": "CSS 变量主题",
+						"DESCRIPTION": "节点颜色、连接线渐变、尺寸和间距全都是 `--hub-milestone-*` token。"
+					}
+				},
+				"USE_CASE": {
+					"0": "入门引导流程",
+					"1": "订单跟踪",
+					"2": "路线图",
+					"3": "流程步骤"
+				}
+			},
+			"AVATAR": {
+				"HEADLINE": "Angular 头像组件 | ng-hub-ui-avatar",
+				"DESCRIPTION": "Angular 头像组件，支持首字母、备用图片、在线状态徽标和 CSS 变量，用于可复用的用户身份界面。",
+				"INTRO": "当你需要稳健的用户身份界面，并支持备用方案、首字母、多个图片来源以及对设计系统友好的样式钩子时，请选择这个 Angular 头像组件。",
+				"OVERVIEW": "ng-hub-ui-avatar 帮助 Angular 应用在菜单、个人资料卡片和协作界面中一致地展示用户。它覆盖了常见的边界情况，例如图片缺失、首字母生成、状态指示器和共享的尺寸规则。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "可靠的备用系统",
+						"DESCRIPTION": "在图片来源、首字母和占位符之间切换，不会在生产环境中留下损坏的头像状态。"
+					},
+					"1": {
+						"TITLE": "在线与状态徽标",
+						"DESCRIPTION": "在聊天、管理和团队管理界面中展示在线、忙碌或离线状态。"
+					},
+					"2": {
+						"TITLE": "适用于分组界面",
+						"DESCRIPTION": "以一致的间距和尺寸构建头像组、用户堆叠和紧凑的身份展示模式。"
+					}
+				},
+				"USE_CASE": {
+					"0": "用户菜单",
+					"1": "团队列表",
+					"2": "动态信息流",
+					"3": "个人资料卡片"
+				}
+			},
+			"BOARD": {
+				"HEADLINE": "Angular Kanban 看板组件 | ng-hub-ui-board",
+				"DESCRIPTION": "Angular Kanban 看板组件，支持拖放、自定义卡片模板、列工作流和 CSS 变量，适用于业务仪表盘。",
+				"FAQ": {
+					"0": {
+						"Q": "如何在 Angular 中构建支持拖放的看板？",
+						"A": "安装 ng-hub-ui-board，并绑定一个描述列与卡片的 Board 对象。跨列拖动卡片和调整列顺序无需额外接线；拖放事件会返回被移动的 BoardCard 及其来源和目标 BoardColumn，你据此把改动保存到自己的 store 或 API。"
+					},
+					"1": {
+						"Q": "可以自定义每张看板卡片的外观吗？",
+						"A": "可以。ng-hub-ui-board 通过你提供的模板渲染卡片，所以卡片里可以是任意标记——头像、标签、进度、操作。HubBoardColumnHeaderDirective 和 HubBoardColumnFooterDirective 对每列的顶部和底部做同样的事，并且不影响拖放行为。"
+					},
+					"2": {
+						"Q": "如何知道卡片被移动到了哪一列？",
+						"A": "每次放下时看板都会发出一个 BoardDragDropEvent。它携带被拖动的条目、来源列、落入的列以及新的索引。这就是你发给后端的数据；看板自身不做任何持久化。"
+					},
+					"3": {
+						"Q": "Angular 看板在触屏设备上能用吗？",
+						"A": "可以。拖动基于 Angular CDK 的拖放原语，它们支持鼠标、触摸和触控笔输入，因此看板在平板和手机上的表现与桌面端一致。"
+					}
+				},
+				"INTRO": "这个 Angular 看板组件帮助你交付 Kanban 风格的工作流，支持拖放、灵活的模板以及可扩展的交互模式，适用于真实的业务工具。",
+				"OVERVIEW": "ng-hub-ui-board 专为需要超越静态列表的 Angular 产品而设计：任务跟踪、CRM 流水线、支持工作流或内部运营仪表盘。它在保持卡片渲染灵活的同时，维持一致的看板交互模型。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "拖放工作流",
+						"DESCRIPTION": "在用于规划、运营或 CRM 流程的 Angular 界面中自然地移动卡片和列。"
+					},
+					"1": {
+						"TITLE": "自定义卡片模板",
+						"DESCRIPTION": "渲染带有操作、徽标、元数据和领域专属布局的丰富卡片。"
+					},
+					"2": {
+						"TITLE": "为内部工具而生",
+						"DESCRIPTION": "适用于团队看板、交付流水线和运营后台体验。"
+					}
+				},
+				"USE_CASE": {
+					"0": "任务看板",
+					"1": "流水线跟踪",
+					"2": "CRM 工作流",
+					"3": "运营仪表盘"
+				}
+			},
+			"BREADCRUMBS": {
+				"HEADLINE": "Angular 面包屑组件 | ng-hub-ui-breadcrumbs",
+				"DESCRIPTION": "Angular 面包屑组件，支持 Router 集成、自定义模板、RTL 以及灵活的样式 token。",
+				"INTRO": "当路由上下文很重要，且你需要一个能配合 Angular Router、模板和结构化导航路径的导航辅助时，请使用这些 Angular 面包屑。",
+				"OVERVIEW": "ng-hub-ui-breadcrumbs 为 Angular 应用提供了一个感知路由的面包屑组件，适用于管理后台、文档站点和多层级产品。当导航深度增长、用户需要比返回按钮更多的方向感时，它会非常有用。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "感知 Angular Router",
+						"DESCRIPTION": "根据路由结构生成面包屑路径，无需在每个页面上维护手动标签。"
+					},
+					"1": {
+						"TITLE": "自定义渲染",
+						"DESCRIPTION": "替换分隔符和条目模板，以匹配产品的导航模式和品牌风格。"
+					},
+					"2": {
+						"TITLE": "适用于复杂布局",
+						"DESCRIPTION": "在后台、知识库和嵌套的应用外壳中都很实用。"
+					}
+				},
+				"USE_CASE": {
+					"0": "文档站点",
+					"1": "管理后台",
+					"2": "多层级应用",
+					"3": "感知路由的导航"
+				}
+			},
+			"CALENDAR": {
+				"HEADLINE": "Angular 日历组件 | ng-hub-ui-calendar",
+				"DESCRIPTION": "Angular 日历组件，支持事件视图、拖放、模板、国际化和 CSS 变量，适用于日程安排界面。",
+				"FAQ": {
+					"0": {
+						"Q": "如何给 Angular 应用添加事件日历？",
+						"A": "安装 ng-hub-ui-calendar，并传入一组带起止日期的 CalendarEvent 对象。HubCalendarComponent 会按你选择的视图渲染它们，并处理月份网格、周布局和事件定位，你只需提供数据并决定点击后做什么。"
+					},
+					"1": {
+						"Q": "Angular 日历支持日视图吗？",
+						"A": "支持。CalendarViewType 覆盖月、周、日三种视图，切换只需一个输入属性，同一份事件数据无需重新加载或转换即可呈现为月度概览或详细的每日日程。"
+					},
+					"2": {
+						"Q": "用户可以拖动事件来改期吗？",
+						"A": "可以。事件能被拖到另一天或另一个时间段，组件会连同事件及其新日期一起发出变更。保存由你负责——日历只在界面上体现这次移动，绝不会自行写入你的后端。"
+					},
+					"3": {
+						"Q": "如何把 Angular 日历翻译成其他语言？",
+						"A": "ng-hub-ui-calendar 已做国际化：月份名称、星期标签和每周的第一天都跟随你配置的 locale，因此同一个日历用西班牙语、德语或日语都能正确显示，你无需提供翻译好的字符串。"
+					}
+				},
+				"INTRO": "这个 Angular 日历组件专为需要可定制视图、事件渲染、拖放和生产就绪主题的日程安排界面而设计。",
+				"OVERVIEW": "ng-hub-ui-calendar 帮助 Angular 团队用一个可复用的日历界面构建预订工具、团队日程和规划页面。它支持真实日程产品中所期待的那类事件渲染和交互模式。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "多种日历视图",
+						"DESCRIPTION": "渲染日、周或面向规划的布局，无需从零构建日历网格。"
+					},
+					"1": {
+						"TITLE": "事件驱动的日程安排",
+						"DESCRIPTION": "适用于预订、团队规划、资源分配和事件管理界面。"
+					},
+					"2": {
+						"TITLE": "拖放交互",
+						"DESCRIPTION": "当工作流需要快速操作时，可直接在日历内移动和更新事件。"
+					}
+				},
+				"USE_CASE": {
+					"0": "预订工具",
+					"1": "团队日历",
+					"2": "资源排程",
+					"3": "事件管理"
+				}
+			},
+			"HISTORY": {
+				"HEADLINE": "Angular 撤销重做历史存储 | ng-hub-ui-history",
+				"DESCRIPTION": "Angular 撤销和重做历史存储，提供对 Signals 友好的 API、事务、限制以及响应式表单支持。",
+				"INTRO": "当你需要在复杂状态上实现撤销和重做，又不想引入一个完整的外部状态库时，请使用这个 Angular 历史存储。",
+				"OVERVIEW": "ng-hub-ui-history 在 Angular 编辑器、表单构建器和配置页面中尤为有用，这些场景下用户期望能安全地回退。它为有状态的工作流带来撤销和重做模式，而无需你做出沉重的架构决策。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "撤销与重做流程",
+						"DESCRIPTION": "在编辑持续发生的 Angular 工具中，恢复之前的状态快照。"
+					},
+					"1": {
+						"TITLE": "适合构建器和编辑器",
+						"DESCRIPTION": "非常契合 low-code 产品、动态表单和配置繁重的体验。"
+					},
+					"2": {
+						"TITLE": "对 Signals 友好的状态更新",
+						"DESCRIPTION": "在为用户提供修订历史的同时，保持 Angular 响应式的可预测性。"
+					}
+				},
+				"USE_CASE": {
+					"0": "编辑器",
+					"1": "表单构建器",
+					"2": "low-code 工具",
+					"3": "配置界面"
+				}
+			},
+			"MODAL": {
+				"HEADLINE": "Angular 模态框组件 | ng-hub-ui-modal",
+				"DESCRIPTION": "无障碍的 Angular 模态框组件，支持堆叠、全屏模式、模板、键盘处理和 CSS 变量，适用于 standalone 应用。",
+				"INTRO": "这个 Angular 模态框组件专为需要在 standalone Angular 应用中实现无障碍对话框、可组合内容、服务驱动控制以及对设计系统友好样式的团队而打造。",
+				"OVERVIEW": "ng-hub-ui-modal 解决了 Angular 产品中最常见的 UI 需求之一：打开在生产环境中表现稳健的对话框。它覆盖了堆叠模态框、全屏流程、键盘处理、内容投影以及基于服务的用法，从而避免让模态框逻辑成为每个项目的难题。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "堆叠模态框工作流",
+						"DESCRIPTION": "当产品需要嵌套决策或链式流程时，安全地打开和管理多个对话框。"
+					},
+					"1": {
+						"TITLE": "无障碍的对话框行为",
+						"DESCRIPTION": "包含焦点处理、Escape 支持、背景遮罩控制以及对 ARIA 友好的对话框语义。"
+					},
+					"2": {
+						"TITLE": "模板与服务控制",
+						"DESCRIPTION": "可配合模板和动态组件使用，让团队能够组合确认、表单和详情流程。"
+					}
+				},
+				"USE_CASE": {
+					"0": "确认对话框",
+					"1": "overlay 中的表单",
+					"2": "详情面板",
+					"3": "堆叠工作流"
+				}
+			},
+			"NAV": {
+				"HEADLINE": "Angular 导航菜单组件 | ng-hub-ui-nav",
+				"DESCRIPTION": "Angular 导航组件，支持下拉菜单、逐级深入面板、响应式折叠、Router 集成和 CSS 变量主题。",
+				"INTRO": "当你需要带有 Router 感知和可复用 UX 模式的水平、垂直或逐级深入菜单时，请选用这个 Angular 导航组件。",
+				"OVERVIEW": "ng-hub-ui-nav 在 Angular 应用超越简单顶部菜单时非常有用。它覆盖了垂直侧边栏、下拉树、嵌套导航以及响应式折叠模式，这些模式常见于文档站点、仪表盘和企业级应用外壳。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "水平与垂直导航",
+						"DESCRIPTION": "用一个 Angular 库处理顶部栏、侧边栏和混合导航界面。"
+					},
+					"1": {
+						"TITLE": "嵌套与逐级深入菜单",
+						"DESCRIPTION": "适用于信息深度快速增长的管理类产品和文档体验。"
+					},
+					"2": {
+						"TITLE": "响应式应用外壳",
+						"DESCRIPTION": "在桌面侧边栏和移动端折叠状态之间调整导航行为。"
+					}
+				},
+				"USE_CASE": {
+					"0": "应用外壳",
+					"1": "管理后台仪表盘",
+					"2": "文档菜单",
+					"3": "响应式导航"
+				}
+			},
+			"PAGINABLE": {
+				"HEADLINE": "Angular 数据表格与分页列表 | ng-hub-ui-paginable",
+				"DESCRIPTION": "Angular 数据表格和分页列表，支持服务端分页、排序、筛选、选择、模板和 CSS 变量。",
+				"FAQ": {
+					"0": {
+						"Q": "如何给 Angular 表格添加服务端分页？",
+						"A": "ng-hub-ui-paginable 就是为服务端数据设计的：你给它的不是数组，而是一个接收当前页码、每页条数、排序和筛选并返回对应行与总数的函数。组件会让分页器、排序状态和筛选条件始终与 API 的返回保持一致。"
+					},
+					"1": {
+						"Q": "如何在 Angular 中固定表头？",
+						"A": "标记要固定的列，表体滚动时表头保持可见。ng-hub-ui-paginable 还提供 HubStickyColumnsDirective，可把列固定在表格的起始端或末端，这正是首列用于标识行的宽表所需要的。"
+					},
+					"2": {
+						"Q": "可以在表格单元格里渲染自定义内容吗？",
+						"A": "可以。PaginableTableCellDirective 让你接管任意一列的渲染，单元格里因此可以放徽标、按钮、链接甚至整个组件，而不只是纯文本。该列的排序和筛选行为保持不变，你只控制画出来的内容。"
+					},
+					"3": {
+						"Q": "如何给 Angular 数据表格添加按列筛选？",
+						"A": "在列定义里声明筛选器——PaginableTableHeader 支持按列的文本、下拉、布尔和区间筛选。生效的筛选条件会与页码和排序一起传给你的数据源，因此无论数据在本地还是来自 API，筛选的用法都一样。"
+					}
+				},
+				"INTRO": "当你需要服务端操作、选择、筛选和可复用的列表渲染，又不想在每个项目中重建表格逻辑时，请使用这个 Angular 数据表格和分页列表库。",
+				"OVERVIEW": "ng-hub-ui-paginable 面向构建管理后台、搜索结果、CRM 页面和管理后台系统的 Angular 团队。它将一个可复用的表格和列表层，与生产中通常最重要的操作结合起来：分页、筛选、排序、选择和自定义模板。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "服务端就绪",
+						"DESCRIPTION": "将分页、排序和筛选连接到 API，无需为每个表格视图编写自定义衔接代码。"
+					},
+					"1": {
+						"TITLE": "筛选、排序和选择",
+						"DESCRIPTION": "覆盖真实管理和后台产品中所期待的交互。"
+					},
+					"2": {
+						"TITLE": "表格与列表共用同一核心",
+						"DESCRIPTION": "在密集表格和自定义列表展示中复用同一套数据管理基础。"
+					}
+				},
+				"USE_CASE": {
+					"0": "管理表格",
+					"1": "CRM 数据集",
+					"2": "搜索结果",
+					"3": "管理后台系统"
+				}
+			},
+			"PORTAL": {
+				"HEADLINE": "Angular Portal 与 Overlay 渲染 | ng-hub-ui-portal",
+				"DESCRIPTION": "Angular portal 库，可在当前 DOM 树之外动态渲染组件、模板和 overlay，并支持定位控制。",
+				"INTRO": "这个 Angular portal 库帮助你将内容渲染到 overlay 或自定义容器中，同时保持数据流和 Angular 集成的可预测性。",
+				"OVERVIEW": "ng-hub-ui-portal 在 Angular 界面需要将渲染从当前 DOM 树中分离时非常有用：抽屉、浮动面板、动态容器或基于 overlay 的 UI。它为投影内容和定位渲染提供了更清晰的基础。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "在 DOM 流之外渲染",
+						"DESCRIPTION": "当常规的组件放置方式不足以应对 overlay、抽屉或浮动 UI 时非常有用。"
+					},
+					"1": {
+						"TITLE": "动态模板与组件",
+						"DESCRIPTION": "以对 Angular 感知的数据流，将字符串、模板或组件投影到自定义容器中。"
+					},
+					"2": {
+						"TITLE": "坚实的 overlay 基础",
+						"DESCRIPTION": "为上下文面板、浮动操作和分离式渲染模式提供实用的基础。"
+					}
+				},
+				"USE_CASE": {
+					"0": "抽屉",
+					"1": "浮动面板",
+					"2": "overlay 界面",
+					"3": "动态容器"
+				}
+			},
+			"SKELETON": {
+				"HEADLINE": "Angular 骨架屏加载组件 | ng-hub-ui-skeleton",
+				"DESCRIPTION": "Angular 骨架屏加载占位符，提供可复用预设、内联 DSL 模板、响应式取值以及用于微光状态的 CSS 变量。",
+				"FAQ": {
+					"0": {
+						"Q": "如何在 Angular 中显示骨架屏占位？",
+						"A": "安装 ng-hub-ui-skeleton，在数据到达之前渲染 HubSkeletonComponent。你描述占位的形状——线条、方块、圆形——它会播放微光动画，直到真实内容将其替换，这样数据到达时布局不会跳动。"
+					},
+					"1": {
+						"Q": "同一个骨架形状可以在多个组件间复用吗？",
+						"A": "可以。HubSkeletonPreset 只需注册一次具名形状，随后在出现该布局的任何地方复用，卡片的占位因此只定义一处，而不必复制到每个渲染卡片的列表和详情页。"
+					},
+					"2": {
+						"Q": "如何修改骨架屏微光的颜色或速度？",
+						"A": "ng-hub-ui-skeleton 的每一种颜色、圆角和动画都是 CSS 自定义属性，你可以在运行时用自己的样式表重新设定，并且无需重新构建就能跟随深色模式。HubSkeletonAppearance 可在内置微光与纯静态占位之间切换。"
+					},
+					"3": {
+						"Q": "加载时该用骨架屏还是加载动画？",
+						"A": "当你已经知道即将出现的内容形状时用骨架屏，因为它会预留空间，避免加载动画留下的布局偏移。加载动画更适合结果布局未知的短暂、不确定的等待。"
+					}
+				},
+				"INTRO": "当加载状态需要保持系统化、可复用且产品就绪，而不是退化成一次性的微光标记时，请选择这个 Angular 骨架屏库。",
+				"OVERVIEW": "ng-hub-ui-skeleton 为 Angular 团队提供了一种结构化的方式来设计加载占位符：为常见 UI 模式内置的预设、用于自定义形状的紧凑 DSL，以及能让同一套骨架屏适配多种布局的响应式取值。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "预设目录",
+						"DESCRIPTION": "复用诸如卡片、表格行、仪表盘或详情视图等骨架屏模式，无需重复编写加载标记。"
+					},
+					"1": {
+						"TITLE": "紧凑 DSL",
+						"DESCRIPTION": "用一套为快速迭代的产品团队打造的简洁语法描述嵌套的骨架屏树。"
+					},
+					"2": {
+						"TITLE": "响应式加载状态",
+						"DESCRIPTION": "按断点调整列数、间距和其他布局取值，无需复制模板。"
+					}
+				},
+				"USE_CASE": {
+					"0": "卡片与信息流",
+					"1": "数据表格",
+					"2": "表单",
+					"3": "仪表盘"
+				}
+			},
+			"SORTABLE": {
+				"HEADLINE": "Angular 可排序列表与拖放 | ng-hub-ui-sortable",
+				"DESCRIPTION": "Angular 可排序列表和拖放工具，适用于数组、FormArray 集成、Signals 工作流和互联列表。",
+				"INTRO": "当你需要可配合数组、响应式表单、Signals 和复杂界面构建器的拖放排序时，请选择这个 Angular 可排序库。",
+				"OVERVIEW": "ng-hub-ui-sortable 帮助 Angular 团队在顺序至关重要的产品中自然地重排数据：任务、优先级、布局构建器或动态表单块。当你需要拖放又不想失去对状态更新的控制时，它尤其有用。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "数组与列表排序",
+						"DESCRIPTION": "在 Angular 中重排领域数据，无需重新发明拖放行为。"
+					},
+					"1": {
+						"TITLE": "配合 FormArray",
+						"DESCRIPTION": "非常契合动态表单和可配置界面，这些场景下控件必须随模型一起移动。"
+					},
+					"2": {
+						"TITLE": "互联的拖放流程",
+						"DESCRIPTION": "以适配 Angular 的状态处理，管理多个列表、转移和构建器风格的体验。"
+					}
+				},
+				"USE_CASE": {
+					"0": "任务排序",
+					"1": "FormArray 编辑器",
+					"2": "布局构建器",
+					"3": "优先级管理"
+				}
+			},
+			"STEPPER": {
+				"HEADLINE": "Angular 步骤条组件 | ng-hub-ui-stepper",
+				"DESCRIPTION": "Angular 步骤条组件，支持校验、朝向模式、自定义控件、i18n 和 CSS 变量主题。",
+				"INTRO": "这个 Angular 步骤条组件适用于引导式多步流程，在这些流程中校验、推进规则和品牌需要始终在你的掌控之中。",
+				"OVERVIEW": "ng-hub-ui-stepper 帮助 Angular 应用构建入门引导、结账和向导式表单。它为团队提供了一种可复用的方式来控制步骤推进、校验和导航逻辑，而无需在每个流程中手动写死这些规则。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "引导式多步流程",
+						"DESCRIPTION": "适用于向导、入门引导和需要引导用户的顺序流程。"
+					},
+					"1": {
+						"TITLE": "带校验的推进",
+						"DESCRIPTION": "控制用户何时可以前进，并在各步骤间清晰反映状态变化。"
+					},
+					"2": {
+						"TITLE": "契合品牌化产品流程",
+						"DESCRIPTION": "将控件、标签和视觉调整为你自己的设计语言，而不是接受默认的向导 UI。"
+					}
+				},
+				"USE_CASE": {
+					"0": "结账流程",
+					"1": "向导表单",
+					"2": "入门引导",
+					"3": "配置步骤"
+				}
+			},
+			"UTILS": {
+				"HEADLINE": "Angular 工具库 | ng-hub-ui-utils",
+				"DESCRIPTION": "Angular 工具库，包含 pipes、焦点管理、overlay、过渡和翻译助手，供可复用 UI 组件共享使用。",
+				"INTRO": "使用这个 Angular 工具库，避免重写 overlay、焦点陷阱、翻译助手和常见模板工具背后的底层部件。",
+				"OVERVIEW": "ng-hub-ui-utils 是众多可复用 UI 模式背后的共享基础。当 Angular 团队希望集中管理那些让 overlay 系统、焦点管理、pipes 和翻译助手在各项目间保持一致的底层部件时，它会非常有用。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "overlay 与弹层原语",
+						"DESCRIPTION": "提供浮动 UI 和分离式渲染模式所需的底层构建块。"
+					},
+					"1": {
+						"TITLE": "焦点管理工具",
+						"DESCRIPTION": "在对话框和 overlay 中处理焦点陷阱和键盘安全的交互模式。"
+					},
+					"2": {
+						"TITLE": "pipes 与翻译助手",
+						"DESCRIPTION": "集中管理 Angular 组件所用的模板助手、格式化和轻量翻译工具。"
+					}
+				},
+				"USE_CASE": {
+					"0": "共享 UI 基础设施",
+					"1": "overlay 系统",
+					"2": "焦点管理",
+					"3": "模板助手"
+				}
+			},
+			"TOAST": {
+				"HEADLINE": "Angular Toast 通知服务 | ng-hub-ui-toast",
+				"DESCRIPTION": "standalone 的 Angular toast 通知服务，支持 Signals、生命周期 observables、进度条、六个位置以及完整的 CSS 变量主题化。",
+				"INTRO": "当你需要一个零配置的命令式通知层，既能与 Angular 的 standalone 架构共存，又能开箱即用地提供基于 Observable 的生命周期钩子时，请使用 ng-hub-ui-toast。",
+				"OVERVIEW": "ng-hub-ui-toast 是一个面向 Angular 22+ standalone 应用的、由 signal 驱动的 toast 服务。可从任意组件或服务中调用 success()、error()、warning() 或 info()；overlay 容器会在首次触发通知时延迟挂载。每次调用都会返回一个带有 onShown、onHidden 和 onTap observables 以及 manualClose() / resetTimeout() 方法的 HubToastRef。可通过 provideToast() 全局配置默认值，并按调用覆盖任意选项。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "signal 驱动的堆栈",
+						"DESCRIPTION": "活动 toast 列表是一个 signal<HubToastData[]>，提供对 OnPush 安全的渲染，无需任何手动的变更检测调用。"
+					},
+					"1": {
+						"TITLE": "生命周期 observables",
+						"DESCRIPTION": "HubToastRef 暴露 onShown、onHidden 和 onTap RxJS observables，实现完整的响应式控制。"
+					},
+					"2": {
+						"TITLE": "CSS 变量主题化",
+						"DESCRIPTION": "每一种颜色、圆角、阴影和尺寸都是一个 --hub-toast-* 自定义属性，并从设计系统继承。"
+					}
+				},
+				"USE_CASE": {
+					"0": "表单提交反馈",
+					"1": "后台同步通知",
+					"2": "错误警报",
+					"3": "会话过期警告"
+				}
+			},
+			"BUTTONS": {
+				"HEADLINE": "Angular 按钮库 | ng-hub-ui-buttons",
+				"DESCRIPTION": "面向 Angular 22 的完整按钮系统，基于 signals API——标准按钮、FAB、speed dial 与 overlay dropdown。除 ng-hub-ui-utils 外零依赖。",
+				"INTRO": "当你需要一个统一、可主题化的按钮生态，覆盖从行内 CTA 到浮动操作 overlay 的所有交互模式，并希望它基于 Angular Signals、拥有一致的单一 API 时，请使用 ng-hub-ui-buttons。",
+				"OVERVIEW": "ng-hub-ui-buttons 是面向 Angular 22+ standalone 应用的零依赖按钮库。它提供 HubButtonComponent——可作为 <hub-button> 使用，也可作为原生宿主上的属性（<button hubButton>）（五种变体 × 六种颜色 × 四种尺寸）——HubFabComponent（九个固定位置）、HubSpeedDialComponent 以及 HubDropdownDirective（基于 overlay，由 ng-hub-ui-utils 的 OverlayService 驱动）。所有视觉属性都是 CSS 自定义属性，只需一份样式表覆盖即可为整个系统设置主题。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "基于 signals 的 API",
+						"DESCRIPTION": "所有输入都使用 Angular Signals（input()、model()）——没有 @Input 装饰器，完全兼容 OnPush。"
+					},
+					"1": {
+						"TITLE": "五种按钮变体",
+						"DESCRIPTION": "solid、outline、soft、ghost 与 link——每种都提供六种语义颜色和四种尺寸。"
+					},
+					"2": {
+						"TITLE": "Overlay Dropdown",
+						"DESCRIPTION": "HubDropdownDirective 通过 OverlayService 将任意 ng-template 挂载到任意触发元素上——无需 CDK。"
+					}
+				},
+				"USE_CASE": {
+					"0": "主要 CTA 按钮",
+					"1": "浮动操作菜单",
+					"2": "上下文菜单 dropdown",
+					"3": "工具栏中的纯图标操作"
+				}
+			},
+			"BADGES": {
+				"HEADLINE": "Angular 徽章库 | ng-hub-ui-badges",
+				"DESCRIPTION": "面向状态、计数器与可移除筛选标签的语义化 Angular 徽章，提供 CSS 变量与公开 SCSS mixin，支持自定义颜色族。",
+				"INTRO": "当你的 Angular 应用需要紧凑的语义状态标签、计数器与可关闭的筛选器，而不想退回到一次性的 span 或 Bootstrap 的 badge 类时，请使用 ng-hub-ui-badges。",
+				"OVERVIEW": "ng-hub-ui-badges 为 Angular 团队提供一个小而完整的徽章系统：语义颜色、多种视觉表面、尺寸与形状梯度、状态圆点、可选图标以及可关闭标签。一切都由共享的 `--hub-sys-color-*` token 族和公开的 `--hub-badge-*` 自定义属性驱动，因此该组件族能自然融入以设计系统为先的代码库。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "一个原语，多种徽章模式",
+						"DESCRIPTION": "用同一个组件呈现状态、计数器、元数据 pill 与激活的筛选标签。"
+					},
+					"1": {
+						"TITLE": "可移除的筛选标签",
+						"DESCRIPTION": "当徽章代表一个激活的筛选器或作用域 token 时，可添加支持键盘操作的关闭动作。"
+					},
+					"2": {
+						"TITLE": "开放的语义主题化",
+						"DESCRIPTION": "内置颜色使用设计系统 token，自定义语义名称可通过公开的 SCSS mixin 接入。"
+					}
+				},
+				"USE_CASE": {
+					"0": "工作流状态",
+					"1": "表格与卡片元数据",
+					"2": "激活的筛选栏",
+					"3": "通知计数器"
+				}
+			},
+			"ICONS": {
+				"HEADLINE": "Angular 图标库（与图标集无关）| ng-hub-ui-icons",
+				"DESCRIPTION": "与图标集无关的 Angular 图标：通过一个 <hub-icon> / [hubIcon] API 渲染 Font Awesome、Bootstrap Icons、Material Symbols、Solar 或你自己的 SVG，并用 CSS 变量设置主题。",
+				"INTRO": "当你想用一个 API 适配任意图标集时使用这个 Angular 图标库 —— 不强依赖特定图标包，可自由混用图标集，并通过 --hub-icon-* CSS 变量统一设置主题。",
+				"OVERVIEW": "ng-hub-ui-icons 将“如何引用图标”与“由哪个图标集绘制”解耦。图标包是从名称到渲染规格的纯解析器；该库为 Font Awesome、Bootstrap Icons、Material Symbols 和 Solar 提供工厂与预设，但不打包任何图标集。组件与指令可渲染基于类、连字、雪碧图、内联 SVG 或图片的图标，并全部通过 --hub-icon-* 令牌统一设置主题。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "与图标集无关",
+						"DESCRIPTION": "一个 API 背后涵盖 Font Awesome、Bootstrap Icons、Material Symbols、Solar、雪碧图、内联 SVG 与图片。"
+					},
+					"1": {
+						"TITLE": "零图标依赖",
+						"DESCRIPTION": "不打包字体或 SVG —— 你加载图标集，库负责格式化与主题化。"
+					},
+					"2": {
+						"TITLE": "统一主题",
+						"DESCRIPTION": "一组 --hub-icon-* 令牌即可对所有图标包进行一致主题化，包括 Material Symbols 的可变字体轴。"
+					}
+				},
+				"USE_CASE": {
+					"0": "在混用 Font Awesome 与 Material Symbols 的应用中使用同一套图标 API。",
+					"1": "通过 CSS 变量为每个图标设置尺寸与颜色，并支持运行时深色模式。",
+					"2": "通过内容投影将 <hub-icon> 放入任意组件（按钮、菜单、链接），无需适配器。",
+					"3": "注册你自己的 SVG 图标包，用同一个组件交付品牌图标。"
+				}
+			},
+			"SIGNATURE": {
+				"HEADLINE": "Angular 签名字段 | ng-hub-ui-signature",
+				"DESCRIPTION": "可访问的 Angular 签名字段，将鼠标、触摸和手写笔输入保存为可缩放 SVG 表单值，并支持撤销、重做和 PNG 导出。",
+				"INTRO": "当表单需要可复用、可访问且可移植的签名区域时，请使用 ng-hub-ui-signature。",
+				"OVERVIEW": "ng-hub-ui-signature 是基于 Pointer Events 的 standalone Angular 表单字段。它将鼠标、触摸和手写笔笔画保存为 SVG ControlValueAccessor 值，可恢复已保存的签名，并提供清除、撤销、重做和 PNG 导出。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "可缩放 SVG 值",
+						"DESCRIPTION": "保存清晰且不依赖设备的签名。"
+					},
+					"1": {
+						"TITLE": "指针输入",
+						"DESCRIPTION": "鼠标、触摸和手写笔共用一个绘制区域。"
+					}
+				},
+				"USE_CASE": {
+					"0": "合同接受",
+					"1": "交付确认",
+					"2": "同意表单",
+					"3": "审批流程"
+				}
+			},
+			"METRICS": {
+				"HEADLINE": "Angular 进度条、计量表与环形指标 | ng-hub-ui-metrics",
+				"DESCRIPTION": "只读的 Angular 指标基元——一个线性进度条、一个分级计量表和一个圆环形仪表——由设计系统令牌驱动，并具备完整的 ARIA 语义。",
+				"INTRO": "当你的 Angular 应用需要可视化单个数值——上传进度、容量、分数或评分——而又不想引入完整的图表库时，请使用 ng-hub-ui-metrics。",
+				"OVERVIEW": "ng-hub-ui-metrics 是一个小型的展示型基元家族。`hub-progress` 呈现一个确定或不确定的线性进度条；`hub-meter` 遵循 HTML `<meter>` 语义，将一个标量按 `[low, high]` 平台区间进行分级；`hub-ring` 将归一化分数绘制为一段 SVG 弧，并带有可选的投影说明文字。这些组件都不会硬编码颜色——它们读取共享的 `--hub-sys-color-*` 族，并暴露 `--hub-progress-*`、`--hub-meter-*` 和 `--hub-ring-*` 自定义属性供主题定制。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "线性进度条",
+						"DESCRIPTION": "确定或不确定的进度，具有尺寸刻度、语义色彩以及可选的数值标签。"
+					},
+					"1": {
+						"TITLE": "分级计量表",
+						"DESCRIPTION": "一个遵循 HTML <meter> 语义的仪表，会根据相对于最优点的所在区段为自身重新着色。"
+					},
+					"2": {
+						"TITLE": "圆环形仪表",
+						"DESCRIPTION": "一个用于呈现归一化分数的 SVG 环，具有颜色阈值以及通过内容投影的说明文字。"
+					}
+				},
+				"USE_CASE": {
+					"0": "上传与任务进度",
+					"1": "磁盘、内存与容量计量表",
+					"2": "质量分数与评分",
+					"3": "仪表盘 KPI 环形图"
+				}
+			},
+			"LOADING": {
+				"HEADLINE": "Angular 加载指示器与遮罩层 | ng-hub-ui-loading",
+				"DESCRIPTION": "Angular 加载组件，提供 spinner、dots、bars、pulse、ring 五种指示器，支持 inline、overlay 与 fullscreen 三种模式，并附带用于全应用阻塞遮罩的服务。",
+				"FAQ": {
+					"0": {
+						"Q": "如何在 Angular 中显示加载动画或遮罩？",
+						"A": "安装 ng-hub-ui-loading，并在处理进行时渲染 `<hub-loading>`。它默认是文档流中的内联块；把 `mode` 设为 `overlay` 可覆盖所在容器，设为 `fullscreen` 则遮住整个视口。若要覆盖整个应用，注入 `HubLoadingService`，在操作前后调用 `show()` 和 `hide()`。"
+					},
+					"1": {
+						"Q": "该用加载动画、骨架屏还是进度条？",
+						"A": "已经知道即将出现的内容形状时，选 ng-hub-ui-skeleton，占位会预留空间并避免布局偏移。等待时长不确定或必须挡住屏幕时——表单正在提交、报表正在生成——用 ng-hub-ui-loading。能报告真实进度时，改用 ng-hub-ui-metrics 绘制确定的进度条、仪表和圆环。"
+					},
+					"2": {
+						"Q": "如何修改 Angular 加载指示器的颜色？",
+						"A": "设置 `color` 输入属性，它接受语义名称、十六进制字面量、`oklch()` 值，或指向你自己 token 的 `var(...)` 引用。若要永久修改，每一种颜色、尺寸和时长都是 `--hub-loading-*` 自定义属性，可在自己的样式表里重新定义，Sass 混入 `hub-loading-theme()` 则能在一处重设整个组件的样式。当加载状态需要体现品牌时，`image` 输入属性会用 logo 取代指示器。"
+					},
+					"3": {
+						"Q": "Angular 加载组件是否无障碍且支持 SSR？",
+						"A": "是的。宿主元素是一个实时区域——`role=status`、`aria-live=polite` 和 `aria-busy`——并通过 `ariaLabel` 输入属性指定播报文本，所有动画在 `prefers-reduced-motion` 下都会关闭。服务端没有可挂载的 DOM，因此 `HubLoadingService` 只保留计数器，服务端渲染依然安全。"
+					},
+					"4": {
+						"Q": "如何在 Angular 中给导航栏下方加一条页面加载条？",
+						"A": "在设置了 `position: relative` 的导航栏内渲染 `<hub-loading-bar mode=\"overlay\" placement=\"bottom\">`；若导航栏本身是固定定位，则用 `mode=\"fixed\"` 配合 `--hub-loading-bar-offset`。然后加上 `provideHubLoadingBarRouter()`，让加载条贯穿每次导航（包括被守卫拒绝的那次），再加上 `hubLoadingBarInterceptor`，让它同样覆盖页面到达时发出的请求。加载条对调用方做引用计数，因此两者互不知情也能协同工作，而 `withoutHubLoadingBar()` 可以把后台轮询排除在计数之外。"
+					}
+				},
+				"INTRO": "当某个区块、某个容器或整个应用需要表明正在处理，又不希望每个视图各自手写一套指示器和遮罩时，请使用 ng-hub-ui-loading。",
+				"OVERVIEW": "ng-hub-ui-loading 是一个独立的 Angular 组件，以三种模式呈现不确定的加载状态：`inline` 作为文档流中的区块，`overlay` 绝对定位覆盖其父容器，`fullscreen` 固定于视口。它内置五种纯 CSS 指示器——spinner、dots、bars、pulse 与 ring——并提供三档尺寸、可选的提示文案，以及可选的品牌图片，图片支持 `none`、`spin`、`pulse` 三种动效。`HubLoadingService` 以编程方式驱动全局全屏遮罩，并对并发调用方进行引用计数，因此并行的请求不会互相撤掉遮罩。颜色、尺寸与时长都是 `--hub-loading-*` 自定义属性，另有 `hub-loading-theme()` Sass mixin 用于整体重塑样式；组件默认具备无障碍能力，带有 `role=status`、`aria-live=polite` 与 `aria-busy`，并遵循 `prefers-reduced-motion`。 与之并列，`hub-loading-bar` 用来告诉读者页面本身正在路上——导航栏下的那条细带，可以画在文档流中，挂在已定位的导航栏上，或按 `--hub-loading-bar-offset` 固定到 viewport。`HubLoadingBarService` 同样对调用方计数，留出一段宽限期，让很快完成的工作不会让进度条闪一下，并朝着自己永远到不了的终点推进：只有 `complete()` 可以显示 100%。`provideHubLoadingBarRouter()` 与 `hubLoadingBarInterceptor` 把它接到路由和 HTTP 上，而两者互不相识。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "内联块",
+						"DESCRIPTION": "文档流中的一个区块，会为自己预留空间，并提供五种纯 CSS 指示器——spinner、dots、bars、pulse 与 ring——共三档尺寸。"
+					},
+					"1": {
+						"TITLE": "Overlay 与全屏",
+						"DESCRIPTION": "以可选背景遮罩覆盖某个已定位的容器，或通过 HubLoadingService 阻塞整个视口，其引用计数可消化并发调用。"
+					},
+					"2": {
+						"TITLE": "品牌化与主题化",
+						"DESCRIPTION": "用语义名称、hex、oklch() 或 var(...) 设定强调色，把指示器换成品牌标识，或通过 --hub-loading-* 变量重塑全部样式。"
+					},
+					"3": {
+						"TITLE": "页面进度条",
+						"DESCRIPTION": "导航栏下的那条细带，接到路由和 HttpClient 上：出现之前先等一等，对调用方计数，没结束就绝不宣称结束。"
+					}
+				},
+				"USE_CASE": {
+					"0": "路由与数据加载",
+					"1": "表单提交遮罩",
+					"2": "全应用阻塞式操作",
+					"3": "带品牌标识的启动画面",
+					"4": "导航栏下的页面进度条"
+				}
+			},
+			"ACTION_SHEET": {
+				"HEADLINE": "Angular 操作面板 | ng-hub-ui-action-sheet",
+				"DESCRIPTION": "由服务打开的 Angular 操作面板：带角色的操作、平铺或分组、可拒绝关闭的处理函数，以及通过背景、键盘或拖动关闭。",
+				"INTRO": "当某一行或工具栏按钮需要在当前界面之上提供几个操作时，就用 ng-hub-ui-action-sheet，不必为一个还没人打开的面板在页面里留一个菜单组件。",
+				"OVERVIEW": "ng-hub-ui-action-sheet 是一个 Angular 独立库，它从服务中打开面板，并以读者的选择只解析一次。操作带有角色：`cancel` 无论在哪里声明都会排到最后，`destructive` 使用危险色。操作可以平铺，也可以放在分组标题下；handler 可以拒绝关闭，这样确认步骤能在面板消失之前执行。退出方式有三种 — 背景、`Escape` 和向下拖动面板 — 每一种都会报告自己的角色，并先执行取消操作的 handler。面板是带 `aria-modal` 的 `role=\"dialog\"`，由它的标题命名，打开时焦点会移入其中。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "由服务打开",
+						"DESCRIPTION": "面板关闭时页面上没有任何标记。open() 负责挂载，调用只解决一次：所选操作，或它被关闭的方式。"
+					},
+					"1": {
+						"TITLE": "角色与处理函数",
+						"DESCRIPTION": "取消单独放在末尾，破坏性操作以危险色呈现，处理函数返回 false 时面板保持打开，以应对背后的工作失败。"
+					},
+					"2": {
+						"TITLE": "无障碍且可主题化",
+						"DESCRIPTION": "一个模态对话框，焦点被困住并归还给触发元素；每个视觉决定都在 --hub-action-sheet-* 变量之后。"
+					}
+				}
+			},
+			"INSTALLER": {
+				"HEADLINE": "用 ng add 安装 Angular UI 库 | ng-hub-ui",
+				"DESCRIPTION": "ng-hub-ui 家族的安装器：一条 ng add 命令，询问你需要哪些库，解析每个库所需的包，并写入你的清单。",
+				"INTRO": "当你要把家族中的一个或多个库加入 Angular 工作区，又不想手动推算每个库需要哪个对等包时，请使用 ng-hub-ui。",
+				"OVERVIEW": "ng-hub-ui 是家族的总包，也是唯一一个不含组件的已发布包。它提供的是一个 ng-add 原理图：以多选提示列出目录中的 25 个库，或者直接从 --libraries 参数读取标识符，然后把选择解析成真正需要的 npm 包——包括每个库依赖的对等包，以及唯一一个不属于我们的外部包 sortablejs。解析结果写入工作区根目录 package.json 的 dependencies，绝不覆盖已存在的键，随后交给 Angular CLI 检测到的包管理器安装。它的职责止于依赖接线：不改 angular.json，不注册提供者，不导入组件，也不添加样式表条目。",
+				"HIGHLIGHT": {
+					"0": {
+						"TITLE": "一条命令",
+						"DESCRIPTION": "ng add ng-hub-ui 拉取包，打开目录中 25 个库的多选列表，并把所选的写入你的清单。"
+					},
+					"1": {
+						"TITLE": "参数与脚本",
+						"DESCRIPTION": "--libraries 接受逗号分隔的列表或重复传参，--skip-install 只写清单就停下，因此 CI 可以执行同样的安装。"
+					},
+					"2": {
+						"TITLE": "解析后的依赖",
+						"DESCRIPTION": "对等依赖自动且传递地引入，每个版本范围都高于家族的要求，你锁定的版本永不被改写。"
+					}
+				},
+				"USE_CASE": {
+					"0": "一次性把多个 ng-hub-ui 库加入 Angular 工作区",
+					"1": "在 CI 中用脚本完成项目初始搭建，无需回答交互提示",
+					"2": "把每个库所需的对等包交给安装器去推算"
+				},
+				"FAQ": {
+					"0": {
+						"Q": "如何在 Angular 项目中安装 ng-hub-ui？",
+						"A": "运行 ng add ng-hub-ui。Angular CLI 会拉取安装器包并运行它的 ng-add 原理图，询问你需要目录中 25 个库里的哪些，把解析后的包写入 dependencies，再由你的包管理器完成安装。"
+					},
+					"1": {
+						"Q": "可以不通过交互提示安装这些库吗？",
+						"A": "可以。把标识符传给 --libraries，用逗号分隔（--libraries=modal,paginable）或重复传参（--libraries=modal --libraries=paginable）。加上 --skip-install 就只更新 package.json，安装留给你自己。"
+					},
+					"2": {
+						"Q": "ng-hub-ui 原理图会改动项目里的什么？",
+						"A": "只改根目录 package.json 的 dependencies 块，而且只添加尚不存在的键。它不动 angular.json，不注册提供者，不导入组件，也不添加样式表条目。"
+					}
+				}
+			}
+		},
+		"PAGE": {
+			"HOME": {
+				"TITLE": "面向 Standalone 应用的 Angular 组件库 | Hub UI",
+				"DESCRIPTION": "可复用的 Angular UI 组件，支持 standalone、对 Signals 友好的 API、CSS 变量、无障碍、示例，以及用于模态框、表格、导航、日历等的 NPM 包。"
+			},
+			"ABOUT": {
+				"TITLE": "Carlos Morcillo | Angular UI 库、设计系统与开发者工具",
+				"DESCRIPTION": "Carlos Morcillo 构建 Angular 组件库、设计系统和开发者工具，专注于无障碍、可复用架构和可用于生产的文档。"
+			},
+			"TOKENS": {
+				"TITLE": "Angular 设计 token 参考 | Hub UI",
+				"DESCRIPTION": "ng-hub-ui 完整的 --hub-* 设计 token 参考：颜色、排版、间距、圆角与阴影变量，均提供明暗两套取值。"
+			},
+			"THEMING": {
+				"TITLE": "用 CSS 变量为 Angular 组件设置主题 | Hub UI",
+				"DESCRIPTION": "用 CSS 变量为 ng-hub-ui 组件设置主题：强调色、暗色模式、按组件划分的 token 与现成主题——无需重新构建 Sass。"
+			},
+			"DESIGN_SYSTEM": {
+				"TITLE": "面向 Angular 应用的设计系统指南 | Hub UI",
+				"DESCRIPTION": "ng-hub-ui 设计系统：参考与系统 token、原生 CSS reset、兼容 Bootstrap 的工具类，以及面向 Angular 应用的主题化架构。"
+			},
+			"I18N": {
+				"TITLE": "翻译 Angular 组件 | Hub UI i18n",
+				"DESCRIPTION": "使用你现有的 Angular i18n 库翻译 ng-hub-ui 组件：transloco、ngx-translate 或自定义实现，只需一个适配器和 HUBUI 命名空间。"
+			}
+		},
+		"TAB": {
+			"API": {
+				"TITLE_SUFFIX": "API",
+				"DESCRIPTION": "{symbols} — {name} 完整 API 参考：输入、输出、类型和模板。",
+				"DESCRIPTION_PLAIN": "{name} API 参考：输入、输出、类型和模板。"
+			},
+			"STYLES": {
+				"TITLE_SUFFIX": "样式",
+				"DESCRIPTION": "{name} 样式：SCSS 主题混入、CSS 自定义属性和定制方案。"
+			},
+			"EXAMPLES": {
+				"TITLE_SUFFIX": "示例",
+				"DESCRIPTION": "{name}：交互式示例和实现演示。"
+			},
+			"PLAYGROUND": {
+				"TITLE_SUFFIX": "Playground",
+				"DESCRIPTION": "{name}：交互式 Playground——配置每个输入并实时预览组件。"
+			}
+		}
+	}
+}

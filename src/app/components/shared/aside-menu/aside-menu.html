@@ -1,0 +1,39 @@
+<div class="app-shell__sidebar app-shell__sidebar--secondary">
+	<!-- Header del aside -->
+	@if (aside().parentItemLabel) {
+		<div class="app-shell__aside-header">
+			<h6 class="app-shell__aside-title">{{ aside().parentItemLabel }}</h6>
+		</div>
+	}
+
+	<!-- Botón cerrar -->
+	<button class="app-shell__aside-close" (click)="onCloseClick()"></button>
+
+	<!-- Botón volver (drill-down) -->
+	@if (aside().isDrillDown) {
+		<div class="app-shell__aside-back">
+			<button class="app-shell__back-button" (click)="onBackClick()">← Volver</button>
+		</div>
+	}
+
+	<!-- Lista de items -->
+	<div class="app-shell__aside-menu">
+		@for (item of aside().items; track item.id) {
+			<button
+				class="app-shell__aside-item"
+				[class.app-shell__aside-item--active]="isItemActive(item)"
+				(click)="onItemClick(item)"
+			>
+				<div class="app-shell__aside-content">
+					@if (item.icon) {
+						<span class="app-shell__aside-icon">{{ item.icon }}</span>
+					}
+					<span class="app-shell__aside-label">{{ item.label }}</span>
+				</div>
+				@if ((item.children?.length ?? 0) > 0) {
+					<i class="app-shell__aside-arrow">➤</i>
+				}
+			</button>
+		}
+	</div>
+</div>

@@ -4,13 +4,21 @@ Thanks for taking the time to help. A typo fix and a new component example count
 
 ## Where things live
 
-Hub UI is spread across several repositories under [hub-env](https://github.com/hub-env):
+Hub UI lives in the [hub-env](https://github.com/hub-env) organization:
 
 | Repository | What it holds |
 | --- | --- |
-| [`hub-ui`](https://github.com/hub-env/hub-ui) | This repository: overview, roadmap, and the issue tracker for the whole project |
-| [`hub-ui-site`](https://github.com/hub-env/hub-ui-site) | The Angular workspace behind [hubui.dev](https://hubui.dev/en/): documentation site, examples, build and test scripts. Each library is mounted in `projects/` as a git submodule |
-| `ng-hub-ui-*` | One repository per npm package, with its source, `CHANGELOG.md` and `BREAKING_CHANGES.md` |
+| [`hub-ui`](https://github.com/hub-env/hub-ui) | This repository. The Angular workspace behind [hubui.dev](https://hubui.dev/en/) (documentation site, examples, build and test scripts), the roadmap and the issue tracker for the whole project |
+| `ng-hub-ui-*` | One repository per npm package, with its source, `CHANGELOG.md` and `BREAKING_CHANGES.md`. Each one is mounted here in `projects/` as a git submodule |
+
+```
+hub-ui/
+├── src/            documentation site: one page per library, with examples and API tables
+├── projects/       the libraries, one git submodule per npm package
+├── public/         static assets of the site
+├── scripts/        generators (tokens, sitemap, llms.txt), library tests and publishing
+└── shared/         pieces shared between the site and the libraries
+```
 
 ## Reporting a bug or asking for a feature
 
@@ -25,16 +33,27 @@ Security problems go by email, never in a public issue. See [SECURITY.md](.githu
 
 ## Setting up the workspace
 
-The workspace needs Node.js 22 or later.
+The workspace needs Node.js 22 or later and npm 10.
 
 ```bash
-git clone --recurse-submodules https://github.com/hub-env/hub-ui-site.git
-cd hub-ui-site
+git clone --recurse-submodules https://github.com/hub-env/hub-ui.git
+cd hub-ui
 npm ci
 npm start
 ```
 
-`npm start` serves the documentation site with every library built from source, so a change in `projects/<library>/src` shows up in its examples straight away.
+`npm start` serves the documentation site at `http://localhost:4200` with every library built from source, so a change in `projects/<library>/src` shows up in its examples straight away.
+
+Other commands you will use:
+
+| Command | What it does |
+| --- | --- |
+| `npm test` | Unit tests of the documentation app (Vitest) |
+| `npm run test:libs` | Unit tests of every library |
+| `npm run lint` | ESLint over the app |
+| `npm run format:check` | Prettier over the app and the libraries |
+| `npm run build` | Production build of the site, plus the sitemap and `llms.txt` |
+| `npm run build:all-libs` | Builds every library with ng-packagr |
 
 ## Making a change to a library
 
@@ -53,7 +72,7 @@ Each folder in `projects/` is the package's own repository, so the change and th
 
 6. Push the branch to your fork and open the pull request against the package repository. Link the issue it fixes.
 
-Documentation and example changes go to `hub-ui-site` in the same way, from the workspace root.
+Documentation and example changes are made in `src/` and go to this repository as a normal pull request.
 
 ## Code guidelines
 
@@ -62,10 +81,10 @@ The libraries follow the current [Angular style guide](https://angular.dev/style
 - Standalone components with `ChangeDetectionStrategy.OnPush`, and signals for state.
 - Built-in control flow (`@if`, `@for`, `@switch`) in templates, and no `CommonModule`.
 - Host bindings and listeners in the `host` metadata object, not `@HostBinding` or `@HostListener`.
-- Styles stay encapsulated and are themed through `--hub-*` custom properties. [CODING_RULES.md](https://github.com/hub-env/hub-ui-site/blob/main/CODING_RULES.md) lists the few cases where a component may leave encapsulation.
+- Styles stay encapsulated and are themed through `--hub-*` custom properties. [CODING_RULES.md](CODING_RULES.md) lists the few cases where a component may leave encapsulation.
 - JSDoc in English on public classes and methods, explaining why the code does what it does.
 - Keyboard support and screen-reader behaviour are part of the feature. A change that breaks them is a bug.
-- Formatting comes from the workspace's `.prettierrc`: tabs, single quotes, 128 columns.
+- Formatting comes from [`.prettierrc`](.prettierrc): tabs, single quotes, 128 columns.
 
 ## Commit messages
 
@@ -84,6 +103,10 @@ A package's major version matches the Angular major it supports, so a breaking c
 ## Finding something to work on
 
 Issues labelled [`good first issue`](https://github.com/hub-env/hub-ui/labels/good%20first%20issue) are a reasonable size for a first contribution, and [`help wanted`](https://github.com/hub-env/hub-ui/labels/help%20wanted) marks the ones where outside help would make a difference. If you want to take one, leave a comment so nobody else starts on it at the same time.
+
+## Code of conduct
+
+Everyone taking part follows the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## License
 
