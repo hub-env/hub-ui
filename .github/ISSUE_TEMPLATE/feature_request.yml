@@ -1,0 +1,55 @@
+name: Feature request
+description: Suggest an improvement to a package, or a new one.
+labels: [enhancement]
+body:
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      options:
+        - New package
+        - Not sure / several packages
+        - Documentation site (hubui.dev)
+        - ng-hub-ui
+        - ng-hub-ui-action-sheet
+        - ng-hub-ui-avatar
+        - ng-hub-ui-badges
+        - ng-hub-ui-board
+        - ng-hub-ui-breadcrumbs
+        - ng-hub-ui-buttons
+        - ng-hub-ui-calendar
+        - ng-hub-ui-ds
+        - ng-hub-ui-forms
+        - ng-hub-ui-history
+        - ng-hub-ui-icons
+        - ng-hub-ui-loading
+        - ng-hub-ui-metrics
+        - ng-hub-ui-milestones
+        - ng-hub-ui-modal
+        - ng-hub-ui-nav
+        - ng-hub-ui-paginable
+        - ng-hub-ui-panels
+        - ng-hub-ui-portal
+        - ng-hub-ui-signature
+        - ng-hub-ui-skeleton
+        - ng-hub-ui-sortable
+        - ng-hub-ui-stepper
+        - ng-hub-ui-toast
+        - ng-hub-ui-utils
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: Describe the use case before the solution. It helps to know what you are building.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: How would you like it to work?
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What do you use today instead?

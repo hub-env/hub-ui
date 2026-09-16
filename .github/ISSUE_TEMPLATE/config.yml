@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation and live examples
+    url: https://hubui.dev/en/
+    about: API reference, examples and CSS variables for every package.
+  - name: Report a security problem
+    url: https://github.com/hub-env/hub-ui/blob/main/.github/SECURITY.md
+    about: Please report vulnerabilities privately by email, not in a public issue.

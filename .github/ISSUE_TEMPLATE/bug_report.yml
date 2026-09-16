@@ -1,0 +1,77 @@
+name: Bug report
+description: Something in a Hub UI package does not work as documented.
+labels: [bug]
+body:
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      options:
+        - Not sure / several packages
+        - Documentation site (hubui.dev)
+        - ng-hub-ui
+        - ng-hub-ui-action-sheet
+        - ng-hub-ui-avatar
+        - ng-hub-ui-badges
+        - ng-hub-ui-board
+        - ng-hub-ui-breadcrumbs
+        - ng-hub-ui-buttons
+        - ng-hub-ui-calendar
+        - ng-hub-ui-ds
+        - ng-hub-ui-forms
+        - ng-hub-ui-history
+        - ng-hub-ui-icons
+        - ng-hub-ui-loading
+        - ng-hub-ui-metrics
+        - ng-hub-ui-milestones
+        - ng-hub-ui-modal
+        - ng-hub-ui-nav
+        - ng-hub-ui-paginable
+        - ng-hub-ui-panels
+        - ng-hub-ui-portal
+        - ng-hub-ui-signature
+        - ng-hub-ui-skeleton
+        - ng-hub-ui-sortable
+        - ng-hub-ui-stepper
+        - ng-hub-ui-toast
+        - ng-hub-ui-utils
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Package version
+      description: Run `npm ls <package>` to see it.
+      placeholder: 22.6.0
+    validations:
+      required: true
+  - type: input
+    id: angular
+    attributes:
+      label: Angular version
+      placeholder: 22.0.3
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: input
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: A StackBlitz or a small repository makes the fix much faster.
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Browser, screen reader, console errors, screenshots.
