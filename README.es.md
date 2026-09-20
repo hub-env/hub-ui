@@ -90,6 +90,39 @@ ng add ng-hub-ui
 
 ## Verlo en marcha
 
+**[demo.hubui.dev](https://demo.hubui.dev/)** es una aplicación de gestión de
+proyectos hecha solo con estos paquetes: no hay otro framework de interfaz en su
+árbol de dependencias. El código está en
+[hub-env/hub-ui-admin-demo](https://github.com/hub-env/hub-ui-admin-demo).
+
+### Un tablero kanban que también se mueve con el teclado
+
+Espacio agarra la tarjeta, las flechas la mueven, Espacio la suelta.
+
+![Una tarjeta cambiando de columna con el teclado](./assets/demo/board.gif)
+
+### Una tabla que pagina en el servidor
+
+La página, la búsqueda, los filtros y el orden viajan al servicio.
+
+![Ordenando y buscando en la tabla de proyectos](./assets/demo/table.gif)
+
+### Un calendario en mes, semana y día
+
+![El calendario cambiando entre mes, semana y día](./assets/demo/calendar.gif)
+
+### El stepper, el modal y los campos de formulario, juntos
+
+Cada paso queda cerrado hasta que el anterior es válido.
+
+![Los tres pasos del asistente de nuevo proyecto](./assets/demo/wizard.gif)
+
+### Un panel lateral para el detalle
+
+![El detalle de una tarjeta abriéndose en un panel lateral](./assets/demo/drawer.gif)
+
+### Ejemplos en vivo, paquete a paquete
+
 Cada paquete tiene una página de ejemplos en vivo que puedes probar y copiar:
 
 - [Tablero kanban](https://hubui.dev/es/board/examples/): tarjetas y columnas que se arrastran, plantillas propias y movimiento con teclado.
