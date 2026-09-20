@@ -90,6 +90,39 @@ ng add ng-hub-ui
 
 ## See it running
 
+**[demo.hubui.dev](https://demo.hubui.dev/)** is a project management app built
+only with these packages — no other UI framework in its dependency tree. Its
+source is at
+[hub-env/hub-ui-admin-demo](https://github.com/hub-env/hub-ui-admin-demo).
+
+### A kanban board that also moves by keyboard
+
+Space grabs a card, the arrows move it, Space drops it.
+
+![Moving a card across the board with the keyboard](./assets/demo/board.gif)
+
+### A data table paged by the server
+
+The page, the search, the filters and the order all travel to the service.
+
+![Sorting and searching the projects table](./assets/demo/table.gif)
+
+### A calendar in month, week and day
+
+![Switching the calendar between month, week and day](./assets/demo/calendar.gif)
+
+### A stepper, a modal and the form fields, together
+
+Each step stays shut until the one before it is valid.
+
+![Filling in the three steps of the new project wizard](./assets/demo/wizard.gif)
+
+### A drawer for the detail
+
+![Opening a card's detail as a drawer](./assets/demo/drawer.gif)
+
+### Live examples, package by package
+
 Every package has a page of live examples you can try and copy from:
 
 - [Kanban board](https://hubui.dev/en/board/examples/): drag cards and columns, custom templates, keyboard moves.
