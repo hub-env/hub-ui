@@ -28,6 +28,13 @@
 
 **Español** | [English](README.md)
 
+> **Dónde está el código.** Este repositorio no contiene código propio: es la puerta de
+> entrada y el gestor de incidencias común de la familia. Cada paquete vive en su propio
+> repositorio, con licencia MIT, dentro de la [organización hub-env](https://github.com/hub-env)
+> — por ejemplo [`ng-hub-ui-paginable`](https://github.com/hub-env/ng-hub-ui-paginable) o
+> [`ng-hub-ui-modal`](https://github.com/hub-env/ng-hub-ui-modal). La [tabla de
+> paquetes](#paquetes) enlaza cada uno con su código, su página de npm y su documentación.
+
 ---
 
 ## Por qué Hub UI
