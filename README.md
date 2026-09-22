@@ -28,6 +28,13 @@
 
 [Español](README.es.md) | **English**
 
+> **Where the code is.** This repository holds no source of its own: it is the entry point
+> and the shared issue tracker for the family. Every package lives in its own MIT-licensed
+> repository under the [hub-env organisation](https://github.com/hub-env) — for example
+> [`ng-hub-ui-paginable`](https://github.com/hub-env/ng-hub-ui-paginable) or
+> [`ng-hub-ui-modal`](https://github.com/hub-env/ng-hub-ui-modal). The [package
+> table](#packages) links each one to its source, its npm page and its documentation.
+
 ---
 
 ## Why Hub UI
