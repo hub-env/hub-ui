@@ -147,6 +147,7 @@ Todos los paquetes se publican en npm con el prefijo `ng-hub-ui-*`. Su versión 
 | Paquete | Qué hace | Enlaces |
 | --- | --- | --- |
 | `ng-hub-ui-paginable` | Tabla de datos y lista jerárquica: paginación, búsqueda, filtros por columna, ordenación, selección y reordenación arrastrando, además de un paginador independiente | [docs](https://hubui.dev/es/paginable/overview/) · [npm](https://www.npmjs.com/package/ng-hub-ui-paginable) · [código](https://github.com/hub-env/ng-hub-ui-paginable) |
+| `ng-hub-ui-spreadsheet` | Hoja de celdas editable con los atajos de teclado de Excel, selección por rangos, copiar y pegar compatible con Excel, paneles fijos, celdas combinadas, fórmulas y exportación a `.xlsx` o CSV | [docs](https://hubui.dev/es/spreadsheet/overview/) · [npm](https://www.npmjs.com/package/ng-hub-ui-spreadsheet) · [código](https://github.com/hub-env/ng-hub-ui-spreadsheet) |
 | `ng-hub-ui-board` | Tablero kanban con arrastrar y soltar nativo, sin Angular CDK | [docs](https://hubui.dev/es/board/overview/) · [npm](https://www.npmjs.com/package/ng-hub-ui-board) · [código](https://github.com/hub-env/ng-hub-ui-board) |
 | `ng-hub-ui-calendar` | Vistas de mes, semana, día y año; los eventos se cambian de fecha arrastrándolos | [docs](https://hubui.dev/es/calendar/overview/) · [npm](https://www.npmjs.com/package/ng-hub-ui-calendar) · [código](https://github.com/hub-env/ng-hub-ui-calendar) |
 | `ng-hub-ui-sortable` | Reordenación arrastrando para arrays, signals y `FormArray`, también con teclado | [docs](https://hubui.dev/es/sortable/overview/) · [npm](https://www.npmjs.com/package/ng-hub-ui-sortable) · [código](https://github.com/hub-env/ng-hub-ui-sortable) |
@@ -192,6 +193,7 @@ Todos los paquetes se publican en npm con el prefijo `ng-hub-ui-*`. Su versión 
 | `ng-hub-ui-ds` | Tokens de diseño (`--hub-ref-*`, `--hub-sys-*`), ocho temas, clases de utilidad y mixins de Sass | [docs](https://hubui.dev/es/design-system/) · [npm](https://www.npmjs.com/package/ng-hub-ui-ds) · [código](https://github.com/hub-env/ng-hub-ui-ds) |
 | `ng-hub-ui-utils` | Utilidades compartidas: gestión del foco, overlays, focus trap, i18n, pipes y contraste de color | [docs](https://hubui.dev/es/utils/overview/) · [npm](https://www.npmjs.com/package/ng-hub-ui-utils) · [código](https://github.com/hub-env/ng-hub-ui-utils) |
 | `ng-hub-ui` | Instalador para `ng add` que elige las librerías y las configura (pre-release, no trae componentes) | [docs](https://hubui.dev/es/installer/overview/) · [npm](https://www.npmjs.com/package/ng-hub-ui) · [código](https://github.com/hub-env/ng-hub-ui-installer) |
+| `ng-hub-ui-mcp` | Servidor MCP que da a los asistentes de código la API real, los ejemplos y las variables CSS de cada paquete: `npx -y ng-hub-ui-mcp` | [docs](https://hubui.dev/es/ai-agents/) · [npm](https://www.npmjs.com/package/ng-hub-ui-mcp) · [código](https://github.com/hub-env/ng-hub-ui-mcp) |
 
 ## Cómo está hecho
 

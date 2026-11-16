@@ -147,6 +147,7 @@ All packages are published on npm under the `ng-hub-ui-*` prefix. Their major ve
 | Package | What it does | Links |
 | --- | --- | --- |
 | `ng-hub-ui-paginable` | Data table and hierarchical list: pagination, search, column filters, sorting, selection, drag-and-drop reordering, plus a standalone paginator | [docs](https://hubui.dev/en/paginable/overview/) · [npm](https://www.npmjs.com/package/ng-hub-ui-paginable) · [source](https://github.com/hub-env/ng-hub-ui-paginable) |
+| `ng-hub-ui-spreadsheet` | Editable grid of cells with Excel keyboard shortcuts, range selection, copy and paste that round-trips with Excel, frozen panes, merged cells, formulas and export to `.xlsx` or CSV | [docs](https://hubui.dev/en/spreadsheet/overview/) · [npm](https://www.npmjs.com/package/ng-hub-ui-spreadsheet) · [source](https://github.com/hub-env/ng-hub-ui-spreadsheet) |
 | `ng-hub-ui-board` | Kanban board with native drag and drop, no CDK required | [docs](https://hubui.dev/en/board/overview/) · [npm](https://www.npmjs.com/package/ng-hub-ui-board) · [source](https://github.com/hub-env/ng-hub-ui-board) |
 | `ng-hub-ui-calendar` | Month, week, day and year views with drag-and-drop rescheduling | [docs](https://hubui.dev/en/calendar/overview/) · [npm](https://www.npmjs.com/package/ng-hub-ui-calendar) · [source](https://github.com/hub-env/ng-hub-ui-calendar) |
 | `ng-hub-ui-sortable` | Drag-and-drop reordering for arrays, signals and `FormArray`, with a keyboard path | [docs](https://hubui.dev/en/sortable/overview/) · [npm](https://www.npmjs.com/package/ng-hub-ui-sortable) · [source](https://github.com/hub-env/ng-hub-ui-sortable) |
@@ -192,6 +193,7 @@ All packages are published on npm under the `ng-hub-ui-*` prefix. Their major ve
 | `ng-hub-ui-ds` | Design tokens (`--hub-ref-*`, `--hub-sys-*`), eight themes, utility classes and Sass mixins | [docs](https://hubui.dev/en/design-system/) · [npm](https://www.npmjs.com/package/ng-hub-ui-ds) · [source](https://github.com/hub-env/ng-hub-ui-ds) |
 | `ng-hub-ui-utils` | Shared focus management, overlays, focus trap, i18n, pipes and colour contrast helpers | [docs](https://hubui.dev/en/utils/overview/) · [npm](https://www.npmjs.com/package/ng-hub-ui-utils) · [source](https://github.com/hub-env/ng-hub-ui-utils) |
 | `ng-hub-ui` | `ng add` installer that picks the libraries and wires them in (pre-release, ships no components) | [docs](https://hubui.dev/en/installer/overview/) · [npm](https://www.npmjs.com/package/ng-hub-ui) · [source](https://github.com/hub-env/ng-hub-ui-installer) |
+| `ng-hub-ui-mcp` | MCP server that gives coding assistants the real API, examples and CSS variables of every package: `npx -y ng-hub-ui-mcp` | [docs](https://hubui.dev/en/ai-agents/) · [npm](https://www.npmjs.com/package/ng-hub-ui-mcp) · [source](https://github.com/hub-env/ng-hub-ui-mcp) |
 
 ## How it is put together
 
