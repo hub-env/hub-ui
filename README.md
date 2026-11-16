@@ -22,7 +22,7 @@
 <p align="center">
   <a href="https://github.com/hub-env/hub-ui/stargazers"><img src="https://img.shields.io/github/stars/hub-env/hub-ui?style=flat&logo=github&label=stars" alt="GitHub stars"></a>
   <a href="https://angular.dev"><img src="https://img.shields.io/badge/Angular-22-dd0031?logo=angular" alt="Angular 22"></a>
-  <a href="#packages"><img src="https://img.shields.io/badge/npm%20packages-26-cb3837?logo=npm" alt="26 npm packages"></a>
+  <a href="#packages"><img src="https://img.shields.io/badge/npm%20packages-28-cb3837?logo=npm" alt="26 npm packages"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="MIT license"></a>
 </p>
 
